@@ -107,13 +107,16 @@ namespace BiliRanking
                         textBoxOut.Text += GenHang(new string[] { s, info.title, info.play.ToString(), info.video_review.ToString(), info.favorites.ToString(), info.coins.ToString(), info.review.ToString(), info.author, info.created_at, info.typename });
                         textBoxOut.Text += "\"\r\n";
                         Application.DoEvents();
-                        
+                    }
+                    else if (info.AVNUM != null)
+                    {
+                        ll.Add(info);
                     }
                 }
             }
 
             ll.Sort(sortt);
-            for (int i=1;i<=ll.Count;i++)
+            for (int i = 1; i <= ll.Count; i++)
             {
                 ll[i - 1].Fpaiming = i;
             }
@@ -384,7 +387,28 @@ namespace BiliRanking
 
         private void dataGridViewRAW_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://www.bilibili.com/video/" + dataGridViewRAW.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToLower());
+            if (e.ColumnIndex == 1 && dataGridViewRAW.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                System.Diagnostics.Process.Start("http://www.bilibili.com/video/" + dataGridViewRAW.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString().ToLower());
+        }
+
+        private void buttonZhubang_Click(object sender, EventArgs e)
+        {
+            List<BiliInterfaceInfo> linfo = new List<BiliInterfaceInfo>();
+            int end = int.Parse(textBoxZhubangEnd.Text);
+
+            foreach (BiliInterfaceInfo i in (List<BiliInterfaceInfo>)dataGridViewRAW.DataSource)
+            {
+                if (i.Fpaiming <= end)
+                    linfo.Add(i);
+            }
+
+            Zhubang zhu = new Zhubang();
+            zhu.Gen(linfo);
+        }
+
+        private void buttonAbout_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/SkiTiSu/BiliRanking");
         }
     }
 }

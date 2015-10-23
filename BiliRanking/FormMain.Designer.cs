@@ -86,7 +86,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPageVideo = new System.Windows.Forms.TabPage();
-            this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.buttonDlMP4 = new System.Windows.Forms.Button();
             this.pictureBoxDl = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -100,6 +99,11 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogGuichu = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogGuichu = new System.Windows.Forms.OpenFileDialog();
+            this.buttonZhubang = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBoxZhubangEnd = new System.Windows.Forms.TextBox();
+            this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.tabPageList.SuspendLayout();
@@ -109,6 +113,7 @@
             this.tabPageFubang.SuspendLayout();
             this.tabPageVideo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDl)).BeginInit();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -148,20 +153,20 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 488);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(551, 12);
+            this.label2.Size = new System.Drawing.Size(473, 12);
             this.label2.TabIndex = 4;
-            this.label2.Text = "© 2015 四季天书SkiTiSu 保留所有权利 请不要用于商业用途 | Powered by TSLib | www.skitisu.com";
+            this.label2.Text = "© 2015 四季天书SkiTiSu 请不要用于商业用途 | Powered by TSLib | www.skitisu.com";
             // 
             // buttonAbout
             // 
             this.buttonAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbout.Enabled = false;
-            this.buttonAbout.Location = new System.Drawing.Point(674, 483);
+            this.buttonAbout.Location = new System.Drawing.Point(491, 483);
             this.buttonAbout.Name = "buttonAbout";
-            this.buttonAbout.Size = new System.Drawing.Size(75, 23);
+            this.buttonAbout.Size = new System.Drawing.Size(258, 23);
             this.buttonAbout.TabIndex = 5;
-            this.buttonAbout.Text = "关于";
+            this.buttonAbout.Text = "本软件是开源软件 | 访问Github主页 | 更新";
             this.buttonAbout.UseVisualStyleBackColor = true;
+            this.buttonAbout.Click += new System.EventHandler(this.buttonAbout_Click);
             // 
             // tabControlMain
             // 
@@ -391,27 +396,26 @@
             // 
             // buttonRawRead
             // 
-            this.buttonRawRead.Location = new System.Drawing.Point(475, 9);
+            this.buttonRawRead.Location = new System.Drawing.Point(556, 9);
             this.buttonRawRead.Name = "buttonRawRead";
             this.buttonRawRead.Size = new System.Drawing.Size(75, 23);
             this.buttonRawRead.TabIndex = 12;
-            this.buttonRawRead.Text = "读取";
+            this.buttonRawRead.Text = "♨ 读取";
             this.buttonRawRead.UseVisualStyleBackColor = true;
             this.buttonRawRead.Click += new System.EventHandler(this.buttonRawRead_Click);
             // 
             // buttonRawSave
             // 
-            this.buttonRawSave.Location = new System.Drawing.Point(556, 9);
+            this.buttonRawSave.Location = new System.Drawing.Point(475, 9);
             this.buttonRawSave.Name = "buttonRawSave";
             this.buttonRawSave.Size = new System.Drawing.Size(75, 23);
             this.buttonRawSave.TabIndex = 11;
-            this.buttonRawSave.Text = "保存";
+            this.buttonRawSave.Text = "↓ 保存";
             this.buttonRawSave.UseVisualStyleBackColor = true;
             this.buttonRawSave.Click += new System.EventHandler(this.buttonRawSave_Click);
             // 
             // dataGridViewRAW
             // 
-            this.dataGridViewRAW.AllowUserToAddRows = false;
             this.dataGridViewRAW.AllowUserToOrderColumns = true;
             this.dataGridViewRAW.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
@@ -450,7 +454,7 @@
             this.Column17.DataPropertyName = "Fpaiming";
             this.Column17.HeaderText = "排名";
             this.Column17.Name = "Column17";
-            this.Column17.Width = 5;
+            this.Column17.Width = 21;
             // 
             // AVNUM
             // 
@@ -460,7 +464,7 @@
             this.AVNUM.Name = "AVNUM";
             this.AVNUM.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.AVNUM.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.AVNUM.Width = 5;
+            this.AVNUM.Width = 21;
             // 
             // Column2
             // 
@@ -476,7 +480,7 @@
             this.Column3.DataPropertyName = "play";
             this.Column3.HeaderText = "播放数";
             this.Column3.Name = "Column3";
-            this.Column3.Width = 5;
+            this.Column3.Width = 21;
             // 
             // Column4
             // 
@@ -484,7 +488,7 @@
             this.Column4.DataPropertyName = "video_review";
             this.Column4.HeaderText = "弹幕数";
             this.Column4.Name = "Column4";
-            this.Column4.Width = 5;
+            this.Column4.Width = 21;
             // 
             // Column5
             // 
@@ -492,7 +496,7 @@
             this.Column5.DataPropertyName = "favorites";
             this.Column5.HeaderText = "收藏数";
             this.Column5.Name = "Column5";
-            this.Column5.Width = 5;
+            this.Column5.Width = 21;
             // 
             // Column6
             // 
@@ -500,7 +504,7 @@
             this.Column6.DataPropertyName = "coins";
             this.Column6.HeaderText = "硬币数";
             this.Column6.Name = "Column6";
-            this.Column6.Width = 5;
+            this.Column6.Width = 21;
             // 
             // Column7
             // 
@@ -508,7 +512,7 @@
             this.Column7.DataPropertyName = "review";
             this.Column7.HeaderText = "评论数";
             this.Column7.Name = "Column7";
-            this.Column7.Width = 5;
+            this.Column7.Width = 21;
             // 
             // Column8
             // 
@@ -516,7 +520,7 @@
             this.Column8.DataPropertyName = "author";
             this.Column8.HeaderText = "UP主";
             this.Column8.Name = "Column8";
-            this.Column8.Width = 5;
+            this.Column8.Width = 21;
             // 
             // Column9
             // 
@@ -524,7 +528,7 @@
             this.Column9.DataPropertyName = "created_at";
             this.Column9.HeaderText = "时间";
             this.Column9.Name = "Column9";
-            this.Column9.Width = 5;
+            this.Column9.Width = 21;
             // 
             // Column10
             // 
@@ -532,7 +536,7 @@
             this.Column10.DataPropertyName = "typename";
             this.Column10.HeaderText = "分区";
             this.Column10.Name = "Column10";
-            this.Column10.Width = 5;
+            this.Column10.Width = 21;
             // 
             // Column1
             // 
@@ -540,7 +544,7 @@
             this.Column1.DataPropertyName = "Fplay";
             this.Column1.HeaderText = "播放得分";
             this.Column1.Name = "Column1";
-            this.Column1.Width = 5;
+            this.Column1.Width = 21;
             // 
             // Column11
             // 
@@ -548,7 +552,7 @@
             this.Column11.DataPropertyName = "Ffavorites";
             this.Column11.HeaderText = "收藏得分";
             this.Column11.Name = "Column11";
-            this.Column11.Width = 5;
+            this.Column11.Width = 21;
             // 
             // Column12
             // 
@@ -556,7 +560,7 @@
             this.Column12.DataPropertyName = "Fcoins";
             this.Column12.HeaderText = "硬币得分";
             this.Column12.Name = "Column12";
-            this.Column12.Width = 5;
+            this.Column12.Width = 21;
             // 
             // Column13
             // 
@@ -564,7 +568,7 @@
             this.Column13.DataPropertyName = "Freview";
             this.Column13.HeaderText = "评论得分";
             this.Column13.Name = "Column13";
-            this.Column13.Width = 5;
+            this.Column13.Width = 21;
             // 
             // Column14
             // 
@@ -573,7 +577,7 @@
             this.Column14.HeaderText = "总分";
             this.Column14.Name = "Column14";
             this.Column14.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.Column14.Width = 5;
+            this.Column14.Width = 21;
             // 
             // Column15
             // 
@@ -675,7 +679,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(607, 111);
             this.button1.TabIndex = 5;
-            this.button1.Text = "生成";
+            this.button1.Text = "生成副榜";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -692,13 +696,6 @@
             this.tabPageVideo.TabIndex = 2;
             this.tabPageVideo.Text = "4.视频批量下载";
             this.tabPageVideo.UseVisualStyleBackColor = true;
-            // 
-            // verticalProgressBar1
-            // 
-            this.verticalProgressBar1.Location = new System.Drawing.Point(286, 3);
-            this.verticalProgressBar1.Name = "verticalProgressBar1";
-            this.verticalProgressBar1.Size = new System.Drawing.Size(348, 411);
-            this.verticalProgressBar1.TabIndex = 15;
             // 
             // buttonDlMP4
             // 
@@ -742,6 +739,10 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.textBoxZhubangEnd);
+            this.tabPage2.Controls.Add(this.label13);
+            this.tabPage2.Controls.Add(this.buttonZhubang);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Size = new System.Drawing.Size(637, 417);
@@ -804,6 +805,49 @@
             // 
             this.openFileDialogGuichu.Filter = "圣地亚哥数据库|*.sdyg";
             // 
+            // buttonZhubang
+            // 
+            this.buttonZhubang.Location = new System.Drawing.Point(14, 55);
+            this.buttonZhubang.Name = "buttonZhubang";
+            this.buttonZhubang.Size = new System.Drawing.Size(607, 111);
+            this.buttonZhubang.TabIndex = 0;
+            this.buttonZhubang.Text = "生成主榜模板";
+            this.buttonZhubang.UseVisualStyleBackColor = true;
+            this.buttonZhubang.Click += new System.EventHandler(this.buttonZhubang_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(12, 15);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(185, 12);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "请确保步骤2中数据已经成功加载~";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(448, 15);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(65, 12);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "主榜结束于";
+            // 
+            // textBoxZhubangEnd
+            // 
+            this.textBoxZhubangEnd.Location = new System.Drawing.Point(521, 12);
+            this.textBoxZhubangEnd.Name = "textBoxZhubangEnd";
+            this.textBoxZhubangEnd.Size = new System.Drawing.Size(100, 21);
+            this.textBoxZhubangEnd.TabIndex = 11;
+            this.textBoxZhubangEnd.Text = "20";
+            // 
+            // verticalProgressBar1
+            // 
+            this.verticalProgressBar1.Location = new System.Drawing.Point(286, 3);
+            this.verticalProgressBar1.Name = "verticalProgressBar1";
+            this.verticalProgressBar1.Size = new System.Drawing.Size(348, 411);
+            this.verticalProgressBar1.TabIndex = 15;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -821,7 +865,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "鬼畜榜生成器 V0.9.9 by 四季天书";
+            this.Text = "哔哩哔哩榜单生成器 V1.0.0 by 四季天书";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabControlMain.ResumeLayout(false);
             this.tabPageLogin.ResumeLayout(false);
@@ -838,6 +882,8 @@
             this.tabPageVideo.ResumeLayout(false);
             this.tabPageVideo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDl)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -915,5 +961,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
+        private System.Windows.Forms.Button buttonZhubang;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBoxZhubangEnd;
+        private System.Windows.Forms.Label label13;
     }
 }

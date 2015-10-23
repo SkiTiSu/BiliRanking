@@ -14,7 +14,7 @@ namespace BiliRanking
 
         public void Gen(List<BiliInterfaceInfo> infos)
         {
-            Log.Info("开始生成" + infos.Count + "个视频的副榜图片（每3个一张图）");
+            Log.Info("【副榜】开始生成" + infos.Count + "个视频的图片（每3个一张图）");
             foreach (BiliInterfaceInfo info in infos)
             {
                 BiliInterface.GetPic(info);

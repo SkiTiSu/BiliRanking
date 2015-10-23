@@ -7,6 +7,9 @@
 * 一键批量下载封面、视频
 * 更多……
 
+# 下载编译好的软件
+请[点击这里转到下载页面](https://github.com/SkiTiSu/BiliRanking/releases)  
+
 # 外部引用
 TSDownload模块使用[TSLib](https://github.com/SkiTiSu/TSLib)  
 CID解析FLV使用[BilibiliJJ](http://www.bilibilijj.com)
