@@ -1,4 +1,5 @@
-﻿namespace BiliRanking
+﻿using BiliRanking.Properties;
+namespace BiliRanking
 {
     partial class FormMain
     {
@@ -28,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.Icon = Resources.logo;
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCookie = new System.Windows.Forms.TextBox();
