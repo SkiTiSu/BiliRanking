@@ -8,6 +8,8 @@
 * 更多……
 
 # 下载编译好的软件
+[![Build status](https://ci.appveyor.com/api/projects/status/k2f82yqacurumah1?svg=true)](https://ci.appveyor.com/project/SkiTiSu/biliranking)  
+
 请[点击这里转到下载页面](https://github.com/SkiTiSu/BiliRanking/releases)  
 
 # 外部引用
