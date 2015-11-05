@@ -19,6 +19,7 @@ namespace BiliRanking
             this.Icon = Resources.logo;
             cookie = textBoxCookie.Text;
             dataGridViewRAW.AutoGenerateColumns = false;
+            comboBoxListNum.SelectedIndex = 0;
         }
 
         private void textBoxCookie_TextChanged(object sender, EventArgs e)
@@ -54,8 +55,8 @@ namespace BiliRanking
         {
             Log.Info("开始获取排行");
             BiliParse.SortType sort = (BiliParse.SortType)Enum.Parse(typeof(BiliParse.SortType), comboBoxListSort.SelectedItem.ToString(), false);
-            int needpage = Convert.ToInt32(textBoxListNum.Text) / 20;
-            if ((Convert.ToInt32(textBoxListNum.Text) % 20) != 0)
+            int needpage = Convert.ToInt32(comboBoxListNum.Text) / 20;
+            if ((Convert.ToInt32(comboBoxListNum.Text) % 20) != 0)
                 needpage += 1;
 
             List<string> ss = new List<string>();
@@ -71,7 +72,7 @@ namespace BiliRanking
             
             textBoxAV.Text = "";
 
-            for (int i = 1; i <= Convert.ToInt32(textBoxListNum.Text); i++)
+            for (int i = 1; i <= Convert.ToInt32(comboBoxListNum.Text); i++)
             {
                 try
                 {
@@ -79,7 +80,7 @@ namespace BiliRanking
                 }
                 catch
                 {
-                    Log.Warn("选定区间内视频数量不满" + textBoxListNum.Text + "个！仅有" + i.ToString() + "个。");
+                    Log.Warn("选定区间内视频数量不满" + comboBoxListNum.Text + "个！仅有" + i.ToString() + "个。");
                     break;
                 }
             }
@@ -409,6 +410,46 @@ namespace BiliRanking
         private void buttonAbout_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://github.com/SkiTiSu/BiliRanking");
+        }
+
+
+        int CurrentRowIndex;
+        int CurrentColumnIndex;
+
+        private void dataGridViewRAW_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex > -1 && e.ColumnIndex > -1)
+            {
+                var dgv = (DataGridView)sender;
+                CurrentRowIndex = e.RowIndex;
+                CurrentColumnIndex = e.ColumnIndex;
+                for (int i = 0; i < dgv.RowCount; i++)
+                {
+                    dgv.Rows[i].Selected = false;
+                }
+                dgv.CurrentRow.Selected = false;
+                dgv.Rows[CurrentRowIndex].Selected = true;
+                contextMenuStripRAW.Show(MousePosition.X, MousePosition.Y);
+            }
+        }
+
+        private void 移除taToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("删掉了就不能恢复了哦！", "Ahhhh你要干嘛",
+                MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2) != DialogResult.OK)
+            {
+                return;
+            }
+            List<BiliInterfaceInfo> bak = (List<BiliInterfaceInfo>)dataGridViewRAW.DataSource;
+            bak.RemoveAt(CurrentRowIndex);
+            for (int i = 1; i <= bak.Count; i++)
+            {
+                bak[i - 1].Fpaiming = i;
+            }
+            dataGridViewRAW.DataSource = null;
+            dataGridViewRAW.DataSource = bak;
         }
     }
 }

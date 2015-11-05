@@ -73,7 +73,7 @@ namespace BiliRanking
                 image.Save(url);
             }
 
-            Log.Info("副榜图片批量生成完成");
+            Log.Info("主榜图片批量生成完成");
         }
 
         Pen p = new Pen(Color.Black, 3.5f);

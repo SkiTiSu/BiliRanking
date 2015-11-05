@@ -29,7 +29,6 @@ namespace BiliRanking
         /// </summary>
         private void InitializeComponent()
         {
-            this.Icon = Resources.logo;
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCookie = new System.Windows.Forms.TextBox();
@@ -53,7 +52,6 @@ namespace BiliRanking
             this.label8 = new System.Windows.Forms.Label();
             this.buttonListGen = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBoxListNum = new System.Windows.Forms.TextBox();
             this.comboBoxListSort = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPageRAW = new System.Windows.Forms.TabPage();
@@ -93,6 +91,10 @@ namespace BiliRanking
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonDL = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBoxZhubangEnd = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.buttonZhubang = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxAV = new System.Windows.Forms.TextBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -101,10 +103,9 @@ namespace BiliRanking
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogGuichu = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogGuichu = new System.Windows.Forms.OpenFileDialog();
-            this.buttonZhubang = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.textBoxZhubangEnd = new System.Windows.Forms.TextBox();
+            this.contextMenuStripRAW = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.移除taToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.comboBoxListNum = new System.Windows.Forms.ComboBox();
             this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
@@ -116,6 +117,7 @@ namespace BiliRanking
             this.tabPageVideo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDl)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.contextMenuStripRAW.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -221,13 +223,13 @@ namespace BiliRanking
             // 
             // tabPageList
             // 
+            this.tabPageList.Controls.Add(this.comboBoxListNum);
             this.tabPageList.Controls.Add(this.groupBoxListDate);
             this.tabPageList.Controls.Add(this.comboBoxListZone);
             this.tabPageList.Controls.Add(this.label9);
             this.tabPageList.Controls.Add(this.label8);
             this.tabPageList.Controls.Add(this.buttonListGen);
             this.tabPageList.Controls.Add(this.label7);
-            this.tabPageList.Controls.Add(this.textBoxListNum);
             this.tabPageList.Controls.Add(this.comboBoxListSort);
             this.tabPageList.Controls.Add(this.label4);
             this.tabPageList.Location = new System.Drawing.Point(4, 22);
@@ -353,14 +355,6 @@ namespace BiliRanking
             this.label7.TabIndex = 7;
             this.label7.Text = "需要数量";
             // 
-            // textBoxListNum
-            // 
-            this.textBoxListNum.Location = new System.Drawing.Point(90, 64);
-            this.textBoxListNum.Name = "textBoxListNum";
-            this.textBoxListNum.Size = new System.Drawing.Size(89, 21);
-            this.textBoxListNum.TabIndex = 6;
-            this.textBoxListNum.Text = "100";
-            // 
             // comboBoxListSort
             // 
             this.comboBoxListSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -449,6 +443,7 @@ namespace BiliRanking
             this.dataGridViewRAW.Size = new System.Drawing.Size(625, 285);
             this.dataGridViewRAW.TabIndex = 10;
             this.dataGridViewRAW.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRAW_CellClick);
+            this.dataGridViewRAW.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewRAW_CellMouseUp);
             // 
             // Column17
             // 
@@ -752,6 +747,42 @@ namespace BiliRanking
             this.tabPage2.Text = "5.主榜模板生成";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(448, 15);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(65, 12);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "主榜结束于";
+            // 
+            // textBoxZhubangEnd
+            // 
+            this.textBoxZhubangEnd.Location = new System.Drawing.Point(521, 12);
+            this.textBoxZhubangEnd.Name = "textBoxZhubangEnd";
+            this.textBoxZhubangEnd.Size = new System.Drawing.Size(100, 21);
+            this.textBoxZhubangEnd.TabIndex = 11;
+            this.textBoxZhubangEnd.Text = "20";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(12, 15);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(185, 12);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "请确保步骤2中数据已经成功加载~";
+            // 
+            // buttonZhubang
+            // 
+            this.buttonZhubang.Location = new System.Drawing.Point(14, 55);
+            this.buttonZhubang.Name = "buttonZhubang";
+            this.buttonZhubang.Size = new System.Drawing.Size(607, 111);
+            this.buttonZhubang.TabIndex = 0;
+            this.buttonZhubang.Text = "生成主榜模板";
+            this.buttonZhubang.UseVisualStyleBackColor = true;
+            this.buttonZhubang.Click += new System.EventHandler(this.buttonZhubang_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -769,7 +800,7 @@ namespace BiliRanking
             this.textBoxAV.Multiline = true;
             this.textBoxAV.Name = "textBoxAV";
             this.textBoxAV.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxAV.Size = new System.Drawing.Size(87, 417);
+            this.textBoxAV.Size = new System.Drawing.Size(87, 397);
             this.textBoxAV.TabIndex = 9;
             // 
             // saveFileDialog1
@@ -779,11 +810,10 @@ namespace BiliRanking
             // 
             // buttonAVClear
             // 
-            this.buttonAVClear.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAVClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAVClear.Location = new System.Drawing.Point(11, 450);
             this.buttonAVClear.Name = "buttonAVClear";
-            this.buttonAVClear.Size = new System.Drawing.Size(28, 23);
+            this.buttonAVClear.Size = new System.Drawing.Size(87, 23);
             this.buttonAVClear.TabIndex = 9;
             this.buttonAVClear.Text = "清空";
             this.buttonAVClear.UseVisualStyleBackColor = true;
@@ -807,41 +837,34 @@ namespace BiliRanking
             // 
             this.openFileDialogGuichu.Filter = "圣地亚哥数据库|*.sdyg";
             // 
-            // buttonZhubang
+            // contextMenuStripRAW
             // 
-            this.buttonZhubang.Location = new System.Drawing.Point(14, 55);
-            this.buttonZhubang.Name = "buttonZhubang";
-            this.buttonZhubang.Size = new System.Drawing.Size(607, 111);
-            this.buttonZhubang.TabIndex = 0;
-            this.buttonZhubang.Text = "生成主榜模板";
-            this.buttonZhubang.UseVisualStyleBackColor = true;
-            this.buttonZhubang.Click += new System.EventHandler(this.buttonZhubang_Click);
+            this.contextMenuStripRAW.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.移除taToolStripMenuItem});
+            this.contextMenuStripRAW.Name = "contextMenuStripRAW";
+            this.contextMenuStripRAW.Size = new System.Drawing.Size(124, 26);
             // 
-            // label13
+            // 移除taToolStripMenuItem
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(12, 15);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(185, 12);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "请确保步骤2中数据已经成功加载~";
+            this.移除taToolStripMenuItem.Name = "移除taToolStripMenuItem";
+            this.移除taToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.移除taToolStripMenuItem.Text = "移除ta！";
+            this.移除taToolStripMenuItem.Click += new System.EventHandler(this.移除taToolStripMenuItem_Click);
             // 
-            // label14
+            // comboBoxListNum
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(448, 15);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(65, 12);
-            this.label14.TabIndex = 12;
-            this.label14.Text = "主榜结束于";
-            // 
-            // textBoxZhubangEnd
-            // 
-            this.textBoxZhubangEnd.Location = new System.Drawing.Point(521, 12);
-            this.textBoxZhubangEnd.Name = "textBoxZhubangEnd";
-            this.textBoxZhubangEnd.Size = new System.Drawing.Size(100, 21);
-            this.textBoxZhubangEnd.TabIndex = 11;
-            this.textBoxZhubangEnd.Text = "20";
+            this.comboBoxListNum.FormattingEnabled = true;
+            this.comboBoxListNum.Items.AddRange(new object[] {
+            "100",
+            "50",
+            "30",
+            "10",
+            "5",
+            "1"});
+            this.comboBoxListNum.Location = new System.Drawing.Point(90, 64);
+            this.comboBoxListNum.Name = "comboBoxListNum";
+            this.comboBoxListNum.Size = new System.Drawing.Size(89, 20);
+            this.comboBoxListNum.TabIndex = 13;
             // 
             // verticalProgressBar1
             // 
@@ -865,6 +888,7 @@ namespace BiliRanking
             this.Controls.Add(this.textBoxCookie);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = global::BiliRanking.Properties.Resources.logo;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "哔哩哔哩榜单生成器 V1.0.0 by 四季天书";
@@ -886,6 +910,7 @@ namespace BiliRanking
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDl)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.contextMenuStripRAW.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -905,7 +930,6 @@ namespace BiliRanking
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonListGen;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBoxListNum;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateTimePickerTo;
@@ -967,5 +991,8 @@ namespace BiliRanking
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBoxZhubangEnd;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripRAW;
+        private System.Windows.Forms.ToolStripMenuItem 移除taToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboBoxListNum;
     }
 }
