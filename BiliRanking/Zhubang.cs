@@ -35,7 +35,13 @@ namespace BiliRanking
                 g.DrawString(infos[i].title, f, b, 350, 1000);
                 g.DrawString(infos[i].AVNUM, f, b, 375, 900);
                 g.DrawString(infos[i].created_at.Substring(0, infos[i].created_at.IndexOf(" ")), f, b, 900, 900);
-                g.DrawString(infos[i].author, f, b, 330, 800);
+                g.DrawString("UP:" + infos[i].author, f, b, 330, 800);
+
+                Pen pp = new Pen(Color.Yellow, 3.5f);
+                GraphicsPath pth = new GraphicsPath();
+                pth.AddString(infos[i].Fpaiming.ToString("D2"), new FontFamily("微软雅黑"), (int)FontStyle.Bold, 180, new Point(1750, 0), sf);
+                g.FillPath(new SolidBrush(Color.White), pth);
+                g.DrawPath(pp, pth);
 
                 AddKongxin(infos[i].Fdefen.ToString(), 160, 960, 70);
                 AddKongxin(infos[i].play.ToString(), 1625, 500, 70);
