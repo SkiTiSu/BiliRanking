@@ -20,6 +20,7 @@ namespace BiliRanking
             cookie = textBoxCookie.Text;
             dataGridViewRAW.AutoGenerateColumns = false;
             comboBoxListNum.SelectedIndex = 0;
+            comboBoxTagZone.SelectedIndex = 0;
         }
 
         private void textBoxCookie_TextChanged(object sender, EventArgs e)
@@ -450,6 +451,25 @@ namespace BiliRanking
             }
             dataGridViewRAW.DataSource = null;
             dataGridViewRAW.DataSource = bak;
+        }
+
+        private void buttonListTagGen_Click(object sender, EventArgs e)
+        {
+            string[] tags = Regex.Split(textBoxTags.Text, ";|；");
+            int i = 0;
+            string html = BiliInterface.GetHtml("http://www.bilibili.com/index/tag/" + "30" + "/60d/hot/1/" + tags[i] + ".json");
+            if (html == null)
+            {
+                Log.Error("数据错误");
+                return;
+            }
+
+            System.Web.Script.Serialization.JavaScriptSerializer j = new System.Web.Script.Serialization.JavaScriptSerializer();
+            BiliIndexInfo info = new BiliIndexInfo();
+            info = j.Deserialize<BiliIndexInfo>(html);
+
+            dataGridViewRAW.DataSource = info.list;
+            tabControlMain.SelectedIndex = 2;
         }
     }
 }

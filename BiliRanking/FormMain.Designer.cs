@@ -40,6 +40,8 @@ namespace BiliRanking
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPageList = new System.Windows.Forms.TabPage();
+            this.buttonListTagGen = new System.Windows.Forms.Button();
+            this.comboBoxListNum = new System.Windows.Forms.ComboBox();
             this.groupBoxListDate = new System.Windows.Forms.GroupBox();
             this.buttonListDate2 = new System.Windows.Forms.Button();
             this.buttonListDate1 = new System.Windows.Forms.Button();
@@ -105,7 +107,10 @@ namespace BiliRanking
             this.openFileDialogGuichu = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStripRAW = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.移除taToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.comboBoxListNum = new System.Windows.Forms.ComboBox();
+            this.textBoxTags = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboBoxTagZone = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
@@ -223,6 +228,11 @@ namespace BiliRanking
             // 
             // tabPageList
             // 
+            this.tabPageList.Controls.Add(this.label16);
+            this.tabPageList.Controls.Add(this.comboBoxTagZone);
+            this.tabPageList.Controls.Add(this.label15);
+            this.tabPageList.Controls.Add(this.textBoxTags);
+            this.tabPageList.Controls.Add(this.buttonListTagGen);
             this.tabPageList.Controls.Add(this.comboBoxListNum);
             this.tabPageList.Controls.Add(this.groupBoxListDate);
             this.tabPageList.Controls.Add(this.comboBoxListZone);
@@ -239,6 +249,31 @@ namespace BiliRanking
             this.tabPageList.TabIndex = 0;
             this.tabPageList.Text = "1.视频排行统计";
             this.tabPageList.UseVisualStyleBackColor = true;
+            // 
+            // buttonListTagGen
+            // 
+            this.buttonListTagGen.Location = new System.Drawing.Point(211, 322);
+            this.buttonListTagGen.Name = "buttonListTagGen";
+            this.buttonListTagGen.Size = new System.Drawing.Size(166, 59);
+            this.buttonListTagGen.TabIndex = 14;
+            this.buttonListTagGen.Text = "根据Tag生成（测试）";
+            this.buttonListTagGen.UseVisualStyleBackColor = true;
+            this.buttonListTagGen.Click += new System.EventHandler(this.buttonListTagGen_Click);
+            // 
+            // comboBoxListNum
+            // 
+            this.comboBoxListNum.FormattingEnabled = true;
+            this.comboBoxListNum.Items.AddRange(new object[] {
+            "100",
+            "50",
+            "30",
+            "10",
+            "5",
+            "1"});
+            this.comboBoxListNum.Location = new System.Drawing.Point(90, 64);
+            this.comboBoxListNum.Name = "comboBoxListNum";
+            this.comboBoxListNum.Size = new System.Drawing.Size(89, 20);
+            this.comboBoxListNum.TabIndex = 13;
             // 
             // groupBoxListDate
             // 
@@ -338,7 +373,7 @@ namespace BiliRanking
             // 
             // buttonListGen
             // 
-            this.buttonListGen.Location = new System.Drawing.Point(31, 181);
+            this.buttonListGen.Location = new System.Drawing.Point(31, 138);
             this.buttonListGen.Name = "buttonListGen";
             this.buttonListGen.Size = new System.Drawing.Size(576, 48);
             this.buttonListGen.TabIndex = 8;
@@ -851,20 +886,43 @@ namespace BiliRanking
             this.移除taToolStripMenuItem.Text = "移除ta！";
             this.移除taToolStripMenuItem.Click += new System.EventHandler(this.移除taToolStripMenuItem_Click);
             // 
-            // comboBoxListNum
+            // textBoxTags
             // 
-            this.comboBoxListNum.FormattingEnabled = true;
-            this.comboBoxListNum.Items.AddRange(new object[] {
-            "100",
-            "50",
-            "30",
-            "10",
-            "5",
-            "1"});
-            this.comboBoxListNum.Location = new System.Drawing.Point(90, 64);
-            this.comboBoxListNum.Name = "comboBoxListNum";
-            this.comboBoxListNum.Size = new System.Drawing.Size(89, 20);
-            this.comboBoxListNum.TabIndex = 13;
+            this.textBoxTags.Location = new System.Drawing.Point(147, 255);
+            this.textBoxTags.Name = "textBoxTags";
+            this.textBoxTags.Size = new System.Drawing.Size(100, 21);
+            this.textBoxTags.TabIndex = 15;
+            this.textBoxTags.Text = "UTAU中文曲";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(29, 258);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(113, 12);
+            this.label15.TabIndex = 16;
+            this.label15.Text = "Tag（使用\";\"间隔）";
+            // 
+            // comboBoxTagZone
+            // 
+            this.comboBoxTagZone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTagZone.Enabled = false;
+            this.comboBoxTagZone.FormattingEnabled = true;
+            this.comboBoxTagZone.Items.AddRange(new object[] {
+            "VOCALOID·UTAU(30)"});
+            this.comboBoxTagZone.Location = new System.Drawing.Point(147, 229);
+            this.comboBoxTagZone.Name = "comboBoxTagZone";
+            this.comboBoxTagZone.Size = new System.Drawing.Size(100, 20);
+            this.comboBoxTagZone.TabIndex = 17;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(98, 237);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(29, 12);
+            this.label16.TabIndex = 18;
+            this.label16.Text = "分区";
             // 
             // verticalProgressBar1
             // 
@@ -994,5 +1052,10 @@ namespace BiliRanking
         private System.Windows.Forms.ContextMenuStrip contextMenuStripRAW;
         private System.Windows.Forms.ToolStripMenuItem 移除taToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBoxListNum;
+        private System.Windows.Forms.Button buttonListTagGen;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox textBoxTags;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox comboBoxTagZone;
     }
 }

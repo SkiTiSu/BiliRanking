@@ -3,6 +3,7 @@ using System.Net;
 using System.Text;
 using System.Web.Script.Serialization;
 using System.IO;
+using System.IO.Compression;
 
 namespace BiliRanking
 {
@@ -223,8 +224,23 @@ namespace BiliRanking
             {
                 WebClient myWebClient = new WebClient();
                 myWebClient.Headers.Add("Cookie", FormMain.cookie);
-                
                 byte[] myDataBuffer = myWebClient.DownloadData(url);
+
+                string sContentEncoding = myWebClient.ResponseHeaders["Content-Encoding"];
+                if (sContentEncoding == "gzip")
+                {
+                    MemoryStream ms = new MemoryStream(myDataBuffer);
+                    MemoryStream msTemp = new MemoryStream();
+                    int count = 0;
+                    GZipStream gzip = new GZipStream(ms,CompressionMode.Decompress);
+                    byte[] buf = new byte[1000];
+                    while ((count = gzip.Read(buf, 0, buf.Length))> 0)
+                    { 
+                        msTemp.Write(buf, 0, count);
+                    }
+                    myDataBuffer = msTemp.ToArray();
+                }
+
                 return Encoding.UTF8.GetString(myDataBuffer);
             }
             catch
@@ -236,6 +252,7 @@ namespace BiliRanking
         }
     }
 
+    //TODO:API已更新！
     [Serializable]
     public class BiliInterfaceInfo
     {
@@ -258,6 +275,17 @@ namespace BiliRanking
         public uint pages { get; set; }
         public string instant_server;
         public ulong created { get; set; }
+        public string create
+        {
+            get
+            {
+                return created_at;
+            }
+            set
+            {
+                created_at = value;
+            }
+        }
         public string created_at { get; set; }
         //TODO: 评分数量有时候会是--
         //public uint credit{get; set; }
@@ -269,6 +297,13 @@ namespace BiliRanking
         public string offsite;
         public int code;
         public string error;
+        public int aid
+        {
+            set
+            {
+                AVNUM = "AV" + value;
+            }
+        }
         public string AVNUM { get; set; }
 
         public string mp4url;
@@ -286,5 +321,20 @@ namespace BiliRanking
         public string img;
         public string cid;
         public string src;
+    }
+
+
+    public class BiliIndexMainInfo
+    {
+
+    }
+    public class BiliIndexInfo
+    {
+        public int code;
+        public BiliInterfaceInfo[] list;
+        public string name;
+        public int num;
+        public int pages;
+        public int resaults;
     }
 }
