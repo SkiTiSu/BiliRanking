@@ -75,6 +75,11 @@ namespace BiliRanking
             tdl.Start();
         }
 
+        public void StartWithoutThread()
+        {
+            ThreadDL();
+        }
+
         void tims_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             Speed = DownloadedBytes - lastDownloadedBytes;

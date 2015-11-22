@@ -59,7 +59,7 @@ namespace BiliRanking
                     string url = info.pic;
                     Log.Info("正在获取封面 - " + info.AVNUM + " | " + url + " -> " + file);
                     TSDownload tsd = new TSDownload(url, file);
-                    tsd.Start();
+                    tsd.StartWithoutThread();
                 }
             }
         }
@@ -175,15 +175,15 @@ namespace BiliRanking
                     double xiuzheng = 0;
 
                     //收藏
-                    xiuzheng = (double)(info.play / info.favorites) * 1600;
-                    if (xiuzheng > 60)
-                        xiuzheng = 60;
+                    xiuzheng = (double)(info.play / info.favorites) * 1500;
+                    if (xiuzheng > 55)
+                        xiuzheng = 55;
                     info.Ffavorites = Convert.ToUInt32(info.favorites * xiuzheng);
 
                     //硬币
-                    xiuzheng = (double)(info.play / info.coins) * 4000;
-                    if (xiuzheng > 30)
-                        xiuzheng = 30;
+                    xiuzheng = (double)(info.play / info.coins) * 5000;
+                    if (xiuzheng > 25)
+                        xiuzheng = 25;
                     info.Fcoins = Convert.ToUInt32(info.coins * xiuzheng);
 
                     //评论

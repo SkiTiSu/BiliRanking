@@ -40,6 +40,10 @@ namespace BiliRanking
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPageList = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.comboBoxTagZone = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.textBoxTags = new System.Windows.Forms.TextBox();
             this.buttonListTagGen = new System.Windows.Forms.Button();
             this.comboBoxListNum = new System.Windows.Forms.ComboBox();
             this.groupBoxListDate = new System.Windows.Forms.GroupBox();
@@ -107,10 +111,6 @@ namespace BiliRanking
             this.openFileDialogGuichu = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStripRAW = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.移除taToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBoxTags = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.comboBoxTagZone = new System.Windows.Forms.ComboBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
@@ -249,6 +249,44 @@ namespace BiliRanking
             this.tabPageList.TabIndex = 0;
             this.tabPageList.Text = "1.视频排行统计";
             this.tabPageList.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(98, 237);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(29, 12);
+            this.label16.TabIndex = 18;
+            this.label16.Text = "分区";
+            // 
+            // comboBoxTagZone
+            // 
+            this.comboBoxTagZone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxTagZone.Enabled = false;
+            this.comboBoxTagZone.FormattingEnabled = true;
+            this.comboBoxTagZone.Items.AddRange(new object[] {
+            "VOCALOID·UTAU(30)"});
+            this.comboBoxTagZone.Location = new System.Drawing.Point(147, 229);
+            this.comboBoxTagZone.Name = "comboBoxTagZone";
+            this.comboBoxTagZone.Size = new System.Drawing.Size(100, 20);
+            this.comboBoxTagZone.TabIndex = 17;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(29, 258);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(113, 12);
+            this.label15.TabIndex = 16;
+            this.label15.Text = "Tag（使用\";\"间隔）";
+            // 
+            // textBoxTags
+            // 
+            this.textBoxTags.Location = new System.Drawing.Point(147, 255);
+            this.textBoxTags.Name = "textBoxTags";
+            this.textBoxTags.Size = new System.Drawing.Size(100, 21);
+            this.textBoxTags.TabIndex = 15;
+            this.textBoxTags.Text = "UTAU中文曲";
             // 
             // buttonListTagGen
             // 
@@ -886,44 +924,6 @@ namespace BiliRanking
             this.移除taToolStripMenuItem.Text = "移除ta！";
             this.移除taToolStripMenuItem.Click += new System.EventHandler(this.移除taToolStripMenuItem_Click);
             // 
-            // textBoxTags
-            // 
-            this.textBoxTags.Location = new System.Drawing.Point(147, 255);
-            this.textBoxTags.Name = "textBoxTags";
-            this.textBoxTags.Size = new System.Drawing.Size(100, 21);
-            this.textBoxTags.TabIndex = 15;
-            this.textBoxTags.Text = "UTAU中文曲";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(29, 258);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(113, 12);
-            this.label15.TabIndex = 16;
-            this.label15.Text = "Tag（使用\";\"间隔）";
-            // 
-            // comboBoxTagZone
-            // 
-            this.comboBoxTagZone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxTagZone.Enabled = false;
-            this.comboBoxTagZone.FormattingEnabled = true;
-            this.comboBoxTagZone.Items.AddRange(new object[] {
-            "VOCALOID·UTAU(30)"});
-            this.comboBoxTagZone.Location = new System.Drawing.Point(147, 229);
-            this.comboBoxTagZone.Name = "comboBoxTagZone";
-            this.comboBoxTagZone.Size = new System.Drawing.Size(100, 20);
-            this.comboBoxTagZone.TabIndex = 17;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(98, 237);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(29, 12);
-            this.label16.TabIndex = 18;
-            this.label16.Text = "分区";
-            // 
             // verticalProgressBar1
             // 
             this.verticalProgressBar1.Location = new System.Drawing.Point(286, 3);
@@ -949,7 +949,7 @@ namespace BiliRanking
             this.Icon = global::BiliRanking.Properties.Resources.logo;
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "哔哩哔哩榜单生成器 V1.0.1 by 四季天书";
+            this.Text = "哔哩哔哩榜单生成器 V1.0.2 by 四季天书";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabControlMain.ResumeLayout(false);
             this.tabPageLogin.ResumeLayout(false);

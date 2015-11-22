@@ -54,7 +54,7 @@ namespace BiliRanking
             }
             catch
             {
-                Log.Error(info.AVNUM + " - 封面获取失败（已更改？），请在左侧窗格输入AV号尝试或手动获取！");
+                Log.Error(info.AVNUM + " - 找不到封面文件，请在左侧窗格输入AV号尝试或手动获取！");
             }
 
             if(info.Fpaiming < 100)
