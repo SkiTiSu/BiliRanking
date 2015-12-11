@@ -90,38 +90,44 @@ namespace BiliRanking
              string avnum = GetAVdenum(AVnum);
             Log.Info("开始获取MP4视频 - AV" + avnum);
             string h5url = "http://www.bilibili.com/m/html5?aid=" + avnum + "&page=" + page;
-            string html = GetHtml(h5url);
-            JavaScriptSerializer j = new JavaScriptSerializer();
-            BiliH5videoInfo infoh = new BiliH5videoInfo();
-            infoh = j.Deserialize<BiliH5videoInfo>(html);
-            if (infoh.src == "http://static.hdslb.com/error.mp4")
+            try
             {
-                Log.Error("错误的AV号或页码！（还是没转码出来？...）");
-                return null;
-            }
-            else
-            {
-                info.mp4url = infoh.src;
-                info.AVNUM = "AV" + GetAVdenum(AVnum);
-                info.cid = 233333;
-                if (info.mp4url.IndexOf("letv") > 0)
+                string html = GetHtml(h5url);
+                JavaScriptSerializer j = new JavaScriptSerializer();
+                BiliH5videoInfo infoh = new BiliH5videoInfo();
+                infoh = j.Deserialize<BiliH5videoInfo>(html);
+                if (infoh.src == "http://static.hdslb.com/error.mp4")
                 {
-                    info.title = "(乐视源）MP4不获取title";
-                }
-                else if (info.mp4url.IndexOf("acgvideo") > 0)
-                {
-                    info.title = "(B站源）MP4不获取title";
+                    Log.Error("错误的AV号或页码！（还是没转码出来？...）");
+                    return null;
                 }
                 else
                 {
-                    info.title = "(未知源）MP4不获取title";
+                    info.mp4url = infoh.src;
+                    info.AVNUM = "AV" + GetAVdenum(AVnum);
+                    info.cid = 233333;
+                    if (info.mp4url.IndexOf("letv") > 0)
+                    {
+                        info.title = "(乐视源）MP4不获取title";
+                    }
+                    else if (info.mp4url.IndexOf("acgvideo") > 0)
+                    {
+                        info.title = "(B站源）MP4不获取title";
+                    }
+                    else
+                    {
+                        info.title = "(未知源）MP4不获取title";
+                    }
+
+                    info.pic = infoh.img;
+                    return info;
                 }
-                
-                info.pic = infoh.img;
-                return info;
             }
-
-
+            catch (Exception e)
+            {
+                Log.Error("AV" + avnum + "的数据发生错误，请稍后重试！" + e.Message);
+                return null;
+            }
         }
 
         //TODO: 加入P2、Pn的信息获取
