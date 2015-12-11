@@ -26,6 +26,8 @@ namespace BiliRanking
         private void textBoxCookie_TextChanged(object sender, EventArgs e)
         {
             cookie = textBoxCookie.Text;
+            webBrowser1.Document.Cookie = textBoxCookie.Text;
+            Log.Info("Cookie已被更改为：" + textBoxCookie.Text);
         }
 
         private void buttonCookieHelp_Click(object sender, EventArgs e)
