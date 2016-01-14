@@ -123,10 +123,33 @@ namespace BiliRanking
         {
             HttpWebRequest Myrq = (HttpWebRequest)HttpWebRequest.Create(URL);
             Myrq.Timeout = 5000;
-            HttpWebResponse myrp = (HttpWebResponse)Myrq.GetResponse();
+            HttpWebResponse myrp = null;
+            //bool f = false;
+            int retry = 0;
+            while (myrp == null)
+            {
+                try
+                {
+                    myrp = (HttpWebResponse)Myrq.GetResponse();
+                }
+                catch
+                {
+                    Log.Warn(FileName + "地址失败！等待延时" + URL);
+                    retry++;
+                    Thread.Sleep(3000);
+                }
+                if (retry == 3)
+                {
+                    Log.Error("我去，" + FileName + "下载失败，待会单独再下这个！");
+                    Myrq.Abort();
+                    Percent = 100;
+                    return;
+                }
+            }
             TotalBytes = myrp.ContentLength;
             SetPbM((int)TotalBytes >> 4);
             Stream st = myrp.GetResponseStream();
+            st.ReadTimeout = 3000;
 
             //检测是否有重名，有则加入(1)，如仍重复加(2)，以此类推
             if (File.Exists(FileName))
@@ -151,7 +174,19 @@ namespace BiliRanking
                 DownloadedBytes = osize + DownloadedBytes;
                 so.Write(by, 0, osize);
                 SetPbV((int)DownloadedBytes >> 4);
-                osize = st.Read(by, 0, (int)by.Length);
+                try
+                {
+                    osize = st.Read(by, 0, (int)by.Length);
+                }
+                catch
+                {
+                    Log.Error("我去，" + FileName + "下载失败，待会单独再下这个！");
+                    so.Close();
+                    st.Close();
+                    Myrq.Abort();
+                    Percent = 100;
+                    return;
+                }
                 Percent = (float)DownloadedBytes / (float)TotalBytes * 100;
             }
             so.Close();
