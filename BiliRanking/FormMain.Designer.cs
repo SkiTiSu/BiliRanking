@@ -113,6 +113,7 @@ namespace BiliRanking
             this.移除taToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonFlv2Mp4 = new System.Windows.Forms.Button();
             this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
+            this.label17 = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.tabPageList.SuspendLayout();
@@ -238,6 +239,7 @@ namespace BiliRanking
             // 
             // tabPageList
             // 
+            this.tabPageList.Controls.Add(this.label17);
             this.tabPageList.Controls.Add(this.label16);
             this.tabPageList.Controls.Add(this.comboBoxTagZone);
             this.tabPageList.Controls.Add(this.label15);
@@ -264,7 +266,7 @@ namespace BiliRanking
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(131, 296);
+            this.label16.Location = new System.Drawing.Point(145, 419);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(37, 15);
@@ -278,7 +280,7 @@ namespace BiliRanking
             this.comboBoxTagZone.FormattingEnabled = true;
             this.comboBoxTagZone.Items.AddRange(new object[] {
             "VOCALOID·UTAU(30)"});
-            this.comboBoxTagZone.Location = new System.Drawing.Point(196, 286);
+            this.comboBoxTagZone.Location = new System.Drawing.Point(210, 409);
             this.comboBoxTagZone.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxTagZone.Name = "comboBoxTagZone";
             this.comboBoxTagZone.Size = new System.Drawing.Size(132, 23);
@@ -287,7 +289,7 @@ namespace BiliRanking
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(39, 322);
+            this.label15.Location = new System.Drawing.Point(53, 445);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(145, 15);
@@ -296,7 +298,7 @@ namespace BiliRanking
             // 
             // textBoxTags
             // 
-            this.textBoxTags.Location = new System.Drawing.Point(196, 319);
+            this.textBoxTags.Location = new System.Drawing.Point(210, 442);
             this.textBoxTags.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxTags.Name = "textBoxTags";
             this.textBoxTags.Size = new System.Drawing.Size(132, 25);
@@ -305,7 +307,7 @@ namespace BiliRanking
             // 
             // buttonListTagGen
             // 
-            this.buttonListTagGen.Location = new System.Drawing.Point(281, 402);
+            this.buttonListTagGen.Location = new System.Drawing.Point(379, 393);
             this.buttonListTagGen.Margin = new System.Windows.Forms.Padding(4);
             this.buttonListTagGen.Name = "buttonListTagGen";
             this.buttonListTagGen.Size = new System.Drawing.Size(221, 74);
@@ -1003,6 +1005,15 @@ namespace BiliRanking
             this.verticalProgressBar1.Size = new System.Drawing.Size(464, 514);
             this.verticalProgressBar1.TabIndex = 15;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(127, 246);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(577, 15);
+            this.label17.TabIndex = 19;
+            this.label17.Text = "月刊组成员注意：请不要自己生成数据用于制作！请加载群内在特定时间统计的数据！";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1131,5 +1142,6 @@ namespace BiliRanking
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox comboBoxTagZone;
         private System.Windows.Forms.Button buttonFlv2Mp4;
+        private System.Windows.Forms.Label label17;
     }
 }
