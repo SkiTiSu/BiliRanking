@@ -237,7 +237,7 @@ namespace BiliRanking
             {
                 if (s != "")
                 {
-                    BiliInterfaceInfo info = BiliInterface.GetInfo(s);
+                    BiliInterfaceInfo info = BiliInterface.GetFlvInfo(s);
 
                     if (info.pic != null)
                     {
@@ -273,8 +273,8 @@ namespace BiliRanking
             {
                 if (listb[0].mp4url != null)
                     tsd = new TSDownload(listb[0].mp4url, System.Environment.CurrentDirectory + @"\video\" + listb[0].AVNUM + ".mp4");
-                else
-                    tsd = new TSDownload("http://www.bilibilijj.com/DownLoad/Cid/" + listb[0].cid, System.Environment.CurrentDirectory + @"\video\" + listb[0].AVNUM + ".flv");
+                else if(listb[0].flvurl != null)
+                    tsd = new TSDownload(listb[0].flvurl, System.Environment.CurrentDirectory + @"\video\" + listb[0].AVNUM + ".flv");
                 tsd.Progressbar = verticalProgressBar1;
                 nowAV = listb[0];
                 Log.Info("正在下载视频 - " + listb[0].AVNUM);
