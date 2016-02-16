@@ -1033,7 +1033,7 @@ namespace BiliRanking
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "哔哩哔哩榜单生成器 V1.0.2 by 四季天书";
+            this.Text = "哔哩哔哩榜单生成器 V1.0.3beta by 四季天书";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabControlMain.ResumeLayout(false);
             this.tabPageLogin.ResumeLayout(false);

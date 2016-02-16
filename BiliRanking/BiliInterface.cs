@@ -286,7 +286,7 @@ namespace BiliRanking
         {
             string url = "http://interface.bilibili.tv/playurl?appkey=03fc8eb101b091fb&cid=";
             string html = GetHtml(url + cid);
-            if (!html.Contains("<result>succ</result>"))
+            if (!html.Contains("<result>su"))
             {
                 Log.Error("FLV地址获取失败！ - CID：" + cid);
                 return null;

@@ -138,7 +138,7 @@ namespace BiliRanking
                     retry++;
                     Thread.Sleep(3000);
                 }
-                if (retry == 3)
+                if (retry == 5)
                 {
                     Log.Error("我去，" + FileName + "下载失败，待会单独再下这个！");
                     Myrq.Abort();

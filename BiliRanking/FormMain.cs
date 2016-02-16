@@ -239,7 +239,7 @@ namespace BiliRanking
                 {
                     BiliInterfaceInfo info = BiliInterface.GetFlvInfo(s);
 
-                    if (info.pic != null)
+                    if (info.flvurl != null)
                     {
 
                         listb.Add(info);
@@ -277,7 +277,7 @@ namespace BiliRanking
                     tsd = new TSDownload(listb[0].flvurl, System.Environment.CurrentDirectory + @"\video\" + listb[0].AVNUM + ".flv");
                 tsd.Progressbar = verticalProgressBar1;
                 nowAV = listb[0];
-                Log.Info("正在下载视频 - " + listb[0].AVNUM);
+                Log.Info("正在下载视频 - " + listb[0].AVNUM + " | " + tsd.URL);
                 pictureBoxDl.ImageLocation = listb[0].pic;
                 tsd.Start();
                 listb.RemoveAt(0);
