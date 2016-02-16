@@ -475,5 +475,21 @@ namespace BiliRanking
             dataGridViewRAW.DataSource = info.list;
             tabControlMain.SelectedIndex = 2;
         }
+
+        private void 按视频模板复制数据ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BiliInterfaceInfo curr = ((List<BiliInterfaceInfo>)dataGridViewRAW.DataSource)[CurrentRowIndex];
+            string copytext = curr.play + "\r\n" + curr.coins + "\r\n" + curr.favorites + "\r\n" + curr.video_review + "\r\n" + curr.review;
+            Clipboard.SetText(copytext);
+            Log.Info(String.Format("已复制{0}的数据到剪贴板", curr.AVNUM));
+        }
+
+        private void 复制总分ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BiliInterfaceInfo curr = ((List<BiliInterfaceInfo>)dataGridViewRAW.DataSource)[CurrentRowIndex];
+            string copytext = curr.Fdefen.ToString();
+            Clipboard.SetText(copytext);
+            Log.Info(String.Format("已复制{0}的总分到剪贴板", curr.AVNUM));
+        }
     }
 }
