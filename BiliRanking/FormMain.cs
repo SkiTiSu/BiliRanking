@@ -98,7 +98,7 @@ namespace BiliRanking
             //dataGridViewRAW.DataSource = ll;
             //Gen(lines);
 
-            textBoxOut.Text = "AV号,标题,播放数,弹幕数,收藏数,硬币数,评论数,up,时间,分区\r\n";
+            textBoxOut.Text = "AV号,标题,播放数,弹幕数,收藏数,硬币数,评论数,up,时间,分区,播放得分,收藏得分,硬币得分,评论得分,总分\r\n";
             foreach (string s in lines)
             {
                 if (s != "")
@@ -108,7 +108,9 @@ namespace BiliRanking
                     if (info.pic != null)
                     {
                         ll.Add(info);
-                        textBoxOut.Text += GenHang(new string[] { s, info.title, info.play.ToString(), info.video_review.ToString(), info.favorites.ToString(), info.coins.ToString(), info.review.ToString(), info.author, info.created_at, info.typename });
+                        textBoxOut.Text += GenHang(new string[] { s, info.title, info.play.ToString(), info.video_review.ToString(), info.favorites.ToString(), info.coins.ToString(),
+                            info.review.ToString(), info.author, info.created_at, info.typename,
+                            info.Fplay.ToString(), info.Ffavorites.ToString(), info.Fcoins.ToString(), info.Freview.ToString(), info.Fdefen.ToString() });
                         textBoxOut.Text += "\"\r\n";
                         Application.DoEvents();
                     }
