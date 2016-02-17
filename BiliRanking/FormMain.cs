@@ -491,5 +491,21 @@ namespace BiliRanking
             Clipboard.SetText(copytext);
             Log.Info(String.Format("已复制{0}的总分到剪贴板", curr.AVNUM));
         }
+
+        private void 复制标题和信息行ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BiliInterfaceInfo curr = ((List<BiliInterfaceInfo>)dataGridViewRAW.DataSource)[CurrentRowIndex];
+            string copytext = curr.title + "\r\n" + curr.created_at + "   " + curr.author + "   " + curr.AVNUM;
+            Clipboard.SetText(copytext);
+            Log.Info(String.Format("已复制{0}的标题和信息行到剪贴板", curr.AVNUM));
+        }
+
+        private void 复制数据含中文ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BiliInterfaceInfo curr = ((List<BiliInterfaceInfo>)dataGridViewRAW.DataSource)[CurrentRowIndex];
+            string copytext = String.Format("播放{0,11}\r\n硬币{1,11}\r\n收藏{2,11}\r\n弹幕{3,11}\r\n评论{4,11}", curr.play, curr.coins, curr.favorites, curr.video_review, curr.review);
+            Clipboard.SetText(copytext);
+            Log.Info(String.Format("已复制{0}的数据（含中文）到剪贴板", curr.AVNUM));
+        }
     }
 }

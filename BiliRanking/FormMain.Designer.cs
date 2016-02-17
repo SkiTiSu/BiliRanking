@@ -114,8 +114,10 @@ namespace BiliRanking
             this.contextMenuStripRAW = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.移除taToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.按视频模板复制数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.复制总分ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.复制标题和信息行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
+            this.复制数据含中文ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.tabPageList.SuspendLayout();
@@ -249,7 +251,7 @@ namespace BiliRanking
             this.tabPageList.Controls.Add(this.label4);
             this.tabPageList.Location = new System.Drawing.Point(4, 22);
             this.tabPageList.Name = "tabPageList";
-            this.tabPageList.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageList.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageList.Size = new System.Drawing.Size(637, 417);
             this.tabPageList.TabIndex = 0;
             this.tabPageList.Text = "1.视频排行统计";
@@ -472,7 +474,7 @@ namespace BiliRanking
             this.tabPageRAW.Controls.Add(this.textBoxOut);
             this.tabPageRAW.Location = new System.Drawing.Point(4, 22);
             this.tabPageRAW.Name = "tabPageRAW";
-            this.tabPageRAW.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageRAW.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageRAW.Size = new System.Drawing.Size(637, 417);
             this.tabPageRAW.TabIndex = 1;
             this.tabPageRAW.Text = "2.生成数据/下载封面";
@@ -787,7 +789,7 @@ namespace BiliRanking
             // 
             this.buttonFlv2Mp4.Enabled = false;
             this.buttonFlv2Mp4.Location = new System.Drawing.Point(3, 143);
-            this.buttonFlv2Mp4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonFlv2Mp4.Margin = new System.Windows.Forms.Padding(2);
             this.buttonFlv2Mp4.Name = "buttonFlv2Mp4";
             this.buttonFlv2Mp4.Size = new System.Drawing.Size(64, 145);
             this.buttonFlv2Mp4.TabIndex = 16;
@@ -944,9 +946,11 @@ namespace BiliRanking
             this.contextMenuStripRAW.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.移除taToolStripMenuItem,
             this.按视频模板复制数据ToolStripMenuItem,
-            this.复制总分ToolStripMenuItem});
+            this.复制总分ToolStripMenuItem,
+            this.复制标题和信息行ToolStripMenuItem,
+            this.复制数据含中文ToolStripMenuItem});
             this.contextMenuStripRAW.Name = "contextMenuStripRAW";
-            this.contextMenuStripRAW.Size = new System.Drawing.Size(185, 92);
+            this.contextMenuStripRAW.Size = new System.Drawing.Size(185, 136);
             // 
             // 移除taToolStripMenuItem
             // 
@@ -962,6 +966,20 @@ namespace BiliRanking
             this.按视频模板复制数据ToolStripMenuItem.Text = "按视频模板复制数据";
             this.按视频模板复制数据ToolStripMenuItem.Click += new System.EventHandler(this.按视频模板复制数据ToolStripMenuItem_Click);
             // 
+            // 复制总分ToolStripMenuItem
+            // 
+            this.复制总分ToolStripMenuItem.Name = "复制总分ToolStripMenuItem";
+            this.复制总分ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.复制总分ToolStripMenuItem.Text = "复制总分";
+            this.复制总分ToolStripMenuItem.Click += new System.EventHandler(this.复制总分ToolStripMenuItem_Click);
+            // 
+            // 复制标题和信息行ToolStripMenuItem
+            // 
+            this.复制标题和信息行ToolStripMenuItem.Name = "复制标题和信息行ToolStripMenuItem";
+            this.复制标题和信息行ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.复制标题和信息行ToolStripMenuItem.Text = "复制标题和信息行";
+            this.复制标题和信息行ToolStripMenuItem.Click += new System.EventHandler(this.复制标题和信息行ToolStripMenuItem_Click);
+            // 
             // verticalProgressBar1
             // 
             this.verticalProgressBar1.Location = new System.Drawing.Point(286, 3);
@@ -969,12 +987,12 @@ namespace BiliRanking
             this.verticalProgressBar1.Size = new System.Drawing.Size(348, 411);
             this.verticalProgressBar1.TabIndex = 15;
             // 
-            // 复制总分ToolStripMenuItem
+            // 复制数据含中文ToolStripMenuItem
             // 
-            this.复制总分ToolStripMenuItem.Name = "复制总分ToolStripMenuItem";
-            this.复制总分ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.复制总分ToolStripMenuItem.Text = "复制总分";
-            this.复制总分ToolStripMenuItem.Click += new System.EventHandler(this.复制总分ToolStripMenuItem_Click);
+            this.复制数据含中文ToolStripMenuItem.Name = "复制数据含中文ToolStripMenuItem";
+            this.复制数据含中文ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.复制数据含中文ToolStripMenuItem.Text = "复制数据(含中文)";
+            this.复制数据含中文ToolStripMenuItem.Click += new System.EventHandler(this.复制数据含中文ToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -1106,5 +1124,7 @@ namespace BiliRanking
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ToolStripMenuItem 按视频模板复制数据ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 复制总分ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 复制标题和信息行ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 复制数据含中文ToolStripMenuItem;
     }
 }
