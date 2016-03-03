@@ -500,7 +500,7 @@ namespace BiliRanking
             // 
             // buttonRawRead
             // 
-            this.buttonRawRead.Location = new System.Drawing.Point(556, 9);
+            this.buttonRawRead.Location = new System.Drawing.Point(580, 9);
             this.buttonRawRead.Name = "buttonRawRead";
             this.buttonRawRead.Size = new System.Drawing.Size(75, 23);
             this.buttonRawRead.TabIndex = 12;
@@ -510,7 +510,7 @@ namespace BiliRanking
             // 
             // buttonRawSave
             // 
-            this.buttonRawSave.Location = new System.Drawing.Point(475, 9);
+            this.buttonRawSave.Location = new System.Drawing.Point(499, 9);
             this.buttonRawSave.Name = "buttonRawSave";
             this.buttonRawSave.Size = new System.Drawing.Size(75, 23);
             this.buttonRawSave.TabIndex = 11;
