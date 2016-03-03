@@ -62,6 +62,7 @@ namespace BiliRanking
             this.comboBoxListSort = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPageRAW = new System.Windows.Forms.TabPage();
+            this.buttonRawProgram = new System.Windows.Forms.Button();
             this.buttonRawRead = new System.Windows.Forms.Button();
             this.buttonRawSave = new System.Windows.Forms.Button();
             this.dataGridViewRAW = new System.Windows.Forms.DataGridView();
@@ -116,8 +117,11 @@ namespace BiliRanking
             this.按视频模板复制数据ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.复制总分ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.复制标题和信息行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.复制数据含中文ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBoxRawProgramFrom = new System.Windows.Forms.TextBox();
+            this.textBoxRawProgramTo = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.tabPageList.SuspendLayout();
@@ -146,7 +150,7 @@ namespace BiliRanking
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCookie.Location = new System.Drawing.Point(63, 6);
             this.textBoxCookie.Name = "textBoxCookie";
-            this.textBoxCookie.Size = new System.Drawing.Size(686, 21);
+            this.textBoxCookie.Size = new System.Drawing.Size(710, 21);
             this.textBoxCookie.TabIndex = 2;
             this.textBoxCookie.TextChanged += new System.EventHandler(this.textBoxCookie_TextChanged);
             // 
@@ -154,7 +158,7 @@ namespace BiliRanking
             // 
             this.buttonCookieHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCookieHelp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonCookieHelp.Location = new System.Drawing.Point(717, 5);
+            this.buttonCookieHelp.Location = new System.Drawing.Point(741, 5);
             this.buttonCookieHelp.Name = "buttonCookieHelp";
             this.buttonCookieHelp.Size = new System.Drawing.Size(32, 23);
             this.buttonCookieHelp.TabIndex = 3;
@@ -168,14 +172,14 @@ namespace BiliRanking
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 488);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(473, 12);
+            this.label2.Size = new System.Drawing.Size(503, 12);
             this.label2.TabIndex = 4;
-            this.label2.Text = "© 2015 四季天书SkiTiSu 请不要用于商业用途 | Powered by TSLib | www.skitisu.com";
+            this.label2.Text = "© 2015-2016 四季天书SkiTiSu 请不要用于商业用途 | Powered by TSLib | www.skitisu.com";
             // 
             // buttonAbout
             // 
             this.buttonAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbout.Location = new System.Drawing.Point(491, 483);
+            this.buttonAbout.Location = new System.Drawing.Point(515, 483);
             this.buttonAbout.Name = "buttonAbout";
             this.buttonAbout.Size = new System.Drawing.Size(258, 23);
             this.buttonAbout.TabIndex = 5;
@@ -197,7 +201,7 @@ namespace BiliRanking
             this.tabControlMain.Location = new System.Drawing.Point(104, 34);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(645, 443);
+            this.tabControlMain.Size = new System.Drawing.Size(669, 443);
             this.tabControlMain.TabIndex = 8;
             // 
             // tabPageLogin
@@ -206,7 +210,7 @@ namespace BiliRanking
             this.tabPageLogin.Controls.Add(this.label11);
             this.tabPageLogin.Location = new System.Drawing.Point(4, 22);
             this.tabPageLogin.Name = "tabPageLogin";
-            this.tabPageLogin.Size = new System.Drawing.Size(637, 417);
+            this.tabPageLogin.Size = new System.Drawing.Size(661, 417);
             this.tabPageLogin.TabIndex = 5;
             this.tabPageLogin.Text = "0.二维码登录";
             this.tabPageLogin.UseVisualStyleBackColor = true;
@@ -252,7 +256,7 @@ namespace BiliRanking
             this.tabPageList.Location = new System.Drawing.Point(4, 22);
             this.tabPageList.Name = "tabPageList";
             this.tabPageList.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageList.Size = new System.Drawing.Size(637, 417);
+            this.tabPageList.Size = new System.Drawing.Size(661, 417);
             this.tabPageList.TabIndex = 0;
             this.tabPageList.Text = "1.视频排行统计";
             this.tabPageList.UseVisualStyleBackColor = true;
@@ -465,6 +469,10 @@ namespace BiliRanking
             // 
             // tabPageRAW
             // 
+            this.tabPageRAW.Controls.Add(this.label18);
+            this.tabPageRAW.Controls.Add(this.textBoxRawProgramTo);
+            this.tabPageRAW.Controls.Add(this.textBoxRawProgramFrom);
+            this.tabPageRAW.Controls.Add(this.buttonRawProgram);
             this.tabPageRAW.Controls.Add(this.buttonRawRead);
             this.tabPageRAW.Controls.Add(this.buttonRawSave);
             this.tabPageRAW.Controls.Add(this.dataGridViewRAW);
@@ -475,10 +483,20 @@ namespace BiliRanking
             this.tabPageRAW.Location = new System.Drawing.Point(4, 22);
             this.tabPageRAW.Name = "tabPageRAW";
             this.tabPageRAW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRAW.Size = new System.Drawing.Size(637, 417);
+            this.tabPageRAW.Size = new System.Drawing.Size(661, 417);
             this.tabPageRAW.TabIndex = 1;
             this.tabPageRAW.Text = "2.生成数据/下载封面";
             this.tabPageRAW.UseVisualStyleBackColor = true;
+            // 
+            // buttonRawProgram
+            // 
+            this.buttonRawProgram.Location = new System.Drawing.Point(168, 9);
+            this.buttonRawProgram.Name = "buttonRawProgram";
+            this.buttonRawProgram.Size = new System.Drawing.Size(118, 23);
+            this.buttonRawProgram.TabIndex = 13;
+            this.buttonRawProgram.Text = "生成并复制节目单";
+            this.buttonRawProgram.UseVisualStyleBackColor = true;
+            this.buttonRawProgram.Click += new System.EventHandler(this.buttonRawProgram_Click);
             // 
             // buttonRawRead
             // 
@@ -530,7 +548,7 @@ namespace BiliRanking
             this.dataGridViewRAW.Name = "dataGridViewRAW";
             this.dataGridViewRAW.RowHeadersVisible = false;
             this.dataGridViewRAW.RowTemplate.Height = 23;
-            this.dataGridViewRAW.Size = new System.Drawing.Size(625, 285);
+            this.dataGridViewRAW.Size = new System.Drawing.Size(649, 285);
             this.dataGridViewRAW.TabIndex = 10;
             this.dataGridViewRAW.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRAW_CellClick);
             this.dataGridViewRAW.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewRAW_CellMouseUp);
@@ -684,7 +702,7 @@ namespace BiliRanking
             | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExportCSV.Location = new System.Drawing.Point(538, 329);
             this.buttonExportCSV.Name = "buttonExportCSV";
-            this.buttonExportCSV.Size = new System.Drawing.Size(93, 23);
+            this.buttonExportCSV.Size = new System.Drawing.Size(117, 23);
             this.buttonExportCSV.TabIndex = 8;
             this.buttonExportCSV.Text = "导出CSV";
             this.buttonExportCSV.UseVisualStyleBackColor = true;
@@ -718,7 +736,7 @@ namespace BiliRanking
             this.textBoxOut.Multiline = true;
             this.textBoxOut.Name = "textBoxOut";
             this.textBoxOut.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxOut.Size = new System.Drawing.Size(625, 82);
+            this.textBoxOut.Size = new System.Drawing.Size(649, 82);
             this.textBoxOut.TabIndex = 5;
             // 
             // tabPageFubang
@@ -729,7 +747,7 @@ namespace BiliRanking
             this.tabPageFubang.Controls.Add(this.button1);
             this.tabPageFubang.Location = new System.Drawing.Point(4, 22);
             this.tabPageFubang.Name = "tabPageFubang";
-            this.tabPageFubang.Size = new System.Drawing.Size(637, 417);
+            this.tabPageFubang.Size = new System.Drawing.Size(661, 417);
             this.tabPageFubang.TabIndex = 3;
             this.tabPageFubang.Text = "3.副榜生成";
             this.tabPageFubang.UseVisualStyleBackColor = true;
@@ -780,7 +798,7 @@ namespace BiliRanking
             this.tabPageVideo.Controls.Add(this.verticalProgressBar1);
             this.tabPageVideo.Location = new System.Drawing.Point(4, 22);
             this.tabPageVideo.Name = "tabPageVideo";
-            this.tabPageVideo.Size = new System.Drawing.Size(637, 417);
+            this.tabPageVideo.Size = new System.Drawing.Size(661, 417);
             this.tabPageVideo.TabIndex = 2;
             this.tabPageVideo.Text = "4.视频批量下载";
             this.tabPageVideo.UseVisualStyleBackColor = true;
@@ -845,7 +863,7 @@ namespace BiliRanking
             this.tabPage2.Controls.Add(this.buttonZhubang);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(637, 417);
+            this.tabPage2.Size = new System.Drawing.Size(661, 417);
             this.tabPage2.TabIndex = 4;
             this.tabPage2.Text = "5.主榜模板生成";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -950,7 +968,7 @@ namespace BiliRanking
             this.复制标题和信息行ToolStripMenuItem,
             this.复制数据含中文ToolStripMenuItem});
             this.contextMenuStripRAW.Name = "contextMenuStripRAW";
-            this.contextMenuStripRAW.Size = new System.Drawing.Size(185, 136);
+            this.contextMenuStripRAW.Size = new System.Drawing.Size(185, 114);
             // 
             // 移除taToolStripMenuItem
             // 
@@ -980,13 +998,6 @@ namespace BiliRanking
             this.复制标题和信息行ToolStripMenuItem.Text = "复制标题和信息行";
             this.复制标题和信息行ToolStripMenuItem.Click += new System.EventHandler(this.复制标题和信息行ToolStripMenuItem_Click);
             // 
-            // verticalProgressBar1
-            // 
-            this.verticalProgressBar1.Location = new System.Drawing.Point(286, 3);
-            this.verticalProgressBar1.Name = "verticalProgressBar1";
-            this.verticalProgressBar1.Size = new System.Drawing.Size(348, 411);
-            this.verticalProgressBar1.TabIndex = 15;
-            // 
             // 复制数据含中文ToolStripMenuItem
             // 
             this.复制数据含中文ToolStripMenuItem.Name = "复制数据含中文ToolStripMenuItem";
@@ -994,11 +1005,45 @@ namespace BiliRanking
             this.复制数据含中文ToolStripMenuItem.Text = "复制数据(含中文)";
             this.复制数据含中文ToolStripMenuItem.Click += new System.EventHandler(this.复制数据含中文ToolStripMenuItem_Click);
             // 
+            // textBoxRawProgramFrom
+            // 
+            this.textBoxRawProgramFrom.Location = new System.Drawing.Point(292, 11);
+            this.textBoxRawProgramFrom.Name = "textBoxRawProgramFrom";
+            this.textBoxRawProgramFrom.Size = new System.Drawing.Size(27, 21);
+            this.textBoxRawProgramFrom.TabIndex = 14;
+            this.textBoxRawProgramFrom.Text = "1";
+            this.textBoxRawProgramFrom.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnlyDigi_KeyPress);
+            // 
+            // textBoxRawProgramTo
+            // 
+            this.textBoxRawProgramTo.Location = new System.Drawing.Point(331, 11);
+            this.textBoxRawProgramTo.Name = "textBoxRawProgramTo";
+            this.textBoxRawProgramTo.Size = new System.Drawing.Size(27, 21);
+            this.textBoxRawProgramTo.TabIndex = 15;
+            this.textBoxRawProgramTo.Text = "20";
+            this.textBoxRawProgramTo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnlyDigi_KeyPress);
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(319, 15);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(11, 12);
+            this.label18.TabIndex = 16;
+            this.label18.Text = "-";
+            // 
+            // verticalProgressBar1
+            // 
+            this.verticalProgressBar1.Location = new System.Drawing.Point(286, 3);
+            this.verticalProgressBar1.Name = "verticalProgressBar1";
+            this.verticalProgressBar1.Size = new System.Drawing.Size(348, 411);
+            this.verticalProgressBar1.TabIndex = 15;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(761, 509);
+            this.ClientSize = new System.Drawing.Size(785, 509);
             this.Controls.Add(this.buttonAVClear);
             this.Controls.Add(this.textBoxAV);
             this.Controls.Add(this.label3);
@@ -1126,5 +1171,9 @@ namespace BiliRanking
         private System.Windows.Forms.ToolStripMenuItem 复制总分ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 复制标题和信息行ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 复制数据含中文ToolStripMenuItem;
+        private System.Windows.Forms.Button buttonRawProgram;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBoxRawProgramTo;
+        private System.Windows.Forms.TextBox textBoxRawProgramFrom;
     }
 }

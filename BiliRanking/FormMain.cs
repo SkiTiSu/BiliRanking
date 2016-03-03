@@ -507,5 +507,35 @@ namespace BiliRanking
             Clipboard.SetText(copytext);
             Log.Info(String.Format("已复制{0}的数据（含中文）到剪贴板", curr.AVNUM));
         }
+
+        private void buttonRawProgram_Click(object sender, EventArgs e)
+        {
+            List<BiliInterfaceInfo> now = (List<BiliInterfaceInfo>)dataGridViewRAW.DataSource;
+            if (now == null || now.Count < int.Parse(textBoxRawProgramTo.Text))
+            {
+                MessageBox.Show("没有足够的数据orz\r\n是不是被你吃掉了？", "噫……", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (int.Parse(textBoxRawProgramFrom.Text)> int.Parse(textBoxRawProgramTo.Text))
+            {
+                MessageBox.Show("脑子抽调啦！@_@\r\n怎么能倒过来呢", "噫……", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string copytext = "";
+            for (int i = int.Parse(textBoxRawProgramFrom.Text) - 1; i <= int.Parse(textBoxRawProgramTo.Text) - 1; i++)
+            {
+                copytext += String.Format("{0:D2}|{3} {1} UP主：{2}\r\n", now[i].Fpaiming, now[i].title, now[i].author, now[i].AVNUM.ToLower());
+            }
+            Clipboard.SetText(copytext);
+            Log.Info("节目单已复制");
+        }
+
+        private void OnlyDigi_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsNumber(e.KeyChar)) && e.KeyChar != (char)8)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
