@@ -19,7 +19,9 @@ namespace BiliRanking
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine();
-
+#if DEBUG
+            Log.Debug("当前处于debug模式，将会显示调试信息~");
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FormMain());

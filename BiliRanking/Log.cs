@@ -14,15 +14,24 @@ namespace BiliRanking
         public static void Error(string s)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("[ERROR] " + DateTime.Now.ToString("HH:mm:ss") + " " + s);
+            Console.WriteLine("[ERRO] " + DateTime.Now.ToString("HH:mm:ss") + " " + s);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
         public static void Warn(string s)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("[WARNING] " + DateTime.Now.ToString("HH:mm:ss") + " " + s);
+            Console.WriteLine("[WARN] " + DateTime.Now.ToString("HH:mm:ss") + " " + s);
             Console.ForegroundColor = ConsoleColor.Gray;
+        }
+
+        public static void Debug(string s)
+        {
+#if DEBUG
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("[DEBU] " + DateTime.Now.ToString("HH:mm:ss") + " " + s);
+            Console.ForegroundColor = ConsoleColor.Gray;
+#endif
         }
     }
 }

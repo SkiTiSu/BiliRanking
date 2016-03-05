@@ -13,10 +13,27 @@ namespace BiliRanking
     {
         public static string cookie;
 
+        public static string[] wenhouyu = new string[]
+        {
+            "拒绝DSSQ，人人有责(◐﹏◐)",
+            "天书不仅听音很准，而且歌唱的也不错呢（大雾",
+            "啊♂ 乖 乖 站 好 ┗(O﹏O)┛",
+            "你造吗，哲学的英文其实是Billy Herrington",
+            "你造黄金の兄贵率是多少吗？1海灵顿=44cm",
+            "金坷垃 金克拉 JinKeLa！",
+            "天书说咱要建个会自动定时统计数据的网站（迷のflag",
+            "天书说这个软件的UI要大改，是真的吗？",
+            "大力出？？？所以说大力到底是神马（纯洁脸",
+            "最爱葛平老师了",
+        };
+
         public FormMain()
         {
             InitializeComponent();
             this.Icon = Resources.logo;
+            Random ran = new Random();
+            int RandKey = ran.Next(0, wenhouyu.Length - 1);
+            this.Text = $"BiliRanking V{Updater.Version} 来自中二的四季天书 - {wenhouyu[RandKey]}";
             cookie = textBoxCookie.Text;
             dataGridViewRAW.AutoGenerateColumns = false;
             comboBoxListNum.SelectedIndex = 0;
@@ -52,6 +69,12 @@ namespace BiliRanking
 
             comboBoxListSort.DataSource = Enum.GetNames(typeof(BiliParse.SortType));
             comboBoxListZone.SelectedIndex = 0;
+        }
+
+        private void FormMain_Shown(object sender, EventArgs e)
+        {
+            Updater up = new Updater();
+            up.CheckUpdate();
         }
 
         private void buttonListGen_Click(object sender, EventArgs e)
@@ -548,6 +571,12 @@ namespace BiliRanking
             {
                 e.Handled = true;
             }
+        }
+
+        private void buttonUpdateBeta_Click(object sender, EventArgs e)
+        {
+            Updater up = new Updater();
+            up.CheckUpdate(true);
         }
     }
 }
