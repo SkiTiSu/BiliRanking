@@ -132,14 +132,14 @@ namespace BiliRanking
                 {
                     Log.Info("没有发现新版本");
                 }
-                
+
             }
             catch (Exception ex)
             {
                 Log.Error("检查更新失败 - 解析json失败");
                 Log.Debug(ex.Message);
             }
-        }
+}
 
         string DownloadFileName = "";
 
@@ -192,7 +192,15 @@ namespace BiliRanking
             {
                 name = (string)asset["name"];
                 prerelease = (bool)asset["prerelease"];
-                browser_download_url = (string)asset["assets"][0]["browser_download_url"];
+                try
+                {
+                    browser_download_url = (string)asset["assets"][0]["browser_download_url"];
+                }
+                catch (Exception e)
+                {
+                    Log.Error("检查更新失败 - 尼玛天书怎么搞了个没有下载地址的更新信息呢？");
+                    throw e;
+                }
                 body = (string)asset["body"];
             }
 
