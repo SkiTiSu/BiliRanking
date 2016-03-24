@@ -13,8 +13,9 @@ namespace BiliRanking
 {
     public static class BiliInterface
     {
+        const string appkey = "876fe0ebd0e67a0f";
         const string InterfaceUrl = "http://api.bilibili.com/view?type=json&appkey=876fe0ebd0e67a0f&id=";
-
+        
 
         public static string GetAVdenum(string AVnum)
         {
@@ -68,10 +69,10 @@ namespace BiliRanking
             }
         }
 
-        public static string GetMP4Url(string AVnum, int page)
+        public static string GetMP4Url(uint cid)
         {
-            string avnum = GetAVdenum(AVnum);
-            Log.Info("开始获取MP4视频 - AV" + avnum);
+            Log.Info("开始获取MP4地址 - CID" + cid);
+            /*
             string h5url = "http://www.bilibili.com/m/html5?aid=" + avnum + "&page=" + page;
             string html = GetHtml(h5url);
             JavaScriptSerializer j = new JavaScriptSerializer();
@@ -86,10 +87,27 @@ namespace BiliRanking
             {
                 return info.src;
             }
+            */
+            string url = $"http://interface.bilibili.tv/playurl?appkey={appkey}&cid=";
+            string html = GetHtml(url + cid + "&quality=4&type=mp4");
+            if (!html.Contains("<result>su"))
+            {
+                Log.Error("MP4地址获取失败！ - CID：" + cid);
+                return null;
+            }
+
+            byte[] byteArray = Encoding.UTF8.GetBytes(html);
+            MemoryStream stream = new MemoryStream(byteArray);
+            XElement xe = XElement.Load(stream);
+            var t = xe.Elements("url");
+            IEnumerable<string> elements = from ele in xe.Descendants("url") //where ele.Name == "url"
+                                           select ele.Value;
+            return elements.ToArray()[0];
         }
 
         public static BiliInterfaceInfo GetMP4info(string AVnum, int page)
         {
+            /*
             BiliInterfaceInfo info = new BiliInterfaceInfo();
              string avnum = GetAVdenum(AVnum);
             Log.Info("开始获取MP4视频 - AV" + avnum);
@@ -132,6 +150,63 @@ namespace BiliRanking
                 Log.Error("AV" + avnum + "的数据发生错误，请稍后重试！" + e.Message);
                 return null;
             }
+            */
+            string avnum = AVnum.ToUpper();
+            if (avnum.Contains("AV"))
+            {
+                avnum = avnum.Substring(2, avnum.Length - 2);
+            }
+
+            Log.Info("正在获取API数据 - AV" + avnum);
+
+            string html = GetHtml(InterfaceUrl + avnum);
+            JavaScriptSerializer j = new JavaScriptSerializer();
+            BiliInterfaceInfo info = new BiliInterfaceInfo();
+            try
+            {
+                info = j.Deserialize<BiliInterfaceInfo>(html);
+
+                if (info.code == -403)
+                {
+                    if (info.error == "no perm error")
+                        Log.Error("没有数据！（正在补档或被删除？）");
+                    else
+                        Log.Error("本视频为会员独享，需要Cookie！");
+                }
+                else if (info.code == -503)
+                {
+                    Log.Warn("到达连续获取上限，延时两秒");
+                    System.Threading.Thread.Sleep(2000);
+                    return GetInfo(AVnum);
+                }
+                else if (info.code == -404)
+                {
+                    Log.Error("视频不存在！");
+                }
+                else if (info.code != 0)
+                {
+                    Log.Error("返回未知错误：" + info.code);
+                }
+                else
+                {
+                    info.AVNUM = "AV" + avnum;
+                    info.title = info.title.Replace("&amp;", "&");
+                    info.title = info.title.Replace("&lt;", "<");
+                    info.title = info.title.Replace("&gt;", ">");
+                    info.title = info.title.Replace("&quot;", "\"");
+
+                    //下载视频，无需算分
+
+                    info.mp4url = GetMP4Url(info.cid);
+
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error("AV" + avnum + "的数据发生错误，请稍后重试！" + e.Message);
+            }
+
+            return info;
         }
 
         //TODO: 加入P2、Pn的信息获取
@@ -284,7 +359,7 @@ namespace BiliRanking
 
         public static string GetFlvUrl(uint cid)
         {
-            string url = "http://interface.bilibili.tv/playurl?appkey=03fc8eb101b091fb&cid=";
+            string url = $"http://interface.bilibili.tv/playurl?appkey={appkey}&cid=";
             string html = GetHtml(url + cid);
             if (!html.Contains("<result>su"))
             {
