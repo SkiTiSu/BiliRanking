@@ -530,7 +530,7 @@ namespace BiliRanking
         private void 复制标题和信息行ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             BiliInterfaceInfo curr = ((List<BiliInterfaceInfo>)dataGridViewRAW.DataSource)[CurrentRowIndex];
-            string copytext = curr.title + "\r\n" + curr.created_at + "   " + curr.author + "   " + curr.AVNUM;
+            string copytext = curr.title + "\r\n" + curr.created_at + "   " + curr.author + "   " + curr.avnum;
             Clipboard.SetText(copytext);
             Log.Info(String.Format("已复制{0}的标题和信息行到剪贴板", curr.AVNUM));
         }
@@ -559,7 +559,7 @@ namespace BiliRanking
             string copytext = "";
             for (int i = int.Parse(textBoxRawProgramFrom.Text) - 1; i <= int.Parse(textBoxRawProgramTo.Text) - 1; i++)
             {
-                copytext += String.Format("{0:D2}|{3} {1} UP主：{2}\r\n", now[i].Fpaiming, now[i].title, now[i].author, now[i].AVNUM.ToLower());
+                copytext += String.Format("{0:D2}|{3} {1} UP主：{2}\r\n", now[i].Fpaiming, now[i].title, now[i].author, now[i].avnum);
             }
             Clipboard.SetText(copytext);
             Log.Info("节目单已复制");

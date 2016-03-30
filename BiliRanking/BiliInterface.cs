@@ -463,6 +463,13 @@ namespace BiliRanking
             }
         }
         public string AVNUM { get; set; }
+        public string avnum
+        {
+            get
+            {
+                return AVNUM.ToLower();
+            }
+        }
 
         public string mp4url;
         public string flvurl;
