@@ -14,7 +14,7 @@ namespace BiliRanking
     //本类参考了ss-csharp的UpdaterChecker类
     public class Updater
     {
-        public const string Version = "1.1.1.4";
+        public const string Version = "1.1.1.8";
 
         private const string UpdateURL = "https://api.github.com/repos/SkiTiSu/BiliRanking/releases";
         private const string UserAgent = "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.3319.102 Safari/537.36";
@@ -70,12 +70,15 @@ namespace BiliRanking
                     {
                         if ((bool)release["prerelease"])
                         {
-                            Asset ass = new Asset();
-                            ass.Parase(release);
-                            if (ass.IsNewVersion(Version))
+                            if (!hasBeta)
                             {
-                                asserts.Add(ass);
-                                hasBeta = true;
+                                Asset ass = new Asset();
+                                ass.Parase(release);
+                                if (ass.IsNewVersion(Version))
+                                {
+                                    asserts.Add(ass);
+                                    hasBeta = true;
+                                }
                             }
                         }
                         else
@@ -99,9 +102,19 @@ namespace BiliRanking
                         Log.Info($"发现新版本{ass.name}" + (ass.prerelease ? "beta" : ""));
                     }
                     int stable = asserts.Count - 1;
+                    string changelog = "更新日志获取失败惹 T T";
+                    try
+                    {
+                        changelog = BiliInterface.GetHtml("https://raw.githubusercontent.com/SkiTiSu/BiliRanking/master/BiliRanking/changelog.txt");
+                        changelog = changelog.Substring(0, changelog.IndexOf("\n"));
+                    }
+                    catch
+                    {
+                        Log.Warn("更新日志获取失败");
+                    }
                     if (!checkBeta && hasStable)
                     {
-                        DialogResult res = MessageBox.Show($"发现新版本{asserts[stable].name}啦\r\n更新日志：\r\n{asserts[stable].body}\r\n\r\n马上更新嘛？", @"\(^o^)/更新啦", MessageBoxButtons.YesNo);
+                        DialogResult res = MessageBox.Show($"发现新版本{asserts[stable].name}啦\r\n最近{changelog}\r\n\r\n马上更新嘛？", @"\(^o^)/更新啦", MessageBoxButtons.YesNo);
                         if (res == DialogResult.Yes)
                         {
                             StartDownload(asserts[stable]);
@@ -113,7 +126,7 @@ namespace BiliRanking
                     }
                     else if(checkBeta && (hasBeta || hasStable))
                     {
-                        DialogResult res = MessageBox.Show($"发现新版本{asserts[0].name}beta啦\r\n更新日志：\r\n{asserts[0].body}\r\n\r\n马上更新嘛？", @"\(^o^)/更新啦", MessageBoxButtons.YesNo);
+                        DialogResult res = MessageBox.Show($"发现新版本{asserts[0].name}beta啦\r\n最近{changelog}\r\n\r\n马上更新嘛？", @"\(^o^)/更新啦", MessageBoxButtons.YesNo);
                         if (res == DialogResult.Yes)
                         {
                             StartDownload(asserts[0]);
