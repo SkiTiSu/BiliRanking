@@ -13,8 +13,8 @@ namespace BiliRanking
 {
     public static class BiliInterface
     {
-        const string appkey = "876fe0ebd0e67a0f";
-        const string InterfaceUrl = "http://api.bilibili.com/view?type=json&appkey=876fe0ebd0e67a0f&id=";
+        const string appkey = "95acd7f6cc3392f3";
+        const string InterfaceUrl = "http://api.bilibili.com/view?type=json&appkey=95acd7f6cc3392f3&id=";
         
 
         public static string GetAVdenum(string AVnum)
