@@ -79,13 +79,13 @@ namespace BiliRanking
                     double xiuzheng = 0;
 
                     //收藏
-                    xiuzheng = (double)(info.play / info.favorites) * 1500;
+                    xiuzheng = ((double)info.favorites / (double)info.play) * 1500;
                     if (xiuzheng > 55)
                         xiuzheng = 55;
                     info.Ffavorites = Convert.ToUInt32(info.favorites * xiuzheng);
 
                     //硬币
-                    xiuzheng = (double)(info.play / info.coins) * 5000;
+                    xiuzheng = ((double)info.coins / (double)info.play) * 5000;
                     if (xiuzheng > 25)
                         xiuzheng = 25;
                     info.Fcoins = Convert.ToUInt32(info.coins * xiuzheng);
