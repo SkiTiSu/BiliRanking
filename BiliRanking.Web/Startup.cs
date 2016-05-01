@@ -7,6 +7,7 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Timers;
 
 namespace BiliRanking.Web
 {
@@ -19,6 +20,17 @@ namespace BiliRanking.Web
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            BiliInterface.UpdateRanking();
+
+            Timer tt = new Timer(1800000);
+            tt.Elapsed += Tt_Elapsed;
+            tt.Start();
+        }
+
+        private void Tt_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            BiliInterface.UpdateRanking();
         }
 
         public IConfigurationRoot Configuration { get; set; }

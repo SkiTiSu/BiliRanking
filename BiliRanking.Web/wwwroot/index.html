@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+    <meta charset="utf-8" />
+    <title>BiliBili月刊鬼畜排行榜看台 α</title>
+    <link href="http://cdn.moefont.com/fonts/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ee6e73" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper container">
+            <a href="#" class="brand-logo">BiliBili月刊鬼畜排行榜看台 α</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="https://github.com/SkiTiSu/BiliRanking" target="_blank"><del>Github</del> Gay♂hub</a></li>
+                <li><a href="https://github.com/SkiTiSu/BiliRanking/releases" target="_blank">下载PC版</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="container">
+            <div class="card-panel grey lighten-4">
+                <span id="StatusMain">
+                    loading...
+                </span>
+            </div>
+            <div id="ListMain">
+            <div class="row">
+                <div class="col s3" style="padding-right: 0px;">
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <a href="http://www.bilibili.com/video/av{aid}/" target="_blank"><img class="activator" src="{pic}"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s9" style="padding-left: 0px; height:100%">
+                    <div class="card">
+                        <div class="card-content">
+                            <a href="http://www.bilibili.com/video/av{aid}/" target="_blank"><span class="card-title">{Fpaiming}. {title}</span></a>
+                            <div class="row">
+                                <div class="col s12 l10">
+                                    <div class="row">
+                                        <div class="col s6 l4">播放：{play}</div>
+                                        <div class="col s6 l4">硬币：{coins}</div>
+                                        <div class="col s6 l4">弹幕：{video_review}</div>
+                                        <div class="col s6 l4">收藏：{favorites}</div>
+                                        <div class="col s6 l4">评论：{review}</div>
+                                        <div class="col s6 l4">得分：{Fdefen}</div>
+                                        <div class="col s12 l8">日期：{created_at}</div>
+                                        <div class="col s12 l4 OnlyMobile">UP：{author}</div>
+                                    </div>
+                                </div>
+                                <div class="col s0 l2 center OnlyDesktop">
+                                    <!--<a class="waves-effect waves-light btn-large pink">{Fpaiming}</a>-->
+                                    <img src="{face}" class="circle responsive-img" style="max-height:60px;"><br>
+                                    <span>{author}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="card-action">
+                            <a href="http://www.bilibili.com/video/av{aid}/">进入B站观看</a>
+                            <a href="#">下载FLV（即将推出）</a>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">关于BiliRanking.Web（jkl.moe）</h5>
+                    <p class="grey-text text-lighten-4">会员独享视频不会被WEB版收录，不解释原因〒_〒<br>域名很好记有木有 jkl.moe 金坷垃.萌<br>啊♂乖乖看好！</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">关注</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="http://space.bilibili.com/14498772/" target="_blank">圣地亚哥唱片公司</a></li>
+                        <li><wb:follow-button uid="5701988834" type="gray_3" width="100%" height="24" ></wb:follow-button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                <span>© 2015-2016 并不会Web开发的 <a href="https://blog.skitisu.com/" target="_blank">四季天书SkiTisu</a> | "bilibili"、"哔哩哔哩"及其logo等是上海幻电信息科技有限公司商标</span>
+                <a class="grey-text text-lighten-4 right" href="http://www.bilibili.com/video/kichiku.html" target="_blank">进入B站鬼畜区</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
