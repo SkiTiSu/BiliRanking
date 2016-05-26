@@ -99,11 +99,11 @@ namespace BiliRanking
             
             textBoxAV.Text = "";
 
-            for (int i = 1; i <= Convert.ToInt32(comboBoxListNum.Text); i++)
+            for (int i = 0; i < Convert.ToInt32(comboBoxListNum.Text); i++)
             {
                 try
                 {
-                    textBoxAV.Text += ss[i - 1] + "\r\n";
+                    textBoxAV.Text += ss[i] + "\r\n";
                 }
                 catch
                 {

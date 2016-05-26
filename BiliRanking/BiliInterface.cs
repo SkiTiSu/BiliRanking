@@ -8,14 +8,37 @@ using System.Xml.Linq;
 using System.Xml;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace BiliRanking
 {
     public static class BiliInterface
     {
-        const string appkey = "95acd7f6cc3392f3";
-        const string InterfaceUrl = "http://api.bilibili.com/view?type=json&appkey=95acd7f6cc3392f3&id=";
-        
+        const string appkey = "c1b107428d337928";
+        //8e9fc618fbd41e28 不需要appsec
+        const string appsec = "ea85624dfcf12d7cc7b2b3a94fac1f2c";
+
+        public static string GetSign(SortedDictionary<string, string> sparam)
+        {
+            sparam.Add("_device", "android");
+            sparam.Add("_hwid", "ccbb856c97ccb8d2");
+            sparam.Add("ts", ((long)((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds)).ToString());
+            if (!sparam.ContainsKey("appkey")) sparam.Add("appkey", appkey);
+            if (!sparam.ContainsKey("type")) sparam.Add("type", "json");
+            string final_param = "";
+            foreach (var aparam in sparam)
+            {
+                if (aparam.Value == null) continue;
+                if (final_param != "") final_param += "&";
+                final_param += aparam.Key + "=" + aparam.Value;
+            }
+            using (var md5 = MD5.Create())
+            {
+                string hashed = BitConverter.ToString(md5.ComputeHash(Encoding.ASCII.GetBytes(final_param + appsec))).Replace("-", "").ToLower();
+                final_param += "&sign=" + hashed;
+            }
+            return final_param;
+        }
 
         public static string GetAVdenum(string AVnum)
         {
@@ -88,8 +111,16 @@ namespace BiliRanking
                 return info.src;
             }
             */
-            string url = $"http://interface.bilibili.tv/playurl?appkey={appkey}&cid=";
-            string html = GetHtml(url + cid + "&quality=4&type=mp4");
+
+            SortedDictionary<string, string> parampairs = new SortedDictionary<string, string>();
+            parampairs.Add("cid", cid.ToString());
+            parampairs.Add("quality", "4");
+            parampairs.Add("type", "mp4");
+            parampairs.Add("appkey", "8e9fc618fbd41e28");
+            string param = GetSign(parampairs);
+
+            string html = GetHtml("http://interface.bilibili.com/playurl?" + param);
+
             if (!html.Contains("<result>su"))
             {
                 Log.Error("MP4地址获取失败！ - CID：" + cid);
@@ -157,9 +188,14 @@ namespace BiliRanking
                 avnum = avnum.Substring(2, avnum.Length - 2);
             }
 
-            Log.Info("正在获取API数据 - AV" + avnum);
+            Log.Info("正在通过API获取数据 - AV" + avnum);
 
-            string html = GetHtml(InterfaceUrl + avnum);
+            SortedDictionary<string, string> parampairs = new SortedDictionary<string, string>();
+            parampairs.Add("id", avnum);
+            string param = GetSign(parampairs);
+
+            string html = GetHtml("http://api.bilibili.com/view?" + param);
+
             JavaScriptSerializer j = new JavaScriptSerializer();
             BiliInterfaceInfo info = new BiliInterfaceInfo();
             try
@@ -218,9 +254,14 @@ namespace BiliRanking
                 avnum = avnum.Substring(2, avnum.Length - 2);
             }
 
-            Log.Info("正在获取API数据 - AV" + avnum);
+            Log.Info("正在通过API获取数据 - AV" + avnum);
 
-            string html = GetHtml(InterfaceUrl + avnum);
+            SortedDictionary<string, string> parampairs = new SortedDictionary<string, string>();
+            parampairs.Add("id", avnum);
+            string param = GetSign(parampairs);
+
+            string html = GetHtml("http://api.bilibili.com/view?" + param);
+
             JavaScriptSerializer j = new JavaScriptSerializer();
             BiliInterfaceInfo info = new BiliInterfaceInfo();
             try
@@ -305,9 +346,14 @@ namespace BiliRanking
                 avnum = avnum.Substring(2, avnum.Length - 2);
             }
 
-            Log.Info("正在获取API数据 - AV" + avnum);
+            Log.Info("正在通过API获取数据 - AV" + avnum);
 
-            string html = GetHtml(InterfaceUrl + avnum);
+            SortedDictionary<string, string> parampairs = new SortedDictionary<string, string>();
+            parampairs.Add("id", avnum);
+            string param = GetSign(parampairs);
+
+            string html = GetHtml("http://api.bilibili.com/view?" + param);
+ 
             JavaScriptSerializer j = new JavaScriptSerializer();
             BiliInterfaceInfo info = new BiliInterfaceInfo();
             try
@@ -333,7 +379,7 @@ namespace BiliRanking
                 }
                 else if (info.code != 0)
                 {
-                    Log.Error("返回未知错误：" + info.code);
+                    Log.Error("返回未知错误：" + html);
                 }
                 else
                 {
@@ -359,8 +405,21 @@ namespace BiliRanking
 
         public static string GetFlvUrl(uint cid)
         {
-            string url = $"http://interface.bilibili.tv/playurl?appkey={appkey}&cid=";
-            string html = GetHtml(url + cid);
+            SortedDictionary<string, string> parampairs = new SortedDictionary<string, string>();
+            parampairs.Add("cid", cid.ToString());
+            parampairs.Add("type", null);
+            //parampairs.Add("player", "1");
+            //parampairs.Add("ts", ((long)((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds)).ToString());
+            parampairs.Add("appkey", "8e9fc618fbd41e28");
+            string param = GetSign(parampairs);
+
+            string html = GetHtml("http://interface.bilibili.com/playurl?" + param);
+
+
+
+
+            //string url = $"http://interface.bilibili.tv/playurl?appkey=95acd7f6cc3392f3&cid=";
+            //string html = GetHtml(url + cid);
             if (!html.Contains("<result>su"))
             {
                 Log.Error("FLV地址获取失败！ - CID：" + cid);
@@ -378,10 +437,24 @@ namespace BiliRanking
 
         public static string GetHtml(string url)
         {
+            Log.Debug("获取网页 - " + url);
             try
             {
                 WebClient myWebClient = new WebClient();
                 myWebClient.Headers.Add("Cookie", FormMain.cookie);
+                myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0(Windows NT 5.1) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 35.0.3319.102 Safari / 537.36");
+                
+
+                Random ran = new Random();
+                int ip4 = ran.Next(1, 255);
+                int select = ran.Next(1, 2);
+                string ip;
+                if (select == 1)
+                    ip = "220.181.111." + ip4;
+                else
+                    ip = "59.152.193." + ip4;
+                myWebClient.Headers.Add("Client-IP", ip);
+
                 byte[] myDataBuffer = myWebClient.DownloadData(url);
 
                 string sContentEncoding = myWebClient.ResponseHeaders["Content-Encoding"];
