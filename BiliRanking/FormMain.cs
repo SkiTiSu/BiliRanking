@@ -338,7 +338,7 @@ namespace BiliRanking
             //Application.DoEvents();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonFubang1_Click(object sender, EventArgs e)
         {
             List<BiliInterfaceInfo> linfo = new List<BiliInterfaceInfo>();
             int start = int.Parse(textBoxFubangStart.Text);
@@ -353,6 +353,22 @@ namespace BiliRanking
             Fubang fu = new Fubang();
             fu.Gen(linfo);
         }
+        private void buttonFubang2_Click(object sender, EventArgs e)
+        {
+            List<BiliInterfaceInfo> linfo = new List<BiliInterfaceInfo>();
+            int start = int.Parse(textBoxFubangStart.Text);
+
+            foreach (BiliInterfaceInfo i in (List<BiliInterfaceInfo>)dataGridViewRAW.DataSource)
+            {
+                if (i.Fpaiming >= start)
+                    linfo.Add(i);
+            }
+
+            //TODO: 再次排序
+            Fubang fu = new Fubang();
+            fu.Gen2(linfo);
+        }
+
 
         private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {

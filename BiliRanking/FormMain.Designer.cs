@@ -95,7 +95,7 @@ namespace BiliRanking
             this.label12 = new System.Windows.Forms.Label();
             this.textBoxFubangStart = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonFubang1 = new System.Windows.Forms.Button();
             this.tabPageVideo = new System.Windows.Forms.TabPage();
             this.buttonFlv2Mp4 = new System.Windows.Forms.Button();
             this.buttonDlMP4 = new System.Windows.Forms.Button();
@@ -124,6 +124,7 @@ namespace BiliRanking
             this.复制总分ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.复制标题和信息行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.复制数据含中文ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonFubang2 = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.tabPageList.SuspendLayout();
@@ -775,10 +776,11 @@ namespace BiliRanking
             // 
             // tabPageFubang
             // 
+            this.tabPageFubang.Controls.Add(this.buttonFubang2);
             this.tabPageFubang.Controls.Add(this.label12);
             this.tabPageFubang.Controls.Add(this.textBoxFubangStart);
             this.tabPageFubang.Controls.Add(this.label10);
-            this.tabPageFubang.Controls.Add(this.button1);
+            this.tabPageFubang.Controls.Add(this.buttonFubang1);
             this.tabPageFubang.Location = new System.Drawing.Point(4, 22);
             this.tabPageFubang.Name = "tabPageFubang";
             this.tabPageFubang.Size = new System.Drawing.Size(661, 417);
@@ -808,19 +810,21 @@ namespace BiliRanking
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(12, 15);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(185, 12);
+            this.label10.Size = new System.Drawing.Size(281, 12);
             this.label10.TabIndex = 6;
-            this.label10.Text = "请确保步骤2中数据已经成功加载~";
+            this.label10.Text = "请确保步骤2中数据已经成功加载~请选择副榜版本：";
             // 
-            // button1
+            // buttonFubang1
             // 
-            this.button1.Location = new System.Drawing.Point(14, 55);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(607, 111);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "生成副榜";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonFubang1.BackgroundImage = global::BiliRanking.Properties.Resources.fubang;
+            this.buttonFubang1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonFubang1.Location = new System.Drawing.Point(14, 54);
+            this.buttonFubang1.Name = "buttonFubang1";
+            this.buttonFubang1.Size = new System.Drawing.Size(198, 111);
+            this.buttonFubang1.TabIndex = 5;
+            this.buttonFubang1.Text = "初代\r\nby Damako";
+            this.buttonFubang1.UseVisualStyleBackColor = true;
+            this.buttonFubang1.Click += new System.EventHandler(this.buttonFubang1_Click);
             // 
             // tabPageVideo
             // 
@@ -1068,6 +1072,18 @@ namespace BiliRanking
             this.复制数据含中文ToolStripMenuItem.Text = "复制数据(含中文)";
             this.复制数据含中文ToolStripMenuItem.Click += new System.EventHandler(this.复制数据含中文ToolStripMenuItem_Click);
             // 
+            // buttonFubang2
+            // 
+            this.buttonFubang2.BackgroundImage = global::BiliRanking.Properties.Resources.fubang2;
+            this.buttonFubang2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonFubang2.Location = new System.Drawing.Point(218, 54);
+            this.buttonFubang2.Name = "buttonFubang2";
+            this.buttonFubang2.Size = new System.Drawing.Size(198, 111);
+            this.buttonFubang2.TabIndex = 11;
+            this.buttonFubang2.Text = "V2\r\nby kite";
+            this.buttonFubang2.UseVisualStyleBackColor = true;
+            this.buttonFubang2.Click += new System.EventHandler(this.buttonFubang2_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1147,7 +1163,7 @@ namespace BiliRanking
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.TabPage tabPageFubang;
         private System.Windows.Forms.TabPage tabPageZhubang;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonFubang1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.PictureBox pictureBoxDl;
         private System.Windows.Forms.Button buttonDlMP4;
@@ -1208,5 +1224,6 @@ namespace BiliRanking
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
+        private System.Windows.Forms.Button buttonFubang2;
     }
 }
