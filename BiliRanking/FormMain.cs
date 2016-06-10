@@ -117,8 +117,15 @@ namespace BiliRanking
         private void buttonGen_Click(object sender, EventArgs e)
         {
             Log.Info("开始批量获取");
+
+            if (cookie == null || cookie == "")
+            {
+                Log.Warn("Cookie为空，会导致会员独享视频无法获取！");
+            }
+
             string[] lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n");
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
+            string failedAVs = "";
             //dataGridViewRAW.DataSource = ll;
             //Gen(lines);
 
@@ -142,6 +149,10 @@ namespace BiliRanking
                     {
                         ll.Add(info);
                     }
+                    else
+                    {
+                        failedAVs += s + ";";
+                    }
                 }
             }
 
@@ -152,6 +163,11 @@ namespace BiliRanking
             }
             dataGridViewRAW.DataSource = ll;
             
+            if (failedAVs != "")
+            {
+                Log.Error("注意！下列视频数据未正确获取！\r\n" + failedAVs);
+            }
+
             Log.Info("批量获取完成");
         }
 
@@ -594,6 +610,99 @@ namespace BiliRanking
         {
             Updater up = new Updater();
             up.CheckUpdate(true);
+        }
+
+        private void buttonRAWReadExcel_Click(object sender, EventArgs e)
+        {
+            /*
+            if (openFileDialogExcel.ShowDialog() == DialogResult.OK)
+            {
+                FileStream stream;
+                try
+                {
+                    stream = File.Open(openFileDialogExcel.FileName, FileMode.Open, FileAccess.Read);
+                }
+                catch (Exception ee)
+                {
+                    Log.Error("读取时发生错误，文件没有关闭？" + ee.Message);
+                    return;
+                }
+
+                IExcelDataReader excelReader;
+
+                if (Path.GetExtension(openFileDialogExcel.FileName) == ".xls")
+                {
+                    Log.Debug("xls");
+                    excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+                }
+                else
+                {
+                    Log.Debug("xlsx");
+                    excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+                }
+
+                excelReader.IsFirstRowAsColumnNames = true;
+                DataSet result = excelReader.AsDataSet();
+            }
+            */
+            //string data = Clipboard.GetText();
+
+            MessageBox.Show("请一定将表格中的列按照内置表格中除去最后两列的方式排序（不能含有小写逗号\",\"，不可以含有小数），\r\n然后将数据区域（不含标题）复制到剪贴板，点击确定\r\n//抱歉现在的方法可能太不人性化了，以后天书会改进的", "锵锵锵");
+
+            try
+            {
+                Log.Info("开始读取剪贴板数据");
+                var fmt_csv = DataFormats.CommaSeparatedValue;
+                var dataobject = Clipboard.GetDataObject();
+                var stream = (Stream)dataobject.GetData(fmt_csv);
+                //var enc = System.Text.Encoding.GetEncoding(1252);
+                var enc = Encoding.Default;
+                var reader = new StreamReader(stream, enc);
+                string data_csv = reader.ReadToEnd();
+
+                string[] lines = Regex.Split(data_csv, "\r\n");
+                List<BiliInterfaceInfo> blist = new List<BiliInterfaceInfo>();
+                foreach (string line in lines)
+                {
+                    string[] items = Regex.Split(line, ",");
+                    if (items.Length < 16)
+                    {
+                        if (line != "\0")
+                            Log.Warn("该行数据不合法：" + line);
+                        continue;
+                    }
+                    BiliInterfaceInfo info = new BiliInterfaceInfo();
+                    info.Fpaiming = int.Parse(items[0]);
+                    info.AVNUM = items[1];
+                    info.title = items[2];
+                    info.play = uint.Parse(items[3]);
+                    info.video_review = uint.Parse(items[4]);
+                    info.favorites = uint.Parse(items[5]);
+                    info.coins = uint.Parse(items[6]);
+                    info.review = uint.Parse(items[7]);
+                    info.author = items[8];
+                    info.created_at = items[9];
+                    info.typename = items[10];
+                    info.Fplay = uint.Parse(items[11]);
+                    info.Ffavorites = uint.Parse(items[12]);
+                    info.Fcoins = uint.Parse(items[13]);
+                    info.Freview = uint.Parse(items[14]);
+                    info.Fdefen = uint.Parse(items[15]);
+                    blist.Add(info);
+                }
+
+                dataGridViewRAW.DataSource = blist;
+                textBoxAV.Text = "";
+                foreach (BiliInterfaceInfo i in blist)
+                {
+                    textBoxAV.Text += i.AVNUM + "\r\n";
+                }
+                Log.Info("读取与转换完成");
+            }
+            catch (Exception ee)
+            {
+                Log.Error("发生错误：" + ee.Message);
+            }
         }
     }
 }
