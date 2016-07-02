@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
-namespace BiliRanking
+namespace BiliRanking.Core
 {
     public class Fubang
     {
@@ -104,8 +104,10 @@ namespace BiliRanking
             {
                 image = Properties.Resources.fubang2;
                 g = Graphics.FromImage(image);
-                g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 g.SmoothingMode = SmoothingMode.HighQuality;
+                g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.InterpolationMode = InterpolationMode.HighQualityBilinear;
 
                 AddPic2(infos[i], 1);
                 if (i + 1 < infos.Count)
@@ -134,9 +136,10 @@ namespace BiliRanking
             //try
             //{
                 Image pic = Image.FromFile(picPath);
-                Image smallpic = resizeImage(pic, new Size(288, 180));
-
+                Image smallpic = resizeImage(pic, new Size(576, 360));
+            //288 180
                 Bitmap bmpFluffy = new Bitmap(smallpic);
+                //bmpFluffy = new Bitmap(288, 180);
                 Rectangle r = new Rectangle(Point.Empty, bmpFluffy.Size);
 
                 using (Bitmap bmpMask = new Bitmap(r.Width, r.Height))
@@ -144,26 +147,32 @@ namespace BiliRanking
                 using (GraphicsPath path = createRoundRect(
                     r.X, r.Y,
                     r.Width, r.Height,
-                    2))
+                    8))
                 {
                     g.FillRectangle(Brushes.Black, r);
-                    g.SmoothingMode = SmoothingMode.HighQuality;
-                    g.FillPath(Brushes.White, path);
+
+                g.InterpolationMode = InterpolationMode.HighQualityBilinear;
+                g.CompositingQuality = CompositingQuality.HighQuality;
+                g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                g.SmoothingMode = SmoothingMode.AntiAlias;
+
+                g.FillPath(Brushes.White, path);
+                
                     transferOneARGBChannelFromOneBitmapToAnother(
                         bmpMask,
                         bmpFluffy,
                         ChannelARGB.Blue,
                         ChannelARGB.Alpha);
                 }
-                // bmpFluffy is now powered up and ready to be used
+            // bmpFluffy is now powered up and ready to be used
 
 
 
-                //Image roundedpic = RoundCorners(smallpic, 10);
+            //Image roundedpic = RoundCorners(smallpic, 10);
 
-                //g.DrawImage(roundedpic, 36, y);
-                //g.DrawImageUnscaled(roundedpic, 36, y);
-                g.DrawImage(bmpFluffy, new Rectangle(x, y, 288, 180));
+            //g.DrawImage(roundedpic, 36, y);
+            //g.DrawImageUnscaled(roundedpic, 36, y);
+            g.DrawImage(bmpFluffy, new Rectangle(x, y, 288, 180));
             //g.DrawImage(pic, new Rectangle(250, nn - 15, 366, 218));
             //}
             //catch(Exception e)
@@ -172,7 +181,6 @@ namespace BiliRanking
             //Log.Error(info.AVNUM + " - 找不到封面文件，请在左侧窗格输入AV号尝试或手动获取！");
             //}
             //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             g.DrawString(info.title.Replace('【', '[').Replace('】',']'), new Font("Source Han Sans SC Light", 42, GraphicsUnit.Pixel), b, 340, y - 2);
             g.DrawString($"分数: {info.Fdefen}   UP: {info.author}", new Font("Source Han Sans SC Normal", 30, GraphicsUnit.Pixel), b, 340, y + 56);
             g.DrawString($"{info.avnum} 投稿时间: {info.created_at}", new Font("Source Han Sans SC Regular", 25, GraphicsUnit.Pixel), b, 340, y + 142);
@@ -245,8 +253,10 @@ namespace BiliRanking
 
             Bitmap b = new Bitmap(destWidth, destHeight);
             Graphics g = Graphics.FromImage((Image)b);
-            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.InterpolationMode = InterpolationMode.HighQualityBilinear; //如果使用Bicubic会导致有白色边缘，感谢kite指导
             g.SmoothingMode = SmoothingMode.HighQuality;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
             g.DrawImage(imgToResize, 0, 0, destWidth, destHeight);
             g.Dispose();
 
@@ -299,6 +309,7 @@ namespace BiliRanking
                 gp.AddRectangle(new Rectangle(x, y, width, height));
             else
             {
+                radius *= 2;
                 gp.AddLine(x + radius, y, x + width - radius, y);
                 gp.AddArc(x + width - radius, y, radius, radius, 270, 90);
                 gp.AddLine(x + width, y + radius, x + width, y + height - radius);

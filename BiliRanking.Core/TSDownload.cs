@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace BiliRanking
+namespace BiliRanking.Core
 {
     public class TSDownload
     {

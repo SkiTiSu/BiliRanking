@@ -10,10 +10,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace BiliRanking
+namespace BiliRanking.Core
 {
     public static class BiliInterface
     {
+        public static string cookie = "";
         const string appkey = "c1b107428d337928";
         //8e9fc618fbd41e28 不需要appsec
         const string dlappkey = "86385cdc024c0f6c";
@@ -83,7 +84,6 @@ namespace BiliRanking
             }
             else
             {
-                
                 if (info.pic != null)
                 {
                     string url = info.pic;
@@ -97,22 +97,6 @@ namespace BiliRanking
         public static string GetMP4Url(uint cid)
         {
             Log.Info("开始获取MP4地址 - CID" + cid);
-            /*
-            string h5url = "http://www.bilibili.com/m/html5?aid=" + avnum + "&page=" + page;
-            string html = GetHtml(h5url);
-            JavaScriptSerializer j = new JavaScriptSerializer();
-            BiliH5videoInfo info = new BiliH5videoInfo();
-            info = j.Deserialize<BiliH5videoInfo>(html);
-            if (info.src == "http://static.hdslb.com/error.mp4")
-            {
-                Log.Error("错误的AV号或页码！（有些老视频没有mp4格式的哦= =）");
-                return null;
-            }
-            else
-            {
-                return info.src;
-            }
-            */
 
             SortedDictionary<string, string> parampairs = new SortedDictionary<string, string>();
             parampairs.Add("cid", cid.ToString());
@@ -138,52 +122,27 @@ namespace BiliRanking
             return elements.ToArray()[0];
         }
 
-        public static BiliInterfaceInfo GetMP4info(string AVnum, int page)
+        public static string GetMP4UrlBackUp(uint aid, int page = 1)
         {
-            /*
-            BiliInterfaceInfo info = new BiliInterfaceInfo();
-             string avnum = GetAVdenum(AVnum);
-            Log.Info("开始获取MP4视频 - AV" + avnum);
-            string h5url = "http://www.bilibili.com/m/html5?aid=" + avnum + "&page=" + page;
-            try
+            Log.Info("开始使用备选方案获取MP4地址 - aid" + aid);
+            string h5url = "http://www.bilibili.com/m/html5?aid=" + aid + "&page=" + page;
+            string html = GetHtml(h5url);
+            JavaScriptSerializer j = new JavaScriptSerializer();
+            BiliH5videoInfo info = new BiliH5videoInfo();
+            info = j.Deserialize<BiliH5videoInfo>(html);
+            if (info.src == "http://static.hdslb.com/error.mp4")
             {
-                string html = GetHtml(h5url);
-                JavaScriptSerializer j = new JavaScriptSerializer();
-                BiliH5videoInfo infoh = new BiliH5videoInfo();
-                infoh = j.Deserialize<BiliH5videoInfo>(html);
-                if (infoh.src == "http://static.hdslb.com/error.mp4")
-                {
-                    Log.Error("错误的AV号或页码！（还是没转码出来？...）");
-                    return null;
-                }
-                else
-                {
-                    info.mp4url = infoh.src;
-                    info.AVNUM = "AV" + GetAVdenum(AVnum);
-                    info.cid = 233333;
-                    if (info.mp4url.IndexOf("letv") > 0)
-                    {
-                        info.title = "(乐视源）MP4不获取title";
-                    }
-                    else if (info.mp4url.IndexOf("acgvideo") > 0)
-                    {
-                        info.title = "(B站源）MP4不获取title";
-                    }
-                    else
-                    {
-                        info.title = "(未知源）MP4不获取title";
-                    }
-
-                    info.pic = infoh.img;
-                    return info;
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error("AV" + avnum + "的数据发生错误，请稍后重试！" + e.Message);
+                Log.Error("错误的AV号或页码！（有些老视频没有mp4格式的哦= =）");
                 return null;
             }
-            */
+            else
+            {
+                return info.src;
+            }
+        }
+
+        public static BiliInterfaceInfo GetMP4info(string AVnum, int page)
+        {
             string avnum = AVnum.ToUpper();
             if (avnum.Contains("AV"))
             {
@@ -236,7 +195,6 @@ namespace BiliRanking
                     //下载视频，无需算分
 
                     info.mp4url = GetMP4Url(info.cid);
-
                 }
             }
             catch (Exception e)
@@ -355,7 +313,7 @@ namespace BiliRanking
             string param = GetSign(parampairs);
 
             string html = GetHtml("http://api.bilibili.com/view?" + param);
- 
+
             JavaScriptSerializer j = new JavaScriptSerializer();
             BiliInterfaceInfo info = new BiliInterfaceInfo();
             try
@@ -418,9 +376,6 @@ namespace BiliRanking
 
             string html = GetHtml("http://interface.bilibili.com/playurl?" + param);
 
-
-
-
             //string url = $"http://interface.bilibili.tv/playurl?appkey=95acd7f6cc3392f3&cid=";
             //string html = GetHtml(url + cid);
             if (!html.Contains("<result>su"))
@@ -428,13 +383,13 @@ namespace BiliRanking
                 Log.Error("FLV地址获取失败！ - CID：" + cid);
                 return null;
             }
-            
+
             byte[] byteArray = Encoding.UTF8.GetBytes(html);
             MemoryStream stream = new MemoryStream(byteArray);
             XElement xe = XElement.Load(stream);
             var t = xe.Elements("url");
             IEnumerable<string> elements = from ele in xe.Descendants("url") //where ele.Name == "url"
-                                             select ele.Value;
+                                           select ele.Value;
             return elements.ToArray()[0];
         }
 
@@ -444,9 +399,8 @@ namespace BiliRanking
             try
             {
                 WebClient myWebClient = new WebClient();
-                myWebClient.Headers.Add("Cookie", FormMain.cookie);
+                myWebClient.Headers.Add("Cookie", cookie);
                 myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0(Windows NT 5.1) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 35.0.3319.102 Safari / 537.36");
-                
 
                 Random ran = new Random();
                 int ip4 = ran.Next(1, 255);
@@ -466,10 +420,10 @@ namespace BiliRanking
                     MemoryStream ms = new MemoryStream(myDataBuffer);
                     MemoryStream msTemp = new MemoryStream();
                     int count = 0;
-                    GZipStream gzip = new GZipStream(ms,CompressionMode.Decompress);
+                    GZipStream gzip = new GZipStream(ms, CompressionMode.Decompress);
                     byte[] buf = new byte[1000];
-                    while ((count = gzip.Read(buf, 0, buf.Length))> 0)
-                    { 
+                    while ((count = gzip.Read(buf, 0, buf.Length)) > 0)
+                    {
                         msTemp.Write(buf, 0, count);
                     }
                     myDataBuffer = msTemp.ToArray();
@@ -557,14 +511,13 @@ namespace BiliRanking
         public uint Fdefen { get; set; }
         public int Fpaiming { get; set; }
     }
-    
+
     public class BiliH5videoInfo
     {
         public string img;
         public string cid;
         public string src;
     }
-
 
     public class BiliIndexMainInfo
     {

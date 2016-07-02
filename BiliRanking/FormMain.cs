@@ -6,6 +6,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Runtime.Serialization.Formatters.Binary;
 using BiliRanking.Properties;
+using BiliRanking.Core;
 
 namespace BiliRanking
 {
@@ -45,6 +46,7 @@ namespace BiliRanking
         {
             cookie = textBoxCookie.Text;
             webBrowser1.Document.Cookie = textBoxCookie.Text;
+            BiliInterface.cookie = cookie;
             Log.Info("Cookie已被更改为：" + textBoxCookie.Text);
         }
 

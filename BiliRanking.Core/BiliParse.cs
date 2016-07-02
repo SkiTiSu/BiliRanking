@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace BiliRanking
+namespace BiliRanking.Core
 {
     public class BiliParse
     {

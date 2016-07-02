@@ -55,8 +55,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BiliInterface.cs" />
-    <Compile Include="BiliParse.cs" />
     <Compile Include="Controls\VerticalProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -75,7 +73,6 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Fubang.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,9 +81,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="TSDownload.cs" />
     <Compile Include="Updater.cs" />
-    <Compile Include="Zhubang.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -102,13 +97,19 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <None Include="fubang2.png" />
     <Content Include="logo.ico" />
     <Content Include="changelog.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BiliRanking.Core\BiliRanking.Core.csproj">
+      <Project>{3c876f63-7749-4224-a444-0e0b3ff43194}</Project>
+      <Name>BiliRanking.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.1.29.4\build\dotnet\Fody.targets" Condition="Exists('..\packages\Fody.1.29.4\build\dotnet\Fody.targets')" />

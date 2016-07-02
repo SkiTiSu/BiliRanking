@@ -818,7 +818,7 @@ namespace BiliRanking
             // 
             // buttonFubang2
             // 
-            this.buttonFubang2.BackgroundImage = global::BiliRanking.Properties.Resources.fubang2;
+            this.buttonFubang2.BackgroundImage = global::BiliRanking.Core.Properties.Resources.fubang2;
             this.buttonFubang2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonFubang2.Location = new System.Drawing.Point(218, 54);
             this.buttonFubang2.Name = "buttonFubang2";
@@ -856,7 +856,7 @@ namespace BiliRanking
             // 
             // buttonFubang1
             // 
-            this.buttonFubang1.BackgroundImage = global::BiliRanking.Properties.Resources.fubang;
+            this.buttonFubang1.BackgroundImage = global::BiliRanking.Core.Properties.Resources.fubang;
             this.buttonFubang1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonFubang1.Location = new System.Drawing.Point(14, 54);
             this.buttonFubang1.Name = "buttonFubang1";

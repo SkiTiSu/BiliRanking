@@ -5,7 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 
-namespace BiliRanking
+namespace BiliRanking.Core
 {
     public class Zhubang
     {
