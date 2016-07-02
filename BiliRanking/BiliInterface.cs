@@ -16,10 +16,12 @@ namespace BiliRanking
     {
         const string appkey = "c1b107428d337928";
         //8e9fc618fbd41e28 不需要appsec
+        const string dlappkey = "86385cdc024c0f6c";
         const string appsec = "ea85624dfcf12d7cc7b2b3a94fac1f2c";
 
         public static string GetSign(SortedDictionary<string, string> sparam)
         {
+            sparam.Add("platform", "android");
             sparam.Add("_device", "android");
             sparam.Add("_hwid", "ccbb856c97ccb8d2");
             sparam.Add("ts", ((long)((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds)).ToString());
@@ -114,9 +116,9 @@ namespace BiliRanking
 
             SortedDictionary<string, string> parampairs = new SortedDictionary<string, string>();
             parampairs.Add("cid", cid.ToString());
-            parampairs.Add("quality", "4");
+            parampairs.Add("quality", "3");
             parampairs.Add("type", "mp4");
-            parampairs.Add("appkey", "8e9fc618fbd41e28");
+            parampairs.Add("appkey", dlappkey);
             string param = GetSign(parampairs);
 
             string html = GetHtml("http://interface.bilibili.com/playurl?" + param);
@@ -410,7 +412,8 @@ namespace BiliRanking
             parampairs.Add("type", null);
             //parampairs.Add("player", "1");
             //parampairs.Add("ts", ((long)((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds)).ToString());
-            parampairs.Add("appkey", "8e9fc618fbd41e28");
+            parampairs.Add("appkey", dlappkey);
+            parampairs.Add("quality", "3");
             string param = GetSign(parampairs);
 
             string html = GetHtml("http://interface.bilibili.com/playurl?" + param);

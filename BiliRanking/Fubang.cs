@@ -117,7 +117,7 @@ namespace BiliRanking
                     AddPic2(infos[i + 2], 3);
                 }
 
-                string url = Environment.CurrentDirectory + @"\pic\Rank" + infos[i].Fpaiming + "-" + (infos[i].Fpaiming + 2) + ".jpg";
+                string url = Environment.CurrentDirectory + @"\pic\Rank" + infos[i].Fpaiming + "-" + (infos[i].Fpaiming + 2) + ".png";
                 Log.Info("保存图片 " + url);
                 image.Save(url);
             }
