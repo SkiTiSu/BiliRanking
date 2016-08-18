@@ -7,6 +7,8 @@ using System.Text.RegularExpressions;
 using System.Runtime.Serialization.Formatters.Binary;
 using BiliRanking.Properties;
 using BiliRanking.Core;
+using Newtonsoft.Json;
+using System.IO.Compression;
 
 namespace BiliRanking
 {
@@ -413,16 +415,30 @@ namespace BiliRanking
 
         private void buttonRawSave_Click(object sender, EventArgs e)
         {
-            string fileName = DateTime.Now.ToString("yyMMdd-HHmmss") + ".sdyg";
+            string fileName = DateTime.Now.ToString("yyyyMMdd-HHmmss") + ".sdygx";
             saveFileDialogGuichu.FileName = fileName;
             if (saveFileDialogGuichu.ShowDialog() == DialogResult.OK)
             {
                 fileName = saveFileDialogGuichu.FileName;
                 try
                 {
-                    FileStream fs = new FileStream(fileName, FileMode.Create);
-                    BinaryFormatter bf = new BinaryFormatter();
-                    bf.Serialize(fs, dataGridViewRAW.DataSource);
+                    BiliShell bs = new BiliShell
+                    {
+                        ver = 1,
+                        infos = (List<BiliInterfaceInfo>)dataGridViewRAW.DataSource
+                    };
+
+                    string str = JsonConvert.SerializeObject(bs);
+                    byte[] bytes = Encoding.GetEncoding("UTF-8").GetBytes(str);
+
+
+                    using (FileStream fs = new FileStream(fileName, FileMode.Create))
+                    {
+                        using (GZipStream Compress = new GZipStream(fs, CompressionMode.Compress))
+                        {
+                            Compress.Write(bytes, 0, bytes.Length);
+                        }
+                    }
 
                     Log.Info("成功导出文件 -> " + fileName);
                 }
@@ -437,10 +453,21 @@ namespace BiliRanking
         {
             if (openFileDialogGuichu.ShowDialog() == DialogResult.OK)
             {
-                FileStream fs = new FileStream(openFileDialogGuichu.FileName, FileMode.Open);
-                BinaryFormatter bf = new BinaryFormatter();
-                List<BiliInterfaceInfo> bi = bf.Deserialize(fs) as List<BiliInterfaceInfo>;
+                MemoryStream tempMs = new MemoryStream();
+                using (FileStream fs = new FileStream(openFileDialogGuichu.FileName, FileMode.Open))
+                {
+                    using (GZipStream Compress = new GZipStream(fs, CompressionMode.Decompress))
+                    {
+                        Compress.CopyTo(tempMs);
+                    }
+                }
+
+                byte[] bytes = tempMs.ToArray();
+                string str = Encoding.GetEncoding("UTF-8").GetString(bytes);
+                BiliShell bs = JsonConvert.DeserializeObject<BiliShell>(str);
+                List<BiliInterfaceInfo> bi = bs.infos;
                 textBoxAV.Text = "";
+                //TODO: 判断是否为空文件
                 foreach (BiliInterfaceInfo i in bi)
                 {
                     textBoxAV.Text += i.AVNUM + "\r\n";
@@ -704,6 +731,27 @@ namespace BiliRanking
             catch (Exception ee)
             {
                 Log.Error("发生错误：" + ee.Message);
+            }
+        }
+
+        private void buttonQuickCopy_Click(object sender, EventArgs e)
+        {
+            FormQuickCopy fq = new FormQuickCopy((List<BiliInterfaceInfo>)dataGridViewRAW.DataSource);
+            fq.Show();
+        }
+
+        public static byte[] Compress(byte[] bytes)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                GZipStream Compress = new GZipStream(ms, CompressionMode.Compress);
+
+                Compress.Write(bytes, 0, bytes.Length);
+
+                Compress.Close();
+
+                return ms.ToArray();
+
             }
         }
     }

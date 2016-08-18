@@ -30,6 +30,7 @@ namespace BiliRanking
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCookie = new System.Windows.Forms.TextBox();
             this.buttonCookieHelp = new System.Windows.Forms.Button();
@@ -63,6 +64,7 @@ namespace BiliRanking
             this.comboBoxListSort = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPageRAW = new System.Windows.Forms.TabPage();
+            this.buttonQuickCopy = new System.Windows.Forms.Button();
             this.buttonRAWReadExcel = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
             this.textBoxRawProgramTo = new System.Windows.Forms.TextBox();
@@ -105,6 +107,7 @@ namespace BiliRanking
             this.pictureBoxDl = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonDL = new System.Windows.Forms.Button();
+            this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.tabPageZhubang = new System.Windows.Forms.TabPage();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxZhubangEnd = new System.Windows.Forms.TextBox();
@@ -127,7 +130,6 @@ namespace BiliRanking
             this.复制标题和信息行ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.复制数据含中文ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
-            this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.tabPageList.SuspendLayout();
@@ -277,7 +279,7 @@ namespace BiliRanking
             this.tabPageList.Controls.Add(this.label4);
             this.tabPageList.Location = new System.Drawing.Point(4, 22);
             this.tabPageList.Name = "tabPageList";
-            this.tabPageList.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageList.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPageList.Size = new System.Drawing.Size(661, 417);
             this.tabPageList.TabIndex = 0;
             this.tabPageList.Text = "1.视频排行统计";
@@ -491,6 +493,7 @@ namespace BiliRanking
             // 
             // tabPageRAW
             // 
+            this.tabPageRAW.Controls.Add(this.buttonQuickCopy);
             this.tabPageRAW.Controls.Add(this.buttonRAWReadExcel);
             this.tabPageRAW.Controls.Add(this.label18);
             this.tabPageRAW.Controls.Add(this.textBoxRawProgramTo);
@@ -505,17 +508,28 @@ namespace BiliRanking
             this.tabPageRAW.Controls.Add(this.textBoxOut);
             this.tabPageRAW.Location = new System.Drawing.Point(4, 22);
             this.tabPageRAW.Name = "tabPageRAW";
-            this.tabPageRAW.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageRAW.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
             this.tabPageRAW.Size = new System.Drawing.Size(661, 417);
             this.tabPageRAW.TabIndex = 1;
             this.tabPageRAW.Text = "2.生成数据/下载封面";
             this.tabPageRAW.UseVisualStyleBackColor = true;
             // 
+            // buttonQuickCopy
+            // 
+            this.buttonQuickCopy.Location = new System.Drawing.Point(328, 9);
+            this.buttonQuickCopy.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonQuickCopy.Name = "buttonQuickCopy";
+            this.buttonQuickCopy.Size = new System.Drawing.Size(64, 23);
+            this.buttonQuickCopy.TabIndex = 18;
+            this.buttonQuickCopy.Text = "快捷复制";
+            this.buttonQuickCopy.UseVisualStyleBackColor = true;
+            this.buttonQuickCopy.Click += new System.EventHandler(this.buttonQuickCopy_Click);
+            // 
             // buttonRAWReadExcel
             // 
             this.buttonRAWReadExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRAWReadExcel.Location = new System.Drawing.Point(397, 9);
-            this.buttonRAWReadExcel.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonRAWReadExcel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonRAWReadExcel.Name = "buttonRAWReadExcel";
             this.buttonRAWReadExcel.Size = new System.Drawing.Size(97, 23);
             this.buttonRAWReadExcel.TabIndex = 17;
@@ -818,7 +832,7 @@ namespace BiliRanking
             // 
             // buttonFubang2
             // 
-            this.buttonFubang2.BackgroundImage = global::BiliRanking.Core.Properties.Resources.fubang2;
+            this.buttonFubang2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonFubang2.BackgroundImage")));
             this.buttonFubang2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonFubang2.Location = new System.Drawing.Point(218, 54);
             this.buttonFubang2.Name = "buttonFubang2";
@@ -856,7 +870,7 @@ namespace BiliRanking
             // 
             // buttonFubang1
             // 
-            this.buttonFubang1.BackgroundImage = global::BiliRanking.Core.Properties.Resources.fubang;
+            this.buttonFubang1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonFubang1.BackgroundImage")));
             this.buttonFubang1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonFubang1.Location = new System.Drawing.Point(14, 54);
             this.buttonFubang1.Name = "buttonFubang1";
@@ -885,7 +899,7 @@ namespace BiliRanking
             // 
             this.buttonFlv2Mp4.Enabled = false;
             this.buttonFlv2Mp4.Location = new System.Drawing.Point(3, 143);
-            this.buttonFlv2Mp4.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonFlv2Mp4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonFlv2Mp4.Name = "buttonFlv2Mp4";
             this.buttonFlv2Mp4.Size = new System.Drawing.Size(64, 145);
             this.buttonFlv2Mp4.TabIndex = 16;
@@ -931,6 +945,13 @@ namespace BiliRanking
             this.buttonDL.Text = "开始下载FLV";
             this.buttonDL.UseVisualStyleBackColor = true;
             this.buttonDL.Click += new System.EventHandler(this.buttonDL_Click);
+            // 
+            // verticalProgressBar1
+            // 
+            this.verticalProgressBar1.Location = new System.Drawing.Point(286, 3);
+            this.verticalProgressBar1.Name = "verticalProgressBar1";
+            this.verticalProgressBar1.Size = new System.Drawing.Size(348, 411);
+            this.verticalProgressBar1.TabIndex = 15;
             // 
             // tabPageZhubang
             // 
@@ -985,9 +1006,9 @@ namespace BiliRanking
             // 
             this.tabPageAdvanced.Controls.Add(this.buttonUpdateBeta);
             this.tabPageAdvanced.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAdvanced.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageAdvanced.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
-            this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPageAdvanced.Size = new System.Drawing.Size(661, 417);
             this.tabPageAdvanced.TabIndex = 6;
             this.tabPageAdvanced.Text = "高级设置";
@@ -996,7 +1017,7 @@ namespace BiliRanking
             // buttonUpdateBeta
             // 
             this.buttonUpdateBeta.Location = new System.Drawing.Point(15, 16);
-            this.buttonUpdateBeta.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonUpdateBeta.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonUpdateBeta.Name = "buttonUpdateBeta";
             this.buttonUpdateBeta.Size = new System.Drawing.Size(129, 58);
             this.buttonUpdateBeta.TabIndex = 21;
@@ -1052,11 +1073,11 @@ namespace BiliRanking
             // 
             // saveFileDialogGuichu
             // 
-            this.saveFileDialogGuichu.Filter = "圣地亚哥数据库|*.sdyg";
+            this.saveFileDialogGuichu.Filter = "圣地亚哥数据库X|*.sdygx";
             // 
             // openFileDialogGuichu
             // 
-            this.openFileDialogGuichu.Filter = "圣地亚哥数据库|*.sdyg";
+            this.openFileDialogGuichu.Filter = "圣地亚哥数据库X|*.sdygx";
             // 
             // contextMenuStripRAW
             // 
@@ -1108,13 +1129,6 @@ namespace BiliRanking
             // openFileDialogExcel
             // 
             this.openFileDialogExcel.Filter = "Excel文件|*.xls;*.xlsx";
-            // 
-            // verticalProgressBar1
-            // 
-            this.verticalProgressBar1.Location = new System.Drawing.Point(286, 3);
-            this.verticalProgressBar1.Name = "verticalProgressBar1";
-            this.verticalProgressBar1.Size = new System.Drawing.Size(348, 411);
-            this.verticalProgressBar1.TabIndex = 15;
             // 
             // FormMain
             // 
@@ -1260,5 +1274,6 @@ namespace BiliRanking
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
+        private System.Windows.Forms.Button buttonQuickCopy;
     }
 }

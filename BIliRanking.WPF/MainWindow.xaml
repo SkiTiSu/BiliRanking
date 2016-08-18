@@ -28,35 +28,11 @@
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Looks Quite Nice</TextBlock>
             </TabItem>
         </dragablz:TabablzControl>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="61,277,0,0" VerticalAlignment="Top" Width="75"/>
-        <CheckBox x:Name="checkBox" Content="CheckBox" HorizontalAlignment="Left" Margin="73,215,0,0" VerticalAlignment="Top"/>
         <DatePicker HorizontalAlignment="Left" Margin="83,118,0,0" VerticalAlignment="Top" Height="24" Width="128"/>
         <Label x:Name="label" Content="从" HorizontalAlignment="Left" Margin="61,118,0,0" VerticalAlignment="Top"/>
         <DatePicker HorizontalAlignment="Left" Margin="238,118,0,0" VerticalAlignment="Top" Height="24" Width="128"/>
         <Label x:Name="label_Copy" Content="至" HorizontalAlignment="Left" Margin="214,118,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="76" Margin="19,170,0,0" VerticalAlignment="Top" Width="442">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="123"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="325"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="123"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="562"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="345"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}"/>
-                <DataGridTextColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="106" Margin="379,140,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" VerticalScrollBarVisibility="Visible"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="34,156,0,0" VerticalAlignment="Top" Width="120"/>
-        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="92" Margin="211,170,0,0" VerticalAlignment="Top" Width="104">
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-            <TabItem Header="TabItem">
-                <Grid Background="#FFE5E5E5"/>
-            </TabItem>
-        </TabControl>
+        <WebBrowser HorizontalAlignment="Left" Height="263" Margin="0,48,0,0" VerticalAlignment="Top" Width="518" Source="http://account.bilibili.com/login"/>
 
     </Grid>
 </Window>

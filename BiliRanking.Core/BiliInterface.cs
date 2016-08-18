@@ -532,4 +532,13 @@ namespace BiliRanking.Core
         public int pages;
         public int resaults;
     }
+
+    /// <summary>
+    /// sdygx中保存的类，BiliInterface的壳子
+    /// </summary>
+    public class BiliShell
+    {
+        public int ver;
+        public List<BiliInterfaceInfo> infos;
+    }
 }
