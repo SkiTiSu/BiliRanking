@@ -9,6 +9,7 @@ using BiliRanking.Properties;
 using BiliRanking.Core;
 using Newtonsoft.Json;
 using System.IO.Compression;
+using Newtonsoft.Json.Linq;
 
 namespace BiliRanking
 {
@@ -556,6 +557,7 @@ namespace BiliRanking
 
         private void buttonListTagGen_Click(object sender, EventArgs e)
         {
+            Log.Info("开始根据TAG获取数据");
             string[] tags = Regex.Split(textBoxTags.Text, ";|；");
             int i = 0;
             string html = BiliInterface.GetHtml("http://www.bilibili.com/index/tag/" + "30" + "/60d/hot/1/" + tags[i] + ".json");
@@ -565,12 +567,86 @@ namespace BiliRanking
                 return;
             }
 
+            List<BiliInterfaceInfo> infos = new List<BiliInterfaceInfo>();
+
             System.Web.Script.Serialization.JavaScriptSerializer j = new System.Web.Script.Serialization.JavaScriptSerializer();
             BiliIndexInfo info = new BiliIndexInfo();
             info = j.Deserialize<BiliIndexInfo>(html);
 
-            dataGridViewRAW.DataSource = info.list;
+            Log.Info($"一共找到了{info.pages}页的数据");
+
+            foreach (var l in info.list)
+            {
+                infos.Add(l);
+            }
+
+
+            for (int k = 2; k <= info.pages; k++)
+            {
+                html = BiliInterface.GetHtml("http://www.bilibili.com/index/tag/" + "30" + "/60d/hot/" + k.ToString() + "/" + tags[i] + ".json");
+                info = new BiliIndexInfo();
+                try
+                {
+                    info = j.Deserialize<BiliIndexInfo>(html);
+                    foreach (var l in info.list)
+                    {
+                        infos.Add(l);
+                    }
+                }
+                catch (Exception)
+                {
+                    html = html.Replace("\"--\"", "\"0\"");
+                    info = j.Deserialize<BiliIndexInfo>(html);
+                    foreach (var l in info.list)
+                    {
+                        infos.Add(l);
+                    }
+
+                    Log.Error($"在第{k.ToString()}页遇到不可读的“--”数据，B站真是不可描述= =，天书已经把不可读数据变成了0了，最好将所有数据通过API获取一遍");
+                }
+            }
+
+            /* 算分
+            foreach (var iinfo in infos)
+            {
+                if (iinfo.play <= 500)
+                {
+                    iinfo.Fdefen = iinfo.play + 5 * iinfo.review + 20 * iinfo.coins + 15 * iinfo.favorites + iinfo.video_review;
+                }
+                else if (iinfo.play <= 800)
+                {
+                    iinfo.Fdefen = iinfo.play + 5 * iinfo.review + 18 * iinfo.coins + 13 * iinfo.favorites;
+                }
+                else
+                {
+                    iinfo.Fdefen = 800 + 5 * iinfo.review + 18 * iinfo.coins + 13 * iinfo.favorites;
+                }
+
+            }
+            
+            infos.Sort(sortt);
+            for (int ii = 1; ii <= infos.Count; ii++)
+            {
+                infos[ii - 1].Fpaiming = ii;
+            }
+            */
+
+            textBoxOut.Text = "AV号,标题,播放数,弹幕数,收藏数,硬币数,评论数,up,时间,分区,总分\r\n";
+            textBoxAV.Text = "";
+            foreach (var iinfo in infos)
+            {
+                textBoxAV.Text += iinfo.avnum + "\r\n";
+                textBoxOut.Text += GenHang(new string[] { iinfo.avnum, iinfo.title, iinfo.play.ToString(), iinfo.video_review.ToString(), iinfo.favorites.ToString(), iinfo.coins.ToString(),
+                            iinfo.review.ToString(), iinfo.author, iinfo.created_at, iinfo.typename,
+                            iinfo.Fdefen.ToString() });
+                textBoxOut.Text += "\"\r\n";
+                Application.DoEvents();
+            }
+
+            dataGridViewRAW.DataSource = infos;
             tabControlMain.SelectedIndex = 2;
+
+            Log.Info("根据TAG获取数据完成，目前的数据是TAG接口返回的，最好重新通过API获取一遍数据");
         }
 
         private void 按视频模板复制数据ToolStripMenuItem_Click(object sender, EventArgs e)

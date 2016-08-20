@@ -23,7 +23,7 @@ namespace BiliRanking
         {
             binfos = infos;
             InitializeComponent();
-            numericUpDownFpaiming.Value = 1;
+            reverseUpDownFpaiming.Value = 1;
         }
 
         public string DoReplace(string before, BiliInterfaceInfo info)
@@ -64,20 +64,20 @@ namespace BiliRanking
 
         public void DoFresh()
         {
-            string copytext = DoReplace(comboBox1.Text ,binfos[(int)numericUpDownFpaiming.Value - 1]);
-            labelResult.Text = copytext;
+            string copytext = DoReplace(comboBox1.Text ,binfos[(int)reverseUpDownFpaiming.Value - 1]);
+            textBoxResult.Text = copytext;
             Clipboard.SetText(copytext);
         }
 
-        private void numericUpDownFpaiming_ValueChanged(object sender, EventArgs e)
+        private void reverseUpDownFpaiming_ValueChanged(object sender, EventArgs e)
         {
-            labelNow.Text = binfos[(int)numericUpDownFpaiming.Value - 1].title;
+            labelNow.Text = binfos[(int)reverseUpDownFpaiming.Value - 1].title;
             DoFresh();
         }
 
         private void buttonCopy_Click(object sender, EventArgs e)
         {
-            string copytext = DoReplace(comboBox1.Text, binfos[(int)numericUpDownFpaiming.Value - 1]);
+            string copytext = DoReplace(comboBox1.Text, binfos[(int)reverseUpDownFpaiming.Value - 1]);
             Clipboard.SetText(copytext);
         }
 
@@ -88,8 +88,18 @@ namespace BiliRanking
 
         private void FormQuickCopy_Load(object sender, EventArgs e)
         {
-            labelNow.Text = binfos[(int)numericUpDownFpaiming.Value - 1].title;
+            labelNow.Text = binfos[(int)reverseUpDownFpaiming.Value - 1].title;
             DoFresh();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = ((comboBox1.SelectedIndex - 1) != -1) ? comboBox1.SelectedIndex - 1 : 0;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            comboBox1.SelectedIndex = ((comboBox1.SelectedIndex) != (comboBox1.Items.Count - 1)) ? comboBox1.SelectedIndex + 1 : comboBox1.Items.Count - 1;
         }
     }
 }

@@ -55,6 +55,12 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ReverseUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ReverseUpDown.Designer.cs">
+      <DependentUpon>ReverseUpDown.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\VerticalProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
