@@ -37,7 +37,7 @@ namespace BiliRanking
             this.Icon = Resources.logo;
             Random ran = new Random();
             int RandKey = ran.Next(0, wenhouyu.Length - 1);
-            this.Text = $"BiliRanking V{Updater.Version} 来自中二的四季天书 - {wenhouyu[RandKey]}";
+            this.Text = $"BiliRanking U兽调教赛2016专版 基于V1.1.9 来自中二的四季天书 - {wenhouyu[RandKey]}";
             cookie = textBoxCookie.Text;
             dataGridViewRAW.AutoGenerateColumns = false;
             comboBoxListNum.SelectedIndex = 0;
@@ -565,11 +565,67 @@ namespace BiliRanking
                 return;
             }
 
+            List<BiliInterfaceInfo> infos = new List<BiliInterfaceInfo>();
+
             System.Web.Script.Serialization.JavaScriptSerializer j = new System.Web.Script.Serialization.JavaScriptSerializer();
             BiliIndexInfo info = new BiliIndexInfo();
             info = j.Deserialize<BiliIndexInfo>(html);
 
-            dataGridViewRAW.DataSource = info.list;
+            foreach (var l in info.list)
+            {
+                infos.Add(l);
+            }
+            
+
+            for (int k = 2; k <= info.pages; k++)
+            {
+                html = BiliInterface.GetHtml("http://www.bilibili.com/index/tag/" + "30" + "/60d/hot/" + k.ToString() + "/" + tags[i] + ".json");
+                info = new BiliIndexInfo();
+                info = j.Deserialize<BiliIndexInfo>(html);
+
+                foreach (var l in info.list)
+                {
+                    infos.Add(l);
+                }
+            }
+
+            foreach (var iinfo in infos)
+            {
+                if (iinfo.play <= 500)
+                {
+                    iinfo.Fdefen = iinfo.play + 5 * iinfo.review + 20 * iinfo.coins + 15 * iinfo.favorites + iinfo.video_review;
+                }
+                else if (iinfo.play <=800)
+                {
+                    iinfo.Fdefen = iinfo.play + 5 * iinfo.review + 18 * iinfo.coins + 13 * iinfo.favorites;
+                }
+                else
+                {
+                    iinfo.Fdefen = 800 + 5 * iinfo.review + 18 * iinfo.coins + 13 * iinfo.favorites;
+                }
+                
+            }
+
+            infos.Sort(sortt);
+            for (int ii = 1; ii <= infos.Count; ii++)
+            {
+                infos[ii - 1].Fpaiming = ii;
+            }
+            ///
+            textBoxOut.Text = "AV号,标题,播放数,弹幕数,收藏数,硬币数,评论数,up,时间,分区,总分\r\n";
+            foreach (var iinfo in infos)
+            {
+                        textBoxOut.Text += GenHang(new string[] { iinfo.avnum, iinfo.title, iinfo.play.ToString(), iinfo.video_review.ToString(), iinfo.favorites.ToString(), iinfo.coins.ToString(),
+                            iinfo.review.ToString(), iinfo.author, iinfo.created_at, iinfo.typename,
+                            iinfo.Fdefen.ToString() });
+                        textBoxOut.Text += "\"\r\n";
+                        Application.DoEvents();
+            }
+            ///
+
+
+
+            dataGridViewRAW.DataSource = infos;
             tabControlMain.SelectedIndex = 2;
         }
 
