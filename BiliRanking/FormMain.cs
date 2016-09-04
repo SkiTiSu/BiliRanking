@@ -10,6 +10,7 @@ using BiliRanking.Core;
 using Newtonsoft.Json;
 using System.IO.Compression;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace BiliRanking
 {
@@ -829,6 +830,43 @@ namespace BiliRanking
                 return ms.ToArray();
 
             }
+        }
+
+        private void buttonDlMP4JJ_Click(object sender, EventArgs e)
+        {
+            string[] lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n");
+
+            timer1.Enabled = true;
+            tsd.Progressbar = verticalProgressBar1;
+
+            Log.Info("获取所有视频MP4地址");
+
+            foreach (string s in lines)
+            {
+                if (s != "")
+                {
+                    BiliInterfaceInfo info = BiliInterface.GetMP4info(s, 1, true);
+
+                    if (info != null)
+                    {
+                        listb.Add(info);
+                    }
+                }
+            }
+
+            Log.Info("所有视频MP4地址获取完成");
+            Log.Info("开始批量下载");
+
+            DlNext();
+        }
+
+        private void 进入唧唧下载MP4ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //http://www.bilibilijj.com/Files/DownLoad/9626305.mp4
+            BiliInterfaceInfo curr = ((List<BiliInterfaceInfo>)dataGridViewRAW.DataSource)[CurrentRowIndex];
+            Process.Start($"http://www.bilibilijj.com/Files/DownLoad/{curr.cid}.mp4");
+            string html = BiliInterface.GetHtml($"http://www.bilibilijj.com/Files/DownLoad/{curr.cid}.mp4");
+            //
         }
     }
 }

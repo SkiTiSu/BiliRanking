@@ -17,27 +17,42 @@ namespace BiliRanking.Core
         public static string cookie = "";
         const string appkey = "c1b107428d337928";
         //8e9fc618fbd41e28 不需要appsec
-        const string dlappkey = "86385cdc024c0f6c";
+        const string dlappkey = "f3bb208b3d081dc8";
+        const string dlappsec = "1c15888dc316e05a15fdd0a02ed6584f";
+        //86385cdc024c0f6c
+        /* 已经尝试的无效的appkey与appsec：
+         * f3bb208b3d081dc8
+         * c1b107428d337928 ea85624dfcf12d7cc7b2b3a94fac1f2c
+         * 
+         * 
+         */
         const string appsec = "ea85624dfcf12d7cc7b2b3a94fac1f2c";
 
         public static string GetSign(SortedDictionary<string, string> sparam)
         {
+            //
+            sparam.Add("_appver", "3040000");
+            sparam.Add("_tid", "0");
+            sparam.Add("_p", "1");
+            sparam.Add("_down", "0");
+            //
             sparam.Add("platform", "android");
             sparam.Add("_device", "android");
             sparam.Add("_hwid", "ccbb856c97ccb8d2");
             sparam.Add("ts", ((long)((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds)).ToString());
             if (!sparam.ContainsKey("appkey")) sparam.Add("appkey", appkey);
             if (!sparam.ContainsKey("type")) sparam.Add("type", "json");
+            if (!sparam.ContainsKey("appsec")) sparam.Add("appsec", appsec);
             string final_param = "";
             foreach (var aparam in sparam)
             {
-                if (aparam.Value == null) continue;
+                if (aparam.Value == null || aparam.Key == "appsec") continue;
                 if (final_param != "") final_param += "&";
                 final_param += aparam.Key + "=" + aparam.Value;
             }
             using (var md5 = MD5.Create())
             {
-                string hashed = BitConverter.ToString(md5.ComputeHash(Encoding.ASCII.GetBytes(final_param + appsec))).Replace("-", "").ToLower();
+                string hashed = BitConverter.ToString(md5.ComputeHash(Encoding.ASCII.GetBytes(final_param + sparam["appsec"]))).Replace("-", "").ToLower();
                 final_param += "&sign=" + hashed;
             }
             return final_param;
@@ -141,7 +156,7 @@ namespace BiliRanking.Core
             }
         }
 
-        public static BiliInterfaceInfo GetMP4info(string AVnum, int page)
+        public static BiliInterfaceInfo GetMP4info(string AVnum, int page, bool isJJ = false)
         {
             string avnum = AVnum.ToUpper();
             if (avnum.Contains("AV"))
@@ -194,7 +209,8 @@ namespace BiliRanking.Core
 
                     //下载视频，无需算分
 
-                    info.mp4url = GetMP4Url(info.cid);
+                    //info.mp4url = GetMP4Url(info.cid);
+                    info.mp4url = GetMP4UrlBackUp(UInt32.Parse(avnum));
                 }
             }
             catch (Exception e)
@@ -351,7 +367,8 @@ namespace BiliRanking.Core
 
                     //下载视频，无需算分
 
-                    info.flvurl = GetFlvUrl(info.cid);
+                    //info.flvurl = GetFlvUrl(info.cid);
+                    info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)),info.cid);
 
                 }
             }
@@ -363,18 +380,38 @@ namespace BiliRanking.Core
             return info;
         }
 
-        public static string GetFlvUrl(uint cid)
+        public static string GetFlvUrl(uint aid, uint cid)
         {
             SortedDictionary<string, string> parampairs = new SortedDictionary<string, string>();
+            //parampairs.Add("aid", aid.ToString());
+            //parampairs.Add("cid", cid.ToString());
+            //-parampairs.Add("type", null);
+            //parampairs.Add("otype", "json");
+            //parampairs.Add("type", "mp4");
+            //-parampairs.Add("player", "1");
+            //-parampairs.Add("ts", ((long)((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds)).ToString());
+            //parampairs.Add("appkey", null);
+            parampairs.Add("appsec", dlappsec);
             parampairs.Add("cid", cid.ToString());
-            parampairs.Add("type", null);
-            //parampairs.Add("player", "1");
-            //parampairs.Add("ts", ((long)((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds)).ToString());
-            parampairs.Add("appkey", dlappkey);
-            parampairs.Add("quality", "3");
-            string param = GetSign(parampairs);
+            parampairs.Add("from", "miniplay");
+            parampairs.Add("player", "1");
+            //parampairs.Add("quality", "3");
+            //string param = GetSign(parampairs);
 
-            string html = GetHtml("http://interface.bilibili.com/playurl?" + param);
+            string final_param = "";
+            foreach (var aparam in parampairs)
+            {
+                if (aparam.Value == null || aparam.Key == "appsec") continue;
+                if (final_param != "") final_param += "&";
+                final_param += aparam.Key + "=" + aparam.Value;
+            }
+            using (var md5 = MD5.Create())
+            {
+                string hashed = BitConverter.ToString(md5.ComputeHash(Encoding.ASCII.GetBytes(final_param + parampairs["appsec"]))).Replace("-", "").ToLower();
+                final_param += "&sign=" + hashed;
+            }
+
+            string html = GetHtml("http://interface.bilibili.com/playurl?" + final_param);
 
             //string url = $"http://interface.bilibili.tv/playurl?appkey=95acd7f6cc3392f3&cid=";
             //string html = GetHtml(url + cid);
@@ -401,7 +438,7 @@ namespace BiliRanking.Core
                 WebClient myWebClient = new WebClient();
                 myWebClient.Headers.Add("Cookie", cookie);
                 myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0(Windows NT 5.1) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 35.0.3319.102 Safari / 537.36");
-
+                //myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0 BiliDroid/3.3.0 (bbcallen@gmail.com)");
                 Random ran = new Random();
                 int ip4 = ran.Next(1, 255);
                 int select = ran.Next(1, 2);
