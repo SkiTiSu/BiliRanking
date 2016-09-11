@@ -44,7 +44,19 @@ namespace BiliRanking.Core
         /// <summary>
         /// 保存的文件名（可包含绝对路径）
         /// </summary>
-        public string FileName { get; set; }
+        public string FileName
+        {
+            get
+            {
+                return fileName;
+            }
+            set
+            {
+                //fileName = removeInvChrInPath(value); // 如果传入目录会把目录一起误伤
+                fileName = value;
+            }
+        }
+        private string fileName;
         /// <summary>
         /// （可选）进度条
         /// </summary>
@@ -279,6 +291,34 @@ namespace BiliRanking.Core
             }
 
             return t;
+        }
+
+        /// <summary>
+        /// 删除路径和文件名中的非法字符
+        /// http://www.crifan.com/files/doc/docbook/crifanlib_csharp/release/webhelp/removeinvchrinpath.html
+        /// </summary>
+        /// <param name="origFileOrPathStr"></param>
+        /// <returns></returns>
+        public static string removeInvChrInPath(string origFileOrPathStr)
+        {
+            string validFileOrPathStr = origFileOrPathStr;
+
+            //filter out invalid title and artist char
+            //char[] invalidChars = { '\\', '/', ':', '*', '?', '<', '>', '|', '\b' };
+            char[] invalidChars = Path.GetInvalidPathChars();
+            char[] invalidCharsInName = Path.GetInvalidFileNameChars();
+
+            foreach (char chr in invalidChars)
+            {
+                validFileOrPathStr = validFileOrPathStr.Replace(chr.ToString(), "");
+            }
+
+            foreach (char chr in invalidCharsInName)
+            {
+                validFileOrPathStr = validFileOrPathStr.Replace(chr.ToString(), "");
+            }
+
+            return validFileOrPathStr;
         }
     }
 }

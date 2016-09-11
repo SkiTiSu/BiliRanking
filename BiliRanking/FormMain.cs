@@ -320,9 +320,9 @@ namespace BiliRanking
             if (listb.Count != 0)
             {
                 if (listb[0].mp4url != null)
-                    tsd = new TSDownload(listb[0].mp4url, Environment.CurrentDirectory + $@"\video\{listb[0].AVNUM}-{listb[0].title}.mp4");
+                    tsd = new TSDownload(listb[0].mp4url, Environment.CurrentDirectory + $@"\video\{listb[0].AVNUM}-{TSDownload.removeInvChrInPath(listb[0].title)}.mp4");
                 else if(listb[0].flvurl != null)
-                    tsd = new TSDownload(listb[0].flvurl, Environment.CurrentDirectory + $@"\video\{listb[0].AVNUM}-{listb[0].title}.flv");
+                    tsd = new TSDownload(listb[0].flvurl, Environment.CurrentDirectory + $@"\video\{listb[0].AVNUM}-{TSDownload.removeInvChrInPath(listb[0].title)}.flv");
                 tsd.Progressbar = verticalProgressBar1;
                 nowAV = listb[0];
                 Log.Info("正在下载视频 - " + listb[0].AVNUM + " | " + tsd.URL);
