@@ -30,6 +30,9 @@ namespace BiliRanking
         {
             string after = before;
 
+            after = after.Replace("<", "{");
+            after = after.Replace(">", "}");
+
             after = after.Replace("{}", "\r\n");
 
             after = after.Replace("{huanhang}", "\r\n");
@@ -100,6 +103,11 @@ namespace BiliRanking
         private void button2_Click(object sender, EventArgs e)
         {
             comboBox1.SelectedIndex = ((comboBox1.SelectedIndex) != (comboBox1.Items.Count - 1)) ? comboBox1.SelectedIndex + 1 : comboBox1.Items.Count - 1;
+        }
+
+        private void comboBox1_TextChanged(object sender, EventArgs e)
+        {
+            DoFresh();
         }
     }
 }

@@ -46,19 +46,21 @@
             "{时间} {av号} {作者}",
             "{播放}{}{硬币}{}{收藏}{}{弹幕}{}{评论}",
             "{总分}",
-            "{tag}"});
+            "{tag}",
+            "{时间}    {av号}    {作者}"});
             this.comboBox1.Location = new System.Drawing.Point(34, 34);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(262, 20);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.Text = "{标题}";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.comboBox1.TextChanged += new System.EventHandler(this.comboBox1_TextChanged);
             // 
             // buttonCopy
             // 
             this.buttonCopy.Location = new System.Drawing.Point(11, 117);
-            this.buttonCopy.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonCopy.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCopy.Name = "buttonCopy";
             this.buttonCopy.Size = new System.Drawing.Size(308, 18);
             this.buttonCopy.TabIndex = 1;
@@ -79,7 +81,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(9, 33);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(21, 18);
             this.button1.TabIndex = 5;
@@ -90,7 +92,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(298, 34);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(21, 18);
             this.button2.TabIndex = 6;
@@ -101,7 +103,7 @@
             // textBoxResult
             // 
             this.textBoxResult.Location = new System.Drawing.Point(11, 56);
-            this.textBoxResult.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxResult.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxResult.Multiline = true;
             this.textBoxResult.Name = "textBoxResult";
             this.textBoxResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -111,7 +113,7 @@
             // reverseUpDownFpaiming
             // 
             this.reverseUpDownFpaiming.Location = new System.Drawing.Point(9, 8);
-            this.reverseUpDownFpaiming.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.reverseUpDownFpaiming.Margin = new System.Windows.Forms.Padding(2);
             this.reverseUpDownFpaiming.Maximum = new decimal(new int[] {
             999999,
             0,
@@ -144,7 +146,9 @@
             this.Controls.Add(this.labelNow);
             this.Controls.Add(this.buttonCopy);
             this.Controls.Add(this.comboBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormQuickCopy";
             this.Text = "[置顶]快速复制ヽ(✿ﾟ▽ﾟ)ノ";
             this.TopMost = true;
