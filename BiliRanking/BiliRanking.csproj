@@ -85,6 +85,7 @@
     <Compile Include="FormQuickCopy.Designer.cs">
       <DependentUpon>FormQuickCopy.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalKeyboardHook.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

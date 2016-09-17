@@ -35,6 +35,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.textBoxResult = new System.Windows.Forms.TextBox();
             this.reverseUpDownFpaiming = new ReverseUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.reverseUpDownFpaiming)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,11 +135,21 @@
             0});
             this.reverseUpDownFpaiming.ValueChanged += new System.EventHandler(this.reverseUpDownFpaiming_ValueChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 142);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(167, 12);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "蛤，←和→键已经被我拦截啦~";
+            // 
             // FormQuickCopy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 143);
+            this.ClientSize = new System.Drawing.Size(326, 163);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.reverseUpDownFpaiming);
             this.Controls.Add(this.textBoxResult);
             this.Controls.Add(this.button2);
@@ -152,6 +163,7 @@
             this.Name = "FormQuickCopy";
             this.Text = "[置顶]快速复制ヽ(✿ﾟ▽ﾟ)ノ";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormQuickCopy_FormClosing);
             this.Load += new System.EventHandler(this.FormQuickCopy_Load);
             ((System.ComponentModel.ISupportInitialize)(this.reverseUpDownFpaiming)).EndInit();
             this.ResumeLayout(false);
@@ -168,5 +180,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBoxResult;
         private ReverseUpDown reverseUpDownFpaiming;
+        private System.Windows.Forms.Label label1;
     }
 }
