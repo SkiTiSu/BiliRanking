@@ -33,6 +33,7 @@ namespace BiliRanking
             "天书说这个软件的UI要大改，是真的吗？",
             "大力出？？？所以说大力到底是神马（纯洁脸",
             "最爱葛平老师了",
+            "精力有限，UI只能大概改成这样了T T"
         };
 
         public FormMain()
@@ -51,7 +52,7 @@ namespace BiliRanking
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.Purple800, Primary.Purple900, Primary.Purple500, Accent.LightBlue200, TextShade.WHITE);
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Purple800, Primary.Purple900, Primary.Purple500, Accent.Orange200, TextShade.WHITE);
             //this.Font = new System.Drawing.Font("Microsoft Yahei UI",20);
         }
 
@@ -428,6 +429,25 @@ namespace BiliRanking
         {
             dateTimePickerFrom.Value = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-16")).AddMonths(-1);
             dateTimePickerTo.Value = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-01")).AddDays(-1);
+        }
+
+        private void buttonListData2wAgo_Click(object sender, EventArgs e)
+        {
+            dateTimePickerFrom.Value = getWeekUpOfDate(DateTime.Now, DayOfWeek.Monday, -2);
+            dateTimePickerTo.Value = dateTimePickerFrom.Value.AddDays(6);
+        }
+
+        private void buttonListData1wAgo_Click(object sender, EventArgs e)
+        {
+            dateTimePickerFrom.Value = getWeekUpOfDate(DateTime.Now, DayOfWeek.Monday, -1);
+            dateTimePickerTo.Value = dateTimePickerFrom.Value.AddDays(6);
+        }
+
+        public DateTime getWeekUpOfDate(DateTime dt, DayOfWeek weekday, int Number)
+        {
+            int wd1 = (int)weekday;
+            int wd2 = (int)dt.DayOfWeek;
+            return wd2 == wd1 ? dt.AddDays(7 * Number) : dt.AddDays(7 * Number - wd2 + wd1);
         }
 
         private void buttonRawSave_Click(object sender, EventArgs e)

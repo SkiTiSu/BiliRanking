@@ -14,7 +14,7 @@ namespace BiliRanking.Core
     //本类参考了ss-csharp的UpdaterChecker类
     public class Updater
     {
-        public const string Version = "1.2.1.1";
+        public const string Version = "1.2.2";
 
         private const string UpdateURL = "https://api.github.com/repos/SkiTiSu/BiliRanking/releases";
         private const string UserAgent = "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.3319.102 Safari/537.36";
