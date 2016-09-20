@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BiliInterface.cs" />
+    <Compile Include="BiliITypes.cs" />
     <Compile Include="BiliParse.cs" />
     <Compile Include="Fubang.cs" />
     <Compile Include="Log.cs" />
