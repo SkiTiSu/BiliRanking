@@ -11,10 +11,12 @@ using Newtonsoft.Json;
 using System.IO.Compression;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using MaterialSkin.Controls;
+using MaterialSkin;
 
 namespace BiliRanking
 {
-    public partial class FormMain : Form
+    public partial class FormMain : MaterialForm
     {
         public static string cookie;
 
@@ -36,6 +38,7 @@ namespace BiliRanking
         public FormMain()
         {
             InitializeComponent();
+
             this.Icon = Resources.logo;
             Random ran = new Random();
             int RandKey = ran.Next(0, wenhouyu.Length - 1);
@@ -44,6 +47,12 @@ namespace BiliRanking
             dataGridViewRAW.AutoGenerateColumns = false;
             comboBoxListNum.SelectedIndex = 0;
             comboBoxTagZone.SelectedIndex = 0;
+
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Purple800, Primary.Purple900, Primary.Purple500, Accent.LightBlue200, TextShade.WHITE);
+            //this.Font = new System.Drawing.Font("Microsoft Yahei UI",20);
         }
 
         private void textBoxCookie_TextChanged(object sender, EventArgs e)

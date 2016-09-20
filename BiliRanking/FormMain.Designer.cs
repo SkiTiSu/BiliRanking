@@ -36,7 +36,7 @@ namespace BiliRanking
             this.buttonCookieHelp = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonAbout = new System.Windows.Forms.Button();
-            this.tabControlMain = new System.Windows.Forms.TabControl();
+            this.tabControlMain = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageLogin = new System.Windows.Forms.TabPage();
             this.label19 = new System.Windows.Forms.Label();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
@@ -131,6 +131,7 @@ namespace BiliRanking
             this.复制数据含中文ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.进入唧唧下载MP4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
+            this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
@@ -149,10 +150,10 @@ namespace BiliRanking
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 11);
+            this.label1.Location = new System.Drawing.Point(7, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 15);
+            this.label1.Size = new System.Drawing.Size(64, 20);
             this.label1.TabIndex = 1;
             this.label1.Text = "Cookie:";
             // 
@@ -160,10 +161,10 @@ namespace BiliRanking
             // 
             this.textBoxCookie.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCookie.Location = new System.Drawing.Point(84, 8);
+            this.textBoxCookie.Location = new System.Drawing.Point(79, 6);
             this.textBoxCookie.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxCookie.Name = "textBoxCookie";
-            this.textBoxCookie.Size = new System.Drawing.Size(945, 25);
+            this.textBoxCookie.Size = new System.Drawing.Size(798, 27);
             this.textBoxCookie.TabIndex = 2;
             this.textBoxCookie.TextChanged += new System.EventHandler(this.textBoxCookie_TextChanged);
             // 
@@ -171,7 +172,7 @@ namespace BiliRanking
             // 
             this.buttonCookieHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCookieHelp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonCookieHelp.Location = new System.Drawing.Point(988, 6);
+            this.buttonCookieHelp.Location = new System.Drawing.Point(834, 6);
             this.buttonCookieHelp.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCookieHelp.Name = "buttonCookieHelp";
             this.buttonCookieHelp.Size = new System.Drawing.Size(43, 29);
@@ -185,7 +186,7 @@ namespace BiliRanking
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(13, 608);
+            this.label2.Location = new System.Drawing.Point(13, 648);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(940, 20);
@@ -196,7 +197,7 @@ namespace BiliRanking
             // buttonAbout
             // 
             this.buttonAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbout.Location = new System.Drawing.Point(949, 602);
+            this.buttonAbout.Location = new System.Drawing.Point(949, 642);
             this.buttonAbout.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAbout.Name = "buttonAbout";
             this.buttonAbout.Size = new System.Drawing.Size(81, 29);
@@ -217,11 +218,13 @@ namespace BiliRanking
             this.tabControlMain.Controls.Add(this.tabPageVideo);
             this.tabControlMain.Controls.Add(this.tabPageZhubang);
             this.tabControlMain.Controls.Add(this.tabPageAdvanced);
-            this.tabControlMain.Location = new System.Drawing.Point(139, 42);
+            this.tabControlMain.Depth = 0;
+            this.tabControlMain.Location = new System.Drawing.Point(139, 123);
             this.tabControlMain.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControlMain.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(892, 554);
+            this.tabControlMain.Size = new System.Drawing.Size(892, 513);
             this.tabControlMain.TabIndex = 8;
             // 
             // tabPageLogin
@@ -229,20 +232,20 @@ namespace BiliRanking
             this.tabPageLogin.Controls.Add(this.label19);
             this.tabPageLogin.Controls.Add(this.webBrowser1);
             this.tabPageLogin.Controls.Add(this.label11);
-            this.tabPageLogin.Location = new System.Drawing.Point(4, 25);
+            this.tabPageLogin.Location = new System.Drawing.Point(4, 29);
             this.tabPageLogin.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageLogin.Name = "tabPageLogin";
-            this.tabPageLogin.Size = new System.Drawing.Size(884, 525);
+            this.tabPageLogin.Size = new System.Drawing.Size(884, 480);
             this.tabPageLogin.TabIndex = 5;
-            this.tabPageLogin.Text = "0.二维码登录";
+            this.tabPageLogin.Text = "二维码登录";
             this.tabPageLogin.UseVisualStyleBackColor = true;
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(0, 506);
+            this.label19.Location = new System.Drawing.Point(0, 507);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(533, 15);
+            this.label19.Size = new System.Drawing.Size(531, 20);
             this.label19.TabIndex = 3;
             this.label19.Text = "你也可以在IE中使用用户名密码登录，如不登录会导致无法获取会员独享视频！";
             // 
@@ -287,13 +290,13 @@ namespace BiliRanking
             this.tabPageList.Controls.Add(this.label7);
             this.tabPageList.Controls.Add(this.comboBoxListSort);
             this.tabPageList.Controls.Add(this.label4);
-            this.tabPageList.Location = new System.Drawing.Point(4, 25);
+            this.tabPageList.Location = new System.Drawing.Point(4, 29);
             this.tabPageList.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageList.Name = "tabPageList";
             this.tabPageList.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageList.Size = new System.Drawing.Size(884, 525);
+            this.tabPageList.Size = new System.Drawing.Size(884, 480);
             this.tabPageList.TabIndex = 0;
-            this.tabPageList.Text = "1.视频排行统计";
+            this.tabPageList.Text = "视频排行统计";
             this.tabPageList.UseVisualStyleBackColor = true;
             // 
             // label17
@@ -301,7 +304,7 @@ namespace BiliRanking
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(127, 246);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(577, 15);
+            this.label17.Size = new System.Drawing.Size(579, 20);
             this.label17.TabIndex = 19;
             this.label17.Text = "月刊组成员注意：请不要自己生成数据用于制作！请加载群内在特定时间统计的数据！";
             // 
@@ -311,7 +314,7 @@ namespace BiliRanking
             this.label16.Location = new System.Drawing.Point(145, 419);
             this.label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(37, 15);
+            this.label16.Size = new System.Drawing.Size(39, 20);
             this.label16.TabIndex = 18;
             this.label16.Text = "分区";
             // 
@@ -325,7 +328,7 @@ namespace BiliRanking
             this.comboBoxTagZone.Location = new System.Drawing.Point(211, 409);
             this.comboBoxTagZone.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxTagZone.Name = "comboBoxTagZone";
-            this.comboBoxTagZone.Size = new System.Drawing.Size(132, 23);
+            this.comboBoxTagZone.Size = new System.Drawing.Size(132, 28);
             this.comboBoxTagZone.TabIndex = 17;
             // 
             // label15
@@ -334,7 +337,7 @@ namespace BiliRanking
             this.label15.Location = new System.Drawing.Point(53, 445);
             this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(145, 15);
+            this.label15.Size = new System.Drawing.Size(144, 20);
             this.label15.TabIndex = 16;
             this.label15.Text = "Tag（使用\";\"间隔）";
             // 
@@ -343,7 +346,7 @@ namespace BiliRanking
             this.textBoxTags.Location = new System.Drawing.Point(211, 442);
             this.textBoxTags.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxTags.Name = "textBoxTags";
-            this.textBoxTags.Size = new System.Drawing.Size(132, 25);
+            this.textBoxTags.Size = new System.Drawing.Size(132, 27);
             this.textBoxTags.TabIndex = 15;
             this.textBoxTags.Text = "UTAU中文曲";
             // 
@@ -371,7 +374,7 @@ namespace BiliRanking
             this.comboBoxListNum.Location = new System.Drawing.Point(120, 80);
             this.comboBoxListNum.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxListNum.Name = "comboBoxListNum";
-            this.comboBoxListNum.Size = new System.Drawing.Size(117, 23);
+            this.comboBoxListNum.Size = new System.Drawing.Size(117, 28);
             this.comboBoxListNum.TabIndex = 13;
             // 
             // groupBoxListDate
@@ -418,7 +421,7 @@ namespace BiliRanking
             this.dateTimePickerTo.Location = new System.Drawing.Point(289, 25);
             this.dateTimePickerTo.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
-            this.dateTimePickerTo.Size = new System.Drawing.Size(209, 25);
+            this.dateTimePickerTo.Size = new System.Drawing.Size(209, 27);
             this.dateTimePickerTo.TabIndex = 3;
             // 
             // dateTimePickerFrom
@@ -426,7 +429,7 @@ namespace BiliRanking
             this.dateTimePickerFrom.Location = new System.Drawing.Point(40, 25);
             this.dateTimePickerFrom.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
-            this.dateTimePickerFrom.Size = new System.Drawing.Size(209, 25);
+            this.dateTimePickerFrom.Size = new System.Drawing.Size(209, 27);
             this.dateTimePickerFrom.TabIndex = 2;
             // 
             // label5
@@ -435,7 +438,7 @@ namespace BiliRanking
             this.label5.Location = new System.Drawing.Point(259, 32);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(22, 15);
+            this.label5.Size = new System.Drawing.Size(24, 20);
             this.label5.TabIndex = 4;
             this.label5.Text = "到";
             // 
@@ -445,7 +448,7 @@ namespace BiliRanking
             this.label6.Location = new System.Drawing.Point(9, 29);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(22, 15);
+            this.label6.Size = new System.Drawing.Size(24, 20);
             this.label6.TabIndex = 5;
             this.label6.Text = "从";
             // 
@@ -459,7 +462,7 @@ namespace BiliRanking
             this.comboBoxListZone.Location = new System.Drawing.Point(120, 118);
             this.comboBoxListZone.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxListZone.Name = "comboBoxListZone";
-            this.comboBoxListZone.Size = new System.Drawing.Size(117, 23);
+            this.comboBoxListZone.Size = new System.Drawing.Size(117, 28);
             this.comboBoxListZone.TabIndex = 11;
             // 
             // label9
@@ -468,7 +471,7 @@ namespace BiliRanking
             this.label9.Location = new System.Drawing.Point(71, 121);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(37, 15);
+            this.label9.Size = new System.Drawing.Size(39, 20);
             this.label9.TabIndex = 10;
             this.label9.Text = "分区";
             // 
@@ -478,7 +481,7 @@ namespace BiliRanking
             this.label8.Location = new System.Drawing.Point(239, 55);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(0, 15);
+            this.label8.Size = new System.Drawing.Size(0, 20);
             this.label8.TabIndex = 9;
             // 
             // buttonListGen
@@ -498,7 +501,7 @@ namespace BiliRanking
             this.label7.Location = new System.Drawing.Point(39, 84);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(67, 15);
+            this.label7.Size = new System.Drawing.Size(69, 20);
             this.label7.TabIndex = 7;
             this.label7.Text = "需要数量";
             // 
@@ -506,10 +509,10 @@ namespace BiliRanking
             // 
             this.comboBoxListSort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxListSort.FormattingEnabled = true;
-            this.comboBoxListSort.Location = new System.Drawing.Point(120, 41);
+            this.comboBoxListSort.Location = new System.Drawing.Point(120, 42);
             this.comboBoxListSort.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxListSort.Name = "comboBoxListSort";
-            this.comboBoxListSort.Size = new System.Drawing.Size(117, 23);
+            this.comboBoxListSort.Size = new System.Drawing.Size(117, 28);
             this.comboBoxListSort.TabIndex = 1;
             // 
             // label4
@@ -518,7 +521,7 @@ namespace BiliRanking
             this.label4.Location = new System.Drawing.Point(39, 45);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 15);
+            this.label4.Size = new System.Drawing.Size(69, 20);
             this.label4.TabIndex = 0;
             this.label4.Text = "排序方式";
             // 
@@ -537,18 +540,18 @@ namespace BiliRanking
             this.tabPageRAW.Controls.Add(this.buttonPic);
             this.tabPageRAW.Controls.Add(this.buttonGen);
             this.tabPageRAW.Controls.Add(this.textBoxOut);
-            this.tabPageRAW.Location = new System.Drawing.Point(4, 25);
+            this.tabPageRAW.Location = new System.Drawing.Point(4, 29);
             this.tabPageRAW.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageRAW.Name = "tabPageRAW";
             this.tabPageRAW.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageRAW.Size = new System.Drawing.Size(884, 525);
+            this.tabPageRAW.Size = new System.Drawing.Size(884, 480);
             this.tabPageRAW.TabIndex = 1;
-            this.tabPageRAW.Text = "2.生成数据/下载封面";
+            this.tabPageRAW.Text = "数据生成";
             this.tabPageRAW.UseVisualStyleBackColor = true;
             // 
             // buttonQuickCopy
             // 
-            this.buttonQuickCopy.Location = new System.Drawing.Point(437, 11);
+            this.buttonQuickCopy.Location = new System.Drawing.Point(437, 12);
             this.buttonQuickCopy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonQuickCopy.Name = "buttonQuickCopy";
             this.buttonQuickCopy.Size = new System.Drawing.Size(85, 29);
@@ -560,7 +563,7 @@ namespace BiliRanking
             // buttonRAWReadExcel
             // 
             this.buttonRAWReadExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRAWReadExcel.Location = new System.Drawing.Point(529, 11);
+            this.buttonRAWReadExcel.Location = new System.Drawing.Point(529, 12);
             this.buttonRAWReadExcel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonRAWReadExcel.Name = "buttonRAWReadExcel";
             this.buttonRAWReadExcel.Size = new System.Drawing.Size(129, 29);
@@ -575,7 +578,7 @@ namespace BiliRanking
             this.label18.Location = new System.Drawing.Point(379, 18);
             this.label18.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(15, 15);
+            this.label18.Size = new System.Drawing.Size(15, 20);
             this.label18.TabIndex = 16;
             this.label18.Text = "-";
             // 
@@ -584,7 +587,7 @@ namespace BiliRanking
             this.textBoxRawProgramTo.Location = new System.Drawing.Point(395, 12);
             this.textBoxRawProgramTo.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxRawProgramTo.Name = "textBoxRawProgramTo";
-            this.textBoxRawProgramTo.Size = new System.Drawing.Size(35, 25);
+            this.textBoxRawProgramTo.Size = new System.Drawing.Size(35, 27);
             this.textBoxRawProgramTo.TabIndex = 15;
             this.textBoxRawProgramTo.Text = "20";
             this.textBoxRawProgramTo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnlyDigi_KeyPress);
@@ -594,14 +597,14 @@ namespace BiliRanking
             this.textBoxRawProgramFrom.Location = new System.Drawing.Point(343, 12);
             this.textBoxRawProgramFrom.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxRawProgramFrom.Name = "textBoxRawProgramFrom";
-            this.textBoxRawProgramFrom.Size = new System.Drawing.Size(35, 25);
+            this.textBoxRawProgramFrom.Size = new System.Drawing.Size(35, 27);
             this.textBoxRawProgramFrom.TabIndex = 14;
             this.textBoxRawProgramFrom.Text = "1";
             this.textBoxRawProgramFrom.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnlyDigi_KeyPress);
             // 
             // buttonRawProgram
             // 
-            this.buttonRawProgram.Location = new System.Drawing.Point(224, 11);
+            this.buttonRawProgram.Location = new System.Drawing.Point(224, 12);
             this.buttonRawProgram.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRawProgram.Name = "buttonRawProgram";
             this.buttonRawProgram.Size = new System.Drawing.Size(111, 29);
@@ -613,7 +616,7 @@ namespace BiliRanking
             // buttonRawRead
             // 
             this.buttonRawRead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRawRead.Location = new System.Drawing.Point(773, 11);
+            this.buttonRawRead.Location = new System.Drawing.Point(773, 12);
             this.buttonRawRead.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRawRead.Name = "buttonRawRead";
             this.buttonRawRead.Size = new System.Drawing.Size(100, 29);
@@ -625,7 +628,7 @@ namespace BiliRanking
             // buttonRawSave
             // 
             this.buttonRawSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRawSave.Location = new System.Drawing.Point(665, 11);
+            this.buttonRawSave.Location = new System.Drawing.Point(665, 12);
             this.buttonRawSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRawSave.Name = "buttonRawSave";
             this.buttonRawSave.Size = new System.Drawing.Size(100, 29);
@@ -665,7 +668,7 @@ namespace BiliRanking
             this.dataGridViewRAW.Name = "dataGridViewRAW";
             this.dataGridViewRAW.RowHeadersVisible = false;
             this.dataGridViewRAW.RowTemplate.Height = 23;
-            this.dataGridViewRAW.Size = new System.Drawing.Size(865, 356);
+            this.dataGridViewRAW.Size = new System.Drawing.Size(865, 357);
             this.dataGridViewRAW.TabIndex = 10;
             this.dataGridViewRAW.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRAW_CellClick);
             this.dataGridViewRAW.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewRAW_CellMouseUp);
@@ -827,7 +830,7 @@ namespace BiliRanking
             // 
             // buttonPic
             // 
-            this.buttonPic.Location = new System.Drawing.Point(116, 11);
+            this.buttonPic.Location = new System.Drawing.Point(116, 12);
             this.buttonPic.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPic.Name = "buttonPic";
             this.buttonPic.Size = new System.Drawing.Size(100, 29);
@@ -838,7 +841,7 @@ namespace BiliRanking
             // 
             // buttonGen
             // 
-            this.buttonGen.Location = new System.Drawing.Point(8, 11);
+            this.buttonGen.Location = new System.Drawing.Point(8, 12);
             this.buttonGen.Margin = new System.Windows.Forms.Padding(4);
             this.buttonGen.Name = "buttonGen";
             this.buttonGen.Size = new System.Drawing.Size(100, 29);
@@ -866,12 +869,12 @@ namespace BiliRanking
             this.tabPageFubang.Controls.Add(this.textBoxFubangStart);
             this.tabPageFubang.Controls.Add(this.label10);
             this.tabPageFubang.Controls.Add(this.buttonFubang1);
-            this.tabPageFubang.Location = new System.Drawing.Point(4, 25);
+            this.tabPageFubang.Location = new System.Drawing.Point(4, 29);
             this.tabPageFubang.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageFubang.Name = "tabPageFubang";
-            this.tabPageFubang.Size = new System.Drawing.Size(884, 525);
+            this.tabPageFubang.Size = new System.Drawing.Size(884, 480);
             this.tabPageFubang.TabIndex = 3;
-            this.tabPageFubang.Text = "3.副榜生成";
+            this.tabPageFubang.Text = "副榜生成";
             this.tabPageFubang.UseVisualStyleBackColor = true;
             // 
             // buttonFubang2
@@ -893,7 +896,7 @@ namespace BiliRanking
             this.label12.Location = new System.Drawing.Point(597, 19);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(82, 15);
+            this.label12.Size = new System.Drawing.Size(84, 20);
             this.label12.TabIndex = 10;
             this.label12.Text = "副榜开始于";
             // 
@@ -902,7 +905,7 @@ namespace BiliRanking
             this.textBoxFubangStart.Location = new System.Drawing.Point(695, 15);
             this.textBoxFubangStart.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxFubangStart.Name = "textBoxFubangStart";
-            this.textBoxFubangStart.Size = new System.Drawing.Size(132, 25);
+            this.textBoxFubangStart.Size = new System.Drawing.Size(132, 27);
             this.textBoxFubangStart.TabIndex = 9;
             this.textBoxFubangStart.Text = "21";
             // 
@@ -912,7 +915,7 @@ namespace BiliRanking
             this.label10.Location = new System.Drawing.Point(16, 19);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(353, 15);
+            this.label10.Size = new System.Drawing.Size(359, 20);
             this.label10.TabIndex = 6;
             this.label10.Text = "请确保步骤2中数据已经成功加载~请选择副榜版本：";
             // 
@@ -938,12 +941,12 @@ namespace BiliRanking
             this.tabPageVideo.Controls.Add(this.textBox1);
             this.tabPageVideo.Controls.Add(this.buttonDL);
             this.tabPageVideo.Controls.Add(this.verticalProgressBar1);
-            this.tabPageVideo.Location = new System.Drawing.Point(4, 25);
+            this.tabPageVideo.Location = new System.Drawing.Point(4, 29);
             this.tabPageVideo.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageVideo.Name = "tabPageVideo";
-            this.tabPageVideo.Size = new System.Drawing.Size(884, 525);
+            this.tabPageVideo.Size = new System.Drawing.Size(884, 480);
             this.tabPageVideo.TabIndex = 2;
-            this.tabPageVideo.Text = "4.视频批量下载";
+            this.tabPageVideo.Text = "视频批量下载";
             this.tabPageVideo.UseVisualStyleBackColor = true;
             // 
             // buttonDlMP4JJ
@@ -1019,12 +1022,12 @@ namespace BiliRanking
             this.tabPageZhubang.Controls.Add(this.textBoxZhubangEnd);
             this.tabPageZhubang.Controls.Add(this.label13);
             this.tabPageZhubang.Controls.Add(this.buttonZhubang);
-            this.tabPageZhubang.Location = new System.Drawing.Point(4, 25);
+            this.tabPageZhubang.Location = new System.Drawing.Point(4, 29);
             this.tabPageZhubang.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageZhubang.Name = "tabPageZhubang";
-            this.tabPageZhubang.Size = new System.Drawing.Size(884, 525);
+            this.tabPageZhubang.Size = new System.Drawing.Size(884, 480);
             this.tabPageZhubang.TabIndex = 4;
-            this.tabPageZhubang.Text = "5.主榜模板生成";
+            this.tabPageZhubang.Text = "主榜生成";
             this.tabPageZhubang.UseVisualStyleBackColor = true;
             // 
             // label14
@@ -1033,7 +1036,7 @@ namespace BiliRanking
             this.label14.Location = new System.Drawing.Point(597, 19);
             this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(82, 15);
+            this.label14.Size = new System.Drawing.Size(84, 20);
             this.label14.TabIndex = 12;
             this.label14.Text = "主榜结束于";
             // 
@@ -1042,7 +1045,7 @@ namespace BiliRanking
             this.textBoxZhubangEnd.Location = new System.Drawing.Point(695, 15);
             this.textBoxZhubangEnd.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxZhubangEnd.Name = "textBoxZhubangEnd";
-            this.textBoxZhubangEnd.Size = new System.Drawing.Size(132, 25);
+            this.textBoxZhubangEnd.Size = new System.Drawing.Size(132, 27);
             this.textBoxZhubangEnd.TabIndex = 11;
             this.textBoxZhubangEnd.Text = "20";
             // 
@@ -1052,7 +1055,7 @@ namespace BiliRanking
             this.label13.Location = new System.Drawing.Point(16, 19);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(233, 15);
+            this.label13.Size = new System.Drawing.Size(239, 20);
             this.label13.TabIndex = 7;
             this.label13.Text = "请确保步骤2中数据已经成功加载~";
             // 
@@ -1069,19 +1072,22 @@ namespace BiliRanking
             // 
             // tabPageAdvanced
             // 
+            this.tabPageAdvanced.Controls.Add(this.buttonCookieHelp);
             this.tabPageAdvanced.Controls.Add(this.buttonUpdateBeta);
-            this.tabPageAdvanced.Location = new System.Drawing.Point(4, 25);
+            this.tabPageAdvanced.Controls.Add(this.label1);
+            this.tabPageAdvanced.Controls.Add(this.textBoxCookie);
+            this.tabPageAdvanced.Location = new System.Drawing.Point(4, 29);
             this.tabPageAdvanced.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
             this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageAdvanced.Size = new System.Drawing.Size(884, 525);
+            this.tabPageAdvanced.Size = new System.Drawing.Size(884, 480);
             this.tabPageAdvanced.TabIndex = 6;
             this.tabPageAdvanced.Text = "高级设置";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
             // 
             // buttonUpdateBeta
             // 
-            this.buttonUpdateBeta.Location = new System.Drawing.Point(20, 20);
+            this.buttonUpdateBeta.Location = new System.Drawing.Point(11, 49);
             this.buttonUpdateBeta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonUpdateBeta.Name = "buttonUpdateBeta";
             this.buttonUpdateBeta.Size = new System.Drawing.Size(172, 72);
@@ -1093,10 +1099,10 @@ namespace BiliRanking
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 49);
+            this.label3.Location = new System.Drawing.Point(18, 128);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 15);
+            this.label3.Size = new System.Drawing.Size(113, 20);
             this.label3.TabIndex = 0;
             this.label3.Text = "AV号们在这里↓";
             // 
@@ -1104,12 +1110,12 @@ namespace BiliRanking
             // 
             this.textBoxAV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxAV.Location = new System.Drawing.Point(15, 70);
+            this.textBoxAV.Location = new System.Drawing.Point(16, 158);
             this.textBoxAV.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAV.Multiline = true;
             this.textBoxAV.Name = "textBoxAV";
             this.textBoxAV.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxAV.Size = new System.Drawing.Size(115, 495);
+            this.textBoxAV.Size = new System.Drawing.Size(115, 445);
             this.textBoxAV.TabIndex = 9;
             // 
             // saveFileDialog1
@@ -1120,7 +1126,7 @@ namespace BiliRanking
             // buttonAVClear
             // 
             this.buttonAVClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAVClear.Location = new System.Drawing.Point(15, 562);
+            this.buttonAVClear.Location = new System.Drawing.Point(15, 607);
             this.buttonAVClear.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAVClear.Name = "buttonAVClear";
             this.buttonAVClear.Size = new System.Drawing.Size(116, 29);
@@ -1206,6 +1212,19 @@ namespace BiliRanking
             // 
             this.openFileDialogExcel.Filter = "Excel文件|*.xls;*.xlsx";
             // 
+            // materialTabSelector1
+            // 
+            this.materialTabSelector1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.materialTabSelector1.BaseTabControl = this.tabControlMain;
+            this.materialTabSelector1.Depth = 0;
+            this.materialTabSelector1.Location = new System.Drawing.Point(0, 64);
+            this.materialTabSelector1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialTabSelector1.Name = "materialTabSelector1";
+            this.materialTabSelector1.Size = new System.Drawing.Size(1048, 55);
+            this.materialTabSelector1.TabIndex = 10;
+            this.materialTabSelector1.Text = "materialTabSelector1";
+            // 
             // verticalProgressBar1
             // 
             this.verticalProgressBar1.Location = new System.Drawing.Point(381, 4);
@@ -1216,19 +1235,17 @@ namespace BiliRanking
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1047, 636);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.ClientSize = new System.Drawing.Size(1047, 676);
+            this.Controls.Add(this.materialTabSelector1);
             this.Controls.Add(this.buttonAVClear);
             this.Controls.Add(this.textBoxAV);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.buttonAbout);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.buttonCookieHelp);
-            this.Controls.Add(this.textBoxCookie);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = global::BiliRanking.Properties.Resources.logo;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
@@ -1254,6 +1271,7 @@ namespace BiliRanking
             this.tabPageZhubang.ResumeLayout(false);
             this.tabPageZhubang.PerformLayout();
             this.tabPageAdvanced.ResumeLayout(false);
+            this.tabPageAdvanced.PerformLayout();
             this.contextMenuStripRAW.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1266,7 +1284,6 @@ namespace BiliRanking
         private System.Windows.Forms.Button buttonCookieHelp;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonAbout;
-        private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageList;
         private System.Windows.Forms.TabPage tabPageRAW;
         private System.Windows.Forms.Label label3;
@@ -1362,5 +1379,7 @@ namespace BiliRanking
         private System.Windows.Forms.Button buttonQuickCopy;
         private System.Windows.Forms.Button buttonDlMP4JJ;
         private System.Windows.Forms.ToolStripMenuItem 进入唧唧下载MP4ToolStripMenuItem;
+        private MaterialSkin.Controls.MaterialTabSelector materialTabSelector1;
+        private MaterialSkin.Controls.MaterialTabControl tabControlMain;
     }
 }
