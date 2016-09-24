@@ -30,7 +30,6 @@ namespace BiliRanking
             "金坷垃 金克拉 JinKeLa！",
             "天书说咱要建个会自动定时统计数据的网站（迷のflag",
             "所以说Web版（看台）不就一步一步做出来了吗（笑",
-            "天书说这个软件的UI要大改，是真的吗？",
             "大力出？？？所以说大力到底是神马（纯洁脸",
             "最爱葛平老师了",
             "精力有限，UI只能大概改成这样了T T"
@@ -414,9 +413,62 @@ namespace BiliRanking
             {
                 Log.Info("Cookie已成功获取！");
                 textBoxCookie.Text = webBrowser1.Document.Cookie;
-                webBrowser1.Hide();
-                //webBrowser1.Dispose(); //这会造成线程阻塞
+                //webBrowser1.Hide();
+                //webBrowser1.Dispose(); //这会造成线程阻塞，MSDN中明确表示不能直接使用
+                //webBrowser1.Navigate("");
+                //var all = webBrowser1.DocumentText;
+                //this.tabPageLogin.Controls.Remove(webBrowser1);
+                //webBrowser1.Dispose();
+                //System.Threading.Timer tm = new System.Threading.Timer(new System.Threading.TimerCallback(TimerProc1));
+                //tm.Change(2000, 2000);
             }
+        }
+
+        //public delegate void InvokeDelegate();
+
+        //private void TimerProc1(object state)
+        //{
+        //    System.Threading.Timer t = (System.Threading.Timer)state;
+        //    //释放定时器资源
+        //    t.Dispose();
+
+        //    //var all = webBrowser1.DocumentText;
+        //    this.BeginInvoke(new InvokeDelegate(GetDocText));
+        //}
+
+        //private void GetDocText()
+        //{
+        //    mshtml.HTMLDocument htmldocument = (mshtml.HTMLDocument)webBrowser1.Document.DomDocument;
+        //    string gethtml = htmldocument.documentElement.outerHTML;
+        //}
+
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            if (webBrowser1.ReadyState != WebBrowserReadyState.Complete) return;
+            if (webBrowser1.Url.ToString() == "http://www.bilibili.com/")
+            {
+                mshtml.HTMLDocument htmldocument = (mshtml.HTMLDocument)webBrowser1.Document.DomDocument;
+                string html = htmldocument.documentElement.outerHTML;
+
+                pictureBox1.ImageLocation = GetEleConFromHtml(html, "class=\"i_face\" src=\"");
+                labelLoginName.Text = GetEleConFromHtml(html, "<div class=\"uname\"><b>", "<");
+                labelLoginAccountInfo.Text = "硬币：" + GetEleConFromHtml(html, "<b class=\"b-icon\"></b><div class=\"outside\"><div class=\"pre\">", "<");
+                labelLoginAccountInfo.Text += "\r\n等级：" + GetEleConFromHtml(html, "<div class=\"lv-row\">作为<strong>", "<");
+
+                this.tabPageLogin.Controls.Remove(webBrowser1);
+                webBrowser1.Dispose();
+            }
+        }
+
+        private string GetEleConFromHtml (string html,string keywords,string endchar = "\"")
+        {
+            int i = html.IndexOf(keywords) + keywords.Length;
+            int j = i;
+            while (html.Substring(j, 1) != endchar)
+            {
+                j++;
+            }
+            return html.Substring(i, j - i);
         }
 
         private void buttonListDate1_Click(object sender, EventArgs e)

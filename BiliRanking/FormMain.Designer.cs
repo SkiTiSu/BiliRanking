@@ -38,8 +38,10 @@ namespace BiliRanking
             this.buttonAbout = new System.Windows.Forms.Button();
             this.tabControlMain = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageLogin = new System.Windows.Forms.TabPage();
-            this.label19 = new System.Windows.Forms.Label();
+            this.labelLoginName = new System.Windows.Forms.Label();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPageList = new System.Windows.Forms.TabPage();
             this.label17 = new System.Windows.Forms.Label();
@@ -134,9 +136,11 @@ namespace BiliRanking
             this.进入唧唧下载MP4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
+            this.labelLoginAccountInfo = new System.Windows.Forms.Label();
             this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPageList.SuspendLayout();
             this.groupBoxListDate.SuspendLayout();
             this.tabPageRAW.SuspendLayout();
@@ -173,11 +177,12 @@ namespace BiliRanking
             // buttonCookieHelp
             // 
             this.buttonCookieHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCookieHelp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonCookieHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCookieHelp.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonCookieHelp.Location = new System.Drawing.Point(834, 6);
             this.buttonCookieHelp.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCookieHelp.Name = "buttonCookieHelp";
-            this.buttonCookieHelp.Size = new System.Drawing.Size(43, 29);
+            this.buttonCookieHelp.Size = new System.Drawing.Size(43, 27);
             this.buttonCookieHelp.TabIndex = 3;
             this.buttonCookieHelp.Text = "?";
             this.buttonCookieHelp.UseVisualStyleBackColor = true;
@@ -229,21 +234,57 @@ namespace BiliRanking
             this.tabControlMain.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(915, 528);
+            this.tabControlMain.Size = new System.Drawing.Size(910, 528);
             this.tabControlMain.TabIndex = 8;
             // 
             // tabPageLogin
             // 
-            this.tabPageLogin.Controls.Add(this.label19);
             this.tabPageLogin.Controls.Add(this.webBrowser1);
+            this.tabPageLogin.Controls.Add(this.labelLoginAccountInfo);
+            this.tabPageLogin.Controls.Add(this.labelLoginName);
+            this.tabPageLogin.Controls.Add(this.pictureBox1);
+            this.tabPageLogin.Controls.Add(this.label19);
             this.tabPageLogin.Controls.Add(this.label11);
             this.tabPageLogin.Location = new System.Drawing.Point(4, 29);
             this.tabPageLogin.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageLogin.Name = "tabPageLogin";
-            this.tabPageLogin.Size = new System.Drawing.Size(907, 495);
+            this.tabPageLogin.Size = new System.Drawing.Size(902, 495);
             this.tabPageLogin.TabIndex = 5;
             this.tabPageLogin.Text = "二维码登录";
             this.tabPageLogin.UseVisualStyleBackColor = true;
+            // 
+            // labelLoginName
+            // 
+            this.labelLoginName.AutoSize = true;
+            this.labelLoginName.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelLoginName.Location = new System.Drawing.Point(106, 62);
+            this.labelLoginName.Name = "labelLoginName";
+            this.labelLoginName.Size = new System.Drawing.Size(72, 27);
+            this.labelLoginName.TabIndex = 7;
+            this.labelLoginName.Text = "未获取";
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.AccessibleRole = System.Windows.Forms.AccessibleRole.OutlineButton;
+            this.webBrowser1.Location = new System.Drawing.Point(4, 4);
+            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.ScriptErrorsSuppressed = true;
+            this.webBrowser1.Size = new System.Drawing.Size(893, 500);
+            this.webBrowser1.TabIndex = 1;
+            this.webBrowser1.Url = new System.Uri("http://account.bilibili.com/login", System.UriKind.Absolute);
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+            this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(20, 62);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(80, 80);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
             // label19
             // 
@@ -254,29 +295,16 @@ namespace BiliRanking
             this.label19.TabIndex = 3;
             this.label19.Text = "你也可以在IE中使用用户名密码登录，如不登录会导致无法获取会员独享视频！";
             // 
-            // webBrowser1
-            // 
-            this.webBrowser1.AccessibleRole = System.Windows.Forms.AccessibleRole.OutlineButton;
-            this.webBrowser1.Location = new System.Drawing.Point(4, 4);
-            this.webBrowser1.Margin = new System.Windows.Forms.Padding(4);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(876, 500);
-            this.webBrowser1.TabIndex = 1;
-            this.webBrowser1.Url = new System.Uri("http://account.bilibili.com/login", System.UriKind.Absolute);
-            this.webBrowser1.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser1_Navigated);
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("微软雅黑", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label11.Location = new System.Drawing.Point(207, 229);
+            this.label11.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.Location = new System.Drawing.Point(15, 15);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(396, 52);
+            this.label11.Size = new System.Drawing.Size(212, 27);
             this.label11.TabIndex = 2;
-            this.label11.Text = "Cookie已成功获取！";
+            this.label11.Text = "已成功登录，欢迎你：";
             // 
             // tabPageList
             // 
@@ -299,7 +327,7 @@ namespace BiliRanking
             this.tabPageList.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageList.Name = "tabPageList";
             this.tabPageList.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageList.Size = new System.Drawing.Size(907, 495);
+            this.tabPageList.Size = new System.Drawing.Size(902, 495);
             this.tabPageList.TabIndex = 0;
             this.tabPageList.Text = "视频排行统计";
             this.tabPageList.UseVisualStyleBackColor = true;
@@ -611,7 +639,7 @@ namespace BiliRanking
             this.tabPageRAW.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageRAW.Name = "tabPageRAW";
             this.tabPageRAW.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageRAW.Size = new System.Drawing.Size(907, 495);
+            this.tabPageRAW.Size = new System.Drawing.Size(902, 495);
             this.tabPageRAW.TabIndex = 1;
             this.tabPageRAW.Text = "数据生成";
             this.tabPageRAW.UseVisualStyleBackColor = true;
@@ -948,7 +976,7 @@ namespace BiliRanking
             this.tabPageFubang.Location = new System.Drawing.Point(4, 29);
             this.tabPageFubang.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageFubang.Name = "tabPageFubang";
-            this.tabPageFubang.Size = new System.Drawing.Size(907, 495);
+            this.tabPageFubang.Size = new System.Drawing.Size(902, 495);
             this.tabPageFubang.TabIndex = 3;
             this.tabPageFubang.Text = "副榜生成";
             this.tabPageFubang.UseVisualStyleBackColor = true;
@@ -1022,7 +1050,7 @@ namespace BiliRanking
             this.tabPageVideo.Location = new System.Drawing.Point(4, 29);
             this.tabPageVideo.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageVideo.Name = "tabPageVideo";
-            this.tabPageVideo.Size = new System.Drawing.Size(907, 495);
+            this.tabPageVideo.Size = new System.Drawing.Size(902, 495);
             this.tabPageVideo.TabIndex = 2;
             this.tabPageVideo.Text = "视频批量下载";
             this.tabPageVideo.UseVisualStyleBackColor = true;
@@ -1107,7 +1135,7 @@ namespace BiliRanking
             this.tabPageZhubang.Location = new System.Drawing.Point(4, 29);
             this.tabPageZhubang.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageZhubang.Name = "tabPageZhubang";
-            this.tabPageZhubang.Size = new System.Drawing.Size(907, 495);
+            this.tabPageZhubang.Size = new System.Drawing.Size(902, 495);
             this.tabPageZhubang.TabIndex = 4;
             this.tabPageZhubang.Text = "主榜生成";
             this.tabPageZhubang.UseVisualStyleBackColor = true;
@@ -1143,6 +1171,7 @@ namespace BiliRanking
             // 
             // buttonZhubang
             // 
+            this.buttonZhubang.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonZhubang.Location = new System.Drawing.Point(19, 69);
             this.buttonZhubang.Margin = new System.Windows.Forms.Padding(4);
             this.buttonZhubang.Name = "buttonZhubang";
@@ -1162,13 +1191,14 @@ namespace BiliRanking
             this.tabPageAdvanced.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
             this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPageAdvanced.Size = new System.Drawing.Size(907, 495);
+            this.tabPageAdvanced.Size = new System.Drawing.Size(902, 495);
             this.tabPageAdvanced.TabIndex = 6;
             this.tabPageAdvanced.Text = "高级设置";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
             // 
             // buttonUpdateBeta
             // 
+            this.buttonUpdateBeta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonUpdateBeta.Location = new System.Drawing.Point(11, 49);
             this.buttonUpdateBeta.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonUpdateBeta.Name = "buttonUpdateBeta";
@@ -1207,7 +1237,6 @@ namespace BiliRanking
             // 
             // buttonAVClear
             // 
-            this.buttonAVClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAVClear.AutoSize = true;
             this.buttonAVClear.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonAVClear.Depth = 0;
@@ -1314,8 +1343,19 @@ namespace BiliRanking
             this.materialTabSelector1.TabIndex = 10;
             this.materialTabSelector1.Text = "materialTabSelector1";
             // 
+            // labelLoginAccountInfo
+            // 
+            this.labelLoginAccountInfo.AutoSize = true;
+            this.labelLoginAccountInfo.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelLoginAccountInfo.Location = new System.Drawing.Point(107, 92);
+            this.labelLoginAccountInfo.Name = "labelLoginAccountInfo";
+            this.labelLoginAccountInfo.Size = new System.Drawing.Size(58, 21);
+            this.labelLoginAccountInfo.TabIndex = 8;
+            this.labelLoginAccountInfo.Text = "未获取";
+            // 
             // verticalProgressBar1
             // 
+            this.verticalProgressBar1.BackColor = System.Drawing.SystemColors.Control;
             this.verticalProgressBar1.Location = new System.Drawing.Point(381, 4);
             this.verticalProgressBar1.Margin = new System.Windows.Forms.Padding(4);
             this.verticalProgressBar1.Name = "verticalProgressBar1";
@@ -1345,6 +1385,7 @@ namespace BiliRanking
             this.tabControlMain.ResumeLayout(false);
             this.tabPageLogin.ResumeLayout(false);
             this.tabPageLogin.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPageList.ResumeLayout(false);
             this.tabPageList.PerformLayout();
             this.groupBoxListDate.ResumeLayout(false);
@@ -1472,5 +1513,8 @@ namespace BiliRanking
         private MaterialSkin.Controls.MaterialRaisedButton buttonListGen;
         private MaterialSkin.Controls.MaterialFlatButton buttonAVClear;
         private System.Windows.Forms.Button buttonAbout;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label labelLoginName;
+        private System.Windows.Forms.Label labelLoginAccountInfo;
     }
 }
