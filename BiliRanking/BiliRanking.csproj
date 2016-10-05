@@ -94,6 +94,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TaskbarProgress.cs" />
     <Compile Include="Updater.cs" />
   </ItemGroup>
   <ItemGroup>

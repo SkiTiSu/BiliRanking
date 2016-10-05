@@ -133,6 +133,8 @@ namespace BiliRanking
         {
             Log.Info("开始批量获取");
 
+            TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.Indeterminate);
+
             if (cookie == null || cookie == "")
             {
                 Log.Warn("Cookie为空，会导致会员独享视频无法获取！");
@@ -182,6 +184,8 @@ namespace BiliRanking
             {
                 Log.Error("注意！下列视频数据未正确获取！\r\n" + failedAVs);
             }
+
+            TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.NoProgress);
 
             Log.Info("批量获取完成");
         }
