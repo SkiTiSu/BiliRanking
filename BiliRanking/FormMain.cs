@@ -13,15 +13,21 @@ using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using MaterialSkin.Controls;
 using MaterialSkin;
+using System.Configuration;
 
 namespace BiliRanking
 {
     public partial class FormMain : MaterialForm
     {
+        ConfigHelper config = new ConfigHelper();
+
         public static string cookie;
 
         public static string[] wenhouyu = new string[]
         {
+            "我又打算做好看版的了，兹磁不兹磁？"
+        };
+        /*
             "拒绝DSSQ，人人有责(◐﹏◐)",
             "天书不仅听音很准，而且歌唱的也不错呢（大雾",
             "啊♂ 乖 乖 站 好 ┗(O﹏O)┛",
@@ -32,8 +38,7 @@ namespace BiliRanking
             "所以说Web版（看台）不就一步一步做出来了吗（笑",
             "大力出？？？所以说大力到底是神马（纯洁脸",
             "最爱葛平老师了",
-            "精力有限，UI只能大概改成这样了T T"
-        };
+         */
 
         public FormMain()
         {
@@ -53,12 +58,23 @@ namespace BiliRanking
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Purple800, Primary.Purple900, Primary.Purple500, Accent.Orange200, TextShade.WHITE);
             //this.Font = new System.Drawing.Font("Microsoft Yahei UI",20);
+
+            BiliApiHelper.access_key = config.Get("access_key");
+            Log.Debug($"通过配置文件读取的授权码为{BiliApiHelper.access_key}");
+            if (!string.IsNullOrEmpty(BiliApiHelper.access_key))
+            {
+                Log.Info("已通过配置文件读取到授权码");
+            }
+            else
+            {
+                Log.Warn("没有获取到授权码！无法正常使用！");
+            }
         }
 
         private void textBoxCookie_TextChanged(object sender, EventArgs e)
         {
             cookie = textBoxCookie.Text;
-            webBrowser1.Document.Cookie = textBoxCookie.Text;
+            //webBrowser1.Document.Cookie = textBoxCookie.Text;
             BiliInterface.cookie = cookie;
             Log.Info("Cookie已被更改为：" + textBoxCookie.Text);
         }
@@ -135,10 +151,10 @@ namespace BiliRanking
 
             TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.Indeterminate);
 
-            if (cookie == null || cookie == "")
-            {
-                Log.Warn("Cookie为空，会导致会员独享视频无法获取！");
-            }
+            //if (cookie == null || cookie == "")
+            //{
+            //    Log.Warn("Cookie为空，会导致会员独享视频无法获取！");
+            //}
 
             string[] lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n");
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
@@ -408,60 +424,6 @@ namespace BiliRanking
             //TODO: 再次排序
             Fubang fu = new Fubang();
             fu.Gen2(linfo);
-        }
-
-
-        private void webBrowser1_Navigated(object sender, WebBrowserNavigatedEventArgs e)
-        {
-            if (webBrowser1.Url.ToString() == "http://www.bilibili.com/")
-            {
-                Log.Info("Cookie已成功获取！");
-                textBoxCookie.Text = webBrowser1.Document.Cookie;
-                //webBrowser1.Hide();
-                //webBrowser1.Dispose(); //这会造成线程阻塞，MSDN中明确表示不能直接使用
-                //webBrowser1.Navigate("");
-                //var all = webBrowser1.DocumentText;
-                //this.tabPageLogin.Controls.Remove(webBrowser1);
-                //webBrowser1.Dispose();
-                //System.Threading.Timer tm = new System.Threading.Timer(new System.Threading.TimerCallback(TimerProc1));
-                //tm.Change(2000, 2000);
-            }
-        }
-
-        //public delegate void InvokeDelegate();
-
-        //private void TimerProc1(object state)
-        //{
-        //    System.Threading.Timer t = (System.Threading.Timer)state;
-        //    //释放定时器资源
-        //    t.Dispose();
-
-        //    //var all = webBrowser1.DocumentText;
-        //    this.BeginInvoke(new InvokeDelegate(GetDocText));
-        //}
-
-        //private void GetDocText()
-        //{
-        //    mshtml.HTMLDocument htmldocument = (mshtml.HTMLDocument)webBrowser1.Document.DomDocument;
-        //    string gethtml = htmldocument.documentElement.outerHTML;
-        //}
-
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            if (webBrowser1.ReadyState != WebBrowserReadyState.Complete) return;
-            if (webBrowser1.Url.ToString() == "http://www.bilibili.com/")
-            {
-                mshtml.HTMLDocument htmldocument = (mshtml.HTMLDocument)webBrowser1.Document.DomDocument;
-                string html = htmldocument.documentElement.outerHTML;
-
-                pictureBox1.ImageLocation = GetEleConFromHtml(html, "class=\"i_face\" src=\"");
-                labelLoginName.Text = GetEleConFromHtml(html, "<div class=\"uname\"><b>", "<");
-                labelLoginAccountInfo.Text = "硬币：" + GetEleConFromHtml(html, "<b class=\"b-icon\"></b><div class=\"outside\"><div class=\"pre\">", "<");
-                labelLoginAccountInfo.Text += "\r\n等级：" + GetEleConFromHtml(html, "<div class=\"lv-row\">作为<strong>", "<");
-
-                this.tabPageLogin.Controls.Remove(webBrowser1);
-                webBrowser1.Dispose();
-            }
         }
 
         private string GetEleConFromHtml (string html,string keywords,string endchar = "\"")
@@ -958,6 +920,13 @@ namespace BiliRanking
             Process.Start($"http://www.bilibilijj.com/Files/DownLoad/{curr.cid}.mp4");
             string html = BiliInterface.GetHtml($"http://www.bilibilijj.com/Files/DownLoad/{curr.cid}.mp4");
             //
+        }
+
+        private async void buttonLogin_Click(object sender, EventArgs e)
+        {
+            string res = await BiliApiHelper.LoginBilibili(textBoxLoginName.Text, textBoxLoginPasswd.Text);
+            //MessageBox.Show(res);
+            Log.Info("授权码:" + res);
         }
     }
 }

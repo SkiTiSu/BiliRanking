@@ -80,7 +80,7 @@ namespace BiliRanking
             after = after.Replace("{shoucang}", info.favorites.ToString());
             after = after.Replace("{danmu}", info.video_review.ToString());
             after = after.Replace("{pinglun}", info.review.ToString());
-            after = after.Replace("{tag}", info.tag.ToString());
+            //after = after.Replace("{tag}", info.tag.ToString());
 
             after = after.Replace("{换行}", "\r\n");
             after = after.Replace("{标题}", info.title);
