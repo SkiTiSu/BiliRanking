@@ -20,6 +20,7 @@ namespace BiliRanking
     public partial class FormMain : MaterialForm
     {
         ConfigHelper config = new ConfigHelper();
+        Updater up = new Updater();
 
         public static string cookie;
 
@@ -47,7 +48,8 @@ namespace BiliRanking
             this.Icon = Resources.logo;
             Random ran = new Random();
             int RandKey = ran.Next(0, wenhouyu.Length - 1);
-            this.Text = $"BiliRanking V{Updater.Version} 来自中二的四季天书 - {wenhouyu[RandKey]}";
+            this.Text = $"BiliRanking V{up.Version} 来自中二的四季天书 - {wenhouyu[RandKey]}";
+            labelBuildVersion.Text = "编译版本号：" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             cookie = textBoxCookie.Text;
             dataGridViewRAW.AutoGenerateColumns = false;
             comboBoxListNum.SelectedIndex = 0;
@@ -67,7 +69,7 @@ namespace BiliRanking
             }
             else
             {
-                Log.Warn("没有获取到授权码！无法正常使用！");
+                Log.Warn("没有获取到授权码，里区将对你躲♂藏");
             }
         }
 
@@ -105,7 +107,6 @@ namespace BiliRanking
 
         private void FormMain_Shown(object sender, EventArgs e)
         {
-            Updater up = new Updater();
             up.CheckUpdate();
         }
 

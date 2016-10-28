@@ -38,14 +38,7 @@ namespace BiliRanking
             this.buttonAbout = new System.Windows.Forms.Button();
             this.tabControlMain = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageLogin = new System.Windows.Forms.TabPage();
-            this.buttonLogin = new MaterialSkin.Controls.MaterialFlatButton();
-            this.textBoxLoginPasswd = new System.Windows.Forms.TextBox();
-            this.textBoxLoginName = new System.Windows.Forms.TextBox();
-            this.labelLoginAccountInfo = new System.Windows.Forms.Label();
-            this.labelLoginName = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.tabPageList = new System.Windows.Forms.TabPage();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -80,6 +73,24 @@ namespace BiliRanking
             this.buttonRawRead = new System.Windows.Forms.Button();
             this.buttonRawSave = new System.Windows.Forms.Button();
             this.dataGridViewRAW = new System.Windows.Forms.DataGridView();
+            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AVNUM = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonExportCSV = new System.Windows.Forms.Button();
             this.buttonPic = new System.Windows.Forms.Button();
             this.buttonGen = new System.Windows.Forms.Button();
@@ -121,29 +132,14 @@ namespace BiliRanking
             this.进入唧唧下载MP4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
-            this.label20 = new System.Windows.Forms.Label();
-            this.Column17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AVNUM = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelBuildVersion = new System.Windows.Forms.Label();
             this.verticalProgressBar1 = new BiliRanking.Controls.VerticalProgressBar();
+            this.textBoxLoginName = new System.Windows.Forms.TextBox();
+            this.textBoxLoginPasswd = new System.Windows.Forms.TextBox();
+            this.buttonLogin = new MaterialSkin.Controls.MaterialFlatButton();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPageList.SuspendLayout();
             this.groupBoxListDate.SuspendLayout();
             this.tabPageRAW.SuspendLayout();
@@ -171,7 +167,7 @@ namespace BiliRanking
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCookie.Location = new System.Drawing.Point(63, 5);
             this.textBoxCookie.Name = "textBoxCookie";
-            this.textBoxCookie.Size = new System.Drawing.Size(639, 23);
+            this.textBoxCookie.Size = new System.Drawing.Size(631, 23);
             this.textBoxCookie.TabIndex = 2;
             this.textBoxCookie.TextChanged += new System.EventHandler(this.textBoxCookie_TextChanged);
             // 
@@ -180,7 +176,7 @@ namespace BiliRanking
             this.buttonCookieHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCookieHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCookieHelp.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.buttonCookieHelp.Location = new System.Drawing.Point(667, 5);
+            this.buttonCookieHelp.Location = new System.Drawing.Point(659, 5);
             this.buttonCookieHelp.Name = "buttonCookieHelp";
             this.buttonCookieHelp.Size = new System.Drawing.Size(34, 22);
             this.buttonCookieHelp.TabIndex = 3;
@@ -203,12 +199,11 @@ namespace BiliRanking
             // buttonAbout
             // 
             this.buttonAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAbout.AutoSize = true;
-            this.buttonAbout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAbout.Location = new System.Drawing.Point(769, 522);
+            this.buttonAbout.Font = new System.Drawing.Font("Microsoft YaHei UI", 5.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonAbout.Location = new System.Drawing.Point(776, 529);
             this.buttonAbout.Name = "buttonAbout";
-            this.buttonAbout.Size = new System.Drawing.Size(58, 29);
+            this.buttonAbout.Size = new System.Drawing.Size(58, 18);
             this.buttonAbout.TabIndex = 5;
             this.buttonAbout.Text = "Github";
             this.buttonAbout.UseVisualStyleBackColor = true;
@@ -227,115 +222,37 @@ namespace BiliRanking
             this.tabControlMain.Controls.Add(this.tabPageZhubang);
             this.tabControlMain.Controls.Add(this.tabPageAdvanced);
             this.tabControlMain.Depth = 0;
-            this.tabControlMain.Location = new System.Drawing.Point(106, 98);
+            this.tabControlMain.Location = new System.Drawing.Point(106, 99);
             this.tabControlMain.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(728, 422);
+            this.tabControlMain.Size = new System.Drawing.Size(732, 429);
             this.tabControlMain.TabIndex = 8;
             // 
             // tabPageLogin
             // 
+            this.tabPageLogin.Controls.Add(this.label11);
+            this.tabPageLogin.Controls.Add(this.labelBuildVersion);
             this.tabPageLogin.Controls.Add(this.label20);
             this.tabPageLogin.Controls.Add(this.buttonLogin);
             this.tabPageLogin.Controls.Add(this.textBoxLoginPasswd);
             this.tabPageLogin.Controls.Add(this.textBoxLoginName);
-            this.tabPageLogin.Controls.Add(this.labelLoginAccountInfo);
-            this.tabPageLogin.Controls.Add(this.labelLoginName);
-            this.tabPageLogin.Controls.Add(this.pictureBox1);
-            this.tabPageLogin.Controls.Add(this.label19);
-            this.tabPageLogin.Controls.Add(this.label11);
             this.tabPageLogin.Location = new System.Drawing.Point(4, 26);
             this.tabPageLogin.Name = "tabPageLogin";
-            this.tabPageLogin.Size = new System.Drawing.Size(720, 392);
+            this.tabPageLogin.Size = new System.Drawing.Size(724, 399);
             this.tabPageLogin.TabIndex = 5;
             this.tabPageLogin.Text = "登录";
             this.tabPageLogin.UseVisualStyleBackColor = true;
             // 
-            // buttonLogin
+            // label20
             // 
-            this.buttonLogin.AutoSize = true;
-            this.buttonLogin.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonLogin.Depth = 0;
-            this.buttonLogin.Icon = null;
-            this.buttonLogin.Location = new System.Drawing.Point(617, 311);
-            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.buttonLogin.MouseState = MaterialSkin.MouseState.HOVER;
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Primary = false;
-            this.buttonLogin.Size = new System.Drawing.Size(48, 36);
-            this.buttonLogin.TabIndex = 11;
-            this.buttonLogin.Text = "登录";
-            this.buttonLogin.UseVisualStyleBackColor = true;
-            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
-            // 
-            // textBoxLoginPasswd
-            // 
-            this.textBoxLoginPasswd.Location = new System.Drawing.Point(406, 340);
-            this.textBoxLoginPasswd.Name = "textBoxLoginPasswd";
-            this.textBoxLoginPasswd.Size = new System.Drawing.Size(194, 23);
-            this.textBoxLoginPasswd.TabIndex = 10;
-            this.textBoxLoginPasswd.UseSystemPasswordChar = true;
-            // 
-            // textBoxLoginName
-            // 
-            this.textBoxLoginName.Location = new System.Drawing.Point(406, 311);
-            this.textBoxLoginName.Name = "textBoxLoginName";
-            this.textBoxLoginName.Size = new System.Drawing.Size(194, 23);
-            this.textBoxLoginName.TabIndex = 9;
-            this.textBoxLoginName.Text = "四季天书";
-            // 
-            // labelLoginAccountInfo
-            // 
-            this.labelLoginAccountInfo.AutoSize = true;
-            this.labelLoginAccountInfo.Font = new System.Drawing.Font("Microsoft YaHei UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelLoginAccountInfo.Location = new System.Drawing.Point(94, 334);
-            this.labelLoginAccountInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelLoginAccountInfo.Name = "labelLoginAccountInfo";
-            this.labelLoginAccountInfo.Size = new System.Drawing.Size(48, 19);
-            this.labelLoginAccountInfo.TabIndex = 8;
-            this.labelLoginAccountInfo.Text = "未获取";
-            // 
-            // labelLoginName
-            // 
-            this.labelLoginName.AutoSize = true;
-            this.labelLoginName.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.labelLoginName.Location = new System.Drawing.Point(93, 310);
-            this.labelLoginName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelLoginName.Name = "labelLoginName";
-            this.labelLoginName.Size = new System.Drawing.Size(58, 22);
-            this.labelLoginName.TabIndex = 7;
-            this.labelLoginName.Text = "未获取";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(24, 310);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(64, 64);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(0, 406);
-            this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(427, 17);
-            this.label19.TabIndex = 3;
-            this.label19.Text = "你也可以在IE中使用用户名密码登录，如不登录会导致无法获取会员独享视频！";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label11.Location = new System.Drawing.Point(20, 273);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(170, 21);
-            this.label11.TabIndex = 2;
-            this.label11.Text = "已成功登录，欢迎你：";
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label20.Location = new System.Drawing.Point(29, 141);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(663, 28);
+            this.label20.TabIndex = 12;
+            this.label20.Text = "过渡期间，里区视频可以通过配置文件统计并下载，有问题请联系天书";
             // 
             // tabPageList
             // 
@@ -357,7 +274,7 @@ namespace BiliRanking
             this.tabPageList.Location = new System.Drawing.Point(4, 26);
             this.tabPageList.Name = "tabPageList";
             this.tabPageList.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageList.Size = new System.Drawing.Size(720, 392);
+            this.tabPageList.Size = new System.Drawing.Size(724, 399);
             this.tabPageList.TabIndex = 0;
             this.tabPageList.Text = "视频排行统计";
             this.tabPageList.UseVisualStyleBackColor = true;
@@ -650,7 +567,7 @@ namespace BiliRanking
             this.tabPageRAW.Location = new System.Drawing.Point(4, 26);
             this.tabPageRAW.Name = "tabPageRAW";
             this.tabPageRAW.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRAW.Size = new System.Drawing.Size(720, 392);
+            this.tabPageRAW.Size = new System.Drawing.Size(724, 399);
             this.tabPageRAW.TabIndex = 1;
             this.tabPageRAW.Text = "数据生成";
             this.tabPageRAW.UseVisualStyleBackColor = true;
@@ -778,6 +695,149 @@ namespace BiliRanking
             this.dataGridViewRAW.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRAW_CellClick);
             this.dataGridViewRAW.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewRAW_CellMouseUp);
             // 
+            // Column17
+            // 
+            this.Column17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.Column17.DataPropertyName = "Fpaiming";
+            this.Column17.HeaderText = "排名";
+            this.Column17.Name = "Column17";
+            this.Column17.Width = 21;
+            // 
+            // AVNUM
+            // 
+            this.AVNUM.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.AVNUM.DataPropertyName = "AVNUM";
+            this.AVNUM.HeaderText = "AV号";
+            this.AVNUM.Name = "AVNUM";
+            this.AVNUM.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.AVNUM.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.AVNUM.Width = 21;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "title";
+            this.Column2.HeaderText = "标题";
+            this.Column2.Name = "Column2";
+            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column2.Width = 140;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.Column3.DataPropertyName = "play";
+            this.Column3.HeaderText = "播放数";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 21;
+            // 
+            // Column4
+            // 
+            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.Column4.DataPropertyName = "video_review";
+            this.Column4.HeaderText = "弹幕数";
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 21;
+            // 
+            // Column6
+            // 
+            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.Column6.DataPropertyName = "coins";
+            this.Column6.HeaderText = "硬币数";
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 21;
+            // 
+            // Column5
+            // 
+            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.Column5.DataPropertyName = "favorites";
+            this.Column5.HeaderText = "收藏数";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 21;
+            // 
+            // Column7
+            // 
+            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Column7.DataPropertyName = "review";
+            this.Column7.HeaderText = "评论数";
+            this.Column7.Name = "Column7";
+            this.Column7.Width = 21;
+            // 
+            // Column14
+            // 
+            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Column14.DataPropertyName = "Fdefen";
+            this.Column14.HeaderText = "总分";
+            this.Column14.Name = "Column14";
+            this.Column14.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
+            this.Column14.Width = 21;
+            // 
+            // Column8
+            // 
+            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Column8.DataPropertyName = "author";
+            this.Column8.HeaderText = "UP主";
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 21;
+            // 
+            // Column9
+            // 
+            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Column9.DataPropertyName = "created_at";
+            this.Column9.HeaderText = "时间";
+            this.Column9.Name = "Column9";
+            this.Column9.Width = 21;
+            // 
+            // Column10
+            // 
+            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Column10.DataPropertyName = "typename";
+            this.Column10.HeaderText = "分区";
+            this.Column10.Name = "Column10";
+            this.Column10.Width = 21;
+            // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Column1.DataPropertyName = "Fplay";
+            this.Column1.HeaderText = "播放得分";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 21;
+            // 
+            // Column11
+            // 
+            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Column11.DataPropertyName = "Ffavorites";
+            this.Column11.HeaderText = "收藏得分";
+            this.Column11.Name = "Column11";
+            this.Column11.Width = 21;
+            // 
+            // Column12
+            // 
+            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Column12.DataPropertyName = "Fcoins";
+            this.Column12.HeaderText = "硬币得分";
+            this.Column12.Name = "Column12";
+            this.Column12.Width = 21;
+            // 
+            // Column13
+            // 
+            this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
+            this.Column13.DataPropertyName = "Freview";
+            this.Column13.HeaderText = "评论得分";
+            this.Column13.Name = "Column13";
+            this.Column13.Width = 21;
+            // 
+            // Column15
+            // 
+            this.Column15.DataPropertyName = "description";
+            this.Column15.HeaderText = "简介";
+            this.Column15.Name = "Column15";
+            // 
+            // Column16
+            // 
+            this.Column16.DataPropertyName = "tag";
+            this.Column16.HeaderText = "TAG";
+            this.Column16.Name = "Column16";
+            // 
             // buttonExportCSV
             // 
             this.buttonExportCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -832,7 +892,7 @@ namespace BiliRanking
             this.tabPageFubang.Controls.Add(this.buttonFubang1);
             this.tabPageFubang.Location = new System.Drawing.Point(4, 26);
             this.tabPageFubang.Name = "tabPageFubang";
-            this.tabPageFubang.Size = new System.Drawing.Size(720, 392);
+            this.tabPageFubang.Size = new System.Drawing.Size(724, 399);
             this.tabPageFubang.TabIndex = 3;
             this.tabPageFubang.Text = "副榜生成";
             this.tabPageFubang.UseVisualStyleBackColor = true;
@@ -900,7 +960,7 @@ namespace BiliRanking
             this.tabPageVideo.Controls.Add(this.verticalProgressBar1);
             this.tabPageVideo.Location = new System.Drawing.Point(4, 26);
             this.tabPageVideo.Name = "tabPageVideo";
-            this.tabPageVideo.Size = new System.Drawing.Size(720, 392);
+            this.tabPageVideo.Size = new System.Drawing.Size(724, 399);
             this.tabPageVideo.TabIndex = 2;
             this.tabPageVideo.Text = "视频批量下载";
             this.tabPageVideo.UseVisualStyleBackColor = true;
@@ -979,7 +1039,7 @@ namespace BiliRanking
             this.tabPageZhubang.Controls.Add(this.buttonZhubang);
             this.tabPageZhubang.Location = new System.Drawing.Point(4, 26);
             this.tabPageZhubang.Name = "tabPageZhubang";
-            this.tabPageZhubang.Size = new System.Drawing.Size(720, 392);
+            this.tabPageZhubang.Size = new System.Drawing.Size(724, 399);
             this.tabPageZhubang.TabIndex = 4;
             this.tabPageZhubang.Text = "主榜生成";
             this.tabPageZhubang.UseVisualStyleBackColor = true;
@@ -1031,7 +1091,7 @@ namespace BiliRanking
             this.tabPageAdvanced.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
             this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPageAdvanced.Size = new System.Drawing.Size(720, 392);
+            this.tabPageAdvanced.Size = new System.Drawing.Size(724, 399);
             this.tabPageAdvanced.TabIndex = 6;
             this.tabPageAdvanced.Text = "高级设置";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
@@ -1182,158 +1242,15 @@ namespace BiliRanking
             this.materialTabSelector1.TabIndex = 10;
             this.materialTabSelector1.Text = "materialTabSelector1";
             // 
-            // label20
+            // labelBuildVersion
             // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label20.Location = new System.Drawing.Point(39, 145);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(642, 28);
-            this.label20.TabIndex = 12;
-            this.label20.Text = "过度期间，不需要登录，通过配置文件即可使用，有问题请联系天书";
-            // 
-            // Column17
-            // 
-            this.Column17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.Column17.DataPropertyName = "Fpaiming";
-            this.Column17.HeaderText = "排名";
-            this.Column17.Name = "Column17";
-            this.Column17.Width = 21;
-            // 
-            // AVNUM
-            // 
-            this.AVNUM.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.AVNUM.DataPropertyName = "AVNUM";
-            this.AVNUM.HeaderText = "AV号";
-            this.AVNUM.Name = "AVNUM";
-            this.AVNUM.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.AVNUM.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.AVNUM.Width = 21;
-            // 
-            // Column2
-            // 
-            this.Column2.DataPropertyName = "title";
-            this.Column2.HeaderText = "标题";
-            this.Column2.Name = "Column2";
-            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column2.Width = 140;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.Column3.DataPropertyName = "play";
-            this.Column3.HeaderText = "播放数";
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 21;
-            // 
-            // Column4
-            // 
-            this.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.Column4.DataPropertyName = "video_review";
-            this.Column4.HeaderText = "弹幕数";
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 21;
-            // 
-            // Column6
-            // 
-            this.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.Column6.DataPropertyName = "coins";
-            this.Column6.HeaderText = "硬币数";
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 21;
-            // 
-            // Column5
-            // 
-            this.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.Column5.DataPropertyName = "favorites";
-            this.Column5.HeaderText = "收藏数";
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 21;
-            // 
-            // Column7
-            // 
-            this.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Column7.DataPropertyName = "review";
-            this.Column7.HeaderText = "评论数";
-            this.Column7.Name = "Column7";
-            this.Column7.Width = 21;
-            // 
-            // Column14
-            // 
-            this.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Column14.DataPropertyName = "Fdefen";
-            this.Column14.HeaderText = "总分";
-            this.Column14.Name = "Column14";
-            this.Column14.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
-            this.Column14.Width = 21;
-            // 
-            // Column8
-            // 
-            this.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Column8.DataPropertyName = "author";
-            this.Column8.HeaderText = "UP主";
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 21;
-            // 
-            // Column9
-            // 
-            this.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Column9.DataPropertyName = "created_at";
-            this.Column9.HeaderText = "时间";
-            this.Column9.Name = "Column9";
-            this.Column9.Width = 21;
-            // 
-            // Column10
-            // 
-            this.Column10.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Column10.DataPropertyName = "typename";
-            this.Column10.HeaderText = "分区";
-            this.Column10.Name = "Column10";
-            this.Column10.Width = 21;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Column1.DataPropertyName = "Fplay";
-            this.Column1.HeaderText = "播放得分";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 21;
-            // 
-            // Column11
-            // 
-            this.Column11.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Column11.DataPropertyName = "Ffavorites";
-            this.Column11.HeaderText = "收藏得分";
-            this.Column11.Name = "Column11";
-            this.Column11.Width = 21;
-            // 
-            // Column12
-            // 
-            this.Column12.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Column12.DataPropertyName = "Fcoins";
-            this.Column12.HeaderText = "硬币得分";
-            this.Column12.Name = "Column12";
-            this.Column12.Width = 21;
-            // 
-            // Column13
-            // 
-            this.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCellsExceptHeader;
-            this.Column13.DataPropertyName = "Freview";
-            this.Column13.HeaderText = "评论得分";
-            this.Column13.Name = "Column13";
-            this.Column13.Width = 21;
-            // 
-            // Column15
-            // 
-            this.Column15.DataPropertyName = "description";
-            this.Column15.HeaderText = "简介";
-            this.Column15.Name = "Column15";
-            // 
-            // Column16
-            // 
-            this.Column16.DataPropertyName = "tag";
-            this.Column16.HeaderText = "TAG";
-            this.Column16.Name = "Column16";
+            this.labelBuildVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelBuildVersion.Location = new System.Drawing.Point(536, 377);
+            this.labelBuildVersion.Name = "labelBuildVersion";
+            this.labelBuildVersion.Size = new System.Drawing.Size(185, 17);
+            this.labelBuildVersion.TabIndex = 22;
+            this.labelBuildVersion.Text = "未获取到编译版本号";
+            this.labelBuildVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // verticalProgressBar1
             // 
@@ -1342,6 +1259,46 @@ namespace BiliRanking
             this.verticalProgressBar1.Name = "verticalProgressBar1";
             this.verticalProgressBar1.Size = new System.Drawing.Size(371, 411);
             this.verticalProgressBar1.TabIndex = 15;
+            // 
+            // textBoxLoginName
+            // 
+            this.textBoxLoginName.Location = new System.Drawing.Point(11, 334);
+            this.textBoxLoginName.Name = "textBoxLoginName";
+            this.textBoxLoginName.Size = new System.Drawing.Size(194, 23);
+            this.textBoxLoginName.TabIndex = 9;
+            // 
+            // textBoxLoginPasswd
+            // 
+            this.textBoxLoginPasswd.Location = new System.Drawing.Point(11, 363);
+            this.textBoxLoginPasswd.Name = "textBoxLoginPasswd";
+            this.textBoxLoginPasswd.Size = new System.Drawing.Size(194, 23);
+            this.textBoxLoginPasswd.TabIndex = 10;
+            this.textBoxLoginPasswd.UseSystemPasswordChar = true;
+            // 
+            // buttonLogin
+            // 
+            this.buttonLogin.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonLogin.Depth = 0;
+            this.buttonLogin.Icon = null;
+            this.buttonLogin.Location = new System.Drawing.Point(212, 334);
+            this.buttonLogin.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonLogin.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonLogin.Name = "buttonLogin";
+            this.buttonLogin.Primary = false;
+            this.buttonLogin.Size = new System.Drawing.Size(48, 52);
+            this.buttonLogin.TabIndex = 11;
+            this.buttonLogin.Text = "登录";
+            this.buttonLogin.UseVisualStyleBackColor = true;
+            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(8, 312);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(80, 17);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "仅供应急使用";
             // 
             // FormMain
             // 
@@ -1365,7 +1322,6 @@ namespace BiliRanking
             this.tabControlMain.ResumeLayout(false);
             this.tabPageLogin.ResumeLayout(false);
             this.tabPageLogin.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPageList.ResumeLayout(false);
             this.tabPageList.PerformLayout();
             this.groupBoxListDate.ResumeLayout(false);
@@ -1423,7 +1379,6 @@ namespace BiliRanking
         private System.Windows.Forms.PictureBox pictureBoxDl;
         private System.Windows.Forms.Button buttonDlMP4;
         private System.Windows.Forms.TabPage tabPageLogin;
-        private System.Windows.Forms.Label label11;
         private Controls.VerticalProgressBar verticalProgressBar1;
         private System.Windows.Forms.GroupBox groupBoxListDate;
         private System.Windows.Forms.Label label12;
@@ -1461,7 +1416,6 @@ namespace BiliRanking
         private System.Windows.Forms.Button buttonFubang2;
         private System.Windows.Forms.Button buttonRAWReadExcel;
         private System.Windows.Forms.OpenFileDialog openFileDialogExcel;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button buttonQuickCopy;
         private System.Windows.Forms.Button buttonDlMP4JJ;
         private System.Windows.Forms.ToolStripMenuItem 进入唧唧下载MP4ToolStripMenuItem;
@@ -1474,12 +1428,6 @@ namespace BiliRanking
         private MaterialSkin.Controls.MaterialRaisedButton buttonListGen;
         private MaterialSkin.Controls.MaterialFlatButton buttonAVClear;
         private System.Windows.Forms.Button buttonAbout;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label labelLoginName;
-        private System.Windows.Forms.Label labelLoginAccountInfo;
-        private MaterialSkin.Controls.MaterialFlatButton buttonLogin;
-        private System.Windows.Forms.TextBox textBoxLoginPasswd;
-        private System.Windows.Forms.TextBox textBoxLoginName;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column17;
         private System.Windows.Forms.DataGridViewLinkColumn AVNUM;
@@ -1499,5 +1447,10 @@ namespace BiliRanking
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column15;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
+        private System.Windows.Forms.Label labelBuildVersion;
+        private System.Windows.Forms.Label label11;
+        private MaterialSkin.Controls.MaterialFlatButton buttonLogin;
+        private System.Windows.Forms.TextBox textBoxLoginPasswd;
+        private System.Windows.Forms.TextBox textBoxLoginName;
     }
 }

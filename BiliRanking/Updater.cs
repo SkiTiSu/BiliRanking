@@ -8,13 +8,15 @@ using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace BiliRanking.Core
 {
     //本类参考了ss-csharp的UpdaterChecker类
     public class Updater
     {
-        public const string Version = "1.3.0";
+        FileVersionInfo myFileVersion = FileVersionInfo.GetVersionInfo(System.Windows.Forms.Application.ExecutablePath);
+        public string Version = "";
 
         private const string UpdateURL = "https://api.github.com/repos/SkiTiSu/BiliRanking/releases";
         private const string UserAgent = "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.3319.102 Safari/537.36";
@@ -22,6 +24,11 @@ namespace BiliRanking.Core
         public string LatestVersionNumber;
 
         private bool checkBeta = false;
+
+        public Updater()
+        {
+            Version = myFileVersion.FileVersion;
+        }
 
         public void CheckUpdate(bool beta = false)
         {
@@ -161,7 +168,7 @@ namespace BiliRanking.Core
             Log.Info($"开始下载 - {ass.browser_download_url}");
             Log.Info("提示：由于服务器在境外，下载可能比较慢，稍安勿躁哦！下载期间就不要再动程序了~");
 
-            DownloadFileName = Environment.CurrentDirectory + $@"\BiliRanking.{ass.name}.exe";
+            DownloadFileName = Environment.CurrentDirectory + $@"\BiliRanking.downloading";
             try
             {
                 WebClient http = CreateWebClient();
@@ -177,10 +184,11 @@ namespace BiliRanking.Core
 
         private void Http_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-            MessageBox.Show($"新版本已经准备完毕//天书好是辛苦的呢！\r\n我要重启自己来更新咯(●'◡'●)", "注意啊啊啊", MessageBoxButtons.OK, MessageBoxIcon.Information);
             string filename = Assembly.GetExecutingAssembly().Location;
             File.Move(filename, filename + ".delete");
-            System.Diagnostics.Process.Start(DownloadFileName);
+            File.Move(DownloadFileName, Environment.CurrentDirectory + $@"\BiliRanking.exe");
+            MessageBox.Show($"新版本已经准备完毕//天书好是辛苦的呢！\r\n我要重启自己来更新咯(●'◡'●)", "注意啊啊啊", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            System.Diagnostics.Process.Start(Environment.CurrentDirectory + $@"\BiliRanking.exe");
             //File.Move(filename + ".new", "BiliRanking.exe");
             Application.Exit();
         }
