@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BiliRanking.Core
 {
@@ -295,6 +296,15 @@ namespace BiliRanking.Core
                     info.review = Convert.ToUInt32(DataModel.reply);
                     info.coins = Convert.ToUInt32(DataModel.coin);
                     info.favorites = Convert.ToUInt32(DataModel.favorite);
+
+                    string[] pretags = ((JArray)InfoModel.tags).ToObject<string[]>();
+                    info.tag = "";
+                    foreach(string pretag in pretags)
+                    {
+                        info.tag += "," + pretag;
+                    }
+                    info.tag = info.tag.Substring(1);
+                    info.description = InfoModel.desc;
                     //--数据转换结束--
 
                     info.AVNUM = "AV" + avnum;

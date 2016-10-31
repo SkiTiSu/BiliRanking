@@ -15,7 +15,7 @@ namespace BiliRanking.Core
     //本类参考了ss-csharp的UpdaterChecker类
     public class Updater
     {
-        FileVersionInfo myFileVersion = FileVersionInfo.GetVersionInfo(System.Windows.Forms.Application.ExecutablePath);
+        FileVersionInfo myFileVersion = FileVersionInfo.GetVersionInfo(Application.ExecutablePath);
         public string Version = "";
 
         private const string UpdateURL = "https://api.github.com/repos/SkiTiSu/BiliRanking/releases";

@@ -38,12 +38,12 @@ namespace BiliRanking.Core
         public uint allow_feed;
         public uint allow_download;
         public string description { get; set; }
-        //public string tag { get; set; }
+        public string tag { get; set; }
         public string pic { get; set; }
         public string author { get; set; }
         public uint mid;
         public string face;
-        //public uint pages { get; set; }
+        public uint pages { get; set; }
         public string instant_server;
         public ulong created { get; set; }
         public string create
@@ -68,7 +68,6 @@ namespace BiliRanking.Core
         public string offsite;
         public int code;
         public string error;
-        /*
         public int aid
         {
             set
@@ -76,7 +75,6 @@ namespace BiliRanking.Core
                 AVNUM = "AV" + value;
             }
         }
-        */
         public string AVNUM { get; set; }
         public string avnum
         {

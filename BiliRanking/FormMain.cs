@@ -521,6 +521,11 @@ namespace BiliRanking
                 byte[] bytes = tempMs.ToArray();
                 string str = Encoding.GetEncoding("UTF-8").GetString(bytes);
                 BiliShell bs = JsonConvert.DeserializeObject<BiliShell>(str);
+                if (bs.ver != 1)
+                {
+                    MessageBox.Show("此文件是使用新版BR生成的，无法打开！");
+                    return;
+                }
                 List<BiliInterfaceInfo> bi = bs.infos;
                 textBoxAV.Text = "";
                 //TODO: 判断是否为空文件
