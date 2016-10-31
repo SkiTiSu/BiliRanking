@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="BiliRanking.WPF.View.VideoClip"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BiliRanking.WPF.View"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf"
+             xmlns:vlcwpf="clr-namespace:Meta.Vlc.Wpf;assembly=Meta.Vlc.Wpf"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="384.584" d:DesignWidth="554.97">
+    <Grid>
+        <Grid.Resources>
+            <x:Array Type="{x:Type system:String}" x:Key="VlcOptions">
+                <system:String>-I</system:String>
+                <system:String>--dummy-quiet</system:String>
+                <system:String>--ignore-config</system:String>
+                <system:String>--no-video-title</system:String>
+                <system:String>--no-sub-autodetect-file</system:String>
+            </x:Array>
+        </Grid.Resources>
+        <vlcwpf:VlcPlayer x:Name="Player" VlcOption="{StaticResource VlcOptions}" LibVlcPath="..\..\libvlc" EndBehavior="Nothing" Stretch="Fill" Margin="0,0,0,52" />
+        <ProgressBar x:Name="ProgressBar" Opacity="0.8" Value="{Binding Position, ElementName=Player}" VerticalAlignment="Bottom" Height="10" Maximum="1" SmallChange="0.00001" MouseDown="ProgressBar_MouseDown" />
+        <Button x:Name="buttonLoad" Content="打开..." HorizontalAlignment="Left" Height="33" Margin="10,10,0,0" VerticalAlignment="Top" Width="81" Click="buttonLoad_Click"/>
+        <ToolBar Style="{DynamicResource MaterialDesignToolBar}" Margin="182,0,189,15" ToolBarTray.IsLocked="True" HorizontalAlignment="Center" Height="32" VerticalAlignment="Bottom">
+            <ToolBar.Resources>
+                <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" TargetType="Button">
+                    <Setter Property="Height" Value="26" />
+                    <Setter Property="Width" Value="26" />
+                </Style>
+            </ToolBar.Resources>
+            <Button x:Name="buttonSkipBackward">
+                <materialDesign:PackIcon Kind="SkipBackward" />
+            </Button>
+            <Button x:Name="buttonStepBackward">
+                <materialDesign:PackIcon Kind="StepBackward" />
+            </Button>
+            <Separator />
+            <Button x:Name="buttonPlay" Click="buttonPlay_Click">
+                <materialDesign:PackIcon Kind="Play" />
+            </Button>
+            <Button x:Name="buttonPause" Click="buttonPause_Click">
+                <materialDesign:PackIcon Kind="Pause" />
+            </Button>
+            <Separator />
+            <Button x:Name="buttonStepForward" Click="buttonStepForward_Click">
+                <materialDesign:PackIcon Kind="StepForward" />
+            </Button>
+            <Button x:Name="buttonSkipForward" Click="buttonSkipForward_Click">
+                <materialDesign:PackIcon Kind="SkipForward" />
+            </Button>
+        </ToolBar>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="20,0,0,21" TextWrapping="Wrap" Text="{Binding Time, ElementName=Player}" Width="148" Height="20" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Right" Height="20" Margin="0,0,10,21" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" Width="139"/>
+    </Grid>
+</UserControl>
