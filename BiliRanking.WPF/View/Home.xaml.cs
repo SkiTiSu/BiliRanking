@@ -24,30 +24,13 @@ namespace BiliRanking.WPF.View
         public Home()
         {
             InitializeComponent();
-        }
-        private void GitHubButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://github.com/ButchersBoy/MaterialDesignInXamlToolkit");
-        }
 
-        private void TwitterButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://twitter.com/James_Willock");
-        }
-
-        private void ChatButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Process.Start("https://gitter.im/ButchersBoy/MaterialDesignInXamlToolkit");
-        }
-
-        private void EmailButton_OnClick(object sender, RoutedEventArgs e)
-        {
-            Process.Start("mailto://james@dragablz.net");
+            textComplileVer.Text = "编译版本号：" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 
         private void DonateButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://pledgie.com/campaigns/31029");
+            Process.Start("https://github.com/SkiTiSu/BiliRanking");
         }
     }
 }
