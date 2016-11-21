@@ -282,6 +282,8 @@ namespace BiliRanking.Core
                     //分P信息
                     List<BiliVideoModel> ban = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.pages.ToString());
 
+                    info.AVNUM = "AV" + avnum;
+
                     //--数据转换开始--
                     info.title = InfoModel.title;
                     info.created_at = InfoModel.Created_at;
@@ -296,18 +298,20 @@ namespace BiliRanking.Core
                     info.review = Convert.ToUInt32(DataModel.reply);
                     info.coins = Convert.ToUInt32(DataModel.coin);
                     info.favorites = Convert.ToUInt32(DataModel.favorite);
-
-                    string[] pretags = ((JArray)InfoModel.tags).ToObject<string[]>();
                     info.tag = "";
-                    foreach(string pretag in pretags)
+                    if (InfoModel.tags != null) //注意有的视频竟然会没有tag
                     {
-                        info.tag += "," + pretag;
+                        string[] pretags = ((JArray)InfoModel.tags).ToObject<string[]>();
+
+                        foreach (string pretag in pretags)
+                        {
+                            info.tag += "," + pretag;
+                        }
+                        info.tag = info.tag.Substring(1);
                     }
-                    info.tag = info.tag.Substring(1);
                     info.description = InfoModel.desc;
                     //--数据转换结束--
 
-                    info.AVNUM = "AV" + avnum;
                     info.title = info.title.Replace("&amp;", "&");
                     info.title = info.title.Replace("&lt;", "<");
                     info.title = info.title.Replace("&gt;", ">");

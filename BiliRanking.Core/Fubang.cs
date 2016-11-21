@@ -133,8 +133,8 @@ namespace BiliRanking.Core
             string picPath = Environment.CurrentDirectory + @"\pic\" + info.AVNUM + ".jpg";
             int x = 36;
             int y = 37 + 233 * (n - 1);
-            //try
-            //{
+            try
+            {
                 Image pic = Image.FromFile(picPath);
                 Image smallpic = resizeImage(pic, new Size(576, 360));
             //288 180
@@ -173,25 +173,26 @@ namespace BiliRanking.Core
             //g.DrawImage(roundedpic, 36, y);
             //g.DrawImageUnscaled(roundedpic, 36, y);
             g.DrawImage(bmpFluffy, new Rectangle(x, y, 288, 180));
-            //g.DrawImage(pic, new Rectangle(250, nn - 15, 366, 218));
-            //}
-            //catch(Exception e)
-            //{
-            //    throw e;
-            //Log.Error(info.AVNUM + " - 找不到封面文件，请在左侧窗格输入AV号尝试或手动获取！");
-            //}
+                //g.DrawImage(pic, new Rectangle(250, nn - 15, 366, 218));
+            }
+            catch (Exception e)
+            {
+                //throw e;
+                Log.Error(info.AVNUM + " - 封面文件获取失败，请在左侧窗格输入AV号尝试或手动获取！");
+            }
             //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            g.DrawString(info.title.Replace('【', '[').Replace('】',']'), new Font("Source Han Sans SC Light", 42, GraphicsUnit.Pixel), b, 340, y - 2);
-            g.DrawString($"分数: {info.Fdefen}   UP: {info.author}", new Font("Source Han Sans SC Normal", 30, GraphicsUnit.Pixel), b, 340, y + 56);
-            g.DrawString($"{info.avnum} 投稿时间: {info.created_at}", new Font("Source Han Sans SC Regular", 25, GraphicsUnit.Pixel), b, 340, y + 142);
+            //Source Han Sans SC = 思源黑体
+            g.DrawString(info.title.Replace('【', '[').Replace('】',']'), new Font("思源黑体 Light", 42, GraphicsUnit.Pixel), b, 340, y - 2);
+            g.DrawString($"分数: {info.Fdefen}   UP: {info.author}", new Font("思源黑体 Normal", 30, GraphicsUnit.Pixel), b, 340, y + 56);
+            g.DrawString($"{info.avnum} 投稿时间: {info.created_at}", new Font("思源黑体 Regular", 25, GraphicsUnit.Pixel), b, 340, y + 142);
 
             if (info.Fpaiming < 100)
             {
-                g.DrawString(info.Fpaiming.ToString(), new Font("Source Han Sans SC ExtraLight", 72, GraphicsUnit.Pixel), b, 1152, y + 87);
+                g.DrawString(info.Fpaiming.ToString(), new Font("思源黑体 ExtraLight", 72, GraphicsUnit.Pixel), b, 1152, y + 87);
             }
             else
             {
-                g.DrawString(info.Fpaiming.ToString(), new Font("Source Han Sans SC ExtraLight", 72, GraphicsUnit.Pixel), b, 1114, y + 87);
+                g.DrawString(info.Fpaiming.ToString(), new Font("思源黑体 ExtraLight", 72, GraphicsUnit.Pixel), b, 1114, y + 87);
             }
 
             /*
