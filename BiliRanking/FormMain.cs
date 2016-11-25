@@ -14,6 +14,8 @@ using System.Diagnostics;
 using MaterialSkin.Controls;
 using MaterialSkin;
 using System.Configuration;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace BiliRanking
 {
@@ -71,6 +73,9 @@ namespace BiliRanking
             {
                 Log.Warn("没有获取到授权码，里区将对你躲♂藏");
             }
+
+            //如不修改连接数限制，当一次性统计200以上的视频时WebClient会莫名报错
+            System.Net.ServicePointManager.DefaultConnectionLimit = 512;
         }
 
         private void textBoxCookie_TextChanged(object sender, EventArgs e)
@@ -146,7 +151,7 @@ namespace BiliRanking
             Log.Info("获取排行完成");
         }
 
-        private void buttonGen_Click(object sender, EventArgs e)
+        private async void buttonGen_Click(object sender, EventArgs e)
         {
             Log.Info("开始批量获取");
 
@@ -157,38 +162,61 @@ namespace BiliRanking
             //    Log.Warn("Cookie为空，会导致会员独享视频无法获取！");
             //}
 
-            string[] lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n");
+            List<string> lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n").ToList<string>();
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
             string failedAVs = "";
             //dataGridViewRAW.DataSource = ll;
             //Gen(lines);
 
-            textBoxOut.Text = "AV号,标题,播放数,弹幕数,收藏数,硬币数,评论数,up,时间,分区,播放得分,收藏得分,硬币得分,评论得分,总分\r\n";
-            foreach (string s in lines)
+            IEnumerable<Task<BiliInterfaceInfo>> llasync =
+                from s in lines where s != "" select BiliInterface.GetInfoAsync(s);
+
+            Task<BiliInterfaceInfo>[] lltasks = llasync.ToArray();
+
+            BiliInterfaceInfo[] lls = await Task.WhenAll(lltasks);
+
+            foreach (BiliInterfaceInfo info in lls)
             {
-                if (s != "")
+                if (info.pic != null)
                 {
-                    BiliInterfaceInfo info = BiliInterface.GetInfo(s);
-                    //System.Threading.Thread.Sleep(1000);
-                    if (info.pic != null)
-                    {
-                        ll.Add(info);
-                        textBoxOut.Text += GenHang(new string[] { s, info.title, info.play.ToString(), info.video_review.ToString(), info.favorites.ToString(), info.coins.ToString(),
-                            info.review.ToString(), info.author, info.created_at, info.typename,
-                            info.Fplay.ToString(), info.Ffavorites.ToString(), info.Fcoins.ToString(), info.Freview.ToString(), info.Fdefen.ToString() });
-                        textBoxOut.Text += "\"\r\n";
-                        Application.DoEvents();
-                    }
-                    else if (info.AVNUM != null)
-                    {
-                        ll.Add(info);
-                    }
-                    else
-                    {
-                        failedAVs += s + ";";
-                    }
+                    ll.Add(info);
+                }
+                else if (info.AVNUM != null)
+                {
+                    ll.Add(info);
+                }
+                else
+                {
+                    failedAVs += info.avnum + ";";
                 }
             }
+
+
+            //foreach (string s in lines)
+            //    {
+            //        if (s != "")
+            //        {
+            //            BiliInterfaceInfo info;
+
+            //                info = BiliInterface.GetInfo(s);
+            //                if (info.pic != null)
+            //                {
+            //                    ll.Add(info);
+            //                    //Application.DoEvents();
+            //                }
+            //                else if (info.AVNUM != null)
+            //                {
+            //                    ll.Add(info);
+            //                }
+            //                else
+            //                {
+            //                    failedAVs += s + ";";
+            //                }
+            //            //System.Threading.Thread.Sleep(1000);
+            //        }
+            //    }
+
+
 
             ll.Sort(sortt);
             for (int i = 1; i <= ll.Count; i++)
@@ -201,6 +229,8 @@ namespace BiliRanking
             {
                 Log.Error("注意！下列视频数据未正确获取！\r\n" + failedAVs);
             }
+            textBoxOut.Text = BiliInterface.GetCsvInfos(ll);
+
 
             TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.NoProgress);
 

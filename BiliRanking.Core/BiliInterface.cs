@@ -11,6 +11,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace BiliRanking.Core
 {
@@ -357,6 +358,36 @@ namespace BiliRanking.Core
             return info;
         }
 
+        public static async Task<BiliInterfaceInfo> GetInfoAsync(string s)
+        {
+            return await Task.Run(() =>
+            {
+                return GetInfo(s);
+            });
+        }
+
+        public static string GetCsvInfos(List<BiliInterfaceInfo> infos)
+        {
+            StringBuilder csv = new StringBuilder();
+            csv.AppendLine("AV号,标题,播放数,弹幕数,收藏数,硬币数,评论数,up,时间,分区,播放得分,收藏得分,硬币得分,评论得分,总分");
+            foreach (BiliInterfaceInfo info in infos)
+            {
+                string[] columns = new string[] { info.avnum, info.title, info.play.ToString(), info.video_review.ToString(),
+                    info.favorites.ToString(), info.coins.ToString(), info.review.ToString(), info.author, info.created_at,
+                    info.typename, info.Fplay.ToString(), info.Ffavorites.ToString(), info.Fcoins.ToString(),
+                    info.Freview.ToString()};
+                csv.Append("\"");
+                foreach (string column in columns)
+                {
+                    csv.Append(column);
+                    csv.Append("\",\"");
+                }
+                csv.Append(info.Fdefen.ToString());
+                csv.AppendLine("\"");
+            }
+            return csv.ToString();
+        }
+
         //TODO: 加入P2、Pn的信息获取
         public static BiliInterfaceInfo GetInfoOld(string AVnum)
         {
@@ -563,9 +594,9 @@ namespace BiliRanking.Core
 
                 return Encoding.UTF8.GetString(myDataBuffer);
             }
-            catch
+            catch (Exception e)
             {
-                Log.Error("获取失败！请检查网路设置！");
+                Log.Error("获取失败！请检查网路设置！" + e.Message);
                 return null;
                 //throw new Exception("获取失败");
             }
