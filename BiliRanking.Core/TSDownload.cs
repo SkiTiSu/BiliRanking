@@ -148,7 +148,7 @@ namespace BiliRanking.Core
                 {
                     Log.Warn(FileName + "地址失败！等待延时" + URL);
                     retry++;
-                    Thread.Sleep(3000);
+                    Thread.Sleep(3000); //TODO:同步的等待方法可能导致问题
                 }
                 if (retry == 5)
                 {

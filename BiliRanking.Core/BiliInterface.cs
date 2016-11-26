@@ -242,6 +242,7 @@ namespace BiliRanking.Core
 
             JavaScriptSerializer j = new JavaScriptSerializer();
             BiliInterfaceInfo info = new BiliInterfaceInfo();
+            info.AVNUM = "AV" + avnum;
             try
             {
                 BiliVideoModel model = JsonConvert.DeserializeObject<BiliVideoModel>(html);
@@ -282,8 +283,6 @@ namespace BiliRanking.Core
                     BiliVideoModel AttentionModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.req_user.ToString());
                     //分P信息
                     List<BiliVideoModel> ban = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.pages.ToString());
-
-                    info.AVNUM = "AV" + avnum;
 
                     //--数据转换开始--
                     info.title = InfoModel.title;
@@ -358,13 +357,7 @@ namespace BiliRanking.Core
             return info;
         }
 
-        public static async Task<BiliInterfaceInfo> GetInfoAsync(string s)
-        {
-            return await Task.Run(() =>
-            {
-                return GetInfo(s);
-            });
-        }
+        public static Task<BiliInterfaceInfo> GetInfoAsync(string s) => Task.Run(() => GetInfo(s));
 
         public static string GetCsvInfos(List<BiliInterfaceInfo> infos)
         {
@@ -387,6 +380,8 @@ namespace BiliRanking.Core
             }
             return csv.ToString();
         }
+
+        public static Task<string> GetCsvInfosAsync(List<BiliInterfaceInfo> infos) => Task.Run(() => GetCsvInfos(infos));
 
         //TODO: 加入P2、Pn的信息获取
         public static BiliInterfaceInfo GetInfoOld(string AVnum)

@@ -28,7 +28,7 @@ namespace BiliRanking
 
         public static string[] wenhouyu = new string[]
         {
-            "我又打算做好看版的了，兹磁不兹磁？"
+            "啊♂现在获取数据好♂快！"
         };
         /*
             "拒绝DSSQ，人人有责(◐﹏◐)",
@@ -41,6 +41,7 @@ namespace BiliRanking
             "所以说Web版（看台）不就一步一步做出来了吗（笑",
             "大力出？？？所以说大力到底是神马（纯洁脸",
             "最爱葛平老师了",
+            "我又打算做好看版的了，兹磁不兹磁？"
          */
 
         public FormMain()
@@ -154,34 +155,18 @@ namespace BiliRanking
         private async void buttonGen_Click(object sender, EventArgs e)
         {
             Log.Info("开始批量获取");
-
             TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.Indeterminate);
-
-            //if (cookie == null || cookie == "")
-            //{
-            //    Log.Warn("Cookie为空，会导致会员独享视频无法获取！");
-            //}
-
             List<string> lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n").ToList<string>();
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
             string failedAVs = "";
-            //dataGridViewRAW.DataSource = ll;
-            //Gen(lines);
 
             IEnumerable<Task<BiliInterfaceInfo>> llasync =
                 from s in lines where s != "" select BiliInterface.GetInfoAsync(s);
-
             Task<BiliInterfaceInfo>[] lltasks = llasync.ToArray();
-
             BiliInterfaceInfo[] lls = await Task.WhenAll(lltasks);
-
             foreach (BiliInterfaceInfo info in lls)
             {
                 if (info.pic != null)
-                {
-                    ll.Add(info);
-                }
-                else if (info.AVNUM != null)
                 {
                     ll.Add(info);
                 }
@@ -190,50 +175,19 @@ namespace BiliRanking
                     failedAVs += info.avnum + ";";
                 }
             }
-
-
-            //foreach (string s in lines)
-            //    {
-            //        if (s != "")
-            //        {
-            //            BiliInterfaceInfo info;
-
-            //                info = BiliInterface.GetInfo(s);
-            //                if (info.pic != null)
-            //                {
-            //                    ll.Add(info);
-            //                    //Application.DoEvents();
-            //                }
-            //                else if (info.AVNUM != null)
-            //                {
-            //                    ll.Add(info);
-            //                }
-            //                else
-            //                {
-            //                    failedAVs += s + ";";
-            //                }
-            //            //System.Threading.Thread.Sleep(1000);
-            //        }
-            //    }
-
-
-
             ll.Sort(sortt);
             for (int i = 1; i <= ll.Count; i++)
             {
                 ll[i - 1].Fpaiming = i;
             }
             dataGridViewRAW.DataSource = ll;
-            
             if (failedAVs != "")
             {
                 Log.Error("注意！下列视频数据未正确获取！\r\n" + failedAVs);
             }
-            textBoxOut.Text = BiliInterface.GetCsvInfos(ll);
-
+            textBoxOut.Text = await BiliInterface.GetCsvInfosAsync(ll);
 
             TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.NoProgress);
-
             Log.Info("批量获取完成");
         }
 
@@ -254,7 +208,6 @@ namespace BiliRanking
             {
                 r += hang + "\",\"";
             }
-
             return r.Substring(0, r.Length - 3);
         }
 
@@ -268,7 +221,6 @@ namespace BiliRanking
                 {
                     BiliInterface.GetPic(s);
                 }
-                //System.Threading.Thread.Sleep(1000);
             }
             Log.Info("批量获取完成");
         }
@@ -325,43 +277,32 @@ namespace BiliRanking
                     }
                 }
             }
-
             Log.Info("所有视频MP4地址获取完成");
             Log.Info("开始批量下载");
-
             DlNext();
         }
 
         private void buttonDL_Click(object sender, EventArgs e)
         {
             string[] lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n");
-
             timer1.Enabled = true;
             tsd.Progressbar = verticalProgressBar1;
-
             Log.Info("获取所有视频信息");
-
             foreach (string s in lines)
             {
                 if (s != "")
                 {
                     BiliInterfaceInfo info = BiliInterface.GetFlvInfo(s);
-
                     if (info.flvurl != null)
                     {
-
                         listb.Add(info);
-
                         //Log.Info("正在下载视频 - " + info.AVNUM);
-
                         //tsd = new TSDownload("http://www.bilibilijj.com/DownLoad/Cid/" + info.cid, System.Environment.CurrentDirectory +  @"\video\" + info.AVNUM + ".flv");
                         //tsd.Progressbar = progressBar1;
                         //tsd.Start();
-
                     }
                 }
             }
-
             Log.Info("所有视频信息获取完成");
             Log.Info("开始批量下载");
 
@@ -423,7 +364,6 @@ namespace BiliRanking
             {
                 DlNext();
             }
-            //Application.DoEvents();
         }
 
         private void buttonFubang1_Click(object sender, EventArgs e)
@@ -517,7 +457,6 @@ namespace BiliRanking
                     string str = JsonConvert.SerializeObject(bs);
                     byte[] bytes = Encoding.GetEncoding("UTF-8").GetBytes(str);
 
-
                     using (FileStream fs = new FileStream(fileName, FileMode.Create))
                     {
                         using (GZipStream Compress = new GZipStream(fs, CompressionMode.Compress))
@@ -535,7 +474,7 @@ namespace BiliRanking
             }
         }
 
-        private void buttonRawRead_Click(object sender, EventArgs e)
+        private async void buttonRawRead_Click(object sender, EventArgs e)
         {
             if (openFileDialogGuichu.ShowDialog() == DialogResult.OK)
             {
@@ -547,7 +486,6 @@ namespace BiliRanking
                         Compress.CopyTo(tempMs);
                     }
                 }
-
                 byte[] bytes = tempMs.ToArray();
                 string str = Encoding.GetEncoding("UTF-8").GetString(bytes);
                 BiliShell bs = JsonConvert.DeserializeObject<BiliShell>(str);
@@ -556,7 +494,7 @@ namespace BiliRanking
                     MessageBox.Show("此文件是使用新版BR生成的，无法打开！");
                     return;
                 }
-                List<BiliInterfaceInfo> bi = bs.infos;
+                List<BiliInterfaceInfo> bi = JsonConvert.DeserializeObject<List<BiliInterfaceInfo>>(bs.infos.ToString());
                 textBoxAV.Text = "";
                 //TODO: 判断是否为空文件
                 foreach (BiliInterfaceInfo i in bi)
@@ -566,15 +504,7 @@ namespace BiliRanking
                 dataGridViewRAW.DataSource = bi;
 
                 Log.Info("文件加载完成，正在生成csv");
-                textBoxOut.Text = "AV号,标题,播放数,弹幕数,收藏数,硬币数,评论数,up,时间,分区,播放得分,收藏得分,硬币得分,评论得分,总分\r\n";
-                foreach (BiliInterfaceInfo info in bi)
-                {
-                            textBoxOut.Text += GenHang(new string[] { info.AVNUM.ToLower(), info.title, info.play.ToString(), info.video_review.ToString(), info.favorites.ToString(), info.coins.ToString(),
-                            info.review.ToString(), info.author, info.created_at, info.typename,
-                            info.Fplay.ToString(), info.Ffavorites.ToString(), info.Fcoins.ToString(), info.Freview.ToString(), info.Fdefen.ToString() });
-                            textBoxOut.Text += "\"\r\n";
-                            Application.DoEvents();
-                }
+                textBoxOut.Text = await BiliInterface.GetCsvInfosAsync(bi);
                 Log.Info("生成csv完成");
             }
         }
@@ -602,9 +532,8 @@ namespace BiliRanking
 
         private void buttonAbout_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/SkiTiSu/BiliRanking");
+            Process.Start("https://github.com/SkiTiSu/BiliRanking");
         }
-
 
         int CurrentRowIndex;
         int CurrentColumnIndex;
@@ -656,20 +585,15 @@ namespace BiliRanking
                 Log.Error("数据错误");
                 return;
             }
-
             List<BiliInterfaceInfo> infos = new List<BiliInterfaceInfo>();
-
             System.Web.Script.Serialization.JavaScriptSerializer j = new System.Web.Script.Serialization.JavaScriptSerializer();
             BiliIndexInfo info = new BiliIndexInfo();
             info = j.Deserialize<BiliIndexInfo>(html);
-
             Log.Info($"一共找到了{info.pages}页的数据");
-
             foreach (var l in info.list)
             {
                 infos.Add(l);
             }
-
 
             for (int k = 2; k <= info.pages; k++)
             {
@@ -695,7 +619,6 @@ namespace BiliRanking
                     Log.Error($"在第{k.ToString()}页遇到不可读的“--”数据，B站真是不可描述= =，天书已经把不可读数据变成了0了，最好将所有数据通过API获取一遍");
                 }
             }
-
             /* 算分
             foreach (var iinfo in infos)
             {
@@ -713,14 +636,12 @@ namespace BiliRanking
                 }
 
             }
-            
             infos.Sort(sortt);
             for (int ii = 1; ii <= infos.Count; ii++)
             {
                 infos[ii - 1].Fpaiming = ii;
             }
             */
-
             textBoxOut.Text = "AV号,标题,播放数,弹幕数,收藏数,硬币数,评论数,up,时间,分区,总分\r\n";
             textBoxAV.Text = "";
             foreach (var iinfo in infos)
@@ -841,9 +762,7 @@ namespace BiliRanking
             }
             */
             //string data = Clipboard.GetText();
-
             MessageBox.Show("请一定将表格中的列按照内置表格中除去最后两列的方式排序（不能含有小写逗号\",\"，不可以含有小数），\r\n然后将数据区域（不含标题）复制到剪贴板，点击确定\r\n//抱歉现在的方法可能太不人性化了，以后天书会改进的", "锵锵锵");
-
             try
             {
                 Log.Info("开始读取剪贴板数据");
@@ -906,21 +825,6 @@ namespace BiliRanking
             fq.Show();
         }
 
-        public static byte[] Compress(byte[] bytes)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                GZipStream Compress = new GZipStream(ms, CompressionMode.Compress);
-
-                Compress.Write(bytes, 0, bytes.Length);
-
-                Compress.Close();
-
-                return ms.ToArray();
-
-            }
-        }
-
         private void buttonDlMP4JJ_Click(object sender, EventArgs e)
         {
             string[] lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n");
@@ -942,10 +846,8 @@ namespace BiliRanking
                     }
                 }
             }
-
             Log.Info("所有视频MP4地址获取完成");
             Log.Info("开始批量下载");
-
             DlNext();
         }
 
@@ -955,7 +857,6 @@ namespace BiliRanking
             BiliInterfaceInfo curr = ((List<BiliInterfaceInfo>)dataGridViewRAW.DataSource)[CurrentRowIndex];
             Process.Start($"http://www.bilibilijj.com/Files/DownLoad/{curr.cid}.mp4");
             string html = BiliInterface.GetHtml($"http://www.bilibilijj.com/Files/DownLoad/{curr.cid}.mp4");
-            //
         }
 
         private async void buttonLogin_Click(object sender, EventArgs e)
@@ -963,6 +864,57 @@ namespace BiliRanking
             string res = await BiliApiHelper.LoginBilibili(textBoxLoginName.Text, textBoxLoginPasswd.Text);
             //MessageBox.Show(res);
             Log.Info("授权码:" + res);
+        }
+
+        private async void buttonRAWInsert_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewRAW.DataSource == null)
+            {
+                MessageBox.Show("还没有生成或加载任何数据！","NOOOOOOOOOO!");
+                return;
+            }
+            Log.Info("开始批量获取");
+            TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.Indeterminate);
+            List<string> lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n").ToList<string>();
+            List<BiliInterfaceInfo> llraw = (List<BiliInterfaceInfo>)dataGridViewRAW.DataSource;
+            List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
+            llraw.ForEach(i =>
+            {
+                if (!lines.Contains(i.avnum))
+                    ll.Add(i);
+            });
+
+            string failedAVs = "";
+
+            IEnumerable<Task<BiliInterfaceInfo>> llasync =
+                from s in lines where s != "" select BiliInterface.GetInfoAsync(s);
+            Task<BiliInterfaceInfo>[] lltasks = llasync.ToArray();
+            BiliInterfaceInfo[] lls = await Task.WhenAll(lltasks);
+            foreach (BiliInterfaceInfo info in lls)
+            {
+                if (info.pic != null)
+                {
+                    ll.Add(info);
+                }
+                else
+                {
+                    failedAVs += info.avnum + ";";
+                }
+            }
+            ll.Sort(sortt);
+            for (int i = 1; i <= ll.Count; i++)
+            {
+                ll[i - 1].Fpaiming = i;
+            }
+            dataGridViewRAW.DataSource = ll;
+            if (failedAVs != "")
+            {
+                Log.Error("注意！下列视频数据未正确获取！\r\n" + failedAVs);
+            }
+            textBoxOut.Text = await BiliInterface.GetCsvInfosAsync(ll);
+
+            TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.NoProgress);
+            Log.Info("批量获取完成");
         }
     }
 }

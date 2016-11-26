@@ -325,7 +325,7 @@ namespace BiliRanking.Core
     public class BiliShell
     {
         public int ver;
-        public List<BiliInterfaceInfo> infos;
+        public object infos;
     }
 
     public class MessageModel
