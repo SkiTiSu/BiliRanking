@@ -76,7 +76,7 @@ namespace BiliRanking
             }
 
             //如不修改连接数限制，当一次性统计200以上的视频时WebClient会莫名报错
-            System.Net.ServicePointManager.DefaultConnectionLimit = 512;
+            System.Net.ServicePointManager.DefaultConnectionLimit = 1024;
         }
 
         private void textBoxCookie_TextChanged(object sender, EventArgs e)
@@ -152,6 +152,25 @@ namespace BiliRanking
             Log.Info("获取排行完成");
         }
 
+        //http://stackoverflow.com/questions/20355931/limiting-the-amount-of-concurrent-tasks-in-net-4-5
+        private static async Task<R[]> concurrentAsync<T, R>(int maxConcurrency, IEnumerable<T> items, Func<T, Task<R>> createTask)
+        {
+            var allTasks = new List<Task<R>>();
+            var activeTasks = new List<Task<R>>();
+            foreach (var item in items)
+            {
+                if (activeTasks.Count >= maxConcurrency)
+                {
+                    var completedTask = await Task.WhenAny(activeTasks);
+                    activeTasks.Remove(completedTask);
+                }
+                var task = createTask(item);
+                allTasks.Add(task);
+                activeTasks.Add(task);
+            }
+            return await Task.WhenAll(allTasks);
+        }
+
         private async void buttonGen_Click(object sender, EventArgs e)
         {
             Log.Info("开始批量获取");
@@ -159,11 +178,15 @@ namespace BiliRanking
             List<string> lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n").ToList<string>();
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
             string failedAVs = "";
-
-            IEnumerable<Task<BiliInterfaceInfo>> llasync =
-                from s in lines where s != "" select BiliInterface.GetInfoAsync(s);
-            Task<BiliInterfaceInfo>[] lltasks = llasync.ToArray();
-            BiliInterfaceInfo[] lls = await Task.WhenAll(lltasks);
+            var avs = from s in lines where s != "" select s;
+            //IEnumerable<Task<BiliInterfaceInfo>> llasync =
+            //    from s in lines where s != "" select BiliInterface.GetInfoHTaskAsync(s);
+            //Task<BiliInterfaceInfo>[] lltasks = llasync.ToArray();
+            //BiliInterfaceInfo[] lls = await Task.WhenAll(lltasks);
+            Stopwatch sw = new Stopwatch(); sw.Restart();
+            BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoHTaskAsync));
+            Log.Info($"获取用时：{sw.ElapsedMilliseconds}ms");sw.Stop();
+            Log.Info("正在排序");
             foreach (BiliInterfaceInfo info in lls)
             {
                 if (info.pic != null)
@@ -887,7 +910,7 @@ namespace BiliRanking
             string failedAVs = "";
 
             IEnumerable<Task<BiliInterfaceInfo>> llasync =
-                from s in lines where s != "" select BiliInterface.GetInfoAsync(s);
+                from s in lines where s != "" select BiliInterface.GetInfoHAsync(s);
             Task<BiliInterfaceInfo>[] lltasks = llasync.ToArray();
             BiliInterfaceInfo[] lls = await Task.WhenAll(lltasks);
             foreach (BiliInterfaceInfo info in lls)
