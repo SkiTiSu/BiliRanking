@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncHelper.cs" />
     <Compile Include="BiliApiHelper.cs" />
     <Compile Include="BiliInterface.cs" />
     <Compile Include="BiliIModel.cs" />

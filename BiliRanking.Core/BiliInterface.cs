@@ -20,6 +20,7 @@ namespace BiliRanking.Core
     {
         public static string cookie = "";
         const string appkey = "c1b107428d337928";
+        const string appsec = "ea85624dfcf12d7cc7b2b3a94fac1f2c";
         //8e9fc618fbd41e28 不需要appsec
         const string dlappkey = "f3bb208b3d081dc8";
         const string dlappsec = "1c15888dc316e05a15fdd0a02ed6584f";
@@ -27,23 +28,20 @@ namespace BiliRanking.Core
         /* 已经尝试的无效的appkey与appsec：
          * f3bb208b3d081dc8
          * c1b107428d337928 ea85624dfcf12d7cc7b2b3a94fac1f2c
-         * 
-         * 
          */
-        const string appsec = "ea85624dfcf12d7cc7b2b3a94fac1f2c";
 
         public static string GetSign(SortedDictionary<string, string> sparam)
         {
-            //
             sparam.Add("_appver", "3040000");
             sparam.Add("_tid", "0");
             sparam.Add("_p", "1");
             sparam.Add("_down", "0");
-            //
+
             sparam.Add("platform", "android");
             sparam.Add("_device", "android");
             sparam.Add("_hwid", "ccbb856c97ccb8d2");
             sparam.Add("ts", ((long)((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds)).ToString());
+
             if (!sparam.ContainsKey("appkey")) sparam.Add("appkey", appkey);
             if (!sparam.ContainsKey("type")) sparam.Add("type", "json");
             if (!sparam.ContainsKey("appsec")) sparam.Add("appsec", appsec);
@@ -162,209 +160,18 @@ namespace BiliRanking.Core
 
         public static BiliInterfaceInfo GetMP4info(string AVnum, int page, bool isJJ = false)
         {
-            string avnum = AVnum.ToUpper();
-            if (avnum.Contains("AV"))
-            {
-                avnum = avnum.Substring(2, avnum.Length - 2);
-            }
-
-            Log.Info("正在通过API获取数据 - AV" + avnum);
-
-            SortedDictionary<string, string> parampairs = new SortedDictionary<string, string>();
-            parampairs.Add("id", avnum);
-            string param = GetSign(parampairs);
-
-            string html = GetHtml("http://api.bilibili.com/view?" + param);
-
-            JavaScriptSerializer j = new JavaScriptSerializer();
             BiliInterfaceInfo info = new BiliInterfaceInfo();
-            try
+            info = GetInfo(AVnum, false);
+            if (!string.IsNullOrEmpty(info.title))
             {
-                info = j.Deserialize<BiliInterfaceInfo>(html);
-
-                if (info.code == -403)
-                {
-                    if (info.error == "no perm error")
-                        Log.Error("没有数据！（正在补档或被删除？）");
-                    else
-                        Log.Error("本视频为会员独享，需要Cookie！");
-                }
-                else if (info.code == -503)
-                {
-                    Log.Warn("到达连续获取上限，延时两秒");
-                    System.Threading.Thread.Sleep(2000);
-                    return GetInfo(AVnum);
-                }
-                else if (info.code == -404)
-                {
-                    Log.Error("视频不存在！");
-                }
-                else if (info.code != 0)
-                {
-                    Log.Error("返回未知错误：" + info.code);
-                }
-                else
-                {
-                    info.AVNUM = "AV" + avnum;
-                    info.title = info.title.Replace("&amp;", "&");
-                    info.title = info.title.Replace("&lt;", "<");
-                    info.title = info.title.Replace("&gt;", ">");
-                    info.title = info.title.Replace("&quot;", "\"");
-
-                    //下载视频，无需算分
-
-                    //info.mp4url = GetMP4Url(info.cid);
-                    info.mp4url = GetMP4UrlBackUp(UInt32.Parse(avnum));
-                }
+                info.mp4url = GetMP4UrlBackUp(uint.Parse(info.avnum));
             }
-            catch (Exception e)
-            {
-                Log.Error("AV" + avnum + "的数据发生错误，请稍后重试！" + e.Message);
-            }
-
             return info;
         }
 
-        public static BiliInterfaceInfo GetInfo(string AVnum)
+        public static async Task<BiliInterfaceInfo> GetInfoAsync(string AVnum, bool needScore = true)
         {
-            string avnum = AVnum.ToUpper();
-            if (avnum.Contains("AV"))
-            {
-                avnum = avnum.Substring(2, avnum.Length - 2);
-            }
-
-            Log.Info("正在通过API获取数据 - AV" + avnum);
-
-            string uri = string.Format("http://app.bilibili.com/x/view?_device=wp&_ulv=10000&access_key={0}&aid={1}&appkey=422fd9d7289a1dd9&build=411005&plat=4&platform=android&ts={2}",
-                BiliApiHelper.access_key, avnum, BiliApiHelper.GetTimeSpen);
-            uri += "&sign=" + BiliApiHelper.GetSign(uri);
-
-            string html = GetHtml(uri);
-
-            JavaScriptSerializer j = new JavaScriptSerializer();
-            BiliInterfaceInfo info = new BiliInterfaceInfo();
-            info.AVNUM = "AV" + avnum;
-            try
-            {
-                BiliVideoModel model = JsonConvert.DeserializeObject<BiliVideoModel>(html);
-
-                if (model.code == -403)
-                {
-                    if (model.data.ToString().Contains("no perm"))
-                    {
-                        Log.Error("没有数据！（正在补档或被删除？）"); //在新版API中还需要吗？
-                    }
-                    else
-                    {
-                        Log.Error("本视频为会员独享，或账号方面错误！");
-                    }
-
-                }
-                else if (model.code == -404)
-                {
-                    Log.Error("视频不存在！");
-                }
-                else if (model.code == -500)
-                {
-                    Log.Error("服务器错误，代码-500，请稍后再试");
-                }
-                else if (model.code == -502)
-                {
-                    Log.Error("网关错误，代码-502，请稍后再试");
-                }
-                else
-                {
-                    //基础信息
-                    BiliVideoModel InfoModel = JsonConvert.DeserializeObject<BiliVideoModel>(model.data.ToString());
-                    //UP信息
-                    BiliVideoModel UpModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.owner.ToString());
-                    //数据信息
-                    BiliVideoModel DataModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.stat.ToString());
-                    //关注信息
-                    BiliVideoModel AttentionModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.req_user.ToString());
-                    //分P信息
-                    List<BiliVideoModel> ban = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.pages.ToString());
-
-                    //--数据转换开始--
-                    info.title = InfoModel.title;
-                    info.created_at = InfoModel.Created_at;
-                    info.typename = InfoModel.tname;
-                    info.pic = InfoModel.pic;
-                    info.author = UpModel.name;
-
-                    info.cid = Convert.ToUInt32(ban[0].cid);
-
-                    info.play = Convert.ToUInt32(DataModel.view);
-                    info.video_review = Convert.ToUInt32(DataModel.danmaku);
-                    info.review = Convert.ToUInt32(DataModel.reply);
-                    info.coins = Convert.ToUInt32(DataModel.coin);
-                    info.favorites = Convert.ToUInt32(DataModel.favorite);
-                    info.tag = "";
-                    if (InfoModel.tags != null) //注意有的视频竟然会没有tag
-                    {
-                        string[] pretags = ((JArray)InfoModel.tags).ToObject<string[]>();
-
-                        foreach (string pretag in pretags)
-                        {
-                            info.tag += "," + pretag;
-                        }
-                        info.tag = info.tag.Substring(1);
-                    }
-                    info.description = InfoModel.desc;
-                    //--数据转换结束--
-
-                    info.title = info.title.Replace("&amp;", "&");
-                    info.title = info.title.Replace("&lt;", "<");
-                    info.title = info.title.Replace("&gt;", ">");
-                    info.title = info.title.Replace("&quot;", "\"");
-
-                    //算分
-                    double xiuzheng = 0;
-
-                    //收藏
-                    xiuzheng = ((double)info.favorites / (double)info.play) * 1500;
-                    if (xiuzheng > 55)
-                        xiuzheng = 55;
-                    info.Ffavorites = Convert.ToUInt32(info.favorites * xiuzheng);
-
-                    //硬币
-                    xiuzheng = ((double)info.coins / (double)info.play) * 5000;
-                    if (xiuzheng > 25)
-                        xiuzheng = 25;
-                    info.Fcoins = Convert.ToUInt32(info.coins * xiuzheng);
-
-                    //评论
-                    xiuzheng = ((double)(info.review + info.favorites + info.coins) / (double)(info.play + info.review + info.video_review * 5)) * 800;
-                    if (xiuzheng > 30)
-                        xiuzheng = 30;
-                    info.Freview = Convert.ToUInt32(info.review * xiuzheng);
-
-                    //播放
-                    info.Fplay = info.Ffavorites + info.Fcoins;
-                    if (info.play <= info.Fplay)
-                        info.Fplay = info.play;
-                    else
-                        info.Fplay = info.Fplay + (info.play - info.Fplay) / 2;
-
-                    //得分
-                    info.Fdefen = info.Ffavorites + info.Fcoins + info.Freview + info.Fplay;
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error("AV" + avnum + "的数据发生错误，请稍后重试！" + e.Message);
-            }
-
-            return info;
-        }
-
-        public static async Task<BiliInterfaceInfo> GetInfoHAsync(string AVnum)
-        {
-            string avnum = AVnum.ToUpper();
-            if (avnum.Contains("AV"))
-            {
-                avnum = avnum.Substring(2, avnum.Length - 2);
-            }
+            string avnum = GetAVdenum(AVnum);
             Log.Info("正在通过API获取数据 - AV" + avnum);
 
             string uri = string.Format("http://app.bilibili.com/x/view?_device=wp&_ulv=10000&access_key={0}&aid={1}&appkey=422fd9d7289a1dd9&build=411005&plat=4&platform=android&ts={2}",
@@ -388,13 +195,12 @@ namespace BiliRanking.Core
                 {
                     if (model.data.ToString().Contains("no perm"))
                     {
-                        Log.Error("没有数据！（正在补档或被删除？）"); //在新版API中还需要吗？
+                        Log.Error("没有数据！（正在补档或被删除？）"); //TODO: 在新版API中还需要吗？
                     }
                     else
                     {
                         Log.Error("本视频为会员独享，或账号方面错误！");
                     }
-
                 }
                 else if (model.code == -404)
                 {
@@ -420,16 +226,13 @@ namespace BiliRanking.Core
                     BiliVideoModel AttentionModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.req_user.ToString());
                     //分P信息
                     List<BiliVideoModel> ban = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.pages.ToString());
-
                     //--数据转换开始--
                     info.title = InfoModel.title;
                     info.created_at = InfoModel.Created_at;
                     info.typename = InfoModel.tname;
                     info.pic = InfoModel.pic;
                     info.author = UpModel.name;
-
                     info.cid = Convert.ToUInt32(ban[0].cid);
-
                     info.play = Convert.ToUInt32(DataModel.view);
                     info.video_review = Convert.ToUInt32(DataModel.danmaku);
                     info.review = Convert.ToUInt32(DataModel.reply);
@@ -448,43 +251,17 @@ namespace BiliRanking.Core
                     }
                     info.description = InfoModel.desc;
                     //--数据转换结束--
-
-                    info.title = info.title.Replace("&amp;", "&");
-                    info.title = info.title.Replace("&lt;", "<");
-                    info.title = info.title.Replace("&gt;", ">");
-                    info.title = info.title.Replace("&quot;", "\"");
-
-                    //算分
-                    double xiuzheng = 0;
-
-                    //收藏
-                    xiuzheng = ((double)info.favorites / (double)info.play) * 1500;
-                    if (xiuzheng > 55)
-                        xiuzheng = 55;
-                    info.Ffavorites = Convert.ToUInt32(info.favorites * xiuzheng);
-
-                    //硬币
-                    xiuzheng = ((double)info.coins / (double)info.play) * 5000;
-                    if (xiuzheng > 25)
-                        xiuzheng = 25;
-                    info.Fcoins = Convert.ToUInt32(info.coins * xiuzheng);
-
-                    //评论
-                    xiuzheng = ((double)(info.review + info.favorites + info.coins) / (double)(info.play + info.review + info.video_review * 5)) * 800;
-                    if (xiuzheng > 30)
-                        xiuzheng = 30;
-                    info.Freview = Convert.ToUInt32(info.review * xiuzheng);
-
-                    //播放
-                    info.Fplay = info.Ffavorites + info.Fcoins;
-                    if (info.play <= info.Fplay)
-                        info.Fplay = info.play;
-                    else
-                        info.Fplay = info.Fplay + (info.play - info.Fplay) / 2;
-
-                    //得分
-                    info.Fdefen = info.Ffavorites + info.Fcoins + info.Freview + info.Fplay;
-
+                    //新版API不存在此类问题
+                    //info.title = HttpUtility.HtmlDecode(info.title);
+                    //--or
+                    //info.title = info.title.Replace("&amp;", "&");
+                    //info.title = info.title.Replace("&lt;", "<");
+                    //info.title = info.title.Replace("&gt;", ">");
+                    //info.title = info.title.Replace("&quot;", "\"");
+                    if (needScore)
+                    {
+                        CalScore(ref info);
+                    }
                 }
             }
             catch (Exception e)
@@ -495,10 +272,38 @@ namespace BiliRanking.Core
             return info;
         }
 
+        public static BiliInterfaceInfo GetInfo(string AVnum, bool needScore = true) => AsyncHelper.RunSync(() => GetInfoAsync(AVnum, needScore));
 
+        public static Task<BiliInterfaceInfo> GetInfoTaskAsync(string s) => Task.Run(() => GetInfoAsync(s));
 
-        public static Task<BiliInterfaceInfo> GetInfoAsync(string s) => Task.Run(() => GetInfo(s));
-        public static Task<BiliInterfaceInfo> GetInfoHTaskAsync(string s) => Task.Run(() => GetInfoHAsync(s));
+        public static void CalScore(ref BiliInterfaceInfo info)
+        {
+            //算分
+            double xiuzheng = 0;
+            //收藏
+            xiuzheng = ((double)info.favorites / (double)info.play) * 1500;
+            if (xiuzheng > 55)
+                xiuzheng = 55;
+            info.Ffavorites = Convert.ToUInt32(info.favorites * xiuzheng);
+            //硬币
+            xiuzheng = ((double)info.coins / (double)info.play) * 5000;
+            if (xiuzheng > 25)
+                xiuzheng = 25;
+            info.Fcoins = Convert.ToUInt32(info.coins * xiuzheng);
+            //评论
+            xiuzheng = ((double)(info.review + info.favorites + info.coins) / (double)(info.play + info.review + info.video_review * 5)) * 800;
+            if (xiuzheng > 30)
+                xiuzheng = 30;
+            info.Freview = Convert.ToUInt32(info.review * xiuzheng);
+            //播放
+            info.Fplay = info.Ffavorites + info.Fcoins;
+            if (info.play <= info.Fplay)
+                info.Fplay = info.play;
+            else
+                info.Fplay = info.Fplay + (info.play - info.Fplay) / 2;
+            //得分
+            info.Fdefen = info.Ffavorites + info.Fcoins + info.Freview + info.Fplay;
+        }
 
         public static string GetCsvInfos(List<BiliInterfaceInfo> infos)
         {
@@ -629,9 +434,7 @@ namespace BiliRanking.Core
 
             try
             {
-                Log.Info("正在通过API获取数据 - AV" + avnum);
-
-                info = GetInfo(AVnum);
+                info = GetInfo(avnum);
                 info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), info.cid);
             }
             catch (Exception e)
@@ -675,8 +478,6 @@ namespace BiliRanking.Core
 
             string html = GetHtml("http://interface.bilibili.com/playurl?" + final_param);
 
-            //string url = $"http://interface.bilibili.tv/playurl?appkey=95acd7f6cc3392f3&cid=";
-            //string html = GetHtml(url + cid);
             if (!html.Contains("<result>su"))
             {
                 Log.Error("FLV地址获取失败！ - CID：" + cid);
@@ -698,9 +499,9 @@ namespace BiliRanking.Core
             try
             {
                 WebClient myWebClient = new WebClient();
-                myWebClient.Headers.Add("Cookie", cookie);
-                myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0(Windows NT 5.1) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 35.0.3319.102 Safari / 537.36");
-                //myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0 BiliDroid/3.3.0 (bbcallen@gmail.com)");
+                //myWebClient.Headers.Add("Cookie", cookie);
+                //myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0(Windows NT 5.1) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 35.0.3319.102 Safari / 537.36");
+                myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0 BiliDroid/3.3.0 (bbcallen@gmail.com)");
                 Random ran = new Random();
                 int ip4 = ran.Next(1, 255);
                 int select = ran.Next(1, 2);

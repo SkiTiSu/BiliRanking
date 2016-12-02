@@ -69,12 +69,6 @@
     <Compile Include="Controls\VerticalProgressBar.Designer.cs">
       <DependentUpon>VerticalProgressBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormCookieHelp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormCookieHelp.Designer.cs">
-      <DependentUpon>FormCookieHelp.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,9 +98,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="FormCookieHelp.resx">
-      <DependentUpon>FormCookieHelp.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>

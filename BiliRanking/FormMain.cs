@@ -87,12 +87,6 @@ namespace BiliRanking
             Log.Info("Cookie已被更改为：" + textBoxCookie.Text);
         }
 
-        private void buttonCookieHelp_Click(object sender, EventArgs e)
-        {
-            FormCookieHelp f = new FormCookieHelp();
-            f.ShowDialog();
-        }
-
         private void FormMain_Load(object sender, EventArgs e)
         {
             if (!Directory.Exists(System.Environment.CurrentDirectory + @"\pic\"))
@@ -184,7 +178,7 @@ namespace BiliRanking
             //Task<BiliInterfaceInfo>[] lltasks = llasync.ToArray();
             //BiliInterfaceInfo[] lls = await Task.WhenAll(lltasks);
             Stopwatch sw = new Stopwatch(); sw.Restart();
-            BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoHTaskAsync));
+            BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync));
             Log.Info($"获取用时：{sw.ElapsedMilliseconds}ms");sw.Stop();
             Log.Info("正在排序");
             foreach (BiliInterfaceInfo info in lls)
@@ -910,7 +904,7 @@ namespace BiliRanking
             string failedAVs = "";
 
             IEnumerable<Task<BiliInterfaceInfo>> llasync =
-                from s in lines where s != "" select BiliInterface.GetInfoHAsync(s);
+                from s in lines where s != "" select BiliInterface.GetInfoAsync(s);
             Task<BiliInterfaceInfo>[] lltasks = llasync.ToArray();
             BiliInterfaceInfo[] lls = await Task.WhenAll(lltasks);
             foreach (BiliInterfaceInfo info in lls)
