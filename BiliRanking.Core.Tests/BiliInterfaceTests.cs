@@ -13,6 +13,13 @@ namespace BiliRanking.Core.Tests
     public class BiliInterfaceTests
     {
         [TestMethod()]
+        public void EnvironmentTest()
+        {
+            Console.WriteLine("【运行环境检查】");
+            Console.WriteLine("逻辑处理器数量：" + Environment.ProcessorCount);
+        }
+
+        [TestMethod()]
         public void GetInfoAsyncTest()
         {
             BiliInterfaceInfo info = new BiliInterfaceInfo();

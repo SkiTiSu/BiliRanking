@@ -16,6 +16,7 @@ using MaterialSkin;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Linq;
+using BiliRanking.Core.Download;
 
 namespace BiliRanking
 {
@@ -127,7 +128,7 @@ namespace BiliRanking
                 else
                     break;
             }
-            
+
             textBoxAV.Text = "";
 
             for (int i = 0; i < Convert.ToInt32(comboBoxListNum.Text); i++)
@@ -178,7 +179,7 @@ namespace BiliRanking
             //BiliInterfaceInfo[] lls = await Task.WhenAll(lltasks);
             Stopwatch sw = new Stopwatch(); sw.Restart();
             BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync));
-            Log.Info($"获取用时：{sw.ElapsedMilliseconds}ms");sw.Stop();
+            Log.Info($"获取用时：{sw.ElapsedMilliseconds}ms"); sw.Stop();
             Log.Info("正在排序");
             foreach (BiliInterfaceInfo info in lls)
             {
@@ -269,6 +270,7 @@ namespace BiliRanking
         }
 
         TSDownload tsd = new TSDownload();
+        MultiThreadedWebDownloaderEx downloader = null;
         List<BiliInterfaceInfo> listb = new List<BiliInterfaceInfo>();
         List<string> listh5 = new List<string>();
 
@@ -301,7 +303,7 @@ namespace BiliRanking
         private void buttonDL_Click(object sender, EventArgs e)
         {
             string[] lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n");
-            timer1.Enabled = true;
+            //timer1.Enabled = true;
             tsd.Progressbar = verticalProgressBar1;
             Log.Info("获取所有视频信息");
             foreach (string s in lines)
@@ -326,7 +328,86 @@ namespace BiliRanking
             //Log.Info("批量下载完成");
         }
 
-        void DlNext()
+        private void DlNext()
+        {
+            if (listb.Count != 0)
+            {
+                List<BiliInterfaceInfo> lb = (List<BiliInterfaceInfo>)dataGridViewRAW.DataSource;
+                if (lb != null)
+                    listb[0].Fpaiming = lb.Find(x => x.AVNUM == listb[0].AVNUM).Fpaiming;
+                string topstring = "";
+                if (listb[0].Fpaiming != 0 && listb[0].Fpaiming <= 20)
+                    topstring = "TOP_" + listb[0].Fpaiming + "-";
+                if (listb[0].mp4url != null)
+                {
+                    downloader = new MultiThreadedWebDownloaderEx(listb[0].mp4url)
+                    {
+                        DownloadPath = Environment.CurrentDirectory + $@"\video\{topstring}{listb[0].AVNUM}-{TSDownload.removeInvChrInPath(listb[0].title)}.mp4"
+                    };
+                }
+                else if (listb[0].flvurl != null)
+                {
+                    downloader = new MultiThreadedWebDownloaderEx(listb[0].flvurl)
+                    {
+                        DownloadPath = Environment.CurrentDirectory + $@"\video\{topstring}{listb[0].AVNUM}-{TSDownload.removeInvChrInPath(listb[0].title)}.flv"
+                    };
+                }
+                tsd.Progressbar = verticalProgressBar1;
+                string noNeed;
+                downloader.CheckUrl(out noNeed); //TODO: 在C# 7.0发布后就可以使用out string noNeed啦~
+                nowAV = listb[0];
+                Log.Info("正在下载视频 - " + listb[0].AVNUM + " | " + downloader.DownloadPath);
+                pictureBoxDl.ImageLocation = listb[0].pic;
+
+                downloader.DownloadProgressChanged += Downloader_DownloadProgressChanged;
+                downloader.DownloadCompleted += Downloader_DownloadCompleted;
+                downloader.BeginDownload();
+
+                listb.RemoveAt(0);
+            }
+            else
+            {
+                Log.Info("批量下载完成");
+                //timer1.Enabled = false;
+                textBox1.Text = "所有视频都已下载完成！\r\n\r\n下载状态将会显示在这里";
+                verticalProgressBar1.Value = verticalProgressBar1.Maximum;
+            }
+        }
+
+        private void Downloader_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
+        {
+            this.Invoke(new Action(() => DlNext()));
+        }
+        
+        private void Downloader_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            this.Invoke(
+                new EventHandler<DownloadProgressChangedEventArgs>(DownloadProgressChangedHandler),
+                sender, e);
+        }
+
+        DateTime lastNotificationTime = DateTime.Now;
+        private void DownloadProgressChangedHandler(object sender, DownloadProgressChangedEventArgs e)
+        {
+            if (DateTime.Now > lastNotificationTime.AddSeconds(0.5))
+            {
+                string s = "[下载信息]\r\n";
+                s += "标题：" + nowAV.title + "\r\n";
+                s += "AV号：" + nowAV.AVNUM + "\r\n";
+                s += "CID ：" + nowAV.cid + "\r\n";
+                s += "\r\n";
+                s += "[下载状态]\r\n";
+                s += " 大小 ：" + (float)e.TotalSize / 1024 / 1024 + "MiB\r\n";
+                s += " 速度 ：" + e.DownloadSpeed / 1024 + "KiB/s\r\n";
+                s += " 进度 ：" + downloader.Percent * 100 + "%\r\n";
+                s += " 线程 ：" + downloader.DownloadThreadsCount + "\r\n";
+                textBox1.Text = s;
+                verticalProgressBar1.Value = (int)(e.ReceivedSize * 100 / e.TotalSize);
+                lastNotificationTime = DateTime.Now;
+            }
+        }
+
+        void DlNextST()
         {
             try
             {
@@ -344,7 +425,7 @@ namespace BiliRanking
                     topstring = "TOP_" + listb[0].Fpaiming + "-";
                 if (listb[0].mp4url != null)
                     tsd = new TSDownload(listb[0].mp4url, Environment.CurrentDirectory + $@"\video\{topstring}{listb[0].AVNUM}-{TSDownload.removeInvChrInPath(listb[0].title)}.mp4");
-                else if(listb[0].flvurl != null)
+                else if (listb[0].flvurl != null)
                     tsd = new TSDownload(listb[0].flvurl, Environment.CurrentDirectory + $@"\video\{topstring}{listb[0].AVNUM}-{TSDownload.removeInvChrInPath(listb[0].title)}.flv");
                 tsd.Progressbar = verticalProgressBar1;
                 nowAV = listb[0];
@@ -359,7 +440,6 @@ namespace BiliRanking
                 timer1.Enabled = false;
                 textBox1.Text = "下载状态将会显示在这里";
             }
-
         }
 
         BiliInterfaceInfo nowAV;
@@ -413,7 +493,7 @@ namespace BiliRanking
             fu.Gen2(linfo);
         }
 
-        private string GetEleConFromHtml (string html,string keywords,string endchar = "\"")
+        private string GetEleConFromHtml(string html, string keywords, string endchar = "\"")
         {
             int i = html.IndexOf(keywords) + keywords.Length;
             int j = i;
@@ -716,7 +796,7 @@ namespace BiliRanking
                 MessageBox.Show("没有足够的数据orz\r\n是不是被你吃掉了？", "噫……", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (int.Parse(textBoxRawProgramFrom.Text)> int.Parse(textBoxRawProgramTo.Text))
+            if (int.Parse(textBoxRawProgramFrom.Text) > int.Parse(textBoxRawProgramTo.Text))
             {
                 MessageBox.Show("脑子抽调啦！@_@\r\n怎么能倒过来呢", "噫……", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -886,7 +966,7 @@ namespace BiliRanking
         {
             if (dataGridViewRAW.DataSource == null)
             {
-                MessageBox.Show("还没有生成或加载任何数据！","NOOOOOOOOOO!");
+                MessageBox.Show("还没有生成或加载任何数据！", "NOOOOOOOOOO!");
                 return;
             }
             Log.Info("开始批量获取");

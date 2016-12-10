@@ -56,6 +56,14 @@
     <Compile Include="BiliInterface.cs" />
     <Compile Include="BiliIModel.cs" />
     <Compile Include="BiliParse.cs" />
+    <Compile Include="Download\DownloadCompletedEventArgs.cs" />
+    <Compile Include="Download\DownloaderHelper.cs" />
+    <Compile Include="Download\DownloadProgressChangedEventArgs.cs" />
+    <Compile Include="Download\DownloadStatus.cs" />
+    <Compile Include="Download\HttpDownloadClient.cs" />
+    <Compile Include="Download\IDownloader.cs" />
+    <Compile Include="Download\MultiThreadedWebDownloader.cs" />
+    <Compile Include="Download\MultiThreadedWebDownloaderEx.cs" />
     <Compile Include="Fubang.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

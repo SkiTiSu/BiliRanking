@@ -490,6 +490,7 @@ namespace BiliRanking.Core
             var t = xe.Elements("url");
             IEnumerable<string> elements = from ele in xe.Descendants("url") //where ele.Name == "url"
                                            select ele.Value;
+            Log.Debug("获取到下载地址：" + elements.ToArray()[0]);
             return elements.ToArray()[0];
         }
 
