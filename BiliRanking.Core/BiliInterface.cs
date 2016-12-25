@@ -311,7 +311,7 @@ namespace BiliRanking.Core
             csv.AppendLine("AV号,标题,播放数,弹幕数,收藏数,硬币数,评论数,up,时间,分区,播放得分,收藏得分,硬币得分,评论得分,总分");
             foreach (BiliInterfaceInfo info in infos)
             {
-                string[] columns = new string[] { info.avnum, info.title, info.play.ToString(), info.video_review.ToString(),
+                string[] columns = new string[] { info.avnum, info.title.Replace("\0",""), info.play.ToString(), info.video_review.ToString(), //为毛av6859961的标题后面有个\0？导致textbox显示到那边就不往后显示了，为毛！！
                     info.favorites.ToString(), info.coins.ToString(), info.review.ToString(), info.author, info.created_at,
                     info.typename, info.Fplay.ToString(), info.Ffavorites.ToString(), info.Fcoins.ToString(),
                     info.Freview.ToString()};

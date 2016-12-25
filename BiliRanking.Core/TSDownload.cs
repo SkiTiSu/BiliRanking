@@ -232,17 +232,23 @@ namespace BiliRanking.Core
         /// <param name="n">已下载大小</param>
         private void SetPbV(int n)
         {
-            if (Progressbar != null)
+            if (tims.Enabled == false || Progressbar != null)
             {
-                Action<int> Change = s => Progressbar.Value = s;
-                if (Progressbar.InvokeRequired)
+                //TODO: 为什么上述条件都不符合还是能进入导致progressbar已经被别的接管后导致的错误？
+                try
                 {
-                    Progressbar.Invoke(Change, n);
+                    Action<int> Change = s => Progressbar.Value = s;
+                    if (Progressbar.InvokeRequired)
+                    {
+                        Progressbar.Invoke(Change, n);
+                    }
+                    else
+                    {
+                        Change(n);
+                    }
                 }
-                else
-                {
-                    Change(n);
-                }
+                catch {}
+
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,11 @@ namespace BiliRanking.Core
         }
     }
 
-    //TODO:API已更新！
+    // 其实这里面的每个属性我都是想加上DisplayName的，以为能在GridView中用到
+    // 实际运用中发现GridView最多在自动生成时能读取到这个属性，这样就不能定义宽度之类的了
+    // 如果非要这样做，将会用到很多反射，非常麻烦，所以还是在UI里写呗，也不复杂~
+    // [Browsable(false)]
+    // [DisplayName("分区")]
     [Serializable]
     public class BiliInterfaceInfo
     {
@@ -86,6 +91,20 @@ namespace BiliRanking.Core
 
         public string mp4url;
         public string flvurl;
+        public string avurl
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(avnum))
+                {
+                    return string.Format("http://www.bilibili.com/video/{0}/", avnum);
+                }
+                else
+                {
+                    return "http://www.bilibili.com/";
+                }
+            }
+        }
 
         public BiliVideoStat stat;
 

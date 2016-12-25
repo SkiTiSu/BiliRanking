@@ -38,6 +38,11 @@
                                 <view:Home />
                             </domain:Item.Content>
                         </domain:Item>
+                        <domain:Item Name="数据获取">
+                            <domain:Item.Content>
+                                <view:Data />
+                            </domain:Item.Content>
+                        </domain:Item>
                         <domain:Item Name="排行统计">
                             <domain:Item.Content>
                                 <view:List />

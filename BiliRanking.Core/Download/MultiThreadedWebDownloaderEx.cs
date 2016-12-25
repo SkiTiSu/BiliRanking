@@ -18,7 +18,7 @@ namespace BiliRanking.Core.Download
             }
         }
 
-        public MultiThreadedWebDownloaderEx(string url) : base(url)
+        public MultiThreadedWebDownloaderEx(string url) : base(url, 1024, 1048576, 64, Environment.ProcessorCount)
         {
         }
 

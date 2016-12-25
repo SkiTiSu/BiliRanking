@@ -303,9 +303,39 @@ namespace BiliRanking
         private void buttonDL_Click(object sender, EventArgs e)
         {
             string[] lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n");
-            //timer1.Enabled = true;
+            Log.Info("获取所有视频信息");
+            listb.Clear();
+            foreach (string s in lines)
+            {
+                if (s != "")
+                {
+                    BiliInterfaceInfo info = BiliInterface.GetFlvInfo(s);
+                    if (info.flvurl != null)
+                    {
+                        listb.Add(info);
+                    }
+                }
+            }
+            Log.Info("所有视频信息获取完成");
+            Log.Info("开始批量下载");
+            timer1.Stop();
+            try
+            {
+                tsd.Stop();
+                //tsd.Progressbar = null;
+            }
+            catch { }
+            //verticalProgressBar1.Maximum = 100;
+            DlNext();
+            //Log.Info("批量下载完成");
+        }
+
+        private void buttonDLold_Click(object sender, EventArgs e)
+        {
+            string[] lines = Regex.Split(textBoxAV.Text, "\r\n|\r|\n");
             tsd.Progressbar = verticalProgressBar1;
             Log.Info("获取所有视频信息");
+            listb.Clear();
             foreach (string s in lines)
             {
                 if (s != "")
@@ -324,12 +354,22 @@ namespace BiliRanking
             Log.Info("所有视频信息获取完成");
             Log.Info("开始批量下载");
 
-            DlNext();
-            //Log.Info("批量下载完成");
+            if (downloader != null && downloader.Status == DownloadStatus.Downloading)
+            {
+                downloader.Cancel();
+            }
+            timer1.Enabled = true;
+            DlNextST();
         }
 
         private void DlNext()
         {
+            try
+            {
+                tsd.Stop();
+            }
+            catch { }
+            timer1.Enabled = false;
             if (listb.Count != 0)
             {
                 List<BiliInterfaceInfo> lb = (List<BiliInterfaceInfo>)dataGridViewRAW.DataSource;
@@ -352,12 +392,21 @@ namespace BiliRanking
                         DownloadPath = Environment.CurrentDirectory + $@"\video\{topstring}{listb[0].AVNUM}-{TSDownload.removeInvChrInPath(listb[0].title)}.flv"
                     };
                 }
-                tsd.Progressbar = verticalProgressBar1;
                 string noNeed;
-                downloader.CheckUrl(out noNeed); //TODO: 在C# 7.0发布后就可以使用out string noNeed啦~
+                try
+                {
+                    downloader.CheckUrl(out noNeed); //TODO: 在C# 7.0发布后就可以使用out string noNeed啦~
+                }
+                catch
+                {
+                    Log.Error("检测下载地址时发生错误，请稍后再试");
+                    listb.RemoveAt(0);
+                    DlNext();
+                }
                 nowAV = listb[0];
                 Log.Info("正在下载视频 - " + listb[0].AVNUM + " | " + downloader.DownloadPath);
                 pictureBoxDl.ImageLocation = listb[0].pic;
+                verticalProgressBar1.Maximum = 100;
 
                 downloader.DownloadProgressChanged += Downloader_DownloadProgressChanged;
                 downloader.DownloadCompleted += Downloader_DownloadCompleted;
@@ -376,6 +425,7 @@ namespace BiliRanking
 
         private void Downloader_DownloadCompleted(object sender, DownloadCompletedEventArgs e)
         {
+            if (downloader.Status != DownloadStatus.Canceled)
             this.Invoke(new Action(() => DlNext()));
         }
         
@@ -391,17 +441,22 @@ namespace BiliRanking
         {
             if (DateTime.Now > lastNotificationTime.AddSeconds(0.5))
             {
-                string s = "[下载信息]\r\n";
-                s += "标题：" + nowAV.title + "\r\n";
-                s += "AV号：" + nowAV.AVNUM + "\r\n";
-                s += "CID ：" + nowAV.cid + "\r\n";
-                s += "\r\n";
-                s += "[下载状态]\r\n";
-                s += " 大小 ：" + (float)e.TotalSize / 1024 / 1024 + "MiB\r\n";
-                s += " 速度 ：" + e.DownloadSpeed / 1024 + "KiB/s\r\n";
-                s += " 进度 ：" + downloader.Percent * 100 + "%\r\n";
-                s += " 线程 ：" + downloader.DownloadThreadsCount + "\r\n";
-                textBox1.Text = s;
+                StringBuilder sb = new StringBuilder();
+                sb.Append("[下载信息]\r\n");
+                sb.AppendFormat(
+@"标题：{0}
+AV号：{1}
+CID：{2}
+
+", nowAV.title, nowAV.AVNUM, nowAV.cid);
+                sb.Append("[下载状态]\r\n");
+                sb.AppendFormat(
+@"大小：{0,-8:F2}MiB
+速度：{1,-8:F0}KiB/s
+进度：{2,-8:F1}%
+线程：{3}
+", (float)e.TotalSize / 1024 / 1024, e.DownloadSpeed / 1024, downloader.Percent * 100, downloader.DownloadThreadsCount);
+                textBox1.Text = sb.ToString();
                 verticalProgressBar1.Value = (int)(e.ReceivedSize * 100 / e.TotalSize);
                 lastNotificationTime = DateTime.Now;
             }
@@ -412,6 +467,14 @@ namespace BiliRanking
             try
             {
                 tsd.Stop();
+            }
+            catch { }
+            try
+            {
+                if (downloader.Status == DownloadStatus.Downloading)
+                {
+                    downloader.Cancel();
+                }
             }
             catch { }
 
@@ -452,13 +515,14 @@ namespace BiliRanking
             s += "CID ：" + nowAV.cid + "\r\n";
             s += "\r\n";
             s += "[下载状态]\r\n";
-            s += " 大小 ：" + ((float)tsd.TotalBytes) / 1024 / 1024 + "MiB\r\n";
-            s += " 速度 ：" + tsd.Speed / 1024 + "KiB/s\r\n";
-            s += "百分比：" + tsd.Percent + "%\r\n";
+            s += "大小：" + ((float)tsd.TotalBytes) / 1024 / 1024 + "MiB\r\n";
+            s += "速度：" + tsd.Speed / 1024 + "KiB/s\r\n";
+            s += "进度：" + tsd.Percent + "%\r\n";
+            s += "线程：1";
             textBox1.Text = s;
             if (tsd.Percent == 100.0)
             {
-                DlNext();
+                DlNextST();
             }
         }
 
@@ -1012,5 +1076,7 @@ namespace BiliRanking
             TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.NoProgress);
             Log.Info("批量获取完成");
         }
+
+
     }
 }

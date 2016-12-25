@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BiliRanking.WPF.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="513.694" d:DesignWidth="876.287" >
+             d:DesignHeight="500" d:DesignWidth="900" >
     <Grid Margin="16" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -37,7 +37,7 @@
         </StackPanel>
         <ComboBox  
                   materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding ElementName=DisplaySelectedItemCheckBox, Path=IsChecked}"
-                  Margin="0 8 0 8" HorizontalAlignment="Left">
+                  Margin="130,26.8,0,-53.8" HorizontalAlignment="Left" Grid.Row="10">
             <ComboBoxItem IsSelected="True">Apple</ComboBoxItem>
             <ComboBoxItem>hot</ComboBoxItem>
             <ComboBoxItem>Pear</ComboBoxItem>
