@@ -34,8 +34,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBoxResult = new System.Windows.Forms.TextBox();
-            this.reverseUpDownFpaiming = new ReverseUpDown();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.reverseUpDownFpaiming = new ReverseUpDown();
+            this.buttonLifetime12 = new System.Windows.Forms.Button();
+            this.buttonLifetime30 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.reverseUpDownFpaiming)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,7 +51,9 @@
             "{播放}{}{硬币}{}{收藏}{}{弹幕}{}{评论}",
             "{总分}",
             "{tag}",
-            "{时间}    {av号}    {作者}"});
+            "{时间}    {av号}    {作者}",
+            "{代码}",
+            "{时间码}"});
             this.comboBox1.Location = new System.Drawing.Point(34, 34);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
@@ -111,6 +116,24 @@
             this.textBoxResult.Size = new System.Drawing.Size(309, 58);
             this.textBoxResult.TabIndex = 7;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 142);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(299, 12);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "蛤，←和→键已经被我拦截啦~上面一旦改变会自动复制";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 163);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(221, 12);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "时间码已经被+1s+1s+1s，按钮显示时长:";
+            // 
             // reverseUpDownFpaiming
             // 
             this.reverseUpDownFpaiming.Location = new System.Drawing.Point(9, 8);
@@ -135,20 +158,34 @@
             0});
             this.reverseUpDownFpaiming.ValueChanged += new System.EventHandler(this.reverseUpDownFpaiming_ValueChanged);
             // 
-            // label1
+            // buttonLifetime12
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 142);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(167, 12);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "蛤，←和→键已经被我拦截啦~";
+            this.buttonLifetime12.Location = new System.Drawing.Point(223, 157);
+            this.buttonLifetime12.Name = "buttonLifetime12";
+            this.buttonLifetime12.Size = new System.Drawing.Size(45, 24);
+            this.buttonLifetime12.TabIndex = 11;
+            this.buttonLifetime12.Text = "12s";
+            this.buttonLifetime12.UseVisualStyleBackColor = true;
+            this.buttonLifetime12.Click += new System.EventHandler(this.buttonLifetime12_Click);
+            // 
+            // buttonLifetime30
+            // 
+            this.buttonLifetime30.Location = new System.Drawing.Point(274, 158);
+            this.buttonLifetime30.Name = "buttonLifetime30";
+            this.buttonLifetime30.Size = new System.Drawing.Size(45, 23);
+            this.buttonLifetime30.TabIndex = 12;
+            this.buttonLifetime30.Text = "30s";
+            this.buttonLifetime30.UseVisualStyleBackColor = true;
+            this.buttonLifetime30.Click += new System.EventHandler(this.buttonLifetime30_Click);
             // 
             // FormQuickCopy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 163);
+            this.ClientSize = new System.Drawing.Size(326, 183);
+            this.Controls.Add(this.buttonLifetime30);
+            this.Controls.Add(this.buttonLifetime12);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.reverseUpDownFpaiming);
             this.Controls.Add(this.textBoxResult);
@@ -181,5 +218,8 @@
         private System.Windows.Forms.TextBox textBoxResult;
         private ReverseUpDown reverseUpDownFpaiming;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button buttonLifetime12;
+        private System.Windows.Forms.Button buttonLifetime30;
     }
 }

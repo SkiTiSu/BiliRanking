@@ -81,6 +81,8 @@ namespace BiliRanking
             after = after.Replace("{danmu}", info.video_review.ToString());
             after = after.Replace("{pinglun}", info.review.ToString());
             after = after.Replace("{tag}", info.tag.ToString());
+            after = after.Replace("{code}", GenCodeDanmaku(info));
+            after = after.Replace("{timecode}", GenTimecode(info));
 
             after = after.Replace("{换行}", "\r\n");
             after = after.Replace("{标题}", info.title);
@@ -94,8 +96,44 @@ namespace BiliRanking
             after = after.Replace("{收藏}", info.favorites.ToString());
             after = after.Replace("{弹幕}", info.video_review.ToString());
             after = after.Replace("{评论}", info.review.ToString());
+            after = after.Replace("{代码}", GenCodeDanmaku(info));
+            after = after.Replace("{时间码}", GenTimecode(info));
 
             return after;
+        }
+
+        private string GenCodeDanmaku(BiliInterfaceInfo info)
+        {
+            string res = @"vtt=$.createButton(
+{
+    lifeTime:{lifetime},
+    x:Player.width-180,
+    width:150,
+    y:Player.height-40,
+    height:30,
+    text:""跳转到该投稿"",
+    onclick: function()
+    {
+        Player.jump(""{avnum}"", 1, true);
+    }
+});
+v32.setStyle(""fillColors"",[0xFF0000,0xCCCCCC]);";
+
+            res = res.Replace("{avnum}", info.avnum);
+
+            return res;
+        }
+
+        private string GenTimecode(BiliInterfaceInfo info)
+        {
+            try
+            {
+                return (TimeSpan.Parse(info.Tstart.Split('.')[0]).TotalSeconds + 3).ToString();
+            }
+            catch
+            {
+                return "时间码解析失败";
+            }
         }
 
         public void DoFresh()
@@ -146,6 +184,16 @@ namespace BiliRanking
         private void FormQuickCopy_FormClosing(object sender, FormClosingEventArgs e)
         {
             globalKeyboardHook?.Dispose();
+        }
+
+        private void buttonLifetime12_Click(object sender, EventArgs e)
+        {
+            textBoxResult.Text = textBoxResult.Text.Replace("{lifetime}", "12");
+        }
+
+        private void buttonLifetime30_Click(object sender, EventArgs e)
+        {
+            textBoxResult.Text = textBoxResult.Text.Replace("{lifetime}", "30");
         }
     }
 }
