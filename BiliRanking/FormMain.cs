@@ -120,9 +120,16 @@ namespace BiliRanking
 
             List<string> ss = new List<string>();
 
+            string czone = comboBoxListZone.Text;
+            string tzone = Regex.Match(czone, @"\d+").Value;
+            //czone.Split('(')[0].Split(')')[1];
+            //http://stackoverflow.com/questions/4734116/find-and-extract-a-number-from-a-string
+            //string.Join("", phone.ToCharArray().Where(Char.IsDigit));
+            //resultString = Regex.Match(subjectString, @"\d+").Value;
+
             for (int i = 1; i <= needpage; i++)
             {
-                List<string> sts = BiliParse.GetList(sort, 119, i, dateTimePickerFrom.Value, dateTimePickerTo.Value);
+                List<string> sts = BiliParse.GetList(sort, int.Parse(tzone), i, dateTimePickerFrom.Value, dateTimePickerTo.Value);
                 if (sts != null)
                     ss.AddRange(sts);
                 else

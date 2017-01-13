@@ -28,6 +28,7 @@ namespace BiliRanking
         {
             binfos = infos;
             reverseUpDownFpaiming.Value = 1;
+            reverseUpDownFpaiming.Maximum = binfos.Count;
         }
 
         private void OnKeyPressed(object sender, GlobalKeyboardHookEventArgs e)
@@ -128,7 +129,8 @@ v32.setStyle(""fillColors"",[0xFF0000,0xCCCCCC]);";
         {
             try
             {
-                return (TimeSpan.Parse(info.Tstart.Split('.')[0]).TotalSeconds + 3).ToString();
+                return (TimeSpan.Parse(info.Tstart.Substring(0, info.Tstart.LastIndexOf(":"))).TotalSeconds + 3).ToString();
+                //return (TimeSpan.Parse(info.Tstart.Split('.')[0]).TotalSeconds + 3).ToString();
             }
             catch
             {
@@ -188,12 +190,18 @@ v32.setStyle(""fillColors"",[0xFF0000,0xCCCCCC]);";
 
         private void buttonLifetime12_Click(object sender, EventArgs e)
         {
-            textBoxResult.Text = textBoxResult.Text.Replace("{lifetime}", "12");
+            textBoxResult.Text = textBoxResult.Text.Replace("{lifetime}", "22");
         }
 
         private void buttonLifetime30_Click(object sender, EventArgs e)
         {
-            textBoxResult.Text = textBoxResult.Text.Replace("{lifetime}", "30");
+            textBoxResult.Text = textBoxResult.Text.Replace("{lifetime}", "34");
+        }
+
+        private void textBoxResult_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxResult.Text != null)
+                Clipboard.SetText(textBoxResult.Text);
         }
     }
 }
