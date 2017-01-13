@@ -169,7 +169,7 @@ namespace BiliRanking
             this.textBoxCookie.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCookie.Location = new System.Drawing.Point(85, 92);
-            this.textBoxCookie.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxCookie.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxCookie.Name = "textBoxCookie";
             this.textBoxCookie.Size = new System.Drawing.Size(788, 27);
             this.textBoxCookie.TabIndex = 2;
@@ -194,7 +194,7 @@ namespace BiliRanking
             this.buttonAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAbout.Font = new System.Drawing.Font("Microsoft YaHei UI", 5.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonAbout.Location = new System.Drawing.Point(970, 661);
-            this.buttonAbout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonAbout.Margin = new System.Windows.Forms.Padding(4);
             this.buttonAbout.Name = "buttonAbout";
             this.buttonAbout.Size = new System.Drawing.Size(72, 22);
             this.buttonAbout.TabIndex = 5;
@@ -216,7 +216,7 @@ namespace BiliRanking
             this.tabControlMain.Controls.Add(this.tabPageAdvanced);
             this.tabControlMain.Depth = 0;
             this.tabControlMain.Location = new System.Drawing.Point(146, 124);
-            this.tabControlMain.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControlMain.Margin = new System.Windows.Forms.Padding(4);
             this.tabControlMain.MouseState = MaterialSkin.MouseState.HOVER;
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -232,7 +232,7 @@ namespace BiliRanking
             this.tabPageLogin.Controls.Add(this.textBoxLoginPasswd);
             this.tabPageLogin.Controls.Add(this.textBoxLoginName);
             this.tabPageLogin.Location = new System.Drawing.Point(4, 29);
-            this.tabPageLogin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageLogin.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageLogin.Name = "tabPageLogin";
             this.tabPageLogin.Size = new System.Drawing.Size(893, 503);
             this.tabPageLogin.TabIndex = 5;
@@ -252,10 +252,10 @@ namespace BiliRanking
             // labelBuildVersion
             // 
             this.labelBuildVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelBuildVersion.Location = new System.Drawing.Point(650, 453);
+            this.labelBuildVersion.Location = new System.Drawing.Point(534, 445);
             this.labelBuildVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelBuildVersion.Name = "labelBuildVersion";
-            this.labelBuildVersion.Size = new System.Drawing.Size(231, 21);
+            this.labelBuildVersion.Size = new System.Drawing.Size(347, 28);
             this.labelBuildVersion.TabIndex = 22;
             this.labelBuildVersion.Text = "未获取到编译版本号";
             this.labelBuildVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -291,7 +291,7 @@ namespace BiliRanking
             // textBoxLoginPasswd
             // 
             this.textBoxLoginPasswd.Location = new System.Drawing.Point(14, 454);
-            this.textBoxLoginPasswd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxLoginPasswd.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxLoginPasswd.Name = "textBoxLoginPasswd";
             this.textBoxLoginPasswd.Size = new System.Drawing.Size(242, 27);
             this.textBoxLoginPasswd.TabIndex = 10;
@@ -300,7 +300,7 @@ namespace BiliRanking
             // textBoxLoginName
             // 
             this.textBoxLoginName.Location = new System.Drawing.Point(14, 418);
-            this.textBoxLoginName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxLoginName.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxLoginName.Name = "textBoxLoginName";
             this.textBoxLoginName.Size = new System.Drawing.Size(242, 27);
             this.textBoxLoginName.TabIndex = 9;
@@ -323,9 +323,9 @@ namespace BiliRanking
             this.tabPageList.Controls.Add(this.comboBoxListSort);
             this.tabPageList.Controls.Add(this.label4);
             this.tabPageList.Location = new System.Drawing.Point(4, 29);
-            this.tabPageList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageList.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageList.Name = "tabPageList";
-            this.tabPageList.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageList.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageList.Size = new System.Drawing.Size(893, 503);
             this.tabPageList.TabIndex = 0;
             this.tabPageList.Text = "视频排行统计";
@@ -361,7 +361,7 @@ namespace BiliRanking
             this.comboBoxTagZone.Items.AddRange(new object[] {
             "VOCALOID·UTAU(30)"});
             this.comboBoxTagZone.Location = new System.Drawing.Point(211, 409);
-            this.comboBoxTagZone.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxTagZone.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxTagZone.Name = "comboBoxTagZone";
             this.comboBoxTagZone.Size = new System.Drawing.Size(132, 28);
             this.comboBoxTagZone.TabIndex = 17;
@@ -379,7 +379,7 @@ namespace BiliRanking
             // textBoxTags
             // 
             this.textBoxTags.Location = new System.Drawing.Point(211, 442);
-            this.textBoxTags.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxTags.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxTags.Name = "textBoxTags";
             this.textBoxTags.Size = new System.Drawing.Size(132, 27);
             this.textBoxTags.TabIndex = 15;
@@ -389,7 +389,7 @@ namespace BiliRanking
             // 
             this.buttonListTagGen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonListTagGen.Location = new System.Drawing.Point(379, 392);
-            this.buttonListTagGen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonListTagGen.Margin = new System.Windows.Forms.Padding(4);
             this.buttonListTagGen.Name = "buttonListTagGen";
             this.buttonListTagGen.Size = new System.Drawing.Size(221, 74);
             this.buttonListTagGen.TabIndex = 14;
@@ -410,7 +410,7 @@ namespace BiliRanking
             "5",
             "1"});
             this.comboBoxListNum.Location = new System.Drawing.Point(120, 80);
-            this.comboBoxListNum.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxListNum.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxListNum.Name = "comboBoxListNum";
             this.comboBoxListNum.Size = new System.Drawing.Size(170, 28);
             this.comboBoxListNum.TabIndex = 13;
@@ -426,9 +426,9 @@ namespace BiliRanking
             this.groupBoxListDate.Controls.Add(this.label5);
             this.groupBoxListDate.Controls.Add(this.label6);
             this.groupBoxListDate.Location = new System.Drawing.Point(298, 31);
-            this.groupBoxListDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxListDate.Margin = new System.Windows.Forms.Padding(4);
             this.groupBoxListDate.Name = "groupBoxListDate";
-            this.groupBoxListDate.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBoxListDate.Padding = new System.Windows.Forms.Padding(4);
             this.groupBoxListDate.Size = new System.Drawing.Size(512, 115);
             this.groupBoxListDate.TabIndex = 12;
             this.groupBoxListDate.TabStop = false;
@@ -505,7 +505,7 @@ namespace BiliRanking
             // dateTimePickerTo
             // 
             this.dateTimePickerTo.Location = new System.Drawing.Point(289, 25);
-            this.dateTimePickerTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePickerTo.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerTo.Name = "dateTimePickerTo";
             this.dateTimePickerTo.Size = new System.Drawing.Size(209, 27);
             this.dateTimePickerTo.TabIndex = 3;
@@ -513,7 +513,7 @@ namespace BiliRanking
             // dateTimePickerFrom
             // 
             this.dateTimePickerFrom.Location = new System.Drawing.Point(40, 25);
-            this.dateTimePickerFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePickerFrom.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerFrom.Name = "dateTimePickerFrom";
             this.dateTimePickerFrom.Size = new System.Drawing.Size(209, 27);
             this.dateTimePickerFrom.TabIndex = 2;
@@ -549,7 +549,7 @@ namespace BiliRanking
             "├音MAD(26)",
             "├人力VOCALOID(126)"});
             this.comboBoxListZone.Location = new System.Drawing.Point(120, 118);
-            this.comboBoxListZone.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxListZone.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxListZone.Name = "comboBoxListZone";
             this.comboBoxListZone.Size = new System.Drawing.Size(170, 28);
             this.comboBoxListZone.TabIndex = 11;
@@ -580,7 +580,7 @@ namespace BiliRanking
             this.buttonListGen.Depth = 0;
             this.buttonListGen.Icon = null;
             this.buttonListGen.Location = new System.Drawing.Point(730, 154);
-            this.buttonListGen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonListGen.Margin = new System.Windows.Forms.Padding(4);
             this.buttonListGen.MouseState = MaterialSkin.MouseState.HOVER;
             this.buttonListGen.Name = "buttonListGen";
             this.buttonListGen.Primary = true;
@@ -607,7 +607,7 @@ namespace BiliRanking
             this.comboBoxListSort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBoxListSort.FormattingEnabled = true;
             this.comboBoxListSort.Location = new System.Drawing.Point(120, 42);
-            this.comboBoxListSort.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxListSort.Margin = new System.Windows.Forms.Padding(4);
             this.comboBoxListSort.Name = "comboBoxListSort";
             this.comboBoxListSort.Size = new System.Drawing.Size(170, 28);
             this.comboBoxListSort.TabIndex = 1;
@@ -639,9 +639,9 @@ namespace BiliRanking
             this.tabPageRAW.Controls.Add(this.buttonGen);
             this.tabPageRAW.Controls.Add(this.textBoxOut);
             this.tabPageRAW.Location = new System.Drawing.Point(4, 29);
-            this.tabPageRAW.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageRAW.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageRAW.Name = "tabPageRAW";
-            this.tabPageRAW.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageRAW.Padding = new System.Windows.Forms.Padding(4);
             this.tabPageRAW.Size = new System.Drawing.Size(893, 503);
             this.tabPageRAW.TabIndex = 1;
             this.tabPageRAW.Text = "数据生成";
@@ -651,7 +651,7 @@ namespace BiliRanking
             // 
             this.buttonRAWInsert.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRAWInsert.Location = new System.Drawing.Point(71, 12);
-            this.buttonRAWInsert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonRAWInsert.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRAWInsert.Name = "buttonRAWInsert";
             this.buttonRAWInsert.Size = new System.Drawing.Size(52, 29);
             this.buttonRAWInsert.TabIndex = 19;
@@ -697,7 +697,7 @@ namespace BiliRanking
             // textBoxRawProgramTo
             // 
             this.textBoxRawProgramTo.Location = new System.Drawing.Point(395, 12);
-            this.textBoxRawProgramTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxRawProgramTo.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxRawProgramTo.Name = "textBoxRawProgramTo";
             this.textBoxRawProgramTo.Size = new System.Drawing.Size(35, 27);
             this.textBoxRawProgramTo.TabIndex = 15;
@@ -707,7 +707,7 @@ namespace BiliRanking
             // textBoxRawProgramFrom
             // 
             this.textBoxRawProgramFrom.Location = new System.Drawing.Point(342, 12);
-            this.textBoxRawProgramFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxRawProgramFrom.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxRawProgramFrom.Name = "textBoxRawProgramFrom";
             this.textBoxRawProgramFrom.Size = new System.Drawing.Size(35, 27);
             this.textBoxRawProgramFrom.TabIndex = 14;
@@ -718,7 +718,7 @@ namespace BiliRanking
             // 
             this.buttonRawProgram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRawProgram.Location = new System.Drawing.Point(224, 12);
-            this.buttonRawProgram.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonRawProgram.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRawProgram.Name = "buttonRawProgram";
             this.buttonRawProgram.Size = new System.Drawing.Size(111, 29);
             this.buttonRawProgram.TabIndex = 13;
@@ -731,7 +731,7 @@ namespace BiliRanking
             this.buttonRawRead.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRawRead.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRawRead.Location = new System.Drawing.Point(776, 12);
-            this.buttonRawRead.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonRawRead.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRawRead.Name = "buttonRawRead";
             this.buttonRawRead.Size = new System.Drawing.Size(100, 29);
             this.buttonRawRead.TabIndex = 12;
@@ -744,7 +744,7 @@ namespace BiliRanking
             this.buttonRawSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonRawSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRawSave.Location = new System.Drawing.Point(668, 12);
-            this.buttonRawSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonRawSave.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRawSave.Name = "buttonRawSave";
             this.buttonRawSave.Size = new System.Drawing.Size(100, 29);
             this.buttonRawSave.TabIndex = 11;
@@ -781,7 +781,7 @@ namespace BiliRanking
             this.Column16,
             this.Tstart});
             this.dataGridViewRAW.Location = new System.Drawing.Point(8, 48);
-            this.dataGridViewRAW.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewRAW.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewRAW.Name = "dataGridViewRAW";
             this.dataGridViewRAW.RowHeadersVisible = false;
             this.dataGridViewRAW.RowTemplate.Height = 23;
@@ -944,7 +944,7 @@ namespace BiliRanking
             this.buttonExportCSV.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExportCSV.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonExportCSV.Location = new System.Drawing.Point(718, 411);
-            this.buttonExportCSV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonExportCSV.Margin = new System.Windows.Forms.Padding(4);
             this.buttonExportCSV.Name = "buttonExportCSV";
             this.buttonExportCSV.Size = new System.Drawing.Size(156, 29);
             this.buttonExportCSV.TabIndex = 8;
@@ -956,7 +956,7 @@ namespace BiliRanking
             // 
             this.buttonPic.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPic.Location = new System.Drawing.Point(132, 12);
-            this.buttonPic.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonPic.Margin = new System.Windows.Forms.Padding(4);
             this.buttonPic.Name = "buttonPic";
             this.buttonPic.Size = new System.Drawing.Size(84, 29);
             this.buttonPic.TabIndex = 7;
@@ -968,7 +968,7 @@ namespace BiliRanking
             // 
             this.buttonGen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonGen.Location = new System.Drawing.Point(8, 12);
-            this.buttonGen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonGen.Margin = new System.Windows.Forms.Padding(4);
             this.buttonGen.Name = "buttonGen";
             this.buttonGen.Size = new System.Drawing.Size(55, 29);
             this.buttonGen.TabIndex = 6;
@@ -981,7 +981,7 @@ namespace BiliRanking
             this.textBoxOut.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxOut.Location = new System.Drawing.Point(8, 411);
-            this.textBoxOut.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxOut.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxOut.MaxLength = 0;
             this.textBoxOut.Multiline = true;
             this.textBoxOut.Name = "textBoxOut";
@@ -997,7 +997,7 @@ namespace BiliRanking
             this.tabPageFubang.Controls.Add(this.label10);
             this.tabPageFubang.Controls.Add(this.buttonFubang1);
             this.tabPageFubang.Location = new System.Drawing.Point(4, 29);
-            this.tabPageFubang.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageFubang.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageFubang.Name = "tabPageFubang";
             this.tabPageFubang.Size = new System.Drawing.Size(893, 503);
             this.tabPageFubang.TabIndex = 3;
@@ -1010,7 +1010,7 @@ namespace BiliRanking
             this.buttonFubang2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonFubang2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFubang2.Location = new System.Drawing.Point(291, 68);
-            this.buttonFubang2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonFubang2.Margin = new System.Windows.Forms.Padding(4);
             this.buttonFubang2.Name = "buttonFubang2";
             this.buttonFubang2.Size = new System.Drawing.Size(264, 139);
             this.buttonFubang2.TabIndex = 11;
@@ -1031,7 +1031,7 @@ namespace BiliRanking
             // textBoxFubangStart
             // 
             this.textBoxFubangStart.Location = new System.Drawing.Point(695, 15);
-            this.textBoxFubangStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxFubangStart.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxFubangStart.Name = "textBoxFubangStart";
             this.textBoxFubangStart.Size = new System.Drawing.Size(132, 27);
             this.textBoxFubangStart.TabIndex = 9;
@@ -1053,7 +1053,7 @@ namespace BiliRanking
             this.buttonFubang1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.buttonFubang1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonFubang1.Location = new System.Drawing.Point(19, 68);
-            this.buttonFubang1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonFubang1.Margin = new System.Windows.Forms.Padding(4);
             this.buttonFubang1.Name = "buttonFubang1";
             this.buttonFubang1.Size = new System.Drawing.Size(264, 139);
             this.buttonFubang1.TabIndex = 5;
@@ -1071,7 +1071,7 @@ namespace BiliRanking
             this.tabPageVideo.Controls.Add(this.buttonDL);
             this.tabPageVideo.Controls.Add(this.verticalProgressBar1);
             this.tabPageVideo.Location = new System.Drawing.Point(4, 29);
-            this.tabPageVideo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageVideo.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageVideo.Name = "tabPageVideo";
             this.tabPageVideo.Size = new System.Drawing.Size(893, 503);
             this.tabPageVideo.TabIndex = 2;
@@ -1082,7 +1082,7 @@ namespace BiliRanking
             // 
             this.buttonDLold.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDLold.Location = new System.Drawing.Point(5, 144);
-            this.buttonDLold.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDLold.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDLold.Name = "buttonDLold";
             this.buttonDLold.Size = new System.Drawing.Size(85, 122);
             this.buttonDLold.TabIndex = 18;
@@ -1095,7 +1095,7 @@ namespace BiliRanking
             this.buttonDlMP4JJ.Enabled = false;
             this.buttonDlMP4JJ.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDlMP4JJ.Location = new System.Drawing.Point(4, 398);
-            this.buttonDlMP4JJ.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDlMP4JJ.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDlMP4JJ.Name = "buttonDlMP4JJ";
             this.buttonDlMP4JJ.Size = new System.Drawing.Size(85, 120);
             this.buttonDlMP4JJ.TabIndex = 17;
@@ -1107,7 +1107,7 @@ namespace BiliRanking
             // 
             this.buttonDlMP4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDlMP4.Location = new System.Drawing.Point(4, 274);
-            this.buttonDlMP4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDlMP4.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDlMP4.Name = "buttonDlMP4";
             this.buttonDlMP4.Size = new System.Drawing.Size(85, 115);
             this.buttonDlMP4.TabIndex = 14;
@@ -1119,7 +1119,7 @@ namespace BiliRanking
             // 
             this.pictureBoxDl.ImageLocation = "http://i0.hdslb.com/video/22/227c4731c33f4b6bde1258baff6efa44.jpg";
             this.pictureBoxDl.Location = new System.Drawing.Point(98, 4);
-            this.pictureBoxDl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBoxDl.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBoxDl.Name = "pictureBoxDl";
             this.pictureBoxDl.Size = new System.Drawing.Size(330, 205);
             this.pictureBoxDl.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -1130,7 +1130,7 @@ namespace BiliRanking
             // 
             this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(98, 218);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(330, 300);
@@ -1141,7 +1141,7 @@ namespace BiliRanking
             // 
             this.buttonDL.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDL.Location = new System.Drawing.Point(4, 4);
-            this.buttonDL.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonDL.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDL.Name = "buttonDL";
             this.buttonDL.Size = new System.Drawing.Size(85, 132);
             this.buttonDL.TabIndex = 9;
@@ -1156,7 +1156,7 @@ namespace BiliRanking
             this.tabPageZhubang.Controls.Add(this.label13);
             this.tabPageZhubang.Controls.Add(this.buttonZhubang);
             this.tabPageZhubang.Location = new System.Drawing.Point(4, 29);
-            this.tabPageZhubang.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageZhubang.Margin = new System.Windows.Forms.Padding(4);
             this.tabPageZhubang.Name = "tabPageZhubang";
             this.tabPageZhubang.Size = new System.Drawing.Size(893, 503);
             this.tabPageZhubang.TabIndex = 4;
@@ -1176,7 +1176,7 @@ namespace BiliRanking
             // textBoxZhubangEnd
             // 
             this.textBoxZhubangEnd.Location = new System.Drawing.Point(695, 15);
-            this.textBoxZhubangEnd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxZhubangEnd.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxZhubangEnd.Name = "textBoxZhubangEnd";
             this.textBoxZhubangEnd.Size = new System.Drawing.Size(132, 27);
             this.textBoxZhubangEnd.TabIndex = 11;
@@ -1196,7 +1196,7 @@ namespace BiliRanking
             // 
             this.buttonZhubang.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonZhubang.Location = new System.Drawing.Point(19, 69);
-            this.buttonZhubang.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonZhubang.Margin = new System.Windows.Forms.Padding(4);
             this.buttonZhubang.Name = "buttonZhubang";
             this.buttonZhubang.Size = new System.Drawing.Size(809, 139);
             this.buttonZhubang.TabIndex = 0;
@@ -1257,7 +1257,7 @@ namespace BiliRanking
             this.textBoxAV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.textBoxAV.Location = new System.Drawing.Point(10, 168);
-            this.textBoxAV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxAV.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxAV.Multiline = true;
             this.textBoxAV.Name = "textBoxAV";
             this.textBoxAV.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -1401,7 +1401,7 @@ namespace BiliRanking
             this.Controls.Add(this.label2);
             this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = global::BiliRanking.Properties.Resources.logo;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BiliRanking by 四季天书";
