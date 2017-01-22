@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace BiliRanking.Core
 {
@@ -225,14 +226,14 @@ namespace BiliRanking.Core
                     //关注信息
                     BiliVideoModel AttentionModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.req_user.ToString());
                     //分P信息
-                    List<BiliVideoModel> ban = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.pages.ToString());
+                    info.pages = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.pages.ToString());
                     //--数据转换开始--
                     info.title = InfoModel.title;
                     info.created_at = InfoModel.Created_at;
                     info.typename = InfoModel.tname;
                     info.pic = InfoModel.pic;
                     info.author = UpModel.name;
-                    info.cid = Convert.ToUInt32(ban[0].cid);
+                    info.cid = Convert.ToUInt32(info.pages[0].cid);
                     info.play = Convert.ToUInt32(DataModel.view);
                     info.video_review = Convert.ToUInt32(DataModel.danmaku);
                     info.review = Convert.ToUInt32(DataModel.reply);
@@ -329,7 +330,6 @@ namespace BiliRanking.Core
 
         public static Task<string> GetCsvInfosAsync(List<BiliInterfaceInfo> infos) => Task.Run(() => GetCsvInfos(infos));
 
-        //TODO: 加入P2、Pn的信息获取
         public static BiliInterfaceInfo GetInfoOld(string AVnum)
         {
             string avnum = AVnum.ToUpper();
@@ -424,18 +424,54 @@ namespace BiliRanking.Core
 
         public static BiliInterfaceInfo GetFlvInfo(string AVnum)
         {
-            string avnum = AVnum.ToUpper();
-            if (avnum.Contains("AV"))
+            string[] avnp = Regex.Split(AVnum, "_|-|#");
+            string avnum = GetAVdenum(avnp[0]);
+
+            int page = 1;
+            if (avnp.Length > 1)
             {
-                avnum = avnum.Substring(2, avnum.Length - 2);
+                try
+                {
+                    page = int.Parse(avnp[1]);
+                }
+                catch
+                {
+                    Log.Warn(AVnum + " - 无法识别分P编号，将下载P1");
+                }
+                
             }
 
-            BiliInterfaceInfo info = null;
+                BiliInterfaceInfo info = null;
 
             try
             {
                 info = GetInfo(avnum);
-                info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), info.cid);
+                if (page > 1)
+                {
+                    if (info.pages.Count >= page)
+                    {
+                        info.title = info.title + $"_P{page}_{info.pages[page - 1].part}";
+                        info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), uint.Parse(info.pages[page - 1].cid));
+                    }
+                    else
+                    {
+                        Log.Warn(AVnum + $" - 目标视频仅有{info.pages.Count}P，将下载P1");
+                        if (info.pages.Count > 1)
+                        {
+                            info.title = info.title + $"_P{page}_{info.pages[page - 1].part}";
+                        }
+                        info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), info.cid);
+                    }
+                }
+                else 
+                {
+                    if (info.pages.Count > 1)
+                    {
+                        info.title = info.title + $"_P{page}_{info.pages[page - 1].part}";
+                    }
+                    info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), info.cid);
+                }
+                
             }
             catch (Exception e)
             {

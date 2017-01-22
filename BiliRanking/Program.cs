@@ -7,11 +7,15 @@ namespace BiliRanking
 {
     class Program
     {
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool SetProcessDPIAware();
+
         [STAThread]
         static void Main(string[] args)
         {
-            Console.Title = "哔哩哔哩榜单生成器";
+            if (Environment.OSVersion.Version.Major >= 6) SetProcessDPIAware();
 
+            Console.Title = "哔哩哔哩榜单生成器";
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.WriteLine("[WELCOME] 欢迎使用四季天书主持开发的哔哩哔哩榜单生成器！请在月刊鬼畜群或Github里反馈使用建议~");

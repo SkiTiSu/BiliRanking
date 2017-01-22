@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BiliRanking.WPF"
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -13,6 +14,9 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <FontFamily x:Key="RobotoAndYahei">pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto,Microsoft Yahei UI,Microsoft Yahei</FontFamily>
+            
+            <system:Boolean x:Key="TrueValue">True</system:Boolean>
+            
             <Style TargetType="{x:Type UserControl}">
                 <Style.Triggers>
                     <Trigger Property="componentModel:DesignerProperties.IsInDesignMode"
@@ -22,6 +26,17 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+
+            <Style x:Key="SetH2" TargetType="TextBlock">
+                <Setter Property="Margin" Value="0,30,0,5"/>
+                <Setter Property="FontSize" Value="18"/>
+            </Style>
+
+            <Style x:Key="SetH3" TargetType="TextBlock">
+                <Setter Property="Margin" Value="0,30,0,5"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
         </ResourceDictionary>
+
     </Application.Resources>
 </Application>

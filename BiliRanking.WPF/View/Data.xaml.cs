@@ -23,6 +23,8 @@ namespace BiliRanking.WPF.View
     /// </summary>
     public partial class Data : UserControl
     {
+        private static NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+
         public Data()
         {
             InitializeComponent();
@@ -33,6 +35,8 @@ namespace BiliRanking.WPF.View
             string[] avs = { "av6949636","av7052909","av7049564","av6930969","av7038486"};
             BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync));
             dataGrid.ItemsSource = lls;
+
+            log.Info("获取完成");
         }
 
         //http://stackoverflow.com/questions/20355931/limiting-the-amount-of-concurrent-tasks-in-net-4-5

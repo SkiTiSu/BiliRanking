@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:BiliRanking.WPF.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="900" >
+             d:DesignHeight="500" d:DesignWidth="900" Loaded="UserControl_Loaded" >
     <Grid Margin="16" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -43,6 +43,24 @@
             <ComboBoxItem>Pear</ComboBoxItem>
             <ComboBoxItem>Orange</ComboBoxItem>
         </ComboBox>
-
+        <StackPanel HorizontalAlignment="Left" Height="346" Margin="48,58.6,0,-404.6" Grid.Row="10" VerticalAlignment="Top" Width="171">
+            <TextBlock Style="{StaticResource SetH3}" Text="分区" />
+            <ComboBox IsEditable="False" materialDesign:ComboBoxAssist.ShowSelectedItem="{StaticResource TrueValue}">
+                <ComboBoxItem IsSelected="True">鬼畜区(119)</ComboBoxItem>
+                <ComboBoxItem>├鬼畜调教(22)</ComboBoxItem>
+                <ComboBoxItem>├音MAD(26)</ComboBoxItem>
+                <ComboBoxItem>├人力VOCALOID(126)</ComboBoxItem>
+            </ComboBox>
+            <TextBlock Style="{StaticResource SetH3}" Text="排序方式" />
+            <ComboBox x:Name="comboBoxListSort" materialDesign:ComboBoxAssist.ShowSelectedItem="{StaticResource TrueValue}" />
+            <TextBlock Style="{StaticResource SetH3}" Text="需要数量" />
+            <ComboBox IsEditable="True">
+                <ComboBoxItem>99999</ComboBoxItem>
+                <ComboBoxItem>200</ComboBoxItem>
+                <ComboBoxItem IsSelected="True">150</ComboBoxItem>
+                <ComboBoxItem>100</ComboBoxItem>
+                <ComboBoxItem>5</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
     </Grid>
 </UserControl>

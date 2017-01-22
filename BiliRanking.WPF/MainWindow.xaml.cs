@@ -3,6 +3,7 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,9 +23,19 @@ namespace BiliRanking.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+
+        [DllImport("Kernel32")]
+        public static extern void AllocConsole();
+
+        [DllImport("Kernel32")]
+        public static extern void FreeConsole();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            AllocConsole();
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)

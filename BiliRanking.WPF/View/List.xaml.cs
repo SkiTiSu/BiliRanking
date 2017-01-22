@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BiliRanking.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace BiliRanking.WPF.View
         public List()
         {
             InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            comboBoxListSort.ItemsSource = Enum.GetNames(typeof(BiliParse.SortType));
+            if (comboBoxListSort.ItemsSource != null) comboBoxListSort.SelectedIndex = 0;
         }
     }
 }

@@ -380,8 +380,7 @@ namespace BiliRanking
             if (listb.Count != 0)
             {
                 List<BiliInterfaceInfo> lb = (List<BiliInterfaceInfo>)dataGridViewRAW.DataSource;
-                if (lb != null)
-                    listb[0].Fpaiming = lb.Find(x => x.AVNUM == listb[0].AVNUM).Fpaiming;
+                listb[0].Fpaiming = lb?.Find(x => x.AVNUM == listb[0].AVNUM)?.Fpaiming ?? 0;
                 string topstring = "";
                 if (listb[0].Fpaiming != 0 && listb[0].Fpaiming <= 20)
                     topstring = "TOP_" + listb[0].Fpaiming + "-";
@@ -488,8 +487,7 @@ CID：{2}
             if (listb.Count != 0)
             {
                 List<BiliInterfaceInfo> lb = (List<BiliInterfaceInfo>)dataGridViewRAW.DataSource;
-                if (lb != null)
-                    listb[0].Fpaiming = lb.Find(x => x.AVNUM == listb[0].AVNUM).Fpaiming;
+                listb[0].Fpaiming = lb?.Find(x => x.AVNUM == listb[0].AVNUM)?.Fpaiming ?? 0;
                 string topstring = "";
                 if (listb[0].Fpaiming != 0 && listb[0].Fpaiming <= 20)
                     topstring = "TOP_" + listb[0].Fpaiming + "-";
@@ -1084,6 +1082,9 @@ CID：{2}
             Log.Info("批量获取完成");
         }
 
-
+        private void buttonOpenFolderVideo_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", Environment.CurrentDirectory + @"\video\");
+        }
     }
 }

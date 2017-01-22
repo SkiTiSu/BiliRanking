@@ -48,7 +48,6 @@ namespace BiliRanking.Core
         public string author { get; set; }
         public uint mid;
         public string face;
-        public uint pages { get; set; }
         public string instant_server;
         public ulong created { get; set; }
         public string create
@@ -107,6 +106,16 @@ namespace BiliRanking.Core
         }
 
         public BiliVideoStat stat;
+
+        public List<BiliVideoModel> pages;
+
+        public int pagesCount
+        {
+            get
+            {
+                return pages.Count;
+            }
+        }
 
         public uint Fplay { get; set; }
         public uint Fcoins { get; set; }
