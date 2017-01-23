@@ -226,14 +226,14 @@ namespace BiliRanking.Core
                     //关注信息
                     BiliVideoModel AttentionModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.req_user.ToString());
                     //分P信息
-                    info.pages = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.pages.ToString());
+                    info.pagesn = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.pages.ToString());
                     //--数据转换开始--
                     info.title = InfoModel.title;
                     info.created_at = InfoModel.Created_at;
                     info.typename = InfoModel.tname;
                     info.pic = InfoModel.pic;
                     info.author = UpModel.name;
-                    info.cid = Convert.ToUInt32(info.pages[0].cid);
+                    info.cid = Convert.ToUInt32(info.pagesn[0].cid);
                     info.play = Convert.ToUInt32(DataModel.view);
                     info.video_review = Convert.ToUInt32(DataModel.danmaku);
                     info.review = Convert.ToUInt32(DataModel.reply);
@@ -448,26 +448,26 @@ namespace BiliRanking.Core
                 info = GetInfo(avnum);
                 if (page > 1)
                 {
-                    if (info.pages.Count >= page)
+                    if (info.pagesn.Count >= page)
                     {
-                        info.title = info.title + $"_P{page}_{info.pages[page - 1].part}";
-                        info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), uint.Parse(info.pages[page - 1].cid));
+                        info.title = info.title + $"_P{page}_{info.pagesn[page - 1].part}";
+                        info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), uint.Parse(info.pagesn[page - 1].cid));
                     }
                     else
                     {
-                        Log.Warn(AVnum + $" - 目标视频仅有{info.pages.Count}P，将下载P1");
-                        if (info.pages.Count > 1)
+                        Log.Warn(AVnum + $" - 目标视频仅有{info.pagesn.Count}P，将下载P1");
+                        if (info.pagesn.Count > 1)
                         {
-                            info.title = info.title + $"_P{page}_{info.pages[page - 1].part}";
+                            info.title = info.title + $"_P{page}_{info.pagesn[page - 1].part}";
                         }
                         info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), info.cid);
                     }
                 }
                 else 
                 {
-                    if (info.pages.Count > 1)
+                    if (info.pagesn.Count > 1)
                     {
-                        info.title = info.title + $"_P{page}_{info.pages[page - 1].part}";
+                        info.title = info.title + $"_P{page}_{info.pagesn[page - 1].part}";
                     }
                     info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), info.cid);
                 }

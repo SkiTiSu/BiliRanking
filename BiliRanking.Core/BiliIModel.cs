@@ -107,13 +107,13 @@ namespace BiliRanking.Core
 
         public BiliVideoStat stat;
 
-        public List<BiliVideoModel> pages;
+        public List<BiliVideoModel> pagesn; //TODO: 到ver2的时候需改回pages
 
         public int pagesCount
         {
             get
             {
-                return pages.Count;
+                return pagesn?.Count ?? 0;
             }
         }
 

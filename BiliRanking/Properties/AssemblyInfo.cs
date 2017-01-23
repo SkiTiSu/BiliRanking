@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BiliRanking")]
-[assembly: AssemblyCopyright("Copyright © SkiTiSu 2015-2016")]
+[assembly: AssemblyCopyright("© SkiTiSu 2015-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,4 +33,4 @@ using System.Runtime.InteropServices;
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.1.*")]
-[assembly: AssemblyFileVersion("1.6.0")]
+[assembly: AssemblyFileVersion("1.6.1")]
