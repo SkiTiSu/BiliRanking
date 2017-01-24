@@ -38,6 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonLifetime12 = new System.Windows.Forms.Button();
             this.buttonLifetime30 = new System.Windows.Forms.Button();
+            this.comboBoxLifeTime = new System.Windows.Forms.ComboBox();
             this.reverseUpDownFpaiming = new ReverseUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.reverseUpDownFpaiming)).BeginInit();
             this.SuspendLayout();
@@ -70,7 +71,7 @@
             this.buttonCopy.Name = "buttonCopy";
             this.buttonCopy.Size = new System.Drawing.Size(411, 22);
             this.buttonCopy.TabIndex = 1;
-            this.buttonCopy.Text = "复制";
+            this.buttonCopy.Text = "复制（通常不需要点，上面一旦改变会自动复制）";
             this.buttonCopy.UseVisualStyleBackColor = true;
             this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
             // 
@@ -122,9 +123,9 @@
             this.label1.Location = new System.Drawing.Point(16, 178);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(375, 15);
+            this.label1.Size = new System.Drawing.Size(210, 15);
             this.label1.TabIndex = 9;
-            this.label1.Text = "蛤，←和→键已经被我拦截啦~上面一旦改变会自动复制";
+            this.label1.Text = "蛤，←和→键已经被我拦截啦~";
             // 
             // label2
             // 
@@ -132,31 +133,47 @@
             this.label2.Location = new System.Drawing.Point(16, 204);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(282, 15);
+            this.label2.Size = new System.Drawing.Size(258, 15);
             this.label2.TabIndex = 10;
-            this.label2.Text = "时间码已经被+1s+1s+1s，按钮显示时长:";
+            this.label2.Text = "时间码已经被+1s+1s，按钮显示时长:";
             // 
             // buttonLifetime12
             // 
-            this.buttonLifetime12.Location = new System.Drawing.Point(297, 196);
-            this.buttonLifetime12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonLifetime12.Location = new System.Drawing.Point(349, 200);
+            this.buttonLifetime12.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLifetime12.Name = "buttonLifetime12";
-            this.buttonLifetime12.Size = new System.Drawing.Size(60, 30);
+            this.buttonLifetime12.Size = new System.Drawing.Size(38, 24);
             this.buttonLifetime12.TabIndex = 11;
-            this.buttonLifetime12.Text = "22s";
+            this.buttonLifetime12.Text = "22";
             this.buttonLifetime12.UseVisualStyleBackColor = true;
             this.buttonLifetime12.Click += new System.EventHandler(this.buttonLifetime12_Click);
             // 
             // buttonLifetime30
             // 
-            this.buttonLifetime30.Location = new System.Drawing.Point(365, 198);
-            this.buttonLifetime30.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonLifetime30.Location = new System.Drawing.Point(388, 200);
+            this.buttonLifetime30.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLifetime30.Name = "buttonLifetime30";
-            this.buttonLifetime30.Size = new System.Drawing.Size(60, 29);
+            this.buttonLifetime30.Size = new System.Drawing.Size(38, 24);
             this.buttonLifetime30.TabIndex = 12;
-            this.buttonLifetime30.Text = "34s";
+            this.buttonLifetime30.Text = "34";
             this.buttonLifetime30.UseVisualStyleBackColor = true;
             this.buttonLifetime30.Click += new System.EventHandler(this.buttonLifetime30_Click);
+            // 
+            // comboBoxLifeTime
+            // 
+            this.comboBoxLifeTime.FormattingEnabled = true;
+            this.comboBoxLifeTime.Items.AddRange(new object[] {
+            "18",
+            "22",
+            "26",
+            "32",
+            "34",
+            "36"});
+            this.comboBoxLifeTime.Location = new System.Drawing.Point(276, 201);
+            this.comboBoxLifeTime.Name = "comboBoxLifeTime";
+            this.comboBoxLifeTime.Size = new System.Drawing.Size(70, 23);
+            this.comboBoxLifeTime.TabIndex = 13;
+            this.comboBoxLifeTime.TextChanged += new System.EventHandler(this.comboBoxLifeTime_TextChanged);
             // 
             // reverseUpDownFpaiming
             // 
@@ -187,6 +204,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(435, 229);
+            this.Controls.Add(this.comboBoxLifeTime);
             this.Controls.Add(this.buttonLifetime30);
             this.Controls.Add(this.buttonLifetime12);
             this.Controls.Add(this.label2);
@@ -225,5 +243,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button buttonLifetime12;
         private System.Windows.Forms.Button buttonLifetime30;
+        private System.Windows.Forms.ComboBox comboBoxLifeTime;
     }
 }

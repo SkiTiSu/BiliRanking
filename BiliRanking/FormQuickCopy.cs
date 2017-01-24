@@ -21,6 +21,8 @@ namespace BiliRanking
 
             globalKeyboardHook = new GlobalKeyboardHook();
             globalKeyboardHook.KeyboardPressed += OnKeyPressed;
+
+            comboBoxLifeTime.SelectedIndex = 0;
         }
 
         public FormQuickCopy(List<BiliInterfaceInfo> infos)
@@ -129,7 +131,7 @@ v32.setStyle(""fillColors"",[0xFF0000,0xCCCCCC]);";
         {
             try
             {
-                return (TimeSpan.Parse(info.Tstart.Substring(0, info.Tstart.LastIndexOf(":"))).TotalSeconds + 3).ToString();
+                return (TimeSpan.Parse(info.Tstart.Substring(0, info.Tstart.LastIndexOf(":"))).TotalSeconds + 2).ToString();
                 //return (TimeSpan.Parse(info.Tstart.Split('.')[0]).TotalSeconds + 3).ToString();
             }
             catch
@@ -143,6 +145,7 @@ v32.setStyle(""fillColors"",[0xFF0000,0xCCCCCC]);";
             string copytext = DoReplace(comboBox1.Text ,binfos[(int)reverseUpDownFpaiming.Value - 1]);
             textBoxResult.Text = copytext;
             Clipboard.SetText(copytext);
+            textBoxResult.Copy();
         }
 
         private void reverseUpDownFpaiming_ValueChanged(object sender, EventArgs e)
@@ -153,8 +156,7 @@ v32.setStyle(""fillColors"",[0xFF0000,0xCCCCCC]);";
 
         private void buttonCopy_Click(object sender, EventArgs e)
         {
-            string copytext = DoReplace(comboBox1.Text, binfos[(int)reverseUpDownFpaiming.Value - 1]);
-            Clipboard.SetText(copytext);
+            Copy();
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -190,18 +192,42 @@ v32.setStyle(""fillColors"",[0xFF0000,0xCCCCCC]);";
 
         private void buttonLifetime12_Click(object sender, EventArgs e)
         {
-            textBoxResult.Text = textBoxResult.Text.Replace("{lifetime}", "22");
+            comboBoxLifeTime.Text = "22";
         }
 
         private void buttonLifetime30_Click(object sender, EventArgs e)
         {
-            textBoxResult.Text = textBoxResult.Text.Replace("{lifetime}", "34");
+            comboBoxLifeTime.Text = "34";
         }
 
         private void textBoxResult_TextChanged(object sender, EventArgs e)
         {
+            Copy();
+        }
+
+        private void Copy()
+        {
             if (textBoxResult.Text != null)
-                Clipboard.SetText(textBoxResult.Text);
+            {
+                try
+                {
+                    Clipboard.SetText(textBoxResult.Text);
+                }
+                catch
+                {
+                    Log.Warn("剪贴板访问错误，使用方法2");
+                    textBoxResult.SelectAll();
+                    textBoxResult.Copy();
+                }
+            }
+        }
+
+        string lastLifeTime = "{lifetime}";
+        private void comboBoxLifeTime_TextChanged(object sender, EventArgs e)
+        {
+            textBoxResult.Text = textBoxResult.Text.Replace("{lifetime}", comboBoxLifeTime.Text);
+            textBoxResult.Text = textBoxResult.Text.Replace("lifeTime:" + lastLifeTime, "lifeTime:" + comboBoxLifeTime.Text);
+            lastLifeTime = comboBoxLifeTime.Text;
         }
     }
 }
