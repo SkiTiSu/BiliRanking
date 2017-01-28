@@ -6,7 +6,7 @@
 哔哩哔哩数据分析整理，鬼畜榜数据及图片专用生成及辅助制作工具，被其他成员在视频和简介中称为“黑科技”的小工具（其实一点也不黑）。  
 A data crawler and auxiliary production tool for Bilibili. Was used by Bilibili Kichiku Weekly Team.
 
-# 功能 Functions
+# 功能 Features
 * 极速抓取数据并算分，数据可保存为.sdygx（圣地亚哥数据库X）格式
 * 一键批量下载封面、视频
 * 一键生成副榜

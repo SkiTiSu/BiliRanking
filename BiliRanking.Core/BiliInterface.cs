@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace BiliRanking.Core
 {
@@ -252,8 +253,7 @@ namespace BiliRanking.Core
                     }
                     info.description = InfoModel.desc;
                     //--数据转换结束--
-                    //新版API不存在此类问题
-                    //info.title = HttpUtility.HtmlDecode(info.title);
+                    info.title = HttpUtility.HtmlDecode(info.title);
                     //--or
                     //info.title = info.title.Replace("&amp;", "&");
                     //info.title = info.title.Replace("&lt;", "<");
@@ -268,6 +268,7 @@ namespace BiliRanking.Core
             catch (Exception e)
             {
                 Log.Error("AV" + avnum + "的数据发生错误，请稍后重试！" + e.Message);
+                //return null; //TODO: 出错时返回后的检查方式需要变更
             }
 
             return info;

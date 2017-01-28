@@ -76,7 +76,7 @@
                                 <Image Source="Resources/NoAvatar.png" />
                             </materialDesign:Chip.Icon>
                         </materialDesign:Chip>
-                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" Margin="10,0,0,0">BiliRanking V2.0 预览版 - 不 止 统 计</TextBlock>
+                        <TextBlock x:Name="textBlockTitle" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" Margin="10,0,0,0">BiliRanking V2.0 预览版 - 不 止 统 计</TextBlock>
                     </DockPanel>
                 </materialDesign:ColorZone>
                 <ContentControl Margin="16" Content="{Binding ElementName=DemoItemsListBox, Path=SelectedItem.Content}" />

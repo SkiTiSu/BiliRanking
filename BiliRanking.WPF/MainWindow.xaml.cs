@@ -35,6 +35,8 @@ namespace BiliRanking.WPF
         {
             InitializeComponent();
 
+            textBlockTitle.Text += " build " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
             AllocConsole();
         }
 
