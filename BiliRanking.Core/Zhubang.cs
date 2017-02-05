@@ -39,7 +39,7 @@ namespace BiliRanking.Core
 
                 Pen pp = new Pen(Color.Yellow, 3.5f);
                 GraphicsPath pth = new GraphicsPath();
-                pth.AddString(infos[i].Fpaiming.ToString("D2"), new FontFamily("微软雅黑"), (int)FontStyle.Bold, 180, new Point(1750, 0), sf);
+                pth.AddString(infos[i].Fpaiming.Value.ToString("D2"), new FontFamily("微软雅黑"), (int)FontStyle.Bold, 180, new Point(1750, 0), sf);
                 g.FillPath(new SolidBrush(Color.White), pth);
                 g.DrawPath(pp, pth);
 

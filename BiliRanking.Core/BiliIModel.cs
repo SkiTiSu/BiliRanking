@@ -122,7 +122,7 @@ namespace BiliRanking.Core
         public uint Freview { get; set; }
         public uint Ffavorites { get; set; }
         public uint Fdefen { get; set; }
-        public int Fpaiming { get; set; }
+        public int? Fpaiming { get; set; }
         public string Tstart { get; set; }
     }
 

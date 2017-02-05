@@ -33,22 +33,20 @@ namespace BiliRanking.Core
             stow
         }
 
-        public static List<string> GetList(SortType type, int zone,int page,DateTime from,DateTime to)
+        public static List<string> GetList(SortType type, int zone, int page, DateTime from, DateTime to)
         {
             Log.Info("正在获取排行 - 依据" + type.ToString().ToLower() + "/分区" + zone + "/分页" + page + "/时间" + from.ToString("yyyy-MM-dd") + "~" + to.ToString("yyyy-MM-dd"));
             string url = "http://www.bilibili.com/list/" + type.ToString() + "-" + zone + "-" + page + "-" + from.ToString("yyyy-MM-dd") + "~" + to.ToString("yyyy-MM-dd") + ".html";
             string html = BiliInterface.GetHtml(url);
             if (html == null) return null;
-            int p = 0;
+            int p = html.IndexOf("href=\"/video/av");
             List<string> r = new List<string>();
-            while (html.IndexOf("o/av", p) > 0)
+            while (p > 0)
             {
-                p = html.IndexOf("o/av", p);
-                string s = html.Substring(p + 2, html.IndexOf("/", p + 2) - p - 2);
+                string s = html.Substring(p + 13, html.IndexOf("/", p + 13) - p - 13);
                 if (!r.Contains(s))
                     r.Add(s);
-
-                p += 3;
+                p = html.IndexOf("href=\"/video/av", p + 3);
             }
             return r;
         }
