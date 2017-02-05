@@ -601,6 +601,8 @@ CID：{2}
         {
             int wd1 = (int)weekday;
             int wd2 = (int)dt.DayOfWeek;
+            wd1 = (wd1 == 0) ? 7 : wd1; //修改为周一作为第一天
+            wd2 = (wd2 == 0) ? 7 : wd2;
             return wd2 == wd1 ? dt.AddDays(7 * Number) : dt.AddDays(7 * Number - wd2 + wd1);
         }
 
