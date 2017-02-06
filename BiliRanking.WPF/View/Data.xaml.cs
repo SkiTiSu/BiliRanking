@@ -1,4 +1,6 @@
 ﻿using BiliRanking.Core;
+using BiliRanking.WPF.Domain;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -9,6 +11,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,14 +38,46 @@ namespace BiliRanking.WPF.View
             InitializeComponent();
         }
 
-        private async void button_Click(object sender, RoutedEventArgs e)
+        private async void buttonGen_Click(object sender, RoutedEventArgs e)
         {
-            string[] avs = { "av6949636","av7052909","av7049564","av6930969","av7038486"};
+            log.Info("开始批量获取");
+            List<string> lines = Regex.Split(SharedData.AVs, "\r\n|\r|\n").ToList();
+            var avs = from s in lines where s != "" select s;
             BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync));
-            dataGrid.Items?.Clear();
-            dataGrid.ItemsSource = lls.ToList();
+            List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
+            string failedAVs = "";
+            foreach (BiliInterfaceInfo info in lls)
+            {
+                if (info.pic != null)
+                {
+                    ll.Add(info);
+                }
+                else
+                {
+                    failedAVs += info.avnum + ";";
+                }
+            }
+            ll.Sort(sortt);
+            for (int i = 1; i <= ll.Count; i++)
+            {
+                ll[i - 1].Fpaiming = i;
+            }
+            if (failedAVs != "")
+            {
+                log.Warn("注意！下列视频数据未正确获取！\r\n" + failedAVs);
+            }
+            SetNewData(ll);
+            log.Info("批量获取完成");
+        }
 
-            log.Info("获取完成");
+        public static int sortt(BiliInterfaceInfo x, BiliInterfaceInfo y)
+        {
+            int res = 0;
+            if (x.Fdefen > y.Fdefen)
+                res = -1;
+            else
+                res = 1;
+            return res;
         }
 
         //http://stackoverflow.com/questions/20355931/limiting-the-amount-of-concurrent-tasks-in-net-4-5
@@ -133,11 +168,17 @@ namespace BiliRanking.WPF.View
             }
         }
 
+        List<BiliInterfaceInfo> lastItemSource;
         private void SetNewData(List<BiliInterfaceInfo> data)
         {
-            if (dataGrid.ItemsSource != null) dataGrid.ItemsSource = null;
+            if (dataGrid.ItemsSource != null)
+            {
+                lastItemSource = dataGrid.ItemsSource as List<BiliInterfaceInfo>;
+                dataGrid.ItemsSource = null;
+            }
             dataGrid.Items?.Clear();
             dataGrid.ItemsSource = data;
+            dataGrid.Items.Refresh();
         }
 
         private List<BiliInterfaceInfo> GetData()
@@ -203,7 +244,9 @@ namespace BiliRanking.WPF.View
                 return;
             }
 
-            List<BiliInterfaceInfo> bi = dataGrid.ItemsSource as List<BiliInterfaceInfo>;
+            List<BiliInterfaceInfo> bi = new List<BiliInterfaceInfo>();
+            (dataGrid.ItemsSource as List<BiliInterfaceInfo>).ForEach(i => bi.Add(i)); //为了实现撤销需要深复制
+            //List<BiliInterfaceInfo> bi = dataGrid.ItemsSource as List<BiliInterfaceInfo>;
             BiliInterfaceInfo changed = bi[rowIndex];
             bi.RemoveAt(rowIndex);
             bi.Insert(index, changed);
@@ -212,7 +255,16 @@ namespace BiliRanking.WPF.View
 
         private bool GetMouseTargetRow(Visual theTarget, GetPosition position)
         {
-            Rect rect = VisualTreeHelper.GetDescendantBounds(theTarget);
+            Rect rect;
+            try
+            {
+                rect = VisualTreeHelper.GetDescendantBounds(theTarget);
+            }
+            catch
+            {
+                log.Trace("拖拽得太狠啦 - 2");
+                return false;
+            }
             Point point = position((IInputElement)theTarget);
             return rect.Contains(point);
         }
@@ -231,10 +283,17 @@ namespace BiliRanking.WPF.View
             for (int i = 0; i < dataGrid.Items.Count; i++)
             {
                 DataGridRow itm = GetRowItem(i);
-                if (GetMouseTargetRow(itm, pos))
+                if (itm != null)
                 {
-                    curIndex = i;
-                    break;
+                    if (GetMouseTargetRow(itm, pos))
+                    {
+                        curIndex = i;
+                        break;
+                    }
+                }
+                else
+                {
+                    log.Trace("拖拽得太狠啦或拽到了AV号 - 1");
                 }
             }
             return curIndex;
@@ -260,6 +319,20 @@ namespace BiliRanking.WPF.View
         {
             BiliInterfaceInfo bi = await BiliInterface.GetInfoTaskAsync(textBoxInsert.Text);
             if (bi.pic != null) AddData(bi);
+        }
+
+        private async void buttonUndo_Click(object sender, RoutedEventArgs e)
+        {
+            if (lastItemSource == null)
+            {
+                var sampleMessageDialog = new SampleMessageDialog
+                {
+                    Message = { Text = "还没有做过任何修改哦~" }
+                };
+                await DialogHost.Show(sampleMessageDialog, "RootDialog");
+                return;
+            }
+            SetNewData(lastItemSource);
         }
 
 

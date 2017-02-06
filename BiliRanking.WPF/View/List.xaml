@@ -7,45 +7,20 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="900" Loaded="UserControl_Loaded" >
-    <Grid Margin="16" VerticalAlignment="Top">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource MaterialDesignHeadlineTextBlock}">视频排行统计</TextBlock>
-        <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="从" VerticalAlignment="Center"/>
-            <DatePicker HorizontalAlignment="Left" Margin="16,0,16,0" VerticalAlignment="Top" Width="120"/>
-            <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="到" VerticalAlignment="Center"/>
-            <DatePicker HorizontalAlignment="Left" Margin="16,0,16,0" VerticalAlignment="Top" Width="120"/>
+    <Grid>
+        <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="0,0,1,0" Height="36" VerticalAlignment="Top">视频排行统计</TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="0,38,0,0" Height="31" VerticalAlignment="Top" HorizontalAlignment="Left" Width="682">
+            <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="从" VerticalAlignment="Center"/>
+            <DatePicker x:Name="datePickerFrom" HorizontalAlignment="Left" Margin="16,0,16,0" VerticalAlignment="Top" Width="120"/>
+            <TextBlock HorizontalAlignment="Left" Margin="0,0,0,0" TextWrapping="Wrap" Text="到" VerticalAlignment="Center"/>
+            <DatePicker x:Name="datePickerTo" HorizontalAlignment="Left" Margin="16,0,16,0" VerticalAlignment="Top" Width="120"/>
+            <Button Style="{StaticResource MaterialDesignFlatButton}" x:Name="buttonListDate2wAgo" Content="上上周" Click="buttonListDate2wAgo_Click"/>
+            <Button Style="{StaticResource MaterialDesignFlatButton}" x:Name="buttonListDate1wAgo" Content="上一周" Click="buttonListDate1wAgo_Click"/>
+            <TextBlock Text="注：周一为一周的第一天" Foreground="#FFB9B9B9" VerticalAlignment="Center"/>
         </StackPanel>
-        <ComboBox  
-                  materialDesign:ComboBoxAssist.ShowSelectedItem="{Binding ElementName=DisplaySelectedItemCheckBox, Path=IsChecked}"
-                  Margin="130,26.8,0,-53.8" HorizontalAlignment="Left" Grid.Row="10">
-            <ComboBoxItem IsSelected="True">Apple</ComboBoxItem>
-            <ComboBoxItem>hot</ComboBoxItem>
-            <ComboBoxItem>Pear</ComboBoxItem>
-            <ComboBoxItem>Orange</ComboBoxItem>
-        </ComboBox>
-        <StackPanel HorizontalAlignment="Left" Height="346" Margin="48,58.6,0,-404.6" Grid.Row="10" VerticalAlignment="Top" Width="171">
+        <StackPanel HorizontalAlignment="Left" Height="257" Margin="10,86,0,0" VerticalAlignment="Top" Width="171">
             <TextBlock Style="{StaticResource SetH3}" Text="分区" />
-            <ComboBox IsEditable="False" materialDesign:ComboBoxAssist.ShowSelectedItem="{StaticResource TrueValue}">
+            <ComboBox x:Name="comboBoxListZone" IsEditable="False" materialDesign:ComboBoxAssist.ShowSelectedItem="{StaticResource TrueValue}">
                 <ComboBoxItem IsSelected="True">鬼畜区(119)</ComboBoxItem>
                 <ComboBoxItem>├鬼畜调教(22)</ComboBoxItem>
                 <ComboBoxItem>├音MAD(26)</ComboBoxItem>
@@ -54,7 +29,7 @@
             <TextBlock Style="{StaticResource SetH3}" Text="排序方式" />
             <ComboBox x:Name="comboBoxListSort" materialDesign:ComboBoxAssist.ShowSelectedItem="{StaticResource TrueValue}" />
             <TextBlock Style="{StaticResource SetH3}" Text="需要数量" />
-            <ComboBox IsEditable="True">
+            <ComboBox x:Name="comboBoxListNum" IsEditable="True">
                 <ComboBoxItem>99999</ComboBoxItem>
                 <ComboBoxItem>200</ComboBoxItem>
                 <ComboBoxItem IsSelected="True">150</ComboBoxItem>
@@ -62,5 +37,7 @@
                 <ComboBoxItem>5</ComboBoxItem>
             </ComboBox>
         </StackPanel>
+        <Button x:Name="buttonGen" Content="生成" HorizontalAlignment="Left" Height="43" Margin="55,361,0,0" VerticalAlignment="Top" Width="82" Click="buttonGen_Click"/>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="42" Margin="221,361,0,0" VerticalAlignment="Top" Width="87" Click="button_Click"/>
     </Grid>
 </UserControl>

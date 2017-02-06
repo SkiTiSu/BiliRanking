@@ -18,7 +18,7 @@
         FontFamily="{DynamicResource RobotoAndYahei}" 
         WindowStartupLocation="CenterScreen">
 
-    <materialDesign:DialogHost Identifier="RootDialog">
+    <materialDesign:DialogHost x:Name="dialogHostMain" Identifier="RootDialog">
         <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
             <materialDesign:DrawerHost.LeftDrawerContent>
                 <DockPanel MinWidth="212">
@@ -26,8 +26,8 @@
                                   DockPanel.Dock="Top"
                                   HorizontalAlignment="Right" Margin="16"
                                   IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
-                    <ListBox x:Name="DemoItemsListBox" Margin="0 16 0 16" SelectedIndex="0"                         
-                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp">
+                    <ListBox x:Name="listBoxItems" Margin="0 16 0 16" SelectedIndex="0"                         
+                             PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" x:FieldModifier="public">
                         <ListBox.ItemTemplate>
                             <DataTemplate DataType="domain:Item">
                                 <TextBlock Text="{Binding Name}" Margin="32 0 32 0" />
@@ -38,14 +38,14 @@
                                 <view:Home />
                             </domain:Item.Content>
                         </domain:Item>
-                        <domain:Item Name="数据获取">
-                            <domain:Item.Content>
-                                <view:Data />
-                            </domain:Item.Content>
-                        </domain:Item>
                         <domain:Item Name="排行统计">
                             <domain:Item.Content>
                                 <view:List />
+                            </domain:Item.Content>
+                        </domain:Item>
+                        <domain:Item Name="数据获取">
+                            <domain:Item.Content>
+                                <view:Data />
                             </domain:Item.Content>
                         </domain:Item>
                         <domain:Item Name="视频剪辑">
@@ -79,8 +79,15 @@
                         <TextBlock x:Name="textBlockTitle" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" Margin="10,0,0,0">BiliRanking V2.0 预览版 - 不 止 统 计</TextBlock>
                     </DockPanel>
                 </materialDesign:ColorZone>
-                <ContentControl Margin="16" Content="{Binding ElementName=DemoItemsListBox, Path=SelectedItem.Content}" />
+                <Grid>
+                    <ContentControl x:Name="contentControlMain" Margin="16" Content="{Binding ElementName=listBoxItems, Path=SelectedItem.Content}" />
+                    <Grid x:Name="gridAVs" HorizontalAlignment="Right" Width="150">
+                        <Button x:Name="buttonAVsShowHidden" Width="20" HorizontalAlignment="Left" Height="48" Content="&lt;&gt;" Padding="0" Click="buttonAVsShowHidden_Click" />
+                        <TextBox x:Name="textBox" TextWrapping="Wrap" Text="{Binding Path=(local:SharedData.AVs), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="AV号们在这里" AcceptsReturn="True" Foreground="#DDFFFFFF" Background="#A5000000" Padding="5" Margin="20,0,0,0"/>
+                    </Grid>
+                </Grid>
             </DockPanel>
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
+    
 </Window>

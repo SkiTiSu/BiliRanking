@@ -6,10 +6,11 @@
              xmlns:local="clr-namespace:BiliRanking.WPF.View"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf"
-             xmlns:vlcwpf="clr-namespace:Meta.Vlc.Wpf;assembly=Meta.Vlc.Wpf"
+             
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="384.584" d:DesignWidth="554.97">
+    <!--xmlns:vlcwpf="clr-namespace:Meta.Vlc.Wpf;assembly=Meta.Vlc.Wpf"-->
     <Grid>
         <Grid.Resources>
             <x:Array Type="{x:Type system:String}" x:Key="VlcOptions">
@@ -20,7 +21,7 @@
                 <system:String>--no-sub-autodetect-file</system:String>
             </x:Array>
         </Grid.Resources>
-        <vlcwpf:VlcPlayer x:Name="Player" VlcOption="{StaticResource VlcOptions}" LibVlcPath="libvlc" EndBehavior="Nothing" Stretch="Fill" Margin="0,0,0,52" />
+        <!--<vlcwpf:VlcPlayer x:Name="Player" VlcOption="{StaticResource VlcOptions}" LibVlcPath="libvlc" EndBehavior="Nothing" Stretch="Fill" Margin="0,0,0,52" />-->
         <ProgressBar x:Name="ProgressBar" Opacity="0.8" Value="{Binding Position, ElementName=Player}" VerticalAlignment="Bottom" Height="10" Maximum="1" SmallChange="0.00001" MouseDown="ProgressBar_MouseDown" />
         <Button x:Name="buttonLoad" Content="打开..." Height="33" Margin="10,10,0,0" VerticalAlignment="Top" Width="81" Click="buttonLoad_Click"/>
         <ToolBar Style="{DynamicResource MaterialDesignToolBar}" Margin="0,0,0,18" ToolBarTray.IsLocked="True" HorizontalAlignment="Center" Height="32" VerticalAlignment="Bottom" Width="Auto">

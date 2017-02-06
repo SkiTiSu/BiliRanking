@@ -1,4 +1,4 @@
-﻿using Meta.Vlc;
+﻿//using Meta.Vlc;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -48,12 +48,12 @@ namespace BiliRanking.WPF.View
         {
             InitializeComponent();
 
-            Player.TimeChanged += Player_TimeChanged;
+            //Player.TimeChanged += Player_TimeChanged;
         }
 
         private void Player_TimeChanged(object sender, EventArgs e)
         {
-            textBlock1.Text = Player.Time.ToString();
+            //textkBlock1.Text = Player.Time.ToString();
         }
 
         private void ProgressBar_MouseDown(object sender, MouseButtonEventArgs e)
@@ -69,9 +69,9 @@ namespace BiliRanking.WPF.View
             var openfiles = new OpenFileDialog();
             if (openfiles.ShowDialog() == true)
             {
-                Player.Stop();
-                Player.LoadMedia(openfiles.FileName);
-                Player.Play();
+                //Player.Stop();
+                //Player.LoadMedia(openfiles.FileName);
+                //Player.Play();
             }
             return;
 
@@ -88,12 +88,12 @@ namespace BiliRanking.WPF.View
 
         private void buttonPlay_Click(object sender, RoutedEventArgs e)
         {
-            Player.Play();
+            //Player.Play();
         }
 
         private void buttonPause_Click(object sender, RoutedEventArgs e)
         {
-            Player.Pause();
+            //Player.Pause();
         }
 
         private void buttonStepForward_Click(object sender, RoutedEventArgs e)
@@ -101,8 +101,8 @@ namespace BiliRanking.WPF.View
 
             //Player.NextFrame();
 
-            Player.Play();
-            Player.Pause();
+            //Player.Play();
+            //Player.Pause();
 
             //try
             //{
@@ -125,56 +125,56 @@ namespace BiliRanking.WPF.View
 
         private void FreshTime()
         {
-            textBlock1.Text = Player.Time.ToString();
+            //textBlock1.Text = Player.Time.ToString();
 
-            if (markEnd == new TimeSpan())
-            {
-                markEnd = Player.Length;
-            }
+            //if (markEnd == new TimeSpan())
+            //{
+            //    markEnd = Player.Length;
+            //}
 
-            Rectangle r = new Rectangle();
-            r.Fill = new SolidColorBrush(Colors.Brown);
-            r.Height = 5;
-            r.Width = ((markEnd.TotalMilliseconds - markStart.TotalMilliseconds) / Player.Length.TotalMilliseconds) * canvasTimeline.ActualWidth;
-            r.SetValue(Canvas.LeftProperty, (double)(markStart.TotalMilliseconds / Player.Length.TotalMilliseconds) * canvasTimeline.ActualWidth);
+            //Rectangle r = new Rectangle();
+            //r.Fill = new SolidColorBrush(Colors.Brown);
+            //r.Height = 5;
+            //r.Width = ((markEnd.TotalMilliseconds - markStart.TotalMilliseconds) / Player.Length.TotalMilliseconds) * canvasTimeline.ActualWidth;
+            //r.SetValue(Canvas.LeftProperty, (double)(markStart.TotalMilliseconds / Player.Length.TotalMilliseconds) * canvasTimeline.ActualWidth);
 
-            canvasTimeline.Children.Clear();
-            canvasTimeline.Children.Add(r);
+            //canvasTimeline.Children.Clear();
+            //canvasTimeline.Children.Add(r);
         }
 
         private void buttonStepBackward_Click(object sender, RoutedEventArgs e)
         {
             int step = Convert.ToInt32(1000 / frameRate);
-            Player.Time = Player.Time.Add(new TimeSpan(0, 0, 0, 0, -step));
+            //Player.Time = Player.Time.Add(new TimeSpan(0, 0, 0, 0, -step));
 
             FreshTime();
         }
 
         private void buttonMarkStart_Click(object sender, RoutedEventArgs e)
         {
-            markStart = Player.Time;
+            //markStart = Player.Time;
             FreshTime();
         }
 
         private void buttonMarkEnd_Click(object sender, RoutedEventArgs e)
         {
-            markEnd = Player.Time;
+            //markEnd = Player.Time;
             FreshTime();
         }
         //Process p = new Process();
         private void buttonRender_Click(object sender, RoutedEventArgs e)
         {
-            string fullName = Player.VlcMediaPlayer.Media.Mrl.Substring(8);
-            string directoryName = System.IO.Path.GetDirectoryName(fullName);
-            string fileName = System.IO.Path.GetFileName(fullName);
-            string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(fullName);
-            string extension = System.IO.Path.GetExtension(fullName);
+            ////string fullName = Player.VlcMediaPlayer.Media.Mrl.Substring(8);
+            //string directoryName = System.IO.Path.GetDirectoryName(fullName);
+            //string fileName = System.IO.Path.GetFileName(fullName);
+            //string fileNameWithoutExtension = System.IO.Path.GetFileNameWithoutExtension(fullName);
+            //string extension = System.IO.Path.GetExtension(fullName);
 
-            string command = $"-i \"{fullName}\" -ss {markStart.ToString()} -to {markEnd.ToString()} -vcodec libx264 -acodec copy -crf 18 \"{System.IO.Path.Combine(directoryName, "CLIP_" + fileName)}\"";
+            ////string command = $"-i \"{fullName}\" -ss {markStart.ToString()} -to {markEnd.ToString()} -vcodec libx264 -acodec copy -crf 18 \"{System.IO.Path.Combine(directoryName, "CLIP_" + fileName)}\"";
             dialogProcessing.IsOpen = true;
             Process p = new Process();
             p.StartInfo.FileName = Environment.CurrentDirectory + "\\ffmpeg.exe";
-            p.StartInfo.Arguments = command;
+            //p.StartInfo.Arguments = command;
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardError = true;
             p.StartInfo.CreateNoWindow = true;
@@ -217,8 +217,7 @@ namespace BiliRanking.WPF.View
         private void buttonMarkStartN_Click(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
-            markStart = Player.Time + new TimeSpan(0, 0, Convert.ToInt32(((string)btn.Content).Substring(0, ((string)btn.Content).Length - 1)));
-            //markStart = Player.Time - new TimeSpan(0, 0, diyProp.GetTimeChange((diyProp)sender));
+            //markStart = Player.Time + new TimeSpan(0, 0, Convert.ToInt32(((string)btn.Content).Substring(0, ((string)btn.Content).Length - 1)));
             FreshTime();
         }
     }

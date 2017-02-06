@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:BiliRanking.WPF.View"
              xmlns:Core="clr-namespace:BiliRanking.Core;assembly=BiliRanking.Core"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="BiliRanking.WPF.View.Data"
+             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="userControlData" x:Class="BiliRanking.WPF.View.Data"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="900">
     <Grid>
-        <DataGrid x:Name="dataGrid" Margin="10,54,10,10" AutoGenerateColumns="False"
+        <DataGrid x:Name="dataGrid" Margin="0,49,0,47" AutoGenerateColumns="False"
                   md:DataGridAssist.CellPadding="4 2 2 2" md:DataGridAssist.ColumnHeaderPadding="4 2 2 2" RowHeight="24" GridLinesVisibility="All" VerticalGridLinesBrush="#10000000" Drop="dataGrid_Drop" AllowDrop="{Binding ElementName=toggleButtonAllowDrop,Path=IsChecked}" DragOver="dataGrid_DragOver" PreviewMouseLeftButtonDown="dataGrid_PreviewMouseLeftButtonDown">
             <DataGrid.Columns>
-                <md:MaterialDataGridTextColumn Header="排名" Binding="{Binding Fpaiming}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="排名" Binding="{Binding Fpaiming, TargetNullValue=''}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <DataGridTemplateColumn ClipboardContentBinding="{x:Null}" Header="操作" Visibility="Hidden">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -31,7 +31,8 @@
                         </Style>
                     </DataGridHyperlinkColumn.ElementStyle>
                 </DataGridHyperlinkColumn>
-                <md:MaterialDataGridTextColumn Header="标题" Binding="{Binding title}" MaxWidth="100" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="标题" Binding="{Binding title}" Width="150" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="P数" Binding="{Binding pagesCount}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="播放数" Binding="{Binding play}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="弹幕数" Binding="{Binding video_review}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="硬币数" Binding="{Binding coins}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
@@ -63,13 +64,18 @@
             </Border>
         </Popup>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type ButtonBase}">
                     <Setter Property="Margin" Value="0,0,20,0"></Setter>
                 </Style>
             </StackPanel.Resources>
-            <Button x:Name="button" Content="测试" Click="button_Click" Margin="0,0,10,0"/>
+            <Button x:Name="buttonGen" Click="buttonGen_Click" Margin="0,0,10,0">
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Kind="Play" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                    <TextBlock>生成</TextBlock>
+                </StackPanel>
+            </Button>
             <Button x:Name="buttonOpen" Click="buttonOpen_Click" Margin="0,0,10,0">
                 <StackPanel Orientation="Horizontal">
                     <md:PackIcon Kind="Folder" VerticalAlignment="Center" Margin="0,0,4,0"/>
@@ -84,14 +90,19 @@
             </Button>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Margin="0,9,10,0" HorizontalAlignment="Right" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
             <TextBox x:Name="textBoxInsert" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="要插入的AV号" Text="{Binding Name}" Margin="0,0,10,0"/>
             <Button x:Name="buttonInsert" Content="插入" Margin="0,0,10,0" Click="buttonInsert_Click"/>
             <Button Content="合并数据..." Margin="0,0,10,0" IsEnabled="False"/>
-            <ToggleButton x:Name="toggleButtonAllowDrop"/>
+            <ToggleButton x:Name="toggleButtonAllowDrop" Margin="0,0,5,0"/>
             <TextBlock VerticalAlignment="Center">拖拽移动模式</TextBlock>
         </StackPanel>
-        
+        <Button x:Name="buttonUndo" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="buttonUndo_Click">
+            <StackPanel Orientation="Horizontal">
+                <md:PackIcon Kind="Undo" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                <TextBlock>撤销（暂不支持值被更改）</TextBlock>
+            </StackPanel>
+        </Button>
 
     </Grid>
 </UserControl>
