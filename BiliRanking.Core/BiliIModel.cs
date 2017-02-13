@@ -369,4 +369,70 @@ namespace BiliRanking.Core
         public int at_me { get; set; }
         public int chat_me { get; set; }
     }
+
+    public class UserInfoModel
+    {
+        public string mid { get; set; }
+        public string uname { get; set; }
+        public string face { get; set; }
+        public string s_face { get; set; }
+        public int rank { get; set; }
+        public string scores { get; set; }//?
+        public string coins { get; set; }
+        public int sex { get; set; }
+        public string maxstow { get; set; }
+        public string sign { get; set; }
+        public string jointime { get; set; }
+        public int spacesta { get; set; }
+        public List<string> attentions { get; set; }
+        public int identification { get; set; }
+        public UserInfoModel level_info
+        {
+            get; set;
+        }
+        public int current_level { get; set; }
+        public int current_min { get; set; }
+        public int current_exp { get; set; }
+        public string next_exp { get; set; }
+
+        public int security_level { get; set; }
+        public string birthday { get; set; }
+        public int mobile_verified { get; set; }
+        public string telephone { get; set; }
+
+        public UserInfoModel vip { get; set; }
+        public int vipType { get; set; }//1大会员
+        public int vipStatus { get; set; }//1为
+        public string vipDueDate { get; set; }//VIP过期时间
+        public string accessStatus { get; set; }//0为正在使用
+        public string vipSurplusMsec { get; set; }//VIP剩余毫秒？为毛用毫秒- -
+        public UserInfoModel official_verify { get; set; }//认证
+        public int type { get; set; }
+        public string desc { get; set; }
+        public string RankStr
+        {
+            get
+            {
+                switch (rank)
+                {
+                    case 0:
+                        return "普通用户";
+                    case 5000:
+                        return "注册会员";
+                    case 10000:
+                        return "正式会员";
+                    case 20000:
+                        return "字幕君";
+                    case 25000:
+                        return "VIP用户";
+                    case 30000:
+                        return "职人";
+                    case 32000:
+                        return "站长大人";
+                    default:
+                        return "蜜汁等级";
+                }
+            }
+        }
+    }
 }

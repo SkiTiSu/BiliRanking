@@ -335,6 +335,33 @@ namespace BiliRanking.WPF.View
             SetNewData(lastItemSource);
         }
 
+        private async void buttonBulkInsert_Click(object sender, RoutedEventArgs e)
+        {
+            log.Info("开始批量获取");
+            List<string> lines = Regex.Split(SharedData.AVs, "\r\n|\r|\n").ToList();
+            var avs = from s in lines where s != "" select s;
+            BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync));
+            List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
+            string failedAVs = "";
+            foreach (BiliInterfaceInfo info in lls)
+            {
+                if (info.pic != null)
+                {
+                    ll.Add(info);
+                }
+                else
+                {
+                    failedAVs += info.avnum + ";";
+                }
+            }
+            if (failedAVs != "")
+            {
+                log.Warn("注意！下列视频数据未正确获取！\r\n" + failedAVs);
+            }
+            AddData(ll);
+            log.Info("批量获取完成");
+        }
+
 
 
 

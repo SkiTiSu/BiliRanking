@@ -4,7 +4,10 @@
              xmlns:local="clr-namespace:BiliRanking.WPF"
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=PresentationFramework"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
-             StartupUri="MainWindow.xaml">
+             StartupUri="MainWindow.xaml"
+             Startup="Application_Startup"
+             Exit="Application_Exit"
+             >
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

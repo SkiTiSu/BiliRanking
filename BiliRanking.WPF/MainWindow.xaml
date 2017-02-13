@@ -16,7 +16,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource RobotoAndYahei}" 
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
 
     <materialDesign:DialogHost x:Name="dialogHostMain" Identifier="RootDialog">
         <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
@@ -71,11 +71,14 @@
                                 <Button Content="Goodbye" Click="MenuPopupButton_OnClick"/>
                             </StackPanel>
                         </materialDesign:PopupBox>
-                        <materialDesign:Chip Content="未登录" Margin="0 0 0 0" DockPanel.Dock="Right">
-                            <materialDesign:Chip.Icon>
-                                <Image Source="Resources/NoAvatar.png" />
-                            </materialDesign:Chip.Icon>
-                        </materialDesign:Chip>
+                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                            <materialDesign:Chip x:Name="UserInfoName" Content="未登录" Margin="0 0 0 0">
+                                <materialDesign:Chip.Icon>
+                                    <Image x:Name="UserInfoAvatar" Source="Resources/NoAvatar.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                </materialDesign:Chip.Icon>
+                            </materialDesign:Chip>
+                            <TextBlock x:Name="UserInfoOther" Text="" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        </StackPanel>
                         <TextBlock x:Name="textBlockTitle" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" Margin="10,0,0,0">BiliRanking V2.0 预览版 - 不 止 统 计</TextBlock>
                     </DockPanel>
                 </materialDesign:ColorZone>

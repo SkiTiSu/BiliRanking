@@ -1,5 +1,7 @@
-﻿using BiliRanking.WPF.Domain;
+﻿using BiliRanking.Core;
+using BiliRanking.WPF.Domain;
 using MaterialDesignThemes.Wpf;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,6 +87,38 @@ namespace BiliRanking.WPF
             Storyboard.SetTargetProperty(takf, new PropertyPath("Margin"));
             storyboard.Children.Add(takf);
             storyboard.Begin(gridAVs);
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            BiliApiHelper.access_key = Properties.Settings.Default.access_key;
+
+            if (!string.IsNullOrEmpty(BiliApiHelper.access_key))
+            {
+                log.Info("已通过配置文件读取到授权码");
+                log.Debug("授权码：" + BiliApiHelper.access_key);
+            }
+            else
+            {
+                log.Warn("没有获取到授权码，里区将对你躲♂藏");
+                return;
+            }
+
+            BiliUser bu = new BiliUser();
+            UserInfoModel um = await bu.GetMyUserInfo();
+            if (um != null)
+            {
+                log.Info("授权码有效，登录账户名：" + um.uname);
+                UserInfoName.Content = um.uname;
+                UserInfoAvatar.Source = new BitmapImage(new Uri(um.face));
+
+                UserInfoOther.Text = $"{um.RankStr} LV{um.level_info.current_level} 硬币:{um.coins}";
+            }
+            else
+            {
+                log.Warn("授权码已经失效");
+                UserInfoName.Content = "授权码已经失效！";
+            }
         }
     }
 }

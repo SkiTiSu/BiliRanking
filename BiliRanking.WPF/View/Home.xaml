@@ -49,7 +49,7 @@
                             <StackPanel Grid.Column="1">
                                 <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="16 16 16 8">开源项目</TextBlock>
                                 <TextBlock TextWrapping="Wrap" Margin="16 0 16 8" Foreground="{DynamicResource MaterialDesignBodyLight}"
-                                           VerticalAlignment="Top">本项目使用LGPL-3.0协议在Github开源，请不要用于商业及非法用途</TextBlock>
+                                           VerticalAlignment="Top">本项目使用LGPL-3.0协议在Github开源，请不要用于商业及非法用途，特别禁止“小曹铁路”及其支持者使用</TextBlock>
                             </StackPanel>
                             <Border Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Padding="8">
                                 <DockPanel>

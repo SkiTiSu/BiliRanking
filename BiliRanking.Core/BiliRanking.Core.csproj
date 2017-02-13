@@ -56,6 +56,7 @@
     <Compile Include="BiliInterface.cs" />
     <Compile Include="BiliIModel.cs" />
     <Compile Include="BiliParse.cs" />
+    <Compile Include="BiliUser.cs" />
     <Compile Include="Download\DownloadCompletedEventArgs.cs" />
     <Compile Include="Download\DownloaderHelper.cs" />
     <Compile Include="Download\DownloadProgressChangedEventArgs.cs" />
