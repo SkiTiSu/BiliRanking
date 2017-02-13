@@ -103,5 +103,15 @@ namespace BiliRanking.WPF.View
             MainWindow Form = Application.Current.Windows[0] as MainWindow;
             Form.listBoxItems.SelectedIndex = 2;
         }
+
+        private void buttonParse_Click(object sender, RoutedEventArgs e)
+        {
+            MatchCollection mc = Regex.Matches(textBoxNeedParse.Text, @"[aA][vV]\d+");
+            SharedData.AVs = "";
+            foreach (Match m in mc)
+            {
+                SharedData.AVs += m.Value + "\r\n";
+            }
+        }
     }
 }

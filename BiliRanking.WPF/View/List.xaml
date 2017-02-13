@@ -39,5 +39,7 @@
         </StackPanel>
         <Button x:Name="buttonGen" Content="生成" HorizontalAlignment="Left" Height="43" Margin="55,361,0,0" VerticalAlignment="Top" Width="82" Click="buttonGen_Click"/>
         <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="42" Margin="221,361,0,0" VerticalAlignment="Top" Width="87" Click="button_Click"/>
+        <TextBox x:Name="textBoxNeedParse" HorizontalAlignment="Left" Height="248" Margin="345,105,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="366" materialDesign:HintAssist.Hint="请将带有av号的文本粘贴在这里" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Padding="5"/>
+        <Button x:Name="buttonParse" Content="解析上文中的AV号" HorizontalAlignment="Left" Margin="345,367,0,0" Width="155" Height="32" VerticalAlignment="Top" Click="buttonParse_Click"/>
     </Grid>
 </UserControl>
