@@ -15,7 +15,7 @@ A data crawler and auxiliary production tool for Bilibili. Was used by Bilibili 
 * 更多……
 
 # 编译 Compile
-Visual Studio 2015 and .NET Framework 4.5 are required.
+Visual Studio 2017 and .NET Framework 4.5 are required.
 
 # 许可 License
 使用[LGPL-3.0](http://opensource.org/licenses/LGPL-3.0)  
