@@ -106,7 +106,7 @@ namespace BiliRanking.WPF
 
             BiliUser bu = new BiliUser();
             UserInfoModel um = await bu.GetMyUserInfo();
-            if (um != null)
+            if (um.uname != null)
             {
                 log.Info("授权码有效，登录账户名：" + um.uname);
                 UserInfoName.Content = um.uname;
