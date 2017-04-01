@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BiliRanking.WPF
@@ -26,6 +27,13 @@ namespace BiliRanking.WPF
                     AVsChanged?.Invoke(null, EventArgs.Empty);
                 }
             }
+        }
+
+        public static IEnumerable<string> SortedAVs
+        {
+            get => from s in Regex.Split(SharedData.AVs, "\r\n|\r|\n").ToList()
+                   where s != ""
+                   select s;
         }
     }
 }

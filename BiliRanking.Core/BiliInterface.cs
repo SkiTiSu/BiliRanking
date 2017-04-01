@@ -439,10 +439,10 @@ namespace BiliRanking.Core
                 {
                     Log.Warn(AVnum + " - 无法识别分P编号，将下载P1");
                 }
-                
+
             }
 
-                BiliInterfaceInfo info = null;
+            BiliInterfaceInfo info = null;
 
             try
             {
@@ -464,7 +464,7 @@ namespace BiliRanking.Core
                         info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), info.cid);
                     }
                 }
-                else 
+                else
                 {
                     if (info.pagesn.Count > 1)
                     {
@@ -472,7 +472,7 @@ namespace BiliRanking.Core
                     }
                     info.flvurl = GetFlvUrl(UInt32.Parse(info.avnum.Substring(2)), info.cid);
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -482,24 +482,88 @@ namespace BiliRanking.Core
             return info;
         }
 
+        public static IEnumerable<string> GetAVFlvUrl(string AVnum)
+        {
+            string[] avnp = Regex.Split(AVnum, "_|-|#");
+            string avnum = GetAVdenum(avnp[0]);
+
+            int page = 1;
+            if (avnp.Length > 1)
+            {
+                try
+                {
+                    page = int.Parse(avnp[1]);
+                }
+                catch
+                {
+                    Log.Warn(AVnum + " - 无法识别分P编号，将下载P1");
+                }
+
+            }
+
+            BiliInterfaceInfo info = null;
+            IEnumerable<string> flvs = null;
+
+            try
+            {
+                info = GetInfo(avnum);
+                if (page > 1)
+                {
+                    if (info.pagesn.Count >= page)
+                    {
+                        info.title = info.title + $"_P{page}_{info.pagesn[page - 1].part}";
+                        flvs = GetFlvUrls(uint.Parse(info.pagesn[page - 1].cid));
+                    }
+                    else
+                    {
+                        Log.Warn(AVnum + $" - 目标视频仅有{info.pagesn.Count}P，将下载P1");
+                        if (info.pagesn.Count > 1)
+                        {
+                            info.title = info.title + $"_P{page}_{info.pagesn[page - 1].part}";
+                        }
+                        flvs = GetFlvUrls(info.cid);
+                    }
+                }
+                else
+                {
+                    if (info.pagesn.Count > 1)
+                    {
+                        info.title = info.title + $"_P{page}_{info.pagesn[page - 1].part}";
+                    }
+                    flvs = GetFlvUrls(info.cid);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Log.Error("AV" + avnum + "的数据发生错误，请稍后重试！" + e.Message);
+            }
+
+            return flvs;
+        }
+
         public static string GetFlvUrl(uint aid, uint cid)
         {
+            var t = GetFlvUrls(cid);
+            if (t != null)
+            {
+                Log.Debug("获取到下载地址：" + t.ToArray()[0]);
+                return t.ToArray()[0];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static IEnumerable<string> GetFlvUrls(uint cid)
+        {
             SortedDictionary<string, string> parampairs = new SortedDictionary<string, string>();
-            //parampairs.Add("aid", aid.ToString());
-            //parampairs.Add("cid", cid.ToString());
-            //-parampairs.Add("type", null);
-            //parampairs.Add("otype", "json");
-            //parampairs.Add("type", "mp4");
-            //-parampairs.Add("player", "1");
-            //-parampairs.Add("ts", ((long)((DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds)).ToString());
-            //parampairs.Add("appkey", null);
             parampairs.Add("appsec", dlappsec);
             parampairs.Add("cid", cid.ToString());
             parampairs.Add("from", "miniplay");
             parampairs.Add("player", "1");
             //parampairs.Add("quality", "3");
-            //string param = GetSign(parampairs);
-
             string final_param = "";
             foreach (var aparam in parampairs)
             {
@@ -512,23 +576,20 @@ namespace BiliRanking.Core
                 string hashed = BitConverter.ToString(md5.ComputeHash(Encoding.ASCII.GetBytes(final_param + parampairs["appsec"]))).Replace("-", "").ToLower();
                 final_param += "&sign=" + hashed;
             }
-
             string html = GetHtml("http://interface.bilibili.com/playurl?" + final_param);
-
             if (!html.Contains("<result>su"))
             {
                 Log.Error("FLV地址获取失败！ - CID：" + cid);
                 return null;
             }
-
             byte[] byteArray = Encoding.UTF8.GetBytes(html);
             MemoryStream stream = new MemoryStream(byteArray);
             XElement xe = XElement.Load(stream);
-            var t = xe.Elements("url");
-            IEnumerable<string> elements = from ele in xe.Descendants("url") //where ele.Name == "url"
-                                           select ele.Value;
-            Log.Debug("获取到下载地址：" + elements.ToArray()[0]);
-            return elements.ToArray()[0];
+            var t = xe.Elements(XName.Get("durl"));
+            var tt = from ele in t
+                     select ele.Element("url").Value;
+            Log.Debug($"找到{tt.Count()}个分段");
+            return tt;
         }
 
         public static string GetHtml(string url)
@@ -585,40 +646,40 @@ namespace BiliRanking.Core
                 //using (WebClient myWebClient = new WebClient())
                 //{
                 WebClient myWebClient = new WebClient();
-                    myWebClient.Headers.Add("Cookie", cookie);
-                    myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0(Windows NT 5.1) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 35.0.3319.102 Safari / 537.36");
-                    //myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0 BiliDroid/3.3.0 (bbcallen@gmail.com)");
-                    Random ran = new Random();
-                    int ip4 = ran.Next(1, 255);
-                    int select = ran.Next(1, 2);
-                    string ip;
-                    if (select == 1)
-                        ip = "220.181.111." + ip4;
-                    else
-                        ip = "59.152.193." + ip4;
-                    myWebClient.Headers.Add("Client-IP", ip);
+                myWebClient.Headers.Add("Cookie", cookie);
+                myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0(Windows NT 5.1) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 35.0.3319.102 Safari / 537.36");
+                //myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0 BiliDroid/3.3.0 (bbcallen@gmail.com)");
+                Random ran = new Random();
+                int ip4 = ran.Next(1, 255);
+                int select = ran.Next(1, 2);
+                string ip;
+                if (select == 1)
+                    ip = "220.181.111." + ip4;
+                else
+                    ip = "59.152.193." + ip4;
+                myWebClient.Headers.Add("Client-IP", ip);
 
                 //myWebClient.Headers.Add(HttpRequestHeader.KeepAlive, "TRUE");
 
-                    byte[] myDataBuffer = await myWebClient.DownloadDataTaskAsync(new Uri(url));
+                byte[] myDataBuffer = await myWebClient.DownloadDataTaskAsync(new Uri(url));
 
-                    string sContentEncoding = myWebClient.ResponseHeaders["Content-Encoding"];
-                    if (sContentEncoding == "gzip")
+                string sContentEncoding = myWebClient.ResponseHeaders["Content-Encoding"];
+                if (sContentEncoding == "gzip")
+                {
+                    MemoryStream ms = new MemoryStream(myDataBuffer);
+                    MemoryStream msTemp = new MemoryStream();
+                    int count = 0;
+                    GZipStream gzip = new GZipStream(ms, CompressionMode.Decompress);
+                    byte[] buf = new byte[1000];
+                    while ((count = gzip.Read(buf, 0, buf.Length)) > 0)
                     {
-                        MemoryStream ms = new MemoryStream(myDataBuffer);
-                        MemoryStream msTemp = new MemoryStream();
-                        int count = 0;
-                        GZipStream gzip = new GZipStream(ms, CompressionMode.Decompress);
-                        byte[] buf = new byte[1000];
-                        while ((count = gzip.Read(buf, 0, buf.Length)) > 0)
-                        {
-                            msTemp.Write(buf, 0, count);
-                        }
-                        myDataBuffer = msTemp.ToArray();
+                        msTemp.Write(buf, 0, count);
                     }
-                    return Encoding.UTF8.GetString(myDataBuffer);
+                    myDataBuffer = msTemp.ToArray();
+                }
+                return Encoding.UTF8.GetString(myDataBuffer);
                 //}
-                
+
             }
             catch (Exception e)
             {

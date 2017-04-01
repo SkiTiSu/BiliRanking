@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="BiliRanking.WPF.View.Download"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BiliRanking.WPF.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="900">
+    <Grid>
+        <TextBox x:Name="textBox" Margin="10,68,10,10" TextWrapping="Wrap" Text=""/>
+        <Button x:Name="buttonGet" Content="获取下载地址" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="121" Click="buttonGet_Click"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="由于B站限制，内置下载引擎下载不完全，请复制下载地址到迅雷下orz" VerticalAlignment="Top"/>
+
+    </Grid>
+</UserControl>

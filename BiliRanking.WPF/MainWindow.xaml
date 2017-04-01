@@ -48,7 +48,12 @@
                                 <view:Data />
                             </domain:Item.Content>
                         </domain:Item>
-                        <domain:Item Name="视频剪辑">
+                        <domain:Item Name="视频下载">
+                            <domain:Item.Content>
+                                <view:Download />
+                            </domain:Item.Content>
+                        </domain:Item>
+                        <domain:Item Name="×视频剪辑">
                             <domain:Item.Content>
                                 <view:VideoClip />
                             </domain:Item.Content>

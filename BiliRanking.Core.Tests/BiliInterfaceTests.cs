@@ -32,11 +32,18 @@ namespace BiliRanking.Core.Tests
         public void GetFlvInfoTest()
         {
             BiliInterfaceInfo info = new BiliInterfaceInfo();
-            info = BiliInterface.GetFlvInfo("av3153761");
+            //info = BiliInterface.GetFlvInfo("av3153761");
             //TestContext.WriteLine(info.flvurl);
             //Debug.WriteLine(info.flvurl);
-
+            info = BiliInterface.GetFlvInfo("av9472850");
             Assert.IsTrue(info.flvurl.Contains(".flv"));
+        }
+
+        [TestMethod()]
+        public void GetFlvUrlsTest()
+        {
+            var c = BiliInterface.GetFlvUrls(15657517);
+            Assert.IsTrue(c.Count() > 0);
         }
     }
 }

@@ -41,8 +41,7 @@ namespace BiliRanking.WPF.View
         private async void buttonGen_Click(object sender, RoutedEventArgs e)
         {
             log.Info("开始批量获取");
-            List<string> lines = Regex.Split(SharedData.AVs, "\r\n|\r|\n").ToList();
-            var avs = from s in lines where s != "" select s;
+            var avs = SharedData.SortedAVs;
             BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync));
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
             string failedAVs = "";
@@ -338,8 +337,7 @@ namespace BiliRanking.WPF.View
         private async void buttonBulkInsert_Click(object sender, RoutedEventArgs e)
         {
             log.Info("开始批量获取");
-            List<string> lines = Regex.Split(SharedData.AVs, "\r\n|\r|\n").ToList();
-            var avs = from s in lines where s != "" select s;
+            var avs = SharedData.SortedAVs;
             BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync));
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
             string failedAVs = "";
