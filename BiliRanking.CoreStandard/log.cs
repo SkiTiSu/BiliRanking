@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BiliRanking
+namespace BiliRanking.CoreStandard
 {
-    public static class Log
+    public class log
     {
         public static void Info(string s)
         {
