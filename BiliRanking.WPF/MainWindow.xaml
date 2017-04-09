@@ -38,6 +38,11 @@
                                 <view:Home />
                             </domain:Item.Content>
                         </domain:Item>
+                        <domain:Item Name="临时登录界面">
+                            <domain:Item.Content>
+                                <view:Login />
+                            </domain:Item.Content>
+                        </domain:Item>
                         <domain:Item Name="排行统计">
                             <domain:Item.Content>
                                 <view:List />

@@ -76,6 +76,7 @@
     </ApplicationDefinition>
     <Compile Include="Domain\Item.cs" />
     <Compile Include="Domain\NotifyPropertyChangedExtension.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="SharedData.cs" />
     <Compile Include="UIHelpers.cs" />
     <Compile Include="View\Data.xaml.cs">
@@ -89,6 +90,9 @@
     </Compile>
     <Compile Include="View\List.xaml.cs">
       <DependentUpon>List.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\VideoClip.xaml.cs">
       <DependentUpon>VideoClip.xaml</DependentUpon>
@@ -125,6 +129,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\List.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

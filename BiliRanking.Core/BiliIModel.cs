@@ -10,6 +10,9 @@ namespace BiliRanking.Core
     //这个Model用来保存登录请求的access_key
     public class LoginModel
     {
+        public LoginModel data { get; set; }
+        public string access_token { get; set; }
+        public string refresh_token { get; set; }
         private string _access_key;
         public string access_key
         {

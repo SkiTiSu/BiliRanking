@@ -4,11 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BiliRanking.WPF.View"
+             xmlns:bwpf="clr-namespace:BiliRanking.WPF"
              xmlns:Core="clr-namespace:BiliRanking.Core;assembly=BiliRanking.Core"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:System="clr-namespace:System;assembly=mscorlib" x:Name="userControlData" x:Class="BiliRanking.WPF.View.Data"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="900">
+             d:DesignHeight="500" d:DesignWidth="900" Loaded="userControlData_Loaded">
     <Grid>
         <DataGrid x:Name="dataGrid" Margin="0,49,0,47" AutoGenerateColumns="False"
                   md:DataGridAssist.CellPadding="4 2 2 2" md:DataGridAssist.ColumnHeaderPadding="4 2 2 2" RowHeight="24" GridLinesVisibility="All" VerticalGridLinesBrush="#10000000" Drop="dataGrid_Drop" AllowDrop="{Binding ElementName=toggleButtonAllowDrop,Path=IsChecked}" DragOver="dataGrid_DragOver" PreviewMouseLeftButtonDown="dataGrid_PreviewMouseLeftButtonDown">
@@ -88,6 +89,12 @@
                     <TextBlock>保存</TextBlock>
                 </StackPanel>
             </Button>
+            <ComboBox x:Name="comboBoxScoreType" VerticalAlignment="Stretch" Width="58"
+                      ItemsSource="{Binding Source={bwpf:Enumeration {x:Type Core:ScoreType}}}" 
+                      DisplayMemberPath="Description" 
+                      SelectedValue="{Binding CurrentStatus}"  
+                      SelectedValuePath="Value"
+                      />
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -99,6 +106,7 @@
             <ToggleButton x:Name="toggleButtonAllowDrop" Margin="0,0,5,0"/>
             <TextBlock VerticalAlignment="Center">拖拽移动模式</TextBlock>
         </StackPanel>
+        
         <Button x:Name="buttonUndo" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="buttonUndo_Click">
             <StackPanel Orientation="Horizontal">
                 <md:PackIcon Kind="Undo" VerticalAlignment="Center" Margin="0,0,4,0"/>

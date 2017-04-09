@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.ComponentModel;
 
 namespace BiliRanking.Core
 {
@@ -163,7 +164,7 @@ namespace BiliRanking.Core
         public static BiliInterfaceInfo GetMP4info(string AVnum, int page, bool isJJ = false)
         {
             BiliInterfaceInfo info = new BiliInterfaceInfo();
-            info = GetInfo(AVnum, false);
+            info = GetInfo(AVnum, ScoreType.None);
             if (!string.IsNullOrEmpty(info.title))
             {
                 info.mp4url = GetMP4UrlBackUp(uint.Parse(info.avnum));
@@ -171,13 +172,13 @@ namespace BiliRanking.Core
             return info;
         }
 
-        public static async Task<BiliInterfaceInfo> GetInfoAsync(string AVnum, bool needScore = true)
+        public static async Task<BiliInterfaceInfo> GetInfoAsync(string AVnum, ScoreType stype = ScoreType.Guichu)
         {
             string avnum = GetAVdenum(AVnum);
             Log.Info("正在通过API获取数据 - AV" + avnum);
 
             string uri = string.Format("http://app.bilibili.com/x/view?_device=wp&_ulv=10000&access_key={0}&aid={1}&appkey=422fd9d7289a1dd9&build=411005&plat=4&platform=android&ts={2}",
-                BiliApiHelper.access_key, avnum, BiliApiHelper.GetTimeSpen);
+                BiliApiHelper.access_key, avnum, BiliApiHelper.GetTimeSpan);
             uri += "&sign=" + BiliApiHelper.GetSign(uri);
 
             Stopwatch sw = new Stopwatch();
@@ -259,9 +260,16 @@ namespace BiliRanking.Core
                     //info.title = info.title.Replace("&lt;", "<");
                     //info.title = info.title.Replace("&gt;", ">");
                     //info.title = info.title.Replace("&quot;", "\"");
-                    if (needScore)
+                    switch(stype)
                     {
-                        CalScore(ref info);
+                        case ScoreType.None:
+                            break;
+                        case ScoreType.Guichu:
+                            CalScoreGuichu(ref info);
+                            break;
+                        case ScoreType.VC211:
+                            CalScoreVC211(ref info);
+                            break;
                     }
                 }
             }
@@ -274,11 +282,11 @@ namespace BiliRanking.Core
             return info;
         }
 
-        public static BiliInterfaceInfo GetInfo(string AVnum, bool needScore = true) => AsyncHelper.RunSync(() => GetInfoAsync(AVnum, needScore));
+        public static BiliInterfaceInfo GetInfo(string AVnum, ScoreType stype = ScoreType.Guichu) => AsyncHelper.RunSync(() => GetInfoAsync(AVnum, stype));
 
-        public static Task<BiliInterfaceInfo> GetInfoTaskAsync(string s) => Task.Run(() => GetInfoAsync(s));
+        public static Task<BiliInterfaceInfo> GetInfoTaskAsync(string s, ScoreType stype = ScoreType.Guichu) => Task.Run(() => GetInfoAsync(s, stype));
 
-        public static void CalScore(ref BiliInterfaceInfo info)
+        public static void CalScoreGuichu(ref BiliInterfaceInfo info)
         {
             //算分
             double xiuzheng = 0;
@@ -305,6 +313,27 @@ namespace BiliRanking.Core
                 info.Fplay = info.Fplay + (info.play - info.Fplay) / 2;
             //得分
             info.Fdefen = info.Ffavorites + info.Fcoins + info.Freview + info.Fplay;
+        }
+
+        public static void CalScoreVC211(ref BiliInterfaceInfo info)
+        {
+            //修正B
+            double xiuzhengB = Math.Round((double)info.favorites / info.play * 250, 2);
+            if (xiuzhengB > 50) xiuzhengB = 50;
+            //播放得点
+            info.Fplay = info.play / (uint)info.pagesCount;
+            if (info.Fplay > 10000)
+            {
+                info.Fplay = (uint)(info.Fplay * 0.5) + 5000;
+            }
+            if (xiuzhengB < 10)
+            {
+                info.Fplay = (uint)(info.Fplay * xiuzhengB * 0.1);
+            }
+            //修正A
+            double xiuzhengA = Math.Round((double)(info.Fplay + info.favorites) / (info.play + info.favorites + info.video_review * 10 + info.review * 20), 2);
+            //总分
+            info.Fdefen = (uint)(info.Fplay + (info.review * 25 + info.video_review) * xiuzhengA + info.favorites * xiuzhengB);
         }
 
         public static string GetCsvInfos(List<BiliInterfaceInfo> infos)
@@ -688,5 +717,15 @@ namespace BiliRanking.Core
                 //throw new Exception("获取失败");
             }
         }
+    }
+
+    public enum ScoreType
+    {
+        [Description("无")]
+        None,
+        [Description("鬼畜榜")]
+        Guichu,
+        [Description("VC榜211期起")]
+        VC211
     }
 }

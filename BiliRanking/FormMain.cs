@@ -154,7 +154,7 @@ namespace BiliRanking
         }
 
         //http://stackoverflow.com/questions/20355931/limiting-the-amount-of-concurrent-tasks-in-net-4-5
-        private static async Task<R[]> concurrentAsync<T, R>(int maxConcurrency, IEnumerable<T> items, Func<T, Task<R>> createTask)
+        private static async Task<R[]> concurrentAsync<T1, T2, R>(int maxConcurrency, IEnumerable<T1> items, Func<T1, T2, Task<R>> createTask, T2 stype)
         {
             var allTasks = new List<Task<R>>();
             var activeTasks = new List<Task<R>>();
@@ -165,7 +165,7 @@ namespace BiliRanking
                     var completedTask = await Task.WhenAny(activeTasks);
                     activeTasks.Remove(completedTask);
                 }
-                var task = createTask(item);
+                var task = createTask(item, stype);
                 allTasks.Add(task);
                 activeTasks.Add(task);
             }
@@ -185,7 +185,11 @@ namespace BiliRanking
             //Task<BiliInterfaceInfo>[] lltasks = llasync.ToArray();
             //BiliInterfaceInfo[] lls = await Task.WhenAll(lltasks);
             Stopwatch sw = new Stopwatch(); sw.Restart();
-            BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync));
+            BiliInterfaceInfo[] lls = await concurrentAsync(
+                100,
+                avs,
+                new Func<string, BiliInterface.ScoreType, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
+                BiliInterface.ScoreType.Guichu);
             Log.Info($"获取用时：{sw.ElapsedMilliseconds}ms"); sw.Stop();
             Log.Info("正在排序");
             foreach (BiliInterfaceInfo info in lls)

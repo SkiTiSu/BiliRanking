@@ -41,8 +41,13 @@ namespace BiliRanking.WPF.View
         private async void buttonGen_Click(object sender, RoutedEventArgs e)
         {
             log.Info("开始批量获取");
-            var avs = SharedData.SortedAVs;
-            BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync));
+            ScoreType st = (ScoreType)((EnumerationExtension.EnumerationMember)comboBoxScoreType.SelectedItem).Value;
+            IEnumerable<string> avs = SharedData.SortedAVs;
+            BiliInterfaceInfo[] lls = await concurrentAsync(
+                100,
+                avs,
+                new Func<string, ScoreType, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
+                st);
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
             string failedAVs = "";
             foreach (BiliInterfaceInfo info in lls)
@@ -80,7 +85,7 @@ namespace BiliRanking.WPF.View
         }
 
         //http://stackoverflow.com/questions/20355931/limiting-the-amount-of-concurrent-tasks-in-net-4-5
-        private static async Task<R[]> concurrentAsync<T, R>(int maxConcurrency, IEnumerable<T> items, Func<T, Task<R>> createTask)
+        private static async Task<R[]> concurrentAsync<T1, T2, R>(int maxConcurrency, IEnumerable<T1> items, Func<T1, T2, Task<R>> createTask, T2 stype)
         {
             var allTasks = new List<Task<R>>();
             var activeTasks = new List<Task<R>>();
@@ -91,7 +96,7 @@ namespace BiliRanking.WPF.View
                     var completedTask = await Task.WhenAny(activeTasks);
                     activeTasks.Remove(completedTask);
                 }
-                var task = createTask(item);
+                var task = createTask(item, stype);
                 allTasks.Add(task);
                 activeTasks.Add(task);
             }
@@ -307,7 +312,7 @@ namespace BiliRanking.WPF.View
             }
 
             Size popupSize = new Size(popup1.ActualWidth, popup1.ActualHeight);
-            popup1.PlacementRectangle = new Rect(new Point(e.GetPosition(this).X +10, e.GetPosition(this).Y + 10), popupSize);
+            popup1.PlacementRectangle = new Rect(new Point(e.GetPosition(this).X + 10, e.GetPosition(this).Y + 10), popupSize);
 
             Point position = e.GetPosition(dataGrid);
             var row = UIHelpers.TryFindFromPoint<DataGridRow>(dataGrid, position);
@@ -338,7 +343,12 @@ namespace BiliRanking.WPF.View
         {
             log.Info("开始批量获取");
             var avs = SharedData.SortedAVs;
-            BiliInterfaceInfo[] lls = await concurrentAsync(100, avs, new Func<string, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync));
+            ScoreType st = (ScoreType)((EnumerationExtension.EnumerationMember)comboBoxScoreType.SelectedItem).Value;
+            BiliInterfaceInfo[] lls = await concurrentAsync(
+                100,
+                avs,
+                new Func<string, ScoreType, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
+                st);
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
             string failedAVs = "";
             foreach (BiliInterfaceInfo info in lls)
@@ -358,6 +368,11 @@ namespace BiliRanking.WPF.View
             }
             AddData(ll);
             log.Info("批量获取完成");
+        }
+
+        private void userControlData_Loaded(object sender, RoutedEventArgs e)
+        {
+            comboBoxScoreType.SelectedIndex = 1;
         }
 
 

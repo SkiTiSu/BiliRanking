@@ -12,7 +12,7 @@ namespace BiliRanking.WPF
     {
         public static event EventHandler AVsChanged;
 
-        private static string aVs;
+        private static string aVs = "";
         public static string AVs
         {
             get
@@ -31,7 +31,7 @@ namespace BiliRanking.WPF
 
         public static IEnumerable<string> SortedAVs
         {
-            get => from s in Regex.Split(SharedData.AVs, "\r\n|\r|\n").ToList()
+            get => from s in Regex.Split((AVs != null) ? AVs : "" , "\r\n|\r|\n").ToList()
                    where s != ""
                    select s;
         }
