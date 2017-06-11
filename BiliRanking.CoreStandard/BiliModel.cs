@@ -124,11 +124,11 @@ namespace BiliRanking.CoreStandard
     public class BiliVideoDataModel
     {
         //视频信息
-        public string aid { get; set; }
+        public uint aid { get; set; }
         public string copyright { get; set; }
         public string pic { get; set; }
         public string title { get; set; }
-        public string pubdate { get; set; }
+        public long pubdate { get; set; }
         public string desc { get; set; }
         public string tname { get; set; }
         //UP信息
@@ -141,24 +141,17 @@ namespace BiliRanking.CoreStandard
         //视频数据
         public class stat
         {
-            public string view { get; set; }
-            public string danmaku { get; set; }
-            public string reply { get; set; }
-            public string favorite { get; set; }
-            public string coin { get; set; }
-            public string share { get; set; }
+            public uint view { get; set; }
+            public uint danmaku { get; set; }
+            public uint reply { get; set; }
+            public uint favorite { get; set; }
+            public uint coin { get; set; }
+            public uint share { get; set; }
         }
         //TAG
-        public object tags { get; set; }
+        public string[] tags { get; set; }
         //视频P
         public apage[] pages { get; set; }
-        public class apage
-        {
-            public string cid { get; set; }
-            public string page { get; set; }
-            public string from { get; set; }
-            public string part { get; set; }
-        }
         //番剧信息
         public class season
         {
@@ -187,6 +180,13 @@ namespace BiliRanking.CoreStandard
         public int attention { get; set; }//关注Up主,-999为关注,1已关注
         //public int favorite { get; set; }//是否已经收藏，0为未收藏，1为已经收藏
         public object relates { get; set; }
+    }
+    public class apage
+    {
+        public uint cid { get; set; }
+        public uint page { get; set; }
+        public string from { get; set; }
+        public string part { get; set; }
     }
     public class BiliVideoModel
     {

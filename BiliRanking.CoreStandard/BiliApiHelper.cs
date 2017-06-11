@@ -25,7 +25,7 @@ namespace BiliRanking.CoreStandard
 
         public static string access_key = "";
 
-        public static string GetSign(string url)
+        public static string GetSign(string url, string Secret = "ba3a4e554e9a6e15dc4d1d70c2b154e3")
         {
             string result;
             string str = url.Substring(url.IndexOf("?", 4) + 1);
@@ -37,7 +37,7 @@ namespace BiliRanking.CoreStandard
                 stringBuilder.Append((stringBuilder.Length > 0 ? "&" : string.Empty));
                 stringBuilder.Append(str1);
             }
-            stringBuilder.Append(_appSecret_Wp);
+            stringBuilder.Append(Secret);
             using (var md5 = MD5.Create())
             {
                 result = BitConverter.ToString(md5.ComputeHash(Encoding.ASCII.GetBytes(stringBuilder.ToString()))).Replace("-", "").ToLower();

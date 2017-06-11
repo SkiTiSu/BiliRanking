@@ -52,6 +52,7 @@ namespace BiliRanking
             this.buttonListTagGen = new System.Windows.Forms.Button();
             this.comboBoxListNum = new System.Windows.Forms.ComboBox();
             this.groupBoxListDate = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.buttonListData1wAgo = new MaterialSkin.Controls.MaterialFlatButton();
             this.buttonListData2wAgo = new MaterialSkin.Controls.MaterialFlatButton();
             this.buttonListDate2 = new MaterialSkin.Controls.MaterialFlatButton();
@@ -143,7 +144,7 @@ namespace BiliRanking
             this.进入唧唧下载MP4ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogExcel = new System.Windows.Forms.OpenFileDialog();
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
-            this.label21 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             this.tabPageList.SuspendLayout();
@@ -439,6 +440,16 @@ namespace BiliRanking
             this.groupBoxListDate.TabStop = false;
             this.groupBoxListDate.Text = "时间";
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.ForeColor = System.Drawing.Color.Gray;
+            this.label21.Location = new System.Drawing.Point(9, 73);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(174, 20);
+            this.label21.TabIndex = 22;
+            this.label21.Text = "注：周一为一周的第一天";
+            // 
             // buttonListData1wAgo
             // 
             this.buttonListData1wAgo.AutoSize = true;
@@ -629,6 +640,7 @@ namespace BiliRanking
             // 
             // tabPageRAW
             // 
+            this.tabPageRAW.Controls.Add(this.button1);
             this.tabPageRAW.Controls.Add(this.buttonRAWInsert);
             this.tabPageRAW.Controls.Add(this.buttonQuickCopy);
             this.tabPageRAW.Controls.Add(this.buttonRAWReadExcel);
@@ -1429,15 +1441,15 @@ namespace BiliRanking
             this.materialTabSelector1.TabIndex = 10;
             this.materialTabSelector1.Text = "materialTabSelector1";
             // 
-            // label21
+            // button1
             // 
-            this.label21.AutoSize = true;
-            this.label21.ForeColor = System.Drawing.Color.Gray;
-            this.label21.Location = new System.Drawing.Point(9, 73);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(174, 20);
-            this.label21.TabIndex = 22;
-            this.label21.Text = "注：周一为一周的第一天";
+            this.button1.Location = new System.Drawing.Point(13, 413);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 41);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FormMain
             // 
@@ -1598,5 +1610,6 @@ namespace BiliRanking
         private System.Windows.Forms.DataGridViewTextBoxColumn Tstart;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column16;
         private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -74,6 +74,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ModernCheckboxTree.xaml.cs">
+      <DependentUpon>ModernCheckboxTree.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Item.cs" />
     <Compile Include="Domain\NotifyPropertyChangedExtension.cs" />
     <Compile Include="Extensions.cs" />
@@ -97,6 +100,10 @@
     <Compile Include="View\VideoClip.xaml.cs">
       <DependentUpon>VideoClip.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\ModernCheckboxTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Domain\SampleMessageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

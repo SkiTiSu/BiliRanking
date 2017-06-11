@@ -77,6 +77,65 @@ namespace BiliRanking.CoreStandard
             VC211
         }
 
+        public static async Task<BiliVideoDataModel> GetInfoNewAsync(string AVnum, ScoreType stype = ScoreType.Guichu)
+        {
+            string avnum = GetAVdenum(AVnum);
+            log.Info("正在通过API获取数据 - AV" + avnum);
+
+            string uri = string.Format("http://app.bilibili.com/x/view?_device=wp&_ulv=10000&access_key={0}&aid={1}&appkey=422fd9d7289a1dd9&build=411005&plat=4&platform=android&ts={2}",
+                BiliApiHelper.access_key, avnum, BiliApiHelper.GetTimeSpen);
+            uri += "&sign=" + BiliApiHelper.GetSign(uri);
+
+            Stopwatch sw = new Stopwatch();
+            sw.Restart();
+            string html = await GetHtmlAsync(uri);
+            log.Info($"获取数据完成 - AV{avnum} 用时：{sw.ElapsedMilliseconds}ms");
+            sw.Stop();
+
+            BiliInterfaceInfo info = new BiliInterfaceInfo();
+            info.AVNUM = "AV" + avnum;
+            try
+            {
+                BiliVideoModel model = JsonConvert.DeserializeObject<BiliVideoModel>(html);
+
+                if (model.code == -403)
+                {
+                    if (model.data.ToString().Contains("no perm"))
+                    {
+                        log.Error("没有数据！（正在补档或被删除？）"); //TODO: 在新版API中还需要吗？
+                    }
+                    else
+                    {
+                        log.Error("本视频为会员独享，或账号方面错误！");
+                    }
+                }
+                else if (model.code == -404)
+                {
+                    log.Error("视频不存在！");
+                }
+                else if (model.code == -500)
+                {
+                    log.Error("服务器错误，代码-500，请稍后再试");
+                }
+                else if (model.code == -502)
+                {
+                    log.Error("网关错误，代码-502，请稍后再试");
+                }
+                else
+                {
+                    BiliVideoDataModel InfoModel = JsonConvert.DeserializeObject<BiliVideoDataModel>(model.data.ToString());
+                    return InfoModel;
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error("AV" + avnum + "的数据发生错误，请稍后重试！" + e.Message);
+                //return null; //TODO: 出错时返回后的检查方式需要变更
+            }
+
+            return null;
+        }
+
         public static async Task<BiliInterfaceInfo> GetInfoAsync(string AVnum, ScoreType stype = ScoreType.Guichu)
         {
             string avnum = GetAVdenum(AVnum);
@@ -433,6 +492,15 @@ namespace BiliRanking.CoreStandard
             return tt;
         }
 
+        public static async void GetTagSort(int tid, string tags, int page = 1, int pagesize = 30, string order ="default")
+        {
+            string uri = string.Format($"http://api.bilibili.cn/tags?appkey=4ebafd7c4951b366&tid={tid}&tags={tags}&page={page}&pagesize={pagesize}&order={order}&ts={BiliApiHelper.GetTimeSpen}");
+            uri += "&sign=" + BiliApiHelper.GetSign(uri, "8cb98205e9b2ad3669aad0fce12a4c13");
+
+            string html = await GetHtmlAsync(uri);
+            Console.ReadKey();
+        }
+
         public static string GetHtml(string url) => AsyncHelper.RunSync(() => GetHtmlAsync(url));
 
         public static async Task<string> GetHtmlAsync(string url)
@@ -445,7 +513,7 @@ namespace BiliRanking.CoreStandard
                     AutomaticDecompression = DecompressionMethods.GZip
                 }));
                 hc.DefaultRequestHeaders.Add("Cookie", cookie);
-                hc.DefaultRequestHeaders.Add("User-Agent", "Mozilla / 5.0(Windows NT 5.1) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 35.0.3319.102 Safari / 537.36");
+                hc.DefaultRequestHeaders.Add("UserAgent", "Mozilla / 5.0(Windows NT 5.1) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 35.0.3319.102 Safari / 537.36");
                 //myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0 BiliDroid/3.3.0 (bbcallen@gmail.com)");
                 Random ran = new Random();
                 int ip4 = ran.Next(1, 255);

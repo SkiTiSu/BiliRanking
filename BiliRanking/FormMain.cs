@@ -129,7 +129,7 @@ namespace BiliRanking
 
             for (int i = 1; i <= needpage; i++)
             {
-                List<string> sts = BiliParse.GetList(sort, int.Parse(tzone), i, dateTimePickerFrom.Value, dateTimePickerTo.Value);
+                List<string> sts = BiliParse.GetListOld(sort, int.Parse(tzone), i, dateTimePickerFrom.Value, dateTimePickerTo.Value);
                 if (sts != null)
                     ss.AddRange(sts);
                 else
@@ -188,8 +188,8 @@ namespace BiliRanking
             BiliInterfaceInfo[] lls = await concurrentAsync(
                 100,
                 avs,
-                new Func<string, BiliInterface.ScoreType, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
-                BiliInterface.ScoreType.Guichu);
+                new Func<string, ScoreType, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
+                ScoreType.Guichu);
             Log.Info($"获取用时：{sw.ElapsedMilliseconds}ms"); sw.Stop();
             Log.Info("正在排序");
             foreach (BiliInterfaceInfo info in lls)
@@ -402,17 +402,17 @@ namespace BiliRanking
                         DownloadPath = Environment.CurrentDirectory + $@"\video\{topstring}{listb[0].AVNUM}-{TSDownload.removeInvChrInPath(listb[0].title)}.flv"
                     };
                 }
-                string noNeed;
-                try
-                {
-                    downloader.CheckUrl(out noNeed); //TODO: 在C# 7.0发布后就可以使用out string noNeed啦~
-                }
-                catch
-                {
-                    Log.Error("检测下载地址时发生错误，请稍后再试");
-                    listb.RemoveAt(0);
+                //string noNeed;
+                //try
+                //{
+                //    downloader.CheckUrl(out noNeed); //TODO: 在C# 7.0发布后就可以使用out string noNeed啦~
+                //}
+                //catch
+                //{
+                //    Log.Error("检测下载地址时发生错误，请稍后再试");
+                //    listb.RemoveAt(0);
                     DlNext();
-                }
+                //}
                 nowAV = listb[0];
                 Log.Info("正在下载视频 - " + listb[0].AVNUM + " | " + downloader.DownloadPath);
                 pictureBoxDl.ImageLocation = listb[0].pic;
@@ -825,10 +825,22 @@ CID：{2}
                 Application.DoEvents();
             }
 
+            infos.Sort(sortt);
             dataGridViewRAW.DataSource = infos;
             tabControlMain.SelectedIndex = 2;
 
             Log.Info("根据TAG获取数据完成，目前的数据是TAG接口返回的，最好重新通过API获取一遍数据");
+
+            int sortt(BiliInterfaceInfo x, BiliInterfaceInfo y)
+            {
+                int res = 0;
+                if (DateTime.Parse(x.created_at) > DateTime.Parse(y.created_at))
+                    res = -1;
+                else
+                    res = 1;
+                return res;
+            }
+
         }
 
         private void 按视频模板复制数据ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1091,6 +1103,11 @@ CID：{2}
         private void buttonOpenFolderVideo_Click(object sender, EventArgs e)
         {
             Process.Start("explorer.exe", Environment.CurrentDirectory + @"\video\");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            dataGridViewRAW.Sort(dataGridViewRAW.Columns["Column9"], System.ComponentModel.ListSortDirection.Descending);
         }
     }
 }

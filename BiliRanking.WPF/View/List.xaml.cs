@@ -38,7 +38,7 @@ namespace BiliRanking.WPF.View
             buttonListDate2wAgo_Click(sender, e);
         }
 
-        private void buttonGen_Click(object sender, RoutedEventArgs e)
+        private void buttonGenOld_Click(object sender, RoutedEventArgs e)
         {
             log.Info("开始获取排行");
 
@@ -54,7 +54,7 @@ namespace BiliRanking.WPF.View
 
             for (int i = 1; i <= needpage; i++)
             {
-                List<string> sts = BiliParse.GetList(sort, int.Parse(tzone), i, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
+                List<string> sts = BiliParse.GetListOld(sort, int.Parse(tzone), i, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
                 if (sts != null)
                     ss.AddRange(sts);
                 else
@@ -111,6 +111,25 @@ namespace BiliRanking.WPF.View
             foreach (Match m in mc)
             {
                 SharedData.AVs += m.Value + "\r\n";
+            }
+        }
+
+        private void buttonGen_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> l22 = BiliParse.GetList(22, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
+            List<string> l26 = BiliParse.GetList(26, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
+            List<string> l126 = BiliParse.GetList(126, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
+
+            List<string> all = new List<string>();
+
+            all.AddRange(l22);
+            all.AddRange(l26);
+            all.AddRange(l126);
+            
+            SharedData.AVs = "";
+            foreach (string av in all)
+            {
+                SharedData.AVs += av + "\r\n";
             }
         }
     }
