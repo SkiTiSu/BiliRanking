@@ -260,7 +260,7 @@ namespace BiliRanking.Core
                     //info.title = info.title.Replace("&lt;", "<");
                     //info.title = info.title.Replace("&gt;", ">");
                     //info.title = info.title.Replace("&quot;", "\"");
-                    switch(stype)
+                    switch (stype)
                     {
                         case ScoreType.None:
                             break;
@@ -269,6 +269,9 @@ namespace BiliRanking.Core
                             break;
                         case ScoreType.VC211:
                             CalScoreVC211(ref info);
+                            break;
+                        case ScoreType.CSVEP:
+                            CalScoreCVSEP(ref info);
                             break;
                     }
                 }
@@ -334,6 +337,36 @@ namespace BiliRanking.Core
             double xiuzhengA = Math.Round((double)(info.Fplay + info.favorites) / (info.play + info.favorites + info.video_review * 10 + info.review * 20), 2);
             //总分
             info.Fdefen = (uint)(info.Fplay + (info.review * 25 + info.video_review) * xiuzhengA + info.favorites * xiuzhengB);
+        }
+
+        public static void CalScoreCVSEP(ref BiliInterfaceInfo info)
+        {
+            //播放
+            if (info.play < 10000)
+                info.Fplay = Convert.ToUInt32(info.play * 1.5);
+            else if (info.play < 50000)
+                info.Fplay = info.play * 5 / 3 + 15000;
+            else
+                info.Fplay = info.play * 7 / 3;
+            //评论
+            if (info.review < 1000)
+                info.Freview = Convert.ToUInt32(info.review * 0.3);
+            else if (info.review < 3500)
+                info.Freview = Convert.ToUInt32(info.review * 0.08) + 300;
+            else
+                info.Freview = Convert.ToUInt32(info.review * 0.175);
+            //其他
+            uint linshi = info.favorites + info.coins;
+            uint qita;
+            if (linshi < 1000)
+                qita = linshi * 10;
+            else if (linshi < 5000)
+                qita = linshi * 5 + 5000;
+            else
+                qita = linshi * 3 + 15000;
+            //基础得点（总分）
+            info.Fdefen = info.Fplay + info.Freview + qita;
+
         }
 
         public static string GetCsvInfos(List<BiliInterfaceInfo> infos)
@@ -726,6 +759,8 @@ namespace BiliRanking.Core
         [Description("鬼畜榜")]
         Guichu,
         [Description("VC榜211期起")]
-        VC211
+        VC211,
+        [Description("CVSE+")]
+        CSVEP
     }
 }
