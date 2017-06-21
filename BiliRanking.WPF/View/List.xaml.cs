@@ -132,5 +132,10 @@ namespace BiliRanking.WPF.View
                 SharedData.AVs += av + "\r\n";
             }
         }
+
+        private void buttonDeduplication_Click(object sender, RoutedEventArgs e)
+        {
+            SharedData.SortedAVs = SharedData.SortedAVs.Distinct();
+        }
     }
 }

@@ -62,5 +62,6 @@
             <Button x:Name="buttonGen" Content="生成" HorizontalAlignment="Center" Height="43" Margin="0,10,0,0" VerticalAlignment="Top" Width="105" Click="buttonGen_Click"/>
 
         </StackPanel>
+        <Button x:Name="buttonDeduplication" Content="右侧边栏去重" HorizontalAlignment="Left" Margin="624,391,0,0" VerticalAlignment="Top" Width="126" Click="buttonDeduplication_Click"/>
     </Grid>
 </UserControl>
