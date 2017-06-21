@@ -16,7 +16,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource RobotoAndYahei}" 
-        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Drop="Window_Drop" AllowDrop="True">
 
     <materialDesign:DialogHost x:Name="dialogHostMain" Identifier="RootDialog">
         <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
@@ -74,11 +74,8 @@
                                       x:Name="MenuToggleButton"/>
                         <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                             <StackPanel>
-                                <Button Content="Hello World" Click="MenuPopupButton_OnClick"/>
-                                <Button Content="假如是很长的中文会怎么样呢做个很好玩的测试" Click="MenuPopupButton_OnClick"/>
-                                <Button Content="Can't Touch This" IsEnabled="False" />
+                                <Button Content="关于" Tag="目前只有天书一个人在写，好孤独……" Click="MenuPopupButton_OnClick"/>
                                 <Separator/>
-                                <Button Content="Goodbye" Click="MenuPopupButton_OnClick"/>
                             </StackPanel>
                         </materialDesign:PopupBox>
                         <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">

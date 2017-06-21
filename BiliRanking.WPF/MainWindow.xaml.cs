@@ -60,7 +60,7 @@ namespace BiliRanking.WPF
         {
             var sampleMessageDialog = new SampleMessageDialog
             {
-                Message = { Text = ((ButtonBase)sender).Content.ToString() }
+                Message = { Text = ((ButtonBase)sender).Tag.ToString() }
             };
 
             await DialogHost.Show(sampleMessageDialog, "RootDialog");
@@ -75,12 +75,12 @@ namespace BiliRanking.WPF
             if (gridAVs.Margin.Right < 0)
             {
                 takf.KeyFrames.Add(new SplineThicknessKeyFrame(new Thickness(0, 0, -130, 0), KeyTime.FromTimeSpan(new TimeSpan(0, 0, 0))));
-                takf.KeyFrames.Add(new SplineThicknessKeyFrame(new Thickness(0, 0, 0, 0), KeyTime.FromTimeSpan(new TimeSpan(0, 0, 0,0,750)), new KeySpline(0.5, 0.75, 0, 1)));
+                takf.KeyFrames.Add(new SplineThicknessKeyFrame(new Thickness(0, 0, 0, 0), KeyTime.FromTimeSpan(new TimeSpan(0, 0, 0, 0, 750)), new KeySpline(0.5, 0.75, 0, 1)));
             }
             else
             {
                 takf.KeyFrames.Add(new SplineThicknessKeyFrame(new Thickness(0, 0, 0, 0), KeyTime.FromTimeSpan(new TimeSpan(0, 0, 0))));
-                takf.KeyFrames.Add(new SplineThicknessKeyFrame(new Thickness(0, 0, -130, 0), KeyTime.FromTimeSpan(new TimeSpan(0, 0, 0,0,750)), new KeySpline(0.5, 0.75, 0, 1)));
+                takf.KeyFrames.Add(new SplineThicknessKeyFrame(new Thickness(0, 0, -130, 0), KeyTime.FromTimeSpan(new TimeSpan(0, 0, 0, 0, 750)), new KeySpline(0.5, 0.75, 0, 1)));
             }
 
 
@@ -118,6 +118,28 @@ namespace BiliRanking.WPF
             {
                 log.Warn("授权码已经失效");
                 UserInfoName.Content = "授权码已经失效！";
+            }
+        }
+
+        private void Window_Drop(object sender, DragEventArgs e)
+        {
+            string fileName = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+            log.Info($"拖入文件{fileName}");
+            Item shuju = (Item)GetItem("数据获取");
+            listBoxItems.SelectedItem = shuju;
+            var shujushili = (View.Data)shuju.Content;
+            shujushili.OpenFile(fileName);
+
+            object GetItem(string name)
+            {
+                foreach (var item in listBoxItems.Items)
+                {
+                    if (((Item)item).Name == name)
+                    {
+                        return item;
+                    }
+                }
+                return null;
             }
         }
     }
