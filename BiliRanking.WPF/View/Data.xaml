@@ -39,6 +39,7 @@
                 <md:MaterialDataGridTextColumn Header="硬币数" Binding="{Binding coins}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="收藏数" Binding="{Binding favorites}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="评论数" Binding="{Binding review}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="分享数" Binding="{Binding share}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="总分" Binding="{Binding Fdefen}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="UP主" Binding="{Binding author}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="时间" Binding="{Binding created_at}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
@@ -65,7 +66,7 @@
             </Border>
         </Popup>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type ButtonBase}">
                     <Setter Property="Margin" Value="0,0,20,0"></Setter>
@@ -89,7 +90,7 @@
                     <TextBlock>保存</TextBlock>
                 </StackPanel>
             </Button>
-            <ComboBox x:Name="comboBoxScoreType" VerticalAlignment="Stretch" Width="58"
+            <ComboBox x:Name="comboBoxScoreType" VerticalAlignment="Stretch" Width="81"
                       ItemsSource="{Binding Source={bwpf:Enumeration {x:Type Core:ScoreType}}}" 
                       DisplayMemberPath="Description" 
                       SelectedValue="{Binding CurrentStatus}"  
@@ -100,8 +101,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
             <TextBox x:Name="textBoxInsert" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="要插入的AV号" Text="{Binding Name}" Margin="0,0,10,0"/>
             <Button x:Name="buttonInsert" Content="插入" Margin="0,0,10,0" Click="buttonInsert_Click"/>
-            <Button x:Name="buttonBulkInsert" Content="批量插入右侧边栏内的" Margin="0,0,10,0" Click="buttonBulkInsert_Click"/>
-
+            <Button x:Name="buttonBulkInsert" Content="批量插入右侧边栏内" Margin="0,0,10,0" Click="buttonBulkInsert_Click"/>
             <Button Content="合并数据..." Margin="0,0,10,0" IsEnabled="False"/>
             <ToggleButton x:Name="toggleButtonAllowDrop" Margin="0,0,5,0"/>
             <TextBlock VerticalAlignment="Center">拖拽移动模式</TextBlock>
@@ -113,6 +113,11 @@
                 <TextBlock>撤销（暂不支持值被更改）</TextBlock>
             </StackPanel>
         </Button>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="数据生成时间：" />
+            <TextBlock x:Name="textBlockGenTime" Margin="0,0,0,0" TextWrapping="Wrap" Text="N/A" />
+        </StackPanel>
 
     </Grid>
 </UserControl>

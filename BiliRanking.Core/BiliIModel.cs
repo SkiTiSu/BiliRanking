@@ -68,6 +68,7 @@ namespace BiliRanking.Core
         //TODO: 评分数量有时候会是--
         //public uint credit{get; set; }
         public uint coins { get; set; }
+        public uint share { get; set; }
         public string spid;
         public string src;
         public uint cid { get; set; }
@@ -358,6 +359,7 @@ namespace BiliRanking.Core
     {
         public int ver;
         public object infos;
+        public DateTime genTime;
     }
 
     public class MessageModel

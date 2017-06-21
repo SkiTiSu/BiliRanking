@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -32,6 +33,7 @@ namespace BiliRanking.WPF.View
     public partial class Data : UserControl
     {
         private static NLog.Logger log = NLog.LogManager.GetCurrentClassLogger();
+        DateTime genTime;
 
         public Data()
         {
@@ -70,6 +72,7 @@ namespace BiliRanking.WPF.View
             {
                 log.Warn("注意！下列视频数据未正确获取！\r\n" + failedAVs);
             }
+            RefreshGenTime(DateTime.Now);
             SetNewData(ll);
             log.Info("批量获取完成");
         }
@@ -82,6 +85,12 @@ namespace BiliRanking.WPF.View
             else
                 res = 1;
             return res;
+        }
+
+        public void RefreshGenTime(DateTime time)
+        {
+            genTime = time;
+            textBlockGenTime.Text = genTime.ToString("yyyy/MM/dd HH:mm");
         }
 
         //http://stackoverflow.com/questions/20355931/limiting-the-amount-of-concurrent-tasks-in-net-4-5
@@ -115,25 +124,36 @@ namespace BiliRanking.WPF.View
             dlg.Filter = "圣地亚哥数据库X|*.sdygx";
             if (dlg.ShowDialog() == true)
             {
-                MemoryStream tempMs = new MemoryStream();
-                using (FileStream fs = new FileStream(dlg.FileName, FileMode.Open))
-                {
-                    using (GZipStream Compress = new GZipStream(fs, CompressionMode.Decompress))
-                    {
-                        Compress.CopyTo(tempMs);
-                    }
-                }
-                byte[] bytes = tempMs.ToArray();
-                string str = Encoding.GetEncoding("UTF-8").GetString(bytes);
-                BiliShell bs = JsonConvert.DeserializeObject<BiliShell>(str);
-                if (bs.ver != 1)
-                {
-                    MessageBox.Show("此文件是使用新版BR生成的，无法打开！");
-                    return;
-                }
-                List<BiliInterfaceInfo> bi = JsonConvert.DeserializeObject<List<BiliInterfaceInfo>>(bs.infos.ToString());
-                SetNewData(bi);
+                OpenFile(dlg.FileName);
             }
+        }
+
+        public void OpenFile(string name)
+        {
+            if (!name.EndsWith(".sdygx"))
+            {
+                MessageBox.Show("不是圣地亚哥数据库X文件啊！拖错啦！");
+                return;
+            }
+            MemoryStream tempMs = new MemoryStream();
+            using (FileStream fs = new FileStream(name, FileMode.Open))
+            {
+                using (GZipStream Compress = new GZipStream(fs, CompressionMode.Decompress))
+                {
+                    Compress.CopyTo(tempMs);
+                }
+            }
+            byte[] bytes = tempMs.ToArray();
+            string str = Encoding.GetEncoding("UTF-8").GetString(bytes);
+            BiliShell bs = JsonConvert.DeserializeObject<BiliShell>(str);
+            if (bs.ver != 1)
+            {
+                MessageBox.Show("此文件是使用新版BR生成的，无法打开！");
+                return;
+            }
+            List<BiliInterfaceInfo> bi = JsonConvert.DeserializeObject<List<BiliInterfaceInfo>>(bs.infos.ToString());
+            SetNewData(bi);
+            RefreshGenTime(bs.genTime);
         }
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
@@ -150,7 +170,8 @@ namespace BiliRanking.WPF.View
                     BiliShell bs = new BiliShell
                     {
                         ver = 1,
-                        infos = GetData()
+                        infos = GetData(),
+                        genTime = genTime
                     };
 
                     string str = JsonConvert.SerializeObject(bs);

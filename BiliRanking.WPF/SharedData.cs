@@ -34,6 +34,7 @@ namespace BiliRanking.WPF
             get => from s in Regex.Split((AVs != null) ? AVs : "" , "\r\n|\r|\n").ToList()
                    where s != ""
                    select s;
+            set => AVs = String.Join("\r\n", value);
         }
     }
 }

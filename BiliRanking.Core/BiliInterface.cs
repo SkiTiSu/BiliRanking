@@ -240,6 +240,7 @@ namespace BiliRanking.Core
                     info.video_review = Convert.ToUInt32(DataModel.danmaku);
                     info.review = Convert.ToUInt32(DataModel.reply);
                     info.coins = Convert.ToUInt32(DataModel.coin);
+                    info.share = Convert.ToUInt32(DataModel.share);
                     info.favorites = Convert.ToUInt32(DataModel.favorite);
                     info.tag = "";
                     if (InfoModel.tags != null) //注意有的视频竟然会没有tag
@@ -272,6 +273,9 @@ namespace BiliRanking.Core
                             break;
                         case ScoreType.CSVEP:
                             CalScoreCVSEP(ref info);
+                            break;
+                        case ScoreType.Stardust:
+                            CalScoreStardust(ref info);
                             break;
                     }
                 }
@@ -341,6 +345,21 @@ namespace BiliRanking.Core
 
         public static void CalScoreCVSEP(ref BiliInterfaceInfo info)
         {
+
+            /*
+            （1）基础函数：
+                （播放得点+评论得点+其他得点）=基础得点（取小数点后2位有效数字）
+            （2）得点修正规则：
+                ①播放得点：播放量＜10000：播放量*1.5
+                     10000≤播放量＜50000：播放量*5/3+15000
+                     播放量≥50000：播放量*7/3
+                ②评论得点：评论数＜1000：评论数*0.3
+                     1000≤评论数＜3500：评论数*0.08+300
+                     评论数≥3500：评论数*0.175
+                ③其他得点：收藏数+硬币数＜1000：（收藏数+硬币数）*10
+                     1000≤收藏数+硬币数＜5000：（收藏数+硬币数）*5+5000
+                     收藏数+硬币数≥5000：（收藏数+硬币数）*3+15000
+            */
             //播放
             if (info.play < 10000)
                 info.Fplay = Convert.ToUInt32(info.play * 1.5);
@@ -366,7 +385,20 @@ namespace BiliRanking.Core
                 qita = linshi * 3 + 15000;
             //基础得点（总分）
             info.Fdefen = info.Fplay + info.Freview + qita;
+        }
 
+        public static void CalScoreStardust(ref BiliInterfaceInfo info)
+        {
+            /*
+            总分=播放*0.8+评论*10+弹幕*转发*0.05+收藏*0.1*(硬币/2)
+                *
+                1-天数*0.018
+            */
+            int tianshu = (DateTime.Now - DateTime.Parse(info.created_at)).Days;
+            info.Fdefen = Convert.ToUInt32(
+                (info.play * 0.8 + info.review * 10 + info.video_review * info.share * 0.05 + info.favorites * 0.1 * info.coins / 2) 
+                *
+                (1 - tianshu * 0.018));
         }
 
         public static string GetCsvInfos(List<BiliInterfaceInfo> infos)
@@ -761,6 +793,8 @@ namespace BiliRanking.Core
         [Description("VC榜211期起")]
         VC211,
         [Description("CVSE+")]
-        CSVEP
+        CSVEP,
+        [Description("星尘月刊")]
+        Stardust
     }
 }
