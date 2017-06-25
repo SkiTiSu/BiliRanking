@@ -89,5 +89,15 @@ namespace BiliRanking.Core.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        public static System.Drawing.Bitmap zhubang_stardust {
+            get {
+                object obj = ResourceManager.GetObject("zhubang_stardust", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

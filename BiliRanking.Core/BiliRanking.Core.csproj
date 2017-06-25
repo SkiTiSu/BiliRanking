@@ -79,6 +79,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\fubang2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zhubang_stardust.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
