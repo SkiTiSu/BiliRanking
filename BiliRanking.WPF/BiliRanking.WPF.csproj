@@ -57,6 +57,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -91,6 +92,9 @@
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ImageTemplateEditor.xaml.cs">
+      <DependentUpon>ImageTemplateEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\List.xaml.cs">
       <DependentUpon>List.xaml</DependentUpon>
     </Compile>
@@ -99,6 +103,9 @@
     </Compile>
     <Compile Include="View\VideoClip.xaml.cs">
       <DependentUpon>VideoClip.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\viewZhubang.xaml.cs">
+      <DependentUpon>viewZhubang.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\ModernCheckboxTree.xaml">
       <SubType>Designer</SubType>
@@ -135,6 +142,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ImageTemplateEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\List.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\VideoClip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\viewZhubang.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

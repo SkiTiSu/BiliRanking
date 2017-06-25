@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using BiliRanking.Core;
 
 namespace BiliRanking.WPF
 {
@@ -36,5 +37,7 @@ namespace BiliRanking.WPF
                    select s;
             set => AVs = String.Join("\r\n", value);
         }
+
+        public static IEnumerable<BiliInterfaceInfo> Infos { get; set; }
     }
 }

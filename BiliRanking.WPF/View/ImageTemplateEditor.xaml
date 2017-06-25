@@ -1,0 +1,18 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BiliRanking.WPF.View"
+             xmlns:Domain="clr-namespace:BiliRanking.WPF.Domain" x:Class="BiliRanking.WPF.View.ImageTemplateEditor"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="900">
+    <Grid>
+        <Border Background="Lime" Margin="10,10,10,138">
+            <Image x:Name="imageMain" Source="/BiliRanking.WPF;component/Resources/NoAvatar.png"/>
+        </Border>
+        <Button x:Name="buttenGen" Content="生成" HorizontalAlignment="Right" Margin="0,0,35,59" VerticalAlignment="Bottom" Width="75" Click="buttenGen_Click"/>
+        <TextBox x:Name="textBoxInfo" HorizontalAlignment="Left" Height="103" Margin="10,0,0,10" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="746" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
+        <TextBlock HorizontalAlignment="Right" Margin="0,0,118,118" TextWrapping="Wrap" Text="text|font|ptSize|#colorcode|RightAlign TrueOrFalse|pointX|pointY|rectX|rectY|rectWidth|rectHeight|AutoOffsetY TrueOrFalse|MaxWidth" VerticalAlignment="Bottom" Width="776"/>
+    </Grid>
+</UserControl>

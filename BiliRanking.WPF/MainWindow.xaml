@@ -58,6 +58,16 @@
                                 <view:Download />
                             </domain:Item.Content>
                         </domain:Item>
+                        <domain:Item Name="主榜生成">
+                            <domain:Item.Content>
+                                <view:viewZhubang />
+                            </domain:Item.Content>
+                        </domain:Item>
+                        <domain:Item Name="图片模板编辑器">
+                            <domain:Item.Content>
+                                <view:ImageTemplateEditor />
+                            </domain:Item.Content>
+                        </domain:Item>
                         <domain:Item Name="×视频剪辑">
                             <domain:Item.Content>
                                 <view:VideoClip />

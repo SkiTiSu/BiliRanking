@@ -4,7 +4,9 @@ using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
@@ -118,6 +120,18 @@ namespace BiliRanking.WPF
             {
                 log.Warn("授权码已经失效");
                 UserInfoName.Content = "授权码已经失效！";
+            }
+
+            if (!Directory.Exists(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\pic\"))
+            {
+                log.Info("未检测到封面存放目录，正在创建\\pic");
+                Directory.CreateDirectory(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\pic\");
+            }
+
+            if (!Directory.Exists(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\video\"))
+            {
+                log.Info("未检测到视频存放目录，正在创建\\video");
+                Directory.CreateDirectory(System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + @"\video\");
             }
         }
 

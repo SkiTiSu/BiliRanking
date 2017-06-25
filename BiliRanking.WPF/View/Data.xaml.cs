@@ -204,6 +204,7 @@ namespace BiliRanking.WPF.View
             dataGrid.Items?.Clear();
             dataGrid.ItemsSource = data;
             dataGrid.Items.Refresh();
+            SharedData.Infos = data;
         }
 
         private List<BiliInterfaceInfo> GetData()
