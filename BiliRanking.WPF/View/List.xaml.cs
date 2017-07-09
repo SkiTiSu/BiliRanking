@@ -137,5 +137,11 @@ namespace BiliRanking.WPF.View
         {
             SharedData.SortedAVs = SharedData.SortedAVs.Distinct();
         }
+
+        private void buttonGenSearch_Click(object sender, RoutedEventArgs e)
+        {
+            var ll = BiliParse.GetSearch(textBoxSearchKeyword.Text, 3, 30, "pubdate",datePickerFrom.SelectedDate.Value.Date);
+            SharedData.SortedAVs = ll;
+        }
     }
 }

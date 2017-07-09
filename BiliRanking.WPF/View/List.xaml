@@ -38,7 +38,7 @@
             </ComboBox>
             <Button x:Name="buttonGenOld" Content="生成(旧版)" HorizontalAlignment="Center" Height="43" Margin="0,10,0,0" VerticalAlignment="Top" Width="105" Click="buttonGenOld_Click"/>
         </StackPanel>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="42" Margin="441,412,0,0" VerticalAlignment="Top" Width="87" Click="button_Click"/>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="42" Margin="742,12,0,0" VerticalAlignment="Top" Width="87" Click="button_Click"/>
         <TextBox x:Name="textBoxNeedParse" HorizontalAlignment="Left" Height="248" Margin="441,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="366" materialDesign:HintAssist.Hint="请将带有av号的文本粘贴在这里" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Padding="5"/>
         <Button x:Name="buttonParse" Content="解析上文中的AV号" HorizontalAlignment="Left" Margin="441,359,0,0" Width="155" Height="32" VerticalAlignment="Top" Click="buttonParse_Click"/>
         <StackPanel HorizontalAlignment="Left" Height="393" Margin="26,97,0,0" VerticalAlignment="Top" Width="190">
@@ -62,6 +62,9 @@
             <Button x:Name="buttonGen" Content="生成" HorizontalAlignment="Center" Height="43" Margin="0,10,0,0" VerticalAlignment="Top" Width="105" Click="buttonGen_Click"/>
 
         </StackPanel>
-        <Button x:Name="buttonDeduplication" Content="右侧边栏去重" HorizontalAlignment="Left" Margin="624,391,0,0" VerticalAlignment="Top" Width="126" Click="buttonDeduplication_Click"/>
+        <Button x:Name="buttonDeduplication" Content="右侧边栏去重" HorizontalAlignment="Left" Margin="681,359,0,0" VerticalAlignment="Top" Width="126" Click="buttonDeduplication_Click"/>
+        <Button x:Name="buttonGenSearch" Content="搜索" HorizontalAlignment="Left" Height="36" Margin="783,438,0,0" VerticalAlignment="Top" Width="76" Click="buttonGenSearch_Click"/>
+        <TextBlock Margin="310,444,0,0" VerticalAlignment="Top" Width="318" HorizontalAlignment="Left" TextAlignment="Right" Height="46"><Run Text="在Vocaloid"/><Run Text="中文曲中搜索："/><Run/><LineBreak/><Run Text="（按日期"/><Run Text="倒"/><Run Text="序，请设置上方的"/><Run Text="["/><Run Text="从"/><Run Text="]"/><Run Text="，"/><Run Text="[到]"/><Run Text="暂"/><Run Text="只"/><Run Text="支持到今天"/><Run Text="）"/></TextBlock>
+        <TextBox x:Name="textBoxSearchKeyword" HorizontalAlignment="Left" Height="23" Margin="644,445,0,0" TextWrapping="Wrap" Text="星尘" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </UserControl>

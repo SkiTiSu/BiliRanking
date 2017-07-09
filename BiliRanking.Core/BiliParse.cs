@@ -1,9 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using AngleSharp.Parser.Html;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -11,6 +14,7 @@ namespace BiliRanking.Core
 {
     public class BiliParse
     {
+        private static HtmlParser htmlParser = new HtmlParser();
         /// <summary>
         /// 排序类型。注意：Default和New需要ToLower！
         /// </summary>
@@ -66,6 +70,47 @@ namespace BiliRanking.Core
 
             return avs.ToList();
 
+        }
+
+
+
+        public static List<string> GetSearch(string keyword, int tids_1, int tids_2, string order, DateTime needFrom, int need = 0)
+        {
+            int page = 1;
+            List<string> re = new List<string>();
+            string url = "http://" + $"search.bilibili.com/ajax_api/video?keyword={keyword}&page={page}&order={order}&tids_1={tids_1}&tids_2={tids_2}";
+            string html = BiliInterface.GetHtml(url);
+            if (html == null) return null;
+            JObject obj = JObject.Parse(html);
+            int numResults = (int)obj["numResults"];
+            int numPages = (int)obj["numPages"];
+            Log.Info($"找到{numResults}个，{numPages}页");
+            for (int i = 2; i <= numPages + 1; i++)
+            {
+                string inhtml = (string)obj["html"];
+                var dom = htmlParser.Parse(inhtml);
+                foreach (var ul in dom.Children[0].Children[1].Children)
+                {
+                    string uploadtime = ul.QuerySelectorAll("span").Where(a => a.GetAttribute("title") == "上传时间").First().TextContent.Replace("\t", "").Replace("\n", "");
+                    if (DateTime.Parse(uploadtime) >= needFrom.Date)
+                    {
+                        string avnum = ul.QuerySelector(".title").GetAttribute("href");
+                        avnum = Regex.Match(avnum, @"[aA][vV]\d+").Value;
+                        re.Add(avnum);
+                    }
+                    else
+                    {
+                        i = 99999;
+                        break;
+                    }
+                }
+
+                url = "http://" + $"search.bilibili.com/ajax_api/video?keyword={keyword}&page={i}&order={order}&tids_1={tids_1}&tids_2={tids_2}";
+                html = BiliInterface.GetHtml(url);
+                obj = JObject.Parse(html);
+            }
+
+            return re;
         }
     }
 }
