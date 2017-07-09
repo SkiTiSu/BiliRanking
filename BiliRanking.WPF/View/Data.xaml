@@ -106,11 +106,11 @@
             <ToggleButton x:Name="toggleButtonAllowDrop" Margin="0,0,5,0"/>
             <TextBlock VerticalAlignment="Center">拖拽移动模式</TextBlock>
         </StackPanel>
-        
+
         <Button x:Name="buttonUndo" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="buttonUndo_Click">
             <StackPanel Orientation="Horizontal">
                 <md:PackIcon Kind="Undo" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                <TextBlock>撤销（暂不支持值被更改）</TextBlock>
+                <TextBlock>撤销（有限）</TextBlock>
             </StackPanel>
         </Button>
 
@@ -118,6 +118,7 @@
             <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="数据生成时间：" />
             <TextBlock x:Name="textBlockGenTime" Margin="0,0,0,0" TextWrapping="Wrap" Text="N/A" />
         </StackPanel>
+        <TextBlock HorizontalAlignment="Left" Margin="141,0,0,8" TextWrapping="Wrap" Text="按Delete键删除当前选中行" Height="15" VerticalAlignment="Bottom"/>
 
     </Grid>
 </UserControl>

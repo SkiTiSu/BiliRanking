@@ -63,6 +63,11 @@
                                 <view:viewZhubang />
                             </domain:Item.Content>
                         </domain:Item>
+                        <domain:Item Name="副榜生成">
+                            <domain:Item.Content>
+                                <view:viewFubang />
+                            </domain:Item.Content>
+                        </domain:Item>
                         <domain:Item Name="图片模板编辑器">
                             <domain:Item.Content>
                                 <view:ImageTemplateEditor />

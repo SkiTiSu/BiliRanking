@@ -157,7 +157,7 @@ namespace BiliRanking.Core
         public string coin { get; set; }
         public string share { get; set; }
         //TAG
-        public object tags { get; set; }
+        public object tag { get; set; }
         //视频P
         public object pages { get; set; }
         public string cid { get; set; }

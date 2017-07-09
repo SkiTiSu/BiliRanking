@@ -137,24 +137,28 @@ namespace BiliRanking.WPF
 
         private void Window_Drop(object sender, DragEventArgs e)
         {
-            string fileName = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
-            log.Info($"拖入文件{fileName}");
-            Item shuju = (Item)GetItem("数据获取");
-            listBoxItems.SelectedItem = shuju;
-            var shujushili = (View.Data)shuju.Content;
-            shujushili.OpenFile(fileName);
-
-            object GetItem(string name)
+            try
             {
-                foreach (var item in listBoxItems.Items)
+                string fileName = ((Array)e.Data.GetData(DataFormats.FileDrop)).GetValue(0).ToString();
+                log.Info($"拖入文件{fileName}");
+                Item shuju = (Item)GetItem("数据获取");
+                listBoxItems.SelectedItem = shuju;
+                var shujushili = (View.Data)shuju.Content;
+                shujushili.OpenFile(fileName);
+
+                object GetItem(string name)
                 {
-                    if (((Item)item).Name == name)
+                    foreach (var item in listBoxItems.Items)
                     {
-                        return item;
+                        if (((Item)item).Name == name)
+                        {
+                            return item;
+                        }
                     }
+                    return null;
                 }
-                return null;
             }
+            catch { }
         }
     }
 }

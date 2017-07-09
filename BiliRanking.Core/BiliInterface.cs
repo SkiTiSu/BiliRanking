@@ -243,14 +243,13 @@ namespace BiliRanking.Core
                     info.share = Convert.ToUInt32(DataModel.share);
                     info.favorites = Convert.ToUInt32(DataModel.favorite);
                     info.tag = "";
-                    if (InfoModel.tags != null) //注意有的视频竟然会没有tag
+                    if (InfoModel.tag != null) //注意有的视频竟然会没有tag
                     {
-                        string[] pretags = ((JArray)InfoModel.tags).ToObject<string[]>();
-
-                        foreach (string pretag in pretags)
+                        (from a in ((JArray)InfoModel.tag) select a["tag_name"]).ToList().ForEach(b =>
                         {
-                            info.tag += "," + pretag;
-                        }
+                            info.tag += "," + b.ToString();
+                        });
+
                         info.tag = info.tag.Substring(1);
                     }
                     info.description = InfoModel.desc;
@@ -692,9 +691,14 @@ namespace BiliRanking.Core
             try
             {
                 WebClient myWebClient = new WebClient();
-                //myWebClient.Headers.Add("Cookie", cookie);
-                //myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0(Windows NT 5.1) AppleWebKit / 537.36(KHTML, like Gecko) Chrome / 35.0.3319.102 Safari / 537.36");
-                myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0 BiliDroid/3.3.0 (bbcallen@gmail.com)");
+                myWebClient.Headers.Add(HttpRequestHeader.Cookie, cookie);
+                myWebClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36");
+                //myWebClient.Headers.Add("User-Agent", "Mozilla / 5.0 BiliDroid/3.3.0 (bbcallen@gmail.com)");
+                myWebClient.Headers.Add("Accept", "*/*");
+                myWebClient.Headers.Add("Accept-Encoding", "gzip, deflate");
+                myWebClient.Headers.Add("Accept-Language", "zh-CN,zh;q=0.8");
+                myWebClient.Headers.Add("Cache-Control", "no-cache");
+                
                 Random ran = new Random();
                 int ip4 = ran.Next(1, 255);
                 int select = ran.Next(1, 2);

@@ -154,6 +154,7 @@ namespace BiliRanking.WPF.View
             List<BiliInterfaceInfo> bi = JsonConvert.DeserializeObject<List<BiliInterfaceInfo>>(bs.infos.ToString());
             SetNewData(bi);
             RefreshGenTime(bs.genTime);
+            SharedData.SortedAVs = from a in bi select a.avnum;
         }
 
         private void buttonSave_Click(object sender, RoutedEventArgs e)
@@ -396,16 +397,5 @@ namespace BiliRanking.WPF.View
         {
             comboBoxScoreType.SelectedIndex = 1;
         }
-
-
-
-
-        //详见BiliInterfaceInfo里的注释
-        //http://code.cheesydesign.com/?p=701
-        //private void dataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        //{
-        //    PropertyDescriptor pd = (PropertyDescriptor)e.PropertyDescriptor;
-        //    e.Column.Header = pd.DisplayName;
-        //}
     }
 }

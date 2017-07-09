@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BiliRanking.WPF")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © SkiTiSu 2016-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
