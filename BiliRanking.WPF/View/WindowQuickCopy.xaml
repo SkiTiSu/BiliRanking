@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BiliRanking.WPF.View"
         mc:Ignorable="d"
-        Title="WindowQuickCopy" Height="300" Width="300">
+        Title="[置顶]快速复制ヽ(✿ﾟ▽ﾟ)ノ" Height="236.4" Width="450" Topmost="True" WindowStyle="ToolWindow">
     <Grid>
-        
+        <TextBox x:Name="textBoxResult" HorizontalAlignment="Left" Height="77" Margin="10,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="423" VerticalScrollBarVisibility="Auto" Background="#FFF7F7F7" TextChanged="textBoxResult_TextChanged"/>
+        <Button x:Name="buttonCopy" Content="复制（通常不需要点，上面一旦改变会自动复制）" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top" Width="423" Click="buttonCopy_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,184,0,0" TextWrapping="Wrap" Text="蛤，←和→键已经被我拦截啦~" VerticalAlignment="Top"/>
+        <ComboBox x:Name="comboBoxTemplate" HorizontalAlignment="Left" Margin="45,39,0,0" VerticalAlignment="Top" Width="353" IsEditable="True" SelectedIndex="0" TextBoxBase.TextChanged="comboBoxTemplate_TextChanged">
+            <ComboBoxItem>{标题}</ComboBoxItem>
+            <ComboBoxItem>{时间} {av号} {作者}</ComboBoxItem>
+            <ComboBoxItem>{播放}{}{硬币}{}{收藏}{}{弹幕}{}{评论}</ComboBoxItem>
+            <ComboBoxItem>{总分}</ComboBoxItem>
+            <ComboBoxItem>{tag}</ComboBoxItem>
+            <ComboBoxItem>{时间}    {av号}    {作者}</ComboBoxItem>
+            <ComboBoxItem>{代码}</ComboBoxItem>
+            <ComboBoxItem>{时间码}</ComboBoxItem>
+        </ComboBox>
+        <Button x:Name="buttonLeft" Content="←" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="30" Height="20" Padding="0" Click="buttonLeft_Click"/>
+        <Button x:Name="buttonRight" Content="→" HorizontalAlignment="Left" Margin="403,40,0,0" VerticalAlignment="Top" Width="30" Padding="0" Height="20" Click="buttonRight_Click"/>
+        <TextBlock x:Name="textBlockCurrentTitle" HorizontalAlignment="Left" Margin="132,15,0,0" TextWrapping="Wrap" Text="当前标题" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxFPaiming" HorizontalAlignment="Left" Height="23" Margin="10,11,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" Width="45" TextChanged="textBoxFPaiming_TextChanged"/>
+        <Button x:Name="buttonFPaimingUp" Content="↑" HorizontalAlignment="Left" Margin="62,11,0,0" VerticalAlignment="Top" Width="30" Padding="0" Height="23" Click="buttonFPaimingUp_Click"/>
+        <Button x:Name="buttonFPaimingDown" Content="↓" HorizontalAlignment="Left" Margin="97,11,0,0" VerticalAlignment="Top" Width="30" IsDefault="True" Padding="0" Height="23" Click="buttonFPaimingDown_Click"/>
+
     </Grid>
 </Window>
