@@ -18,7 +18,7 @@
             </Grid.ColumnDefinitions>
             <!--<Image Source="Resources/ms-icon-310x310.png" Stretch="Uniform" Width="100" Height="100" />-->
             <StackPanel Grid.Column="1" Margin="24 0 0 0" VerticalAlignment="Center">
-                <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" TextWrapping="Wrap">欢迎体验BiliRanking V2.0 预览版！</TextBlock>
+                <TextBlock Style="{StaticResource MaterialDesignDisplay1TextBlock}" TextWrapping="Wrap">欢迎使用BiliRanking 2！</TextBlock>
                 <TextBlock x:Name="textComplileVer" HorizontalAlignment="Center">编译版本号</TextBlock>
                 <Button Style="{StaticResource MaterialDesignFlatButton}"
                         Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}">
@@ -27,6 +27,7 @@
                         <TextBlock Margin="8 0 0 0">探索</TextBlock>
                     </StackPanel>
                 </Button>
+                <TextBlock HorizontalAlignment="Center">Tip:全屏后将会关闭毛玻璃效果</TextBlock>
             </StackPanel>
         </Grid>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled"

@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="access_key" Type="System.String" Scope="User">
-      <Value Profile="(Default)">5679f36b62ba5e53fc434207e786d5b3</Value>
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

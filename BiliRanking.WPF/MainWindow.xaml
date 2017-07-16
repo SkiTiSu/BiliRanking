@@ -6,113 +6,223 @@
         xmlns:local="clr-namespace:BiliRanking.WPF"
         xmlns:domain="clr-namespace:BiliRanking.WPF.Domain"
         xmlns:view="clr-namespace:BiliRanking.WPF.View"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework" 
         mc:Ignorable="d"
-        Title="BiliRanking" Height="700" Width="1000"
+        Title="BiliRanking 2" Height="700" Width="1000"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource RobotoAndYahei}" 
-        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Drop="Window_Drop" AllowDrop="True">
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Drop="Window_Drop" AllowDrop="True" StateChanged="Window_StateChanged" Background="#B2FAFAFA">
+        <!--Background="{DynamicResource MaterialDesignPaper}"-->
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Close"
+                        Executed="CloseCommandHandler"/>
+    </Window.CommandBindings>
+    <Window.Resources>
+        <Style TargetType="{x:Type local:MainWindow}">
+            <Setter Property="shell:WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <shell:WindowChrome CaptionHeight="32"
+                                    CornerRadius="0"
+                                    GlassFrameThickness="0.1"
+                                    NonClientFrameEdges="None"
+                                    ResizeBorderThickness="5"
+                                    UseAeroCaptionButtons="False"
+                                    />
+                </Setter.Value> 
+            </Setter>
+            <Setter Property="local:SCommandHelper.UseWindowCommandBindings" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Window}">
+                        <Grid x:Name="WindowChromeGridMain" Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="32"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}" 
+                                              Grid.Row="0"
+                                              HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"
+                                              FontWeight="Bold"
+                                              FontSize="16"
+                                         />
+                                <StackPanel Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True" HorizontalAlignment="Right">
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                            Width="20" Height="20" Grid.Row="0"
+                                            Margin="0,0,6,0"  Padding="0"
+                                            Command="{Binding Source={x:Static SystemCommands.MinimizeWindowCommand}}">
+                                        <materialDesign:PackIcon Kind="WindowMinimize" />
+                                    </Button>
+                                    <Button Name="RestoreButton" Style="{StaticResource MaterialDesignFlatButton}"
+                                            Width="20" Height="20" Grid.Row="0"
+                                            Margin="0,0,6,0"  Padding="0"
+                                            Command="{Binding Source={x:Static SystemCommands.RestoreWindowCommand}}">
+                                        <materialDesign:PackIcon Kind="WindowRestore" />
+                                    </Button>
+                                    <Button Name="MaximizeButton" Style="{StaticResource MaterialDesignFlatButton}"
+                                    Width="20" Height="20"   
+                                    Grid.Row="0"
+                                    HorizontalAlignment="Right"
+                                    BorderThickness="0"
+                                    Margin="0,0,6,0"
+                                    Command="{x:Static SystemCommands.MaximizeWindowCommand}" WindowChrome.IsHitTestVisibleInChrome="True" Padding="0"
+                                    >
+                                        <materialDesign:PackIcon Kind="WindowMaximize" />
+                                    </Button>
+                                    <Button Name="CloseButton" Style="{StaticResource MaterialDesignFlatButton}"
+                                            Width="20" Height="20" Grid.Row="0"
+                                            Margin="0,0,6,0"  Padding="0"
+                                            Command="{Binding Source={x:Static SystemCommands.CloseWindowCommand}}">
+                                        <materialDesign:PackIcon Kind="WindowClose" />
+                                    </Button>
 
-    <materialDesign:DialogHost x:Name="dialogHostMain" Identifier="RootDialog">
-        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
-            <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel MinWidth="212">
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                    <!--Command="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CloseCommand}"-->
+
+                                </StackPanel>
+                                <ContentPresenter Grid.Row="1" Margin="0"/>
+                            </Grid>
+                            
+                        </Grid>
+                            
+                        <ControlTemplate.Triggers>
+                            <!--<Trigger Property="IsActive" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource WindowBorderActive}" />
+                            </Trigger>-->
+                            <Trigger Property="WindowState" Value="Maximized">
+                                <Setter TargetName="MaximizeButton" Property="Visibility" Value="Collapsed" />
+                                <Setter TargetName="RestoreButton" Property="Visibility" Value="Visible" />
+                                <!--<Setter TargetName="LayoutRoot" Property="Margin" Value="7" />-->
+                            </Trigger>
+                            <Trigger Property="WindowState" Value="Normal">
+                                <Setter TargetName="MaximizeButton" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="RestoreButton" Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <!--<MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="ResizeMode" Value="CanResizeWithGrip" />
+                                    <Condition Property="WindowState" Value="Normal" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="ResizeGrip" Property="Visibility" Value="Visible" />
+                            </MultiTrigger>-->
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Duration="00:00:00.8" Storyboard.TargetProperty="Opacity" From="0" To="1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+
+    </Window.Triggers>
+    <Grid>
+        <materialDesign:DialogHost x:Name="dialogHostMain" Identifier="RootDialog">
+            <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+                <materialDesign:DrawerHost.LeftDrawerContent>
+                    <DockPanel MinWidth="212">
+                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
                                   DockPanel.Dock="Top"
                                   HorizontalAlignment="Right" Margin="16"
                                   IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
-                    <ListBox x:Name="listBoxItems" Margin="0 16 0 16" SelectedIndex="0"                         
+                        <ListBox x:Name="listBoxItems" Margin="0 16 0 16" SelectedIndex="0"                         
                              PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" x:FieldModifier="public">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="domain:Item">
-                                <TextBlock Text="{Binding Name}" Margin="32 0 32 0" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                        <domain:Item Name="首页">
-                            <domain:Item.Content>
-                                <view:Home />
-                            </domain:Item.Content>
-                        </domain:Item>
-                        <domain:Item Name="临时登录界面">
-                            <domain:Item.Content>
-                                <view:Login />
-                            </domain:Item.Content>
-                        </domain:Item>
-                        <domain:Item Name="排行统计">
-                            <domain:Item.Content>
-                                <view:List />
-                            </domain:Item.Content>
-                        </domain:Item>
-                        <domain:Item Name="数据获取">
-                            <domain:Item.Content>
-                                <view:Data />
-                            </domain:Item.Content>
-                        </domain:Item>
-                        <domain:Item Name="视频下载">
-                            <domain:Item.Content>
-                                <view:Download />
-                            </domain:Item.Content>
-                        </domain:Item>
-                        <domain:Item Name="主榜生成">
-                            <domain:Item.Content>
-                                <view:viewZhubang />
-                            </domain:Item.Content>
-                        </domain:Item>
-                        <domain:Item Name="副榜生成">
-                            <domain:Item.Content>
-                                <view:viewFubang />
-                            </domain:Item.Content>
-                        </domain:Item>
-                        <domain:Item Name="图片模板编辑器">
-                            <domain:Item.Content>
-                                <view:ImageTemplateEditor />
-                            </domain:Item.Content>
-                        </domain:Item>
-                        <domain:Item Name="×视频剪辑">
-                            <domain:Item.Content>
-                                <view:VideoClip />
-                            </domain:Item.Content>
-                        </domain:Item>
-                    </ListBox>
-                </DockPanel>
-            </materialDesign:DrawerHost.LeftDrawerContent>
-            <DockPanel>
-                <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                          Mode="PrimaryMid" DockPanel.Dock="Top">
-                    <DockPanel>
-                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
-                                      x:Name="MenuToggleButton"/>
-                        <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
-                            <StackPanel>
-                                <Button Content="关于" Tag="目前只有天书一个人在写，好孤独……" Click="MenuPopupButton_OnClick"/>
-                                <Separator/>
-                            </StackPanel>
-                        </materialDesign:PopupBox>
-                        <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                            <materialDesign:Chip x:Name="UserInfoName" Content="未登录" Margin="0 0 0 0">
-                                <materialDesign:Chip.Icon>
-                                    <Image x:Name="UserInfoAvatar" Source="Resources/NoAvatar.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality"/>
-                                </materialDesign:Chip.Icon>
-                            </materialDesign:Chip>
-                            <TextBlock x:Name="UserInfoOther" Text="" VerticalAlignment="Center" Margin="5,0,0,0" />
-                        </StackPanel>
-                        <TextBlock x:Name="textBlockTitle" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" Margin="10,0,0,0">BiliRanking V2.0 预览版 - 不 止 统 计</TextBlock>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="domain:Item">
+                                    <TextBlock Text="{Binding Name}" Margin="32 0 32 0" />
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <domain:Item Name="首页">
+                                <domain:Item.Content>
+                                    <view:Home />
+                                </domain:Item.Content>
+                            </domain:Item>
+                            <domain:Item Name="临时登录界面">
+                                <domain:Item.Content>
+                                    <view:Login />
+                                </domain:Item.Content>
+                            </domain:Item>
+                            <domain:Item Name="排行统计">
+                                <domain:Item.Content>
+                                    <view:List />
+                                </domain:Item.Content>
+                            </domain:Item>
+                            <domain:Item Name="数据获取">
+                                <domain:Item.Content>
+                                    <view:Data />
+                                </domain:Item.Content>
+                            </domain:Item>
+                            <domain:Item Name="视频下载">
+                                <domain:Item.Content>
+                                    <view:Download />
+                                </domain:Item.Content>
+                            </domain:Item>
+                            <domain:Item Name="主榜生成">
+                                <domain:Item.Content>
+                                    <view:viewZhubang />
+                                </domain:Item.Content>
+                            </domain:Item>
+                            <domain:Item Name="副榜生成">
+                                <domain:Item.Content>
+                                    <view:viewFubang />
+                                </domain:Item.Content>
+                            </domain:Item>
+                            <domain:Item Name="图片模板编辑器">
+                                <domain:Item.Content>
+                                    <view:ImageTemplateEditor />
+                                </domain:Item.Content>
+                            </domain:Item>
+                            <domain:Item Name="×视频剪辑">
+                                <domain:Item.Content>
+                                    <view:VideoClip />
+                                </domain:Item.Content>
+                            </domain:Item>
+                        </ListBox>
                     </DockPanel>
-                </materialDesign:ColorZone>
-                <Grid>
-                    <ContentControl x:Name="contentControlMain" Margin="16" Content="{Binding ElementName=listBoxItems, Path=SelectedItem.Content}" />
-                    <Grid x:Name="gridAVs" HorizontalAlignment="Right" Width="150">
-                        <Button x:Name="buttonAVsShowHidden" Width="20" HorizontalAlignment="Left" Height="48" Content="&lt;&gt;" Padding="0" Click="buttonAVsShowHidden_Click" />
-                        <TextBox x:Name="textBox" TextWrapping="Wrap" Text="{Binding Path=(local:SharedData.AVs), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="AV号们在这里" AcceptsReturn="True" Foreground="#DDFFFFFF" Background="#A5000000" Padding="5" Margin="20,0,0,0"/>
+                </materialDesign:DrawerHost.LeftDrawerContent>
+                <DockPanel>
+                    <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                          Mode="PrimaryMid" DockPanel.Dock="Top">
+                        <DockPanel>
+                            <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
+                                      x:Name="MenuToggleButton"/>
+                            <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                                <StackPanel>
+                                    <Button Content="关于" Tag="目前只有天书一个人在写，好孤独……" Click="MenuPopupButton_OnClick"/>
+                                    <Separator/>
+                                </StackPanel>
+                            </materialDesign:PopupBox>
+                            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                                <materialDesign:Chip x:Name="UserInfoName" Content="未登录" Margin="0 0 0 0">
+                                    <materialDesign:Chip.Icon>
+                                        <Image x:Name="UserInfoAvatar" Source="Resources/NoAvatar.png" Stretch="Fill" RenderOptions.BitmapScalingMode="HighQuality"/>
+                                    </materialDesign:Chip.Icon>
+                                </materialDesign:Chip>
+                                <TextBlock x:Name="UserInfoOther" Text="" VerticalAlignment="Center" Margin="5,0,0,0" />
+                            </StackPanel>
+                            <TextBlock x:Name="textBlockTitle" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="22" Margin="10,0,0,0">BiliRanking 2 - 不 止 统 计</TextBlock>
+                        </DockPanel>
+                    </materialDesign:ColorZone>
+                    <Grid>
+                        <ContentControl x:Name="contentControlMain" Margin="16" Content="{Binding ElementName=listBoxItems, Path=SelectedItem.Content}" />
+                        <Grid x:Name="gridAVs" HorizontalAlignment="Right" Width="150">
+                            <Button x:Name="buttonAVsShowHidden" Width="20" HorizontalAlignment="Left" Height="48" Content="&lt;&gt;" Padding="0" Click="buttonAVsShowHidden_Click" />
+                            <TextBox x:Name="textBox" TextWrapping="Wrap" Text="{Binding Path=(local:SharedData.AVs), Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="AV号们在这里" AcceptsReturn="True" Foreground="#DDFFFFFF" Background="#A5000000" Padding="5" Margin="20,0,0,0"/>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </DockPanel>
-        </materialDesign:DrawerHost>
-    </materialDesign:DialogHost>
-    
+                </DockPanel>
+            </materialDesign:DrawerHost>
+        </materialDesign:DialogHost>
+    </Grid>
+
 </Window>

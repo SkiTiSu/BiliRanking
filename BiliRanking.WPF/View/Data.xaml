@@ -65,47 +65,87 @@
                 </StackPanel>
             </Border>
         </Popup>
+        <ToolBarTray Height="40" VerticalAlignment="Top">
+            <ToolBar ToolBarTray.IsLocked="True" Height="40">
+                <ToolBar.Resources>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Orientation" Value="Horizontal"></Setter>
+                        <Setter Property="Margin" Value="-8,-20"></Setter>
+                    </Style>
+                    <!--<Style TargetType="Button">
+                        <Setter Property="Padding" Value="0"></Setter>
+                        <Setter Property="Margin" Value="0,0,10,0"></Setter>
+                    </Style>-->
+                    <Style TargetType="TextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Height="36">
-            <StackPanel.Resources>
-                <Style TargetType="{x:Type ButtonBase}">
-                    <Setter Property="Margin" Value="0,0,20,0"></Setter>
-                </Style>
-            </StackPanel.Resources>
-            <Button x:Name="buttonGen" Click="buttonGen_Click" Margin="0,0,10,0">
-                <StackPanel Orientation="Horizontal">
-                    <md:PackIcon Kind="Play" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                    <TextBlock>生成</TextBlock>
-                </StackPanel>
-            </Button>
-            <Button x:Name="buttonOpen" Click="buttonOpen_Click" Margin="0,0,10,0">
-                <StackPanel Orientation="Horizontal">
-                    <md:PackIcon Kind="Folder" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                    <TextBlock>打开</TextBlock>
-                </StackPanel>
-            </Button>
-            <Button x:Name="buttonSave" Click="buttonSave_Click" Margin="0,0,10,0">
-                <StackPanel Orientation="Horizontal">
-                    <md:PackIcon Kind="ContentSave" VerticalAlignment="Center" Margin="0,0,4,0"/>
-                    <TextBlock>保存</TextBlock>
-                </StackPanel>
-            </Button>
-            <ComboBox x:Name="comboBoxScoreType" VerticalAlignment="Stretch" Width="81"
+                    </Style>
+                    <Style TargetType="md:PackIcon">
+                        <Setter Property="Margin" Value="0,0,4,0"></Setter>
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    </Style>
+                </ToolBar.Resources>
+                <Button x:Name="buttonGen" Click="buttonGen_Click">
+                    <StackPanel>
+                        <md:PackIcon Kind="Play"/>
+                        <TextBlock>生成</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="buttonRerank" Click="buttonRerank_Click">
+                    <StackPanel>
+                        <md:PackIcon Kind="Reload"/>
+                        <TextBlock>重排名</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button IsEnabled="False">
+                    <StackPanel>
+                        <md:PackIcon Kind="Refresh"/>
+                        <TextBlock>刷新数据</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Separator />
+                <Button x:Name="buttonOpen" Click="buttonOpen_Click">
+                    <StackPanel>
+                        <md:PackIcon Kind="Folder"/>
+                        <TextBlock>打开</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="buttonSave" Click="buttonSave_Click">
+                    <StackPanel>
+                        <md:PackIcon Kind="ContentSave"/>
+                        <TextBlock>保存</TextBlock>
+                    </StackPanel>
+                </Button>
+                <ComboBox x:Name="comboBoxScoreType" VerticalAlignment="Stretch" Width="70"
                       ItemsSource="{Binding Source={bwpf:Enumeration {x:Type Core:ScoreType}}}" 
                       DisplayMemberPath="Description" 
                       SelectedValue="{Binding CurrentStatus}"  
-                      SelectedValuePath="Value"
+                      SelectedValuePath="Value" VerticalContentAlignment="Center"
                       />
-        </StackPanel>
-
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-            <TextBox x:Name="textBoxInsert" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="要插入的AV号" Text="{Binding Name}" Margin="0,0,10,0"/>
-            <Button x:Name="buttonInsert" Content="插入" Margin="0,0,10,0" Click="buttonInsert_Click"/>
-            <Button x:Name="buttonBulkInsert" Content="批量插入右侧边栏内" Margin="0,0,10,0" Click="buttonBulkInsert_Click"/>
-            <Button Content="合并数据..." Margin="0,0,10,0" IsEnabled="False"/>
-            <ToggleButton x:Name="toggleButtonAllowDrop" Margin="0,0,5,0"/>
-            <TextBlock VerticalAlignment="Center">拖拽移动模式</TextBlock>
-        </StackPanel>
+                <Separator />
+                <TextBox x:Name="textBoxInsert" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="要插入的AV号" Text="{Binding Name}" Width="80" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,-5" Height="40"/>
+                <Button x:Name="buttonInsert" Click="buttonInsert_Click">
+                    <StackPanel>
+                        <md:PackIcon Kind="PlusOne"/>
+                        <TextBlock>插入</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="buttonBulkInsert" Click="buttonBulkInsert_Click">
+                    <StackPanel>
+                        <md:PackIcon Kind="TableRowPlusAfter"/>
+                        <TextBlock>插入右边栏内</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Margin="0,0,10,0" IsEnabled="False">
+                    <StackPanel>
+                        <md:PackIcon Kind="CallMerge"/>
+                        <TextBlock>合并数据</TextBlock>
+                    </StackPanel>
+                </Button>
+                <ToggleButton x:Name="toggleButtonAllowDrop" Margin="0,0,5,0"/>
+                <TextBlock VerticalAlignment="Center">拖拽编辑模式</TextBlock>
+            </ToolBar>
+        </ToolBarTray>
 
         <Button x:Name="buttonUndo" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="buttonUndo_Click">
             <StackPanel Orientation="Horizontal">
@@ -119,6 +159,9 @@
             <TextBlock x:Name="textBlockGenTime" Margin="0,0,0,0" TextWrapping="Wrap" Text="N/A" />
         </StackPanel>
         <TextBlock HorizontalAlignment="Left" Margin="141,0,0,8" TextWrapping="Wrap" Text="按Delete键删除当前选中行" Height="15" VerticalAlignment="Bottom"/>
+        <Button x:Name="buttonQuickCopy" Content="快捷复制" HorizontalAlignment="Left" Margin="300,0,0,0" Width="93" Click="buttonQuickCopy_Click" Height="32" VerticalAlignment="Bottom"/>
+
+
 
     </Grid>
 </UserControl>

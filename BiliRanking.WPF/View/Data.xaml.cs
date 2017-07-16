@@ -397,5 +397,22 @@ namespace BiliRanking.WPF.View
         {
             comboBoxScoreType.SelectedIndex = 1;
         }
+
+        private void buttonRerank_Click(object sender, RoutedEventArgs e)
+        {
+            List<BiliInterfaceInfo> ll = (List<BiliInterfaceInfo>)dataGrid.ItemsSource;
+            ll?.Sort(sortt);
+            for (int i = 1; i <= ll?.Count; i++)
+            {
+                ll[i - 1].Fpaiming = i;
+            }
+            SetNewData(ll);
+        }
+
+        private void buttonQuickCopy_Click(object sender, RoutedEventArgs e)
+        {
+            WindowQuickCopy wqc = new WindowQuickCopy(SharedData.Infos);
+            wqc.Show();
+        }
     }
 }
