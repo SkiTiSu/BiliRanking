@@ -3,14 +3,17 @@
   
 © 2015-2017 四季天书SkiTiSu  
   
-哔哩哔哩数据分析整理，鬼畜榜数据及图片专用生成及辅助制作工具，被其他成员在视频和简介中称为“黑科技”的小工具（其实一点也不黑）。  
-A data crawler and auxiliary production tool for Bilibili. Was used by Bilibili Kichiku Weekly Team.
+哔哩哔哩数据分析整理，鬼畜榜等数据及图片专用生成及辅助制作工具，被其他成员在视频和简介中称为“黑科技”的小工具（其实一点也不黑）。  
+
+A data crawler and auxiliary production tool for Bilibili. Was used by Bilibili Kichiku Weekly Team and more.
+
+![br2](https://user-images.githubusercontent.com/8959735/28248621-1b0995fa-6a7a-11e7-9471-65ceee44585c.png)
 
 # 功能 Features
 * 极速抓取数据并算分，数据可保存为.sdygx（圣地亚哥数据库X）格式
 * 一键批量下载封面、视频
 * 一键生成副榜
-* 凑合的MD风格UI
+* 凑合的Fluent + Material风格UI
 * 周刊辅助制作小工具
 * 更多……
 
