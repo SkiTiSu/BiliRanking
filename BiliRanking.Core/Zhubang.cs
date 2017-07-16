@@ -157,8 +157,13 @@ namespace BiliRanking.Core
 
         public Image GenStardustTemplate(List<TemplateInfo> infos)
         {
+            return GenWithTemplate(Properties.Resources.zhubang_stardust, infos);
+        }
+
+        public Image GenWithTemplate(Image bg, List<TemplateInfo> infos)
+        {
             int offsetY;
-            Image image = Properties.Resources.zhubang_stardust; //DPI为150
+            Image image = bg;
             g = Graphics.FromImage(image);
 
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
@@ -182,7 +187,7 @@ namespace BiliRanking.Core
                             info.text = info.text.Remove(info.text.Length - 1, 1);
                             sf = g.MeasureString(info.text, info.font);
                         }
-                        
+
                     }
                     g.DrawString(info.text, info.font, info.brush, info.point);
                 }

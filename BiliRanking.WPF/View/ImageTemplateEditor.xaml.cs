@@ -1,4 +1,5 @@
 ﻿using BiliRanking.Core;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -85,7 +86,15 @@ namespace BiliRanking.WPF.View
                 tis.Add(ti);
             }
             Zhubang zb = new Zhubang();
-            System.Drawing.Image re = zb.GenStardustTemplate(tis);
+            System.Drawing.Image re;
+            if (bgimg == null)
+            {
+                re = zb.GenStardustTemplate(tis);
+            }
+            else
+            {
+                re = zb.GenWithTemplate(bgimg, tis);
+            }
             imageMain.Source = ConvertDrawingImage2MediaImageSource(re);
         }
 
@@ -132,6 +141,20 @@ namespace BiliRanking.WPF.View
             after = after.Replace("{share}", info.share.ToString());
 
             return after;
+        }
+
+        System.Drawing.Image bgimg = null;
+
+        private void buttonOpenImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            var imageExtensions = string.Join(";", System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders().Select(ici => ici.FilenameExtension));
+            dlg.Filter = $"图片文件|{imageExtensions}|所有文件|*.*";
+            if (dlg.ShowDialog() == true)
+            {
+                imageMain.Source = new BitmapImage(new Uri(dlg.FileName)); ;
+                bgimg = System.Drawing.Image.FromFile(dlg.FileName);
+            }
         }
     }
 }
