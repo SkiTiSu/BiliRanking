@@ -575,7 +575,7 @@ namespace BiliRanking.Core
             return info;
         }
 
-        public static IEnumerable<string> GetAVFlvUrl(string AVnum)
+        public static IEnumerable<string> GetAVFlvUrl(string AVnum, out IEnumerable<string> renames, List<BiliInterfaceInfo> binfos = null) //TODO: 试试元组
         {
             string[] avnp = Regex.Split(AVnum, "_|-|#");
             string avnum = GetAVdenum(avnp[0]);
@@ -596,6 +596,7 @@ namespace BiliRanking.Core
 
             BiliInterfaceInfo info = null;
             IEnumerable<string> flvs = null;
+            List<string> rrnames = new List<string>();
 
             try
             {
@@ -604,26 +605,34 @@ namespace BiliRanking.Core
                 {
                     if (info.pagesn.Count >= page)
                     {
-                        info.title = info.title + $"_P{page}_{info.pagesn[page - 1].part}";
                         flvs = GetFlvUrls(uint.Parse(info.pagesn[page - 1].cid));
                     }
                     else
                     {
                         Log.Warn(AVnum + $" - 目标视频仅有{info.pagesn.Count}P，将下载P1");
-                        if (info.pagesn.Count > 1)
-                        {
-                            info.title = info.title + $"_P{page}_{info.pagesn[page - 1].part}";
-                        }
                         flvs = GetFlvUrls(info.cid);
                     }
                 }
                 else
                 {
-                    if (info.pagesn.Count > 1)
-                    {
-                        info.title = info.title + $"_P{page}_{info.pagesn[page - 1].part}";
-                    }
                     flvs = GetFlvUrls(info.cid);
+                }
+                string topstring = "";
+                try
+                {
+                    if (binfos != null)
+                    {
+                        int paiming = (from b in binfos where b.avnum == info.avnum select b.Fpaiming.Value).First();
+                        if (paiming != 0 && paiming <= 20)
+                            topstring = "TOP_" + paiming + "-";
+                    }
+                } catch { }
+                info.title = $"{info.title}_{info.avnum}_P{page}_{info.pagesn[page - 1].part}";
+                info.title = TSDownload.removeInvChrInPath(info.title);
+                for (int i = 0; i < flvs.Count(); i++)
+                {
+                    string filename = Path.GetFileName(new Uri(flvs.ElementAt(0)).AbsolutePath);
+                    rrnames.Add($"{filename}$///${topstring}{info.title}_{i + 1}.flv");
                 }
 
             }
@@ -631,7 +640,7 @@ namespace BiliRanking.Core
             {
                 Log.Error("AV" + avnum + "的数据发生错误，请稍后重试！" + e.Message);
             }
-
+            renames = rrnames;
             return flvs;
         }
 
