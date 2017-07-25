@@ -231,6 +231,15 @@ namespace BiliRanking.WPF.View
             SetNewData(bi);
         }
 
+        private void RemoveData(BiliInterfaceInfo info)
+        {
+            if (info == null)
+                return;
+            List<BiliInterfaceInfo> bi = GetData();
+            bi.Remove(info);
+            SetNewData(bi);
+        }
+
         public delegate Point GetPosition(IInputElement element);
         int rowIndex = -1;
 
@@ -413,6 +422,15 @@ namespace BiliRanking.WPF.View
         {
             WindowQuickCopy wqc = new WindowQuickCopy(SharedData.Infos);
             wqc.Show();
+        }
+
+        private void menuItemDeleteLine_Click(object sender, RoutedEventArgs e)
+        {
+            var menuItem = (MenuItem)sender;  
+            var contextMenu = (ContextMenu)menuItem.Parent;
+            var item = (DataGrid)contextMenu.PlacementTarget;
+            var bi = item.SelectedCells[0].Item as BiliInterfaceInfo;
+            RemoveData(bi);
         }
     }
 }

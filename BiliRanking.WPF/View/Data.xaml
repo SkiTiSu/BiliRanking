@@ -12,7 +12,12 @@
              d:DesignHeight="500" d:DesignWidth="900" Loaded="userControlData_Loaded">
     <Grid>
         <DataGrid x:Name="dataGrid" Margin="0,49,0,47" AutoGenerateColumns="False"
-                  md:DataGridAssist.CellPadding="4 2 2 2" md:DataGridAssist.ColumnHeaderPadding="4 2 2 2" RowHeight="24" GridLinesVisibility="All" VerticalGridLinesBrush="#10000000" Drop="dataGrid_Drop" AllowDrop="{Binding ElementName=toggleButtonAllowDrop,Path=IsChecked}" DragOver="dataGrid_DragOver" PreviewMouseLeftButtonDown="dataGrid_PreviewMouseLeftButtonDown">
+                  md:DataGridAssist.CellPadding="4 2 2 2" md:DataGridAssist.ColumnHeaderPadding="4 2 2 2" RowHeight="24" GridLinesVisibility="All" VerticalGridLinesBrush="#10000000" Drop="dataGrid_Drop" AllowDrop="{Binding ElementName=toggleButtonAllowDrop,Path=IsChecked}" DragOver="dataGrid_DragOver" PreviewMouseLeftButtonDown="dataGrid_PreviewMouseLeftButtonDown" SelectionUnit="CellOrRowHeader">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="menuItemDeleteLine" Header="删除本行" Click="menuItemDeleteLine_Click" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
             <DataGrid.Columns>
                 <md:MaterialDataGridTextColumn Header="排名" Binding="{Binding Fpaiming, TargetNullValue=''}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <DataGridTemplateColumn ClipboardContentBinding="{x:Null}" Header="操作" Visibility="Hidden">
@@ -158,8 +163,8 @@
             <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="数据生成时间：" />
             <TextBlock x:Name="textBlockGenTime" Margin="0,0,0,0" TextWrapping="Wrap" Text="N/A" />
         </StackPanel>
-        <TextBlock HorizontalAlignment="Left" Margin="141,0,0,8" TextWrapping="Wrap" Text="按Delete键删除当前选中行" Height="15" VerticalAlignment="Bottom"/>
-        <Button x:Name="buttonQuickCopy" Content="快捷复制" HorizontalAlignment="Left" Margin="300,0,0,0" Width="93" Click="buttonQuickCopy_Click" Height="32" VerticalAlignment="Bottom"/>
+        <TextBlock HorizontalAlignment="Left" Margin="141,0,0,8" TextWrapping="Wrap" Text="有右键菜单啦，删除在那里面哦" Height="15" VerticalAlignment="Bottom"/>
+        <Button x:Name="buttonQuickCopy" Content="快捷复制" HorizontalAlignment="Left" Margin="314,0,0,0" Width="93" Click="buttonQuickCopy_Click" Height="32" VerticalAlignment="Bottom"/>
 
 
 
