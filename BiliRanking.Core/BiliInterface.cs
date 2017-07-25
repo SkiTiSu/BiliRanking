@@ -631,7 +631,7 @@ namespace BiliRanking.Core
                 info.title = TSDownload.removeInvChrInPath(info.title);
                 for (int i = 0; i < flvs.Count(); i++)
                 {
-                    string filename = Path.GetFileName(new Uri(flvs.ElementAt(0)).AbsolutePath);
+                    string filename = Path.GetFileName(new Uri(flvs.ElementAt(i)).AbsolutePath);
                     rrnames.Add($"{filename}$///${topstring}{info.title}_{i + 1}.flv");
                 }
 

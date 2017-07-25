@@ -38,7 +38,7 @@ namespace BiliRanking.WPF.View
             string renames = "";
             foreach (string item in avs)
             {
-                var urls = BiliInterface.GetAVFlvUrl(item, out var rename, SharedData.Infos.ToList());
+                var urls = BiliInterface.GetAVFlvUrl(item, out var rename, SharedData.Infos?.ToList() ?? null);
                 if (urls != null)
                 {
                     foreach (string u in urls)

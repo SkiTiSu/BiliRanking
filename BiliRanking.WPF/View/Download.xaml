@@ -7,10 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="900">
     <Grid>
-        <TextBox x:Name="textBox" Margin="10,68,10,163" TextWrapping="Wrap" Text="" VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="textBox" Margin="10,68,10,163" TextWrapping="Wrap" Text="" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
         <Button x:Name="buttonGet" Content="获取下载地址" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" Width="121" Click="buttonGet_Click"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="由于B站限制，内置下载引擎下载不完全，请复制下载地址到迅雷下orz" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBoxRename" Margin="10,342,160,10" TextWrapping="Wrap" Text="" VerticalScrollBarVisibility="Auto"/>
+        <TextBox x:Name="textBoxRename" Margin="10,0,160,10" TextWrapping="Wrap" Text="" VerticalScrollBarVisibility="Auto" Height="148" VerticalAlignment="Bottom" AcceptsReturn="True"/>
         <Button x:Name="buttonRename" Content="批量重命名" HorizontalAlignment="Right" Margin="0,0,26,64" VerticalAlignment="Bottom" Width="106" Height="37" Click="buttonRename_Click"/>
 
     </Grid>
