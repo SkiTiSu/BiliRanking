@@ -16,7 +16,9 @@
             <ComboBoxItem>{播放}{}{硬币}{}{收藏}{}{弹幕}{}{评论}</ComboBoxItem>
             <ComboBoxItem>{总分}</ComboBoxItem>
             <ComboBoxItem>{tag}</ComboBoxItem>
-            <ComboBoxItem>{时间}    {av号}    {作者}</ComboBoxItem>
+            <ComboBoxItem>
+                <Run Text="{}{时间}    {av号}    {作者}"></Run>
+            </ComboBoxItem>
             <ComboBoxItem>{代码}</ComboBoxItem>
             <ComboBoxItem>{时间码}</ComboBoxItem>
         </ComboBox>
