@@ -41,7 +41,7 @@ namespace BiliRanking.Core
                 stringBuilder.Append((stringBuilder.Length > 0 ? "&" : string.Empty));
                 stringBuilder.Append(str1);
             }
-            stringBuilder.Append(_appSecret_Wp);
+            stringBuilder.Append(_appSecret_IOS);
             using (var md5 = MD5.Create())
             {
                 result = BitConverter.ToString(md5.ComputeHash(Encoding.ASCII.GetBytes(stringBuilder.ToString()))).Replace("-", "").ToLower();

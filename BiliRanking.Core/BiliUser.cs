@@ -15,7 +15,7 @@ namespace BiliRanking.Core
             {
                 try
                 {
-                    string url = string.Format("http://account.bilibili.com/api/myinfo?access_key={0}&appkey={1}&platform=wp&type=json", BiliApiHelper.access_key, BiliApiHelper._appKey);
+                    string url = string.Format("http://account.bilibili.com/api/myinfo?access_key={0}&appkey={1}&platform=wp&type=json", BiliApiHelper.access_key, BiliApiHelper._appKey_IOS);
                     url += "&sign=" + BiliApiHelper.GetSign(url);
                     string results = await BiliInterface.GetHtmlAsync(url);
                     UserInfoModel model = JsonConvert.DeserializeObject<UserInfoModel>(results);
