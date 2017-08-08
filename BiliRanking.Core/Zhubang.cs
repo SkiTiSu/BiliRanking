@@ -163,7 +163,7 @@ namespace BiliRanking.Core
         public Image GenWithTemplate(Image bg, List<TemplateInfo> infos)
         {
             int offsetY;
-            Image image = bg;
+            Image image = (Image)bg.Clone();
             g = Graphics.FromImage(image);
 
             g.TextRenderingHint = TextRenderingHint.AntiAlias;
