@@ -23,6 +23,14 @@
         </Button>
         <TextBlock HorizontalAlignment="Left" Margin="10,61,0,0" TextWrapping="Wrap" Text="副榜开始于：" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="15" Width="72"/>
         <TextBox x:Name="textBoxFrom" HorizontalAlignment="Left" Height="23" Margin="87,57,0,0" TextWrapping="Wrap" Text="21" VerticalAlignment="Top" Width="120" TextChanged="textBoxFrom_TextChanged" input:InputMethod.IsInputMethodEnabled="False"/>
+        <TextBox x:Name="textBoxTemplate" HorizontalAlignment="Left" Height="158" Margin="87,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="746" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{}{title}|汉仪旗黑X1-65W|28|#2A2A34|False|480|108|0|0|0|0|True|1070&#xA;{created_at}|385-CAI978|26|#2A2A34|True|0|0|510|226.6|540|60|False&#xA;{AVNUM}|385-CAI978|26|#2A2A34|False|480|230&#xA;UP/{author}|方正细圆简体|26|#2A2A34|False|1080|232&#xA;{paiming}|04b_03b|110|#2A2A34|False|1580|115|0|0|0|0|False&#xA;{bofang}|等线|25|#1F4E79|False|520|166.55|0|0|0|0|False&#xA;{pinglun}|等线|25|#1F4E79|False|1093|166.55|0|0|0|0|False&#xA;{danmu}|等线|25|#1F4E79|False|952|166.55|0|0|0|0|False&#xA;{shoucang}|等线|25|#1F4E79|False|665|166.55|0|0|0|0|False&#xA;{yingbi}|等线|25|#1F4E79|False|807|166.55|0|0|0|0|False&#xA;{zongfen} pts.|汉仪旗黑X1-65W|28|#2A2A34|False|1250|163|0|0|0|0|False&#xA;{pic}|等线|20|#000000|True|0|0|117.6|68.5|336.2|211.2|False"/>
+        <TextBlock HorizontalAlignment="Left" Margin="49,292,0,0" TextWrapping="Wrap" Text="模板" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="25,232,0,0" TextWrapping="Wrap" Text="重复次数" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,261,0,0" TextWrapping="Wrap" Text="高度(Y轴)差" VerticalAlignment="Top"/>
+        <Separator HorizontalAlignment="Left" Height="3" Margin="10,217,0,0" VerticalAlignment="Top" Width="880"/>
+        <TextBox x:Name="textBoxRepeat" HorizontalAlignment="Left" Height="23" Margin="87,228,0,0" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" Width="120" TextChanged="textBoxFrom_TextChanged" InputMethod.IsInputMethodEnabled="False"/>
+        <TextBox x:Name="textBoxOffset" HorizontalAlignment="Left" Height="23" Margin="87,256,0,0" TextWrapping="Wrap" Text="245" VerticalAlignment="Top" Width="120" TextChanged="textBoxFrom_TextChanged" InputMethod.IsInputMethodEnabled="False"/>
+        <Button x:Name="buttonGenCustom" Content="选择图片并生成" HorizontalAlignment="Left" Margin="688,458,0,0" Width="145" Click="buttonGenCustom_Click" Height="32" VerticalAlignment="Top"/>
 
     </Grid>
 </UserControl>

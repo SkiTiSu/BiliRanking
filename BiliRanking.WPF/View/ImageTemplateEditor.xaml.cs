@@ -35,6 +35,7 @@ namespace BiliRanking.WPF.View
         {
             BiliInterfaceInfo bi = new BiliInterfaceInfo()
             {
+                AVNUM = "AV10830407",
                 title = "【星尘二专收录曲】D!scolor【PV】",
                 play = 61531,
                 video_review = 683,
@@ -93,7 +94,7 @@ namespace BiliRanking.WPF.View
             }
             else
             {
-                re = zb.GenWithTemplate(bgimg, tis);
+                re = zb.GenWithTemplate((System.Drawing.Image)bgimg.Clone(), tis);
             }
             imageMain.Source = ConvertDrawingImage2MediaImageSource(re);
         }
@@ -139,6 +140,7 @@ namespace BiliRanking.WPF.View
             after = after.Replace("{pinglun}", info.review.ToString());
             after = after.Replace("{tag}", info.tag.ToString());
             after = after.Replace("{share}", info.share.ToString());
+            after = after.Replace("{pic}", "{pic}" + info.AVNUM);
 
             return after;
         }

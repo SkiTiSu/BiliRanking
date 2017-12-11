@@ -162,44 +162,54 @@ namespace BiliRanking.Core
 
         public Image GenWithTemplate(Image bg, List<TemplateInfo> infos)
         {
-            int offsetY;
-            Image image = (Image)bg.Clone();
-            g = Graphics.FromImage(image);
-
-            g.TextRenderingHint = TextRenderingHint.AntiAlias;
-            g.InterpolationMode = InterpolationMode.HighQualityBilinear;
-            g.CompositingQuality = CompositingQuality.HighQuality;
-            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-
-            foreach (TemplateInfo info in infos)
+            using (Graphics gp = Graphics.FromImage(bg))
             {
-                offsetY = CalOffsetY(info.font);
-                if (!info.isRightAlign)
-                {
-                    if (info.autoOffsetY)
-                        info.point.Y -= offsetY;
-                    if (info.maxWidth > 0)
-                    {
-                        SizeF sf = g.MeasureString(info.text, info.font);
-                        while (sf.Width > info.maxWidth)
-                        {
-                            info.text = info.text.Remove(info.text.Length - 1, 1);
-                            sf = g.MeasureString(info.text, info.font);
-                        }
+                int offsetY;
+                gp.TextRenderingHint = TextRenderingHint.AntiAlias;
+                gp.InterpolationMode = InterpolationMode.HighQualityBilinear;
+                gp.CompositingQuality = CompositingQuality.HighQuality;
+                gp.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                gp.SmoothingMode = SmoothingMode.AntiAlias;
 
-                    }
-                    g.DrawString(info.text, info.font, info.brush, info.point);
-                }
-                else
+                foreach (TemplateInfo info in infos)
                 {
-                    if (info.autoOffsetY)
-                        info.rectangle.Y -= offsetY;
-                    g.DrawString(info.text, info.font, info.brush, info.rectangle, new StringFormat() { Alignment = StringAlignment.Far });
+                    if (info.text.StartsWith("{pic}"))
+                    {
+                        string picPath = FileManager.currentPath + @"\pic\" + info.text.Substring(5) + ".jpg";
+                        using (Image pic = Image.FromFile(picPath))
+                        {
+                            gp.DrawImage(pic, info.rectangle);
+                        }
+                    }
+                    else
+                    {
+                        offsetY = CalOffsetY(info.font);
+                        if (!info.isRightAlign)
+                        {
+                            if (info.autoOffsetY)
+                                info.point.Y -= offsetY;
+                            if (info.maxWidth > 0)
+                            {
+                                SizeF sf = gp.MeasureString(info.text, info.font);
+                                while (sf.Width > info.maxWidth)
+                                {
+                                    info.text = info.text.Remove(info.text.Length - 1, 1);
+                                    sf = gp.MeasureString(info.text, info.font);
+                                }
+
+                            }
+                            gp.DrawString(info.text, info.font, info.brush, info.point);
+                        }
+                        else
+                        {
+                            if (info.autoOffsetY)
+                                info.rectangle.Y -= offsetY;
+                            gp.DrawString(info.text, info.font, info.brush, info.rectangle, new StringFormat() { Alignment = StringAlignment.Far });
+                        }
+                    }
                 }
             }
-
-            return image;
+            return bg;
         }
 
         public class TemplateInfo

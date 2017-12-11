@@ -68,6 +68,7 @@
     <Compile Include="Download\IDownloader.cs" />
     <Compile Include="Download\MultiThreadedWebDownloader.cs" />
     <Compile Include="Download\MultiThreadedWebDownloaderEx.cs" />
+    <Compile Include="FileManager.cs" />
     <Compile Include="Fubang.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

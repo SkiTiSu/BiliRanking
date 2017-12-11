@@ -1,4 +1,5 @@
 ﻿using BiliRanking.Core;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -66,6 +67,18 @@ namespace BiliRanking.WPF.View
             //TODO: 再次排序
             Fubang fu = new Fubang();
             Task.Run(() => fu.Gen2(linfo));
+        }
+
+        private void buttonGenCustom_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            var imageExtensions = string.Join(";", System.Drawing.Imaging.ImageCodecInfo.GetImageDecoders().Select(ici => ici.FilenameExtension));
+            dlg.Filter = $"图片文件|{imageExtensions}|所有文件|*.*";
+            if (dlg.ShowDialog() == true)
+            {
+                System.Drawing.Image bgimg = System.Drawing.Image.FromFile(dlg.FileName);
+                Fubang.GenWithTemplate(SharedData.Infos, bgimg, textBoxTemplate.Text, int.Parse(textBoxRepeat.Text), float.Parse(textBoxOffset.Text));
+            }
         }
     }
 

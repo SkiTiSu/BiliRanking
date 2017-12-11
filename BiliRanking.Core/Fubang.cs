@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace BiliRanking.Core
 {
@@ -227,28 +229,106 @@ namespace BiliRanking.Core
             */
         }
 
+        public static void GenWithTemplate(IEnumerable<BiliInterfaceInfo> binfos, Image bg, string template, int repeat, float offset)
+        {
+            Zhubang zb = new Zhubang();
+            foreach (BiliInterfaceInfo info in binfos)
+            {
+                BiliInterface.GetPic(info);
+            }
+            
+            List<Zhubang.TemplateInfo> tinfos = new List<Zhubang.TemplateInfo>(); 
+            for (int j = 0; j<= binfos.Count(); j += repeat)
+            {
+                Image image = (Image)bg.Clone();
+                for (int i = 0; i < repeat; i++)
+                {
+                    if (j + i >= binfos.Count())
+                        break;
+                    tinfos = ParseTemplate(binfos.ElementAt(j + i), template);
+                    foreach (var tinfo in tinfos)
+                    {
+                        if (tinfo.point != null)
+                            tinfo.point.Y += offset * i;
+                        if (tinfo.rectangle != null)
+                            tinfo.rectangle.Y += offset * i;
+                    }
+                    image = zb.GenWithTemplate(image, tinfos);
+                }
+                string url = FileManager.currentPath + @"\pic\Rank" + binfos.ElementAt(j).Fpaiming + "-" + (binfos.ElementAt(j).Fpaiming + repeat - 1) + ".jpg";
+                image.Save(url);
+                image.Dispose();
+            }
+        }
+
+        public static List<Zhubang.TemplateInfo> ParseTemplate(BiliInterfaceInfo info, string template)
+        {
+            List<Zhubang.TemplateInfo> tis = new List<Zhubang.TemplateInfo>();
+            var lines = Regex.Split(template, "\r\n|\r|\n");
+            foreach (string line in lines)
+            {
+                if (string.IsNullOrEmpty(line)) continue;
+                var cells = Regex.Split(line, "[|]");
+                Zhubang.TemplateInfo ti = new Zhubang.TemplateInfo()
+                {
+                    text = DoReplace(cells[0], info),
+                    font = new Font(cells[1], Convert.ToSingle(cells[2]), GraphicsUnit.Point),
+                    brush = new SolidBrush(ColorTranslator.FromHtml(cells[3])),
+                    isRightAlign = bool.Parse(cells[4])
+                };
+                if (!ti.isRightAlign)
+                {
+                    ti.point = new PointF(Convert.ToSingle(cells[5]), Convert.ToSingle(cells[6]));
+                }
+                else
+                {
+                    ti.rectangle = new RectangleF(Convert.ToSingle(cells[7]), Convert.ToSingle(cells[8]), Convert.ToSingle(cells[9]), Convert.ToSingle(cells[10]));
+                }
+                if (cells.Length >= 12)
+                {
+                    ti.autoOffsetY = bool.Parse(cells[11]);
+                }
+                if (cells.Length >= 13)
+                {
+                    ti.maxWidth = Convert.ToSingle(cells[12]);
+                }
+                tis.Add(ti);
+            }
+            return tis;
+        }
+
+        public static string DoReplace(string before, BiliInterfaceInfo info)
+        {
+            string after = before;
+
+            after = after.Replace("<", "{");
+            after = after.Replace(">", "}");
+
+            after = after.Replace("{}", "\r\n");
+
+            after = after.Replace("{huanhang}", "\r\n");
+            after = after.Replace("{title}", info.title);
+            after = after.Replace("{time}", info.created_at.Replace(" ", "　")); //半角换成全角
+            after = after.Replace("{created_at}", info.created_at);
+            after = after.Replace("{AVNUM}", info.AVNUM);
+            after = after.Replace("{avnum}", info.avnum);
+            after = after.Replace("{author}", info.author);
+            after = after.Replace("{zongfen}", info.Fdefen.ToString());
+            after = after.Replace("{paiming}", info.Fpaiming.Value.ToString("00"));
+            after = after.Replace("{bofang}", info.play.ToString());
+            after = after.Replace("{yingbi}", info.coins.ToString());
+            after = after.Replace("{shoucang}", info.favorites.ToString());
+            after = after.Replace("{danmu}", info.video_review.ToString());
+            after = after.Replace("{pinglun}", info.review.ToString());
+            after = after.Replace("{tag}", info.tag.ToString());
+            after = after.Replace("{share}", info.share.ToString());
+            after = after.Replace("{pic}", "{pic}" + info.AVNUM);
+
+            return after;
+        }
+
         public static Image resizeImage(Image imgToResize, Size size)
         {
-            /*
-            int sourceWidth = imgToResize.Width;
-            int sourceHeight = imgToResize.Height;
-
-            float nPercent = 0;
-            float nPercentW = 0;
-            float nPercentH = 0;
-
-            nPercentW = ((float)size.Width / (float)sourceWidth);
-            nPercentH = ((float)size.Height / (float)sourceHeight);
-
-            if (nPercentH < nPercentW)
-                nPercent = nPercentH;
-            else
-                nPercent = nPercentW;
-
-            int destWidth = (int)(sourceWidth * nPercent);
-            int destHeight = (int)(sourceHeight * nPercent);
-            */
-
             int destWidth = size.Width;
             int destHeight = size.Height;
 
@@ -264,44 +344,7 @@ namespace BiliRanking.Core
             return (Image)b;
         }
 
-        private Image RoundCorners(Image image, int cornerRadius)
-        {
-            cornerRadius *= 2;
-            Bitmap roundedImage = new Bitmap(image.Width, image.Height);
-            GraphicsPath gp = new GraphicsPath();
-            gp.AddArc(0, 0, cornerRadius, cornerRadius, 180, 90);
-            gp.AddArc(0 + roundedImage.Width - cornerRadius, 0, cornerRadius, cornerRadius, 270, 90);
-            gp.AddArc(0 + roundedImage.Width - cornerRadius, 0 + roundedImage.Height - cornerRadius, cornerRadius, cornerRadius, 0, 90);
-            gp.AddArc(0, 0 + roundedImage.Height - cornerRadius, cornerRadius, cornerRadius, 90, 90);
-            using (Graphics g = Graphics.FromImage(roundedImage))
-            {
-                //g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.SetClip(gp);
-                g.DrawImage(image, Point.Empty);
-            }
-            return roundedImage;
-        }
-
-        public Image RoundCorners(Image StartImage, int CornerRadius, Color BackgroundColor)
-        {
-            CornerRadius *= 2;
-            Bitmap RoundedImage = new Bitmap(StartImage.Width, StartImage.Height);
-            Graphics g = Graphics.FromImage(RoundedImage);
-            g.Clear(BackgroundColor);
-            g.SmoothingMode = SmoothingMode.AntiAlias;
-            Brush brush = new TextureBrush(StartImage);
-            GraphicsPath gp = new GraphicsPath();
-            gp.AddArc(0, 0, CornerRadius, CornerRadius, 180, 90);
-            gp.AddArc(0 + RoundedImage.Width - CornerRadius, 0, CornerRadius, CornerRadius, 270, 90);
-            gp.AddArc(0 + RoundedImage.Width - CornerRadius, 0 + RoundedImage.Height - CornerRadius, CornerRadius, CornerRadius, 0, 90);
-            gp.AddArc(0, 0 + RoundedImage.Height - CornerRadius, CornerRadius, CornerRadius, 90, 90);
-            g.FillPath(brush, gp);
-            return RoundedImage;
-        }
-
         //https://danbystrom.se/2008/08/24/soft-edged-images-in-gdi/
-
         static public GraphicsPath createRoundRect(int x, int y, int width, int height, int radius)
         {
             GraphicsPath gp = new GraphicsPath();
@@ -322,21 +365,6 @@ namespace BiliRanking.Core
                 gp.CloseFigure();
             }
             return gp;
-        }
-
-        public static Brush createFluffyBrush(
-            GraphicsPath gp,
-            float[] blendPositions,
-            float[] blendFactors)
-        {
-            PathGradientBrush pgb = new PathGradientBrush(gp);
-            Blend blend = new Blend();
-            blend.Positions = blendPositions;
-            blend.Factors = blendFactors;
-            pgb.Blend = blend;
-            pgb.CenterColor = Color.White;
-            pgb.SurroundColors = new Color[] { Color.Black };
-            return pgb;
         }
 
         public enum ChannelARGB

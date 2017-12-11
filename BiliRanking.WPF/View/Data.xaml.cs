@@ -46,10 +46,11 @@ namespace BiliRanking.WPF.View
             ScoreType st = (ScoreType)((EnumerationExtension.EnumerationMember)comboBoxScoreType.SelectedItem).Value;
             IEnumerable<string> avs = SharedData.SortedAVs;
             BiliInterfaceInfo[] lls = await concurrentAsync(
-                100,
+                1, //现在有限制了，不能弄那么快了
                 avs,
-                new Func<string, ScoreType, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
-                st);
+                new Func<string, ScoreType, bool, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
+                st,
+                toggleButtonUseKanb.IsChecked.GetValueOrDefault());
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
             string failedAVs = "";
             foreach (BiliInterfaceInfo info in lls)
@@ -94,7 +95,7 @@ namespace BiliRanking.WPF.View
         }
 
         //http://stackoverflow.com/questions/20355931/limiting-the-amount-of-concurrent-tasks-in-net-4-5
-        private static async Task<R[]> concurrentAsync<T1, T2, R>(int maxConcurrency, IEnumerable<T1> items, Func<T1, T2, Task<R>> createTask, T2 stype)
+        private static async Task<R[]> concurrentAsync<T1, T2, T3, R>(int maxConcurrency, IEnumerable<T1> items, Func<T1, T2, T3, Task<R>> createTask, T2 stype, T3 useKanb)
         {
             var allTasks = new List<Task<R>>();
             var activeTasks = new List<Task<R>>();
@@ -105,7 +106,7 @@ namespace BiliRanking.WPF.View
                     var completedTask = await Task.WhenAny(activeTasks);
                     activeTasks.Remove(completedTask);
                 }
-                var task = createTask(item, stype);
+                var task = createTask(item, stype, useKanb);
                 allTasks.Add(task);
                 activeTasks.Add(task);
             }
@@ -379,8 +380,9 @@ namespace BiliRanking.WPF.View
             BiliInterfaceInfo[] lls = await concurrentAsync(
                 100,
                 avs,
-                new Func<string, ScoreType, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
-                st);
+                new Func<string, ScoreType, bool, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
+                st,
+                toggleButtonUseKanb.IsChecked.GetValueOrDefault());
             List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
             string failedAVs = "";
             foreach (BiliInterfaceInfo info in lls)

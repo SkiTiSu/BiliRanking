@@ -172,14 +172,23 @@ namespace BiliRanking.Core
             return info;
         }
 
-        public static async Task<BiliInterfaceInfo> GetInfoAsync(string AVnum, ScoreType stype = ScoreType.Guichu)
+        public static async Task<BiliInterfaceInfo> GetInfoAsync(string AVnum, ScoreType stype = ScoreType.Guichu, bool useKanb = false)
         {
             string avnum = GetAVdenum(AVnum);
             Log.Info("正在通过API获取数据 - AV" + avnum);
 
-            string uri = string.Format("http://app.bilibili.com/x/view?_device=wp&_ulv=10000&access_key={0}&aid={1}&appkey=422fd9d7289a1dd9&build=411005&plat=4&platform=android&ts={2}",
-                BiliApiHelper.access_key, avnum, BiliApiHelper.GetTimeSpan);
-            uri += "&sign=" + BiliApiHelper.GetSign(uri);
+            string uri = string.Empty;
+            if (useKanb)
+            {
+                uri = string.Format("https://kanbilibili.com/api/video/{0}", avnum);
+            }
+            else
+            {
+                uri = string.Format("http://app.bilibili.com/x/view?_device=wp&_ulv=10000&access_key={0}&aid={1}&appkey=422fd9d7289a1dd9&build=411005&plat=4&platform=android&ts={2}",
+                    BiliApiHelper.access_key, avnum, BiliApiHelper.GetTimeSpan);
+                uri += "&sign=" + BiliApiHelper.GetSign(uri);
+            }
+
 
             Stopwatch sw = new Stopwatch();
             sw.Restart();
@@ -187,7 +196,6 @@ namespace BiliRanking.Core
             Log.Info($"获取数据完成 - AV{avnum} 用时：{sw.ElapsedMilliseconds}ms");
             sw.Stop();
 
-            JavaScriptSerializer j = new JavaScriptSerializer();
             BiliInterfaceInfo info = new BiliInterfaceInfo();
             info.AVNUM = "AV" + avnum;
             try
@@ -219,47 +227,58 @@ namespace BiliRanking.Core
                 }
                 else
                 {
-                    //基础信息
-                    BiliVideoModel InfoModel = JsonConvert.DeserializeObject<BiliVideoModel>(model.data.ToString());
-                    //UP信息
-                    BiliVideoModel UpModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.owner.ToString());
-                    //数据信息
-                    BiliVideoModel DataModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.stat.ToString());
-                    //关注信息
-                    BiliVideoModel AttentionModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.req_user.ToString());
-                    //分P信息
-                    info.pagesn = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.pages.ToString());
-                    //--数据转换开始--
-                    info.title = InfoModel.title;
-                    info.created_at = InfoModel.Created_at;
-                    info.typename = InfoModel.tname;
-                    info.pic = InfoModel.pic;
-                    info.author = UpModel.name;
-                    info.cid = Convert.ToUInt32(info.pagesn[0].cid);
-                    info.play = Convert.ToUInt32(DataModel.view);
-                    info.video_review = Convert.ToUInt32(DataModel.danmaku);
-                    info.review = Convert.ToUInt32(DataModel.reply);
-                    info.coins = Convert.ToUInt32(DataModel.coin);
-                    info.share = Convert.ToUInt32(DataModel.share);
-                    info.favorites = Convert.ToUInt32(DataModel.favorite);
-                    info.tag = "";
-                    if (InfoModel.tag != null) //注意有的视频竟然会没有tag
+                    if (!useKanb)
                     {
-                        (from a in ((JArray)InfoModel.tag) select a["tag_name"]).ToList().ForEach(b =>
+                        //基础信息
+                        BiliVideoModel InfoModel = JsonConvert.DeserializeObject<BiliVideoModel>(model.data.ToString());
+                        //UP信息
+                        BiliVideoModel UpModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.owner.ToString());
+                        //数据信息
+                        BiliVideoModel DataModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.stat.ToString());
+                        //关注信息
+                        BiliVideoModel AttentionModel = JsonConvert.DeserializeObject<BiliVideoModel>(InfoModel.req_user.ToString());
+                        //分P信息
+                        info.pagesn = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.pages.ToString());
+                        //--数据转换开始--
+                        info.title = InfoModel.title;
+                        info.created_at = InfoModel.Created_at;
+                        info.typename = InfoModel.tname;
+                        info.pic = InfoModel.pic;
+                        info.author = UpModel.name;
+                        info.cid = Convert.ToUInt32(info.pagesn[0].cid);
+                        info.play = Convert.ToUInt32(DataModel.view);
+                        info.video_review = Convert.ToUInt32(DataModel.danmaku);
+                        info.review = Convert.ToUInt32(DataModel.reply);
+                        info.coins = Convert.ToUInt32(DataModel.coin);
+                        info.share = Convert.ToUInt32(DataModel.share);
+                        info.favorites = Convert.ToUInt32(DataModel.favorite);
+                        info.tag = "";
+                        if (InfoModel.tag != null) //注意有的视频竟然会没有tag
                         {
-                            info.tag += "," + b.ToString();
-                        });
+                            (from a in ((JArray)InfoModel.tag) select a["tag_name"]).ToList().ForEach(b =>
+                            {
+                                info.tag += "," + b.ToString();
+                            });
 
-                        info.tag = info.tag.Substring(1);
+                            info.tag = info.tag.Substring(1);
+                        }
+                        info.description = InfoModel.desc;
+                        //--数据转换结束--
+                        info.title = HttpUtility.HtmlDecode(info.title);
+                        //--or
+                        //info.title = info.title.Replace("&amp;", "&");
+                        //info.title = info.title.Replace("&lt;", "<");
+                        //info.title = info.title.Replace("&gt;", ">");
+                        //info.title = info.title.Replace("&quot;", "\"");
                     }
-                    info.description = InfoModel.desc;
-                    //--数据转换结束--
-                    info.title = HttpUtility.HtmlDecode(info.title);
-                    //--or
-                    //info.title = info.title.Replace("&amp;", "&");
-                    //info.title = info.title.Replace("&lt;", "<");
-                    //info.title = info.title.Replace("&gt;", ">");
-                    //info.title = info.title.Replace("&quot;", "\"");
+                    else
+                    {
+                        info = JsonConvert.DeserializeObject<BiliInterfaceInfo>(model.data.ToString());
+                        info.aid = int.Parse(avnum);
+                        BiliVideoModel InfoModel = JsonConvert.DeserializeObject<BiliVideoModel>(model.data.ToString());
+                        info.pagesn = JsonConvert.DeserializeObject<List<BiliVideoModel>>(InfoModel.list.ToString()); //这里的list是B站接口的pages
+                        info.cid = Convert.ToUInt32(info.pagesn[0].cid);
+                    }
                     switch (stype)
                     {
                         case ScoreType.None:
@@ -288,9 +307,11 @@ namespace BiliRanking.Core
             return info;
         }
 
-        public static BiliInterfaceInfo GetInfo(string AVnum, ScoreType stype = ScoreType.Guichu) => AsyncHelper.RunSync(() => GetInfoAsync(AVnum, stype));
+        public static BiliInterfaceInfo GetInfo(string AVnum, ScoreType stype = ScoreType.Guichu, bool useKanb = false) 
+            => AsyncHelper.RunSync(() => GetInfoAsync(AVnum, stype, useKanb));
 
-        public static Task<BiliInterfaceInfo> GetInfoTaskAsync(string s, ScoreType stype = ScoreType.Guichu) => Task.Run(() => GetInfoAsync(s, stype));
+        public static Task<BiliInterfaceInfo> GetInfoTaskAsync(string s, ScoreType stype = ScoreType.Guichu, bool useKanb = false) 
+            => Task.Run(() => GetInfoAsync(s, stype, useKanb));
 
         public static void CalScoreGuichu(ref BiliInterfaceInfo info)
         {
