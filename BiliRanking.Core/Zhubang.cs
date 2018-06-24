@@ -176,10 +176,22 @@ namespace BiliRanking.Core
                     if (info.text.StartsWith("{pic}"))
                     {
                         string picPath = FileManager.currentPath + @"\pic\" + info.text.Substring(5) + ".jpg";
-                        using (Image pic = Image.FromFile(picPath))
+                        try
                         {
-                            gp.DrawImage(pic, info.rectangle);
+                            using (Image pic = Image.FromFile(picPath))
+                            {
+                                gp.DrawImage(pic, info.rectangle);
+                            }
                         }
+                        catch (System.IO.FileNotFoundException e)
+                        {
+                            Log.Error("未找到该封面！请尝试重新获取：" + picPath);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Error("生成时发生未知错误：" + e.Message);
+                        }
+
                     }
                     else
                     {
