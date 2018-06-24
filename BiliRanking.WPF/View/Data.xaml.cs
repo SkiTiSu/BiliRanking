@@ -428,11 +428,162 @@ namespace BiliRanking.WPF.View
 
         private void menuItemDeleteLine_Click(object sender, RoutedEventArgs e)
         {
-            var menuItem = (MenuItem)sender;  
+            var menuItem = (MenuItem)sender;
             var contextMenu = (ContextMenu)menuItem.Parent;
             var item = (DataGrid)contextMenu.PlacementTarget;
             var bi = item.SelectedCells[0].Item as BiliInterfaceInfo;
             RemoveData(bi);
+        }
+
+        private void buttonImportCsv_Click(object sender, RoutedEventArgs e)
+        {
+            List<KeyValuePair<string, string>> propmap = new List<KeyValuePair<string, string>>();
+            foreach (var column in dataGrid.Columns)
+            {
+                if (!string.IsNullOrEmpty(column.SortMemberPath))
+                {
+                    if (column.SortMemberPath != "avurl")
+                    {
+                        propmap.Add(new KeyValuePair<string, string>(column.Header.ToString(), column.SortMemberPath));
+                    }
+                    else
+                    {
+                        propmap.Add(new KeyValuePair<string, string>("AV号", "AVNUM"));
+                    }
+                }
+            }
+            MessageBox.Show("为了兼容csv，目前的方法存在限制，文本中不能含有小写逗号\",\"，不可以含有小数\r\n请连同标题行复制到剪贴板后，点击确定", "锵锵锵");
+
+            try
+            {
+                log.Info("开始读取剪贴板数据");
+                var dataobject = Clipboard.GetDataObject();
+                string data_csv = (string)dataobject.GetData(DataFormats.CommaSeparatedValue);
+                string[] lines = Regex.Split(data_csv, "\r\n");
+                string[] firstitems = Regex.Split(lines[0], ",");
+                List<BiliInterfaceInfo> blist = new List<BiliInterfaceInfo>();
+
+                Window window = new Window
+                {
+                    Title = "匹配",
+                    Topmost = true,
+                    Width = 300,
+                    Height = 110 + 28 * firstitems.Length,
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen
+                };
+                Grid grid = new Grid();
+                ComboBox[] comboBoxes = new ComboBox[firstitems.Length];
+                StackPanel stackPanelAll = new StackPanel { Orientation = Orientation.Vertical };
+                stackPanelAll.Children.Add(new TextBlock { Text = "请手动匹配未识别的标题行与数据类型", Margin = new Thickness(5, 10, 0, 10) });
+                for (int i = 0; i <= firstitems.Length - 1; i++)
+                {
+                    StackPanel stackPanel = new StackPanel { Orientation = Orientation.Horizontal };
+                    stackPanel.Children.Add(new TextBlock { Text = firstitems[i], Margin = new Thickness(5, 0, 10, 0), VerticalAlignment = VerticalAlignment.Center });
+                    comboBoxes[i] = new ComboBox
+                    {
+                        ItemsSource = propmap,
+                        MinWidth = 100,
+                        SelectedIndex = propmap.FindIndex(x => x.Key == firstitems[i])
+                    };
+                    stackPanel.Children.Add(comboBoxes[i]);
+                    stackPanelAll.Children.Add(stackPanel);
+                }
+                Button buttonOK = new Button
+                {
+                    Content = "OK",
+                    Margin = new Thickness(5, 0, 5, 5),
+                    VerticalAlignment = VerticalAlignment.Bottom
+                };
+                buttonOK.Click += (ob, eb) =>
+                {
+                    window.Close();
+                };
+                grid.Children.Add(stackPanelAll);
+                grid.Children.Add(buttonOK);
+                window.Content = grid;
+                window.ShowDialog();
+
+                for (int i = 1; i <= lines.Length - 1; i++)
+                {
+
+                    string[] items = Regex.Split(lines[i], ",");
+                    if (items.Length < firstitems.Length)
+                    {
+                        if (lines[i] != "\0")
+                            log.Warn("该行数据不合法：" + lines[i]);
+                        continue;
+                    }
+                    BiliInterfaceInfo info = new BiliInterfaceInfo();
+                    for (int j = 0; j <= items.Length - 1; j++)
+                    {
+                        SetModelValue(((KeyValuePair<string, string>)comboBoxes[j].SelectedValue).Value, items[j], info);
+                    }
+                    blist.Add(info);
+                }
+                SetNewData(blist);
+                string avs = "";
+                foreach (BiliInterfaceInfo i in blist)
+                {
+                    avs += i.AVNUM + "\r\n";
+                }
+                SharedData.AVs = avs;
+                log.Info("读取与转换完成");
+            }
+            catch (Exception ee)
+            {
+                log.Error("发生错误：" + ee.Message);
+            }
+        }
+
+        public bool SetModelValue(string FieldName, string Value, object obj)
+        {
+            try
+            {
+                Type Ts = obj.GetType();
+                object v = TypeDescriptor.GetConverter(Ts.GetProperty(FieldName).PropertyType).ConvertFrom(Value);
+                //object v = Convert.ChangeType(Value, Ts.GetProperty(FieldName).PropertyType);
+                Ts.GetProperty(FieldName).SetValue(obj, v, null);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private async void buttonGetPicUrl_Click(object sender, RoutedEventArgs e)
+        {
+            log.Info("开始获取封面地址（非下载）");
+            ScoreType st = (ScoreType)((EnumerationExtension.EnumerationMember)comboBoxScoreType.SelectedItem).Value;
+            IEnumerable<string> avs = SharedData.SortedAVs;
+            BiliInterfaceInfo[] lls = await concurrentAsync(
+                1, //现在有限制了，不能弄那么快了
+                avs,
+                new Func<string, ScoreType, bool, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
+                st,
+                toggleButtonUseKanb.IsChecked.GetValueOrDefault());
+            List<BiliInterfaceInfo> ll = new List<BiliInterfaceInfo>();
+            string failedAVs = "";
+            foreach (BiliInterfaceInfo info in lls)
+            {
+                if (info.pic != null)
+                {
+                    ll.Add(info);
+                }
+                else
+                {
+                    failedAVs += info.avnum + ";";
+                }
+            }
+            foreach (var info in SharedData.Infos)
+            {
+                info.pic = ll.Where(x => x.avnum == info.avnum)?.First().pic ?? info.pic;
+            }
+            if (failedAVs != "")
+            {
+                log.Warn("注意！下列视频数据未正确获取！\r\n" + failedAVs);
+            }
+            log.Info("获取封面地址完成");
         }
     }
 }

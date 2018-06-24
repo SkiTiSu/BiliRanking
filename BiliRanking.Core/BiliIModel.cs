@@ -83,7 +83,18 @@ namespace BiliRanking.Core
                 AVNUM = "AV" + value;
             }
         }
-        public string AVNUM { get; set; }
+        private string aVNUM;
+        public string AVNUM
+        {
+            get
+            {
+                return aVNUM;
+            }
+            set
+            {
+                aVNUM = value.ToUpper();
+            }
+        }
         public string avnum
         {
             get

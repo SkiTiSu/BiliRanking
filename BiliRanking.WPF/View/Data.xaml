@@ -163,15 +163,14 @@
             <TextBlock Margin="0,0,0,0" TextWrapping="Wrap" Text="数据生成时间：" />
             <TextBlock x:Name="textBlockGenTime" Margin="0,0,0,0" TextWrapping="Wrap" Text="N/A" />
         </StackPanel>
-        <TextBlock HorizontalAlignment="Left" Margin="141,0,0,8" TextWrapping="Wrap" Text="有右键菜单啦，删除在那里面哦" Height="15" VerticalAlignment="Bottom"/>
-        <Button x:Name="buttonQuickCopy" Content="快捷复制" HorizontalAlignment="Left" Margin="314,0,0,0" Width="93" Click="buttonQuickCopy_Click" Height="32" VerticalAlignment="Bottom"/>
-        <StackPanel Orientation="Horizontal" Margin="421,0,0,4" HorizontalAlignment="Left" Width="215" Height="23" VerticalAlignment="Bottom">
+        <TextBlock HorizontalAlignment="Left" Margin="141,0,0,8" TextWrapping="Wrap" Text="删除在右键菜单" Height="15" VerticalAlignment="Bottom"/>
+        <Button x:Name="buttonQuickCopy" Content="快捷复制" HorizontalAlignment="Left" Margin="230,0,0,0" Width="93" Click="buttonQuickCopy_Click" Height="32" VerticalAlignment="Bottom"/>
+        <StackPanel Orientation="Horizontal" Margin="328,0,0,4" HorizontalAlignment="Left" Width="215" Height="23" VerticalAlignment="Bottom">
             <ToggleButton x:Name="toggleButtonUseKanb" />
             <TextBlock Text="使用kanbilibili数据源（有延迟）" VerticalAlignment="Center" />
         </StackPanel>
-
-
-
+        <Button x:Name="buttonImportCsv" Content="导入Excel或csv" HorizontalAlignment="Left" Margin="543,0,0,0" Width="129" Height="32" VerticalAlignment="Bottom" Click="buttonImportCsv_Click"/>
+        <Button x:Name="buttonGetPicUrl" Content="获取封面地址" HorizontalAlignment="Left" Margin="677,0,0,0" Width="116" Height="32" VerticalAlignment="Bottom" Click="buttonGetPicUrl_Click"/>
 
     </Grid>
 </UserControl>

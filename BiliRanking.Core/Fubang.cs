@@ -320,7 +320,7 @@ namespace BiliRanking.Core
             after = after.Replace("{shoucang}", info.favorites.ToString());
             after = after.Replace("{danmu}", info.video_review.ToString());
             after = after.Replace("{pinglun}", info.review.ToString());
-            after = after.Replace("{tag}", info.tag.ToString());
+            after = after.Replace("{tag}", info.tag);
             after = after.Replace("{share}", info.share.ToString());
             after = after.Replace("{pic}", "{pic}" + info.AVNUM);
 
