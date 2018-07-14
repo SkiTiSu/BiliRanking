@@ -78,24 +78,23 @@ namespace BiliRanking.Core
         {
             int page = 1;
             List<string> re = new List<string>();
-            string url = "http://" + $"search.bilibili.com/ajax_api/video?keyword={keyword}&page={page}&order={order}&tids_1={tids_1}&tids_2={tids_2}";
+            //highlight=1会导致title被加入高亮样式html，改成0还是有，无解
+            string url = "http://" + $"api.bilibili.com/x/web-interface/search/type?jsonp=jsonp&highlight=0&search_type=video&keyword={keyword}&order={order}&duration=0&page={page}&tids={tids_2}";
             string html = BiliInterface.GetHtml(url);
             if (html == null) return null;
             JObject obj = JObject.Parse(html);
-            int numResults = (int)obj["numResults"];
-            int numPages = (int)obj["numPages"];
+            int numResults = (int)obj["data"]["numResults"];
+            int numPages = (int)obj["data"]["numPages"];
             Log.Info($"找到{numResults}个，{numPages}页");
             for (int i = 2; i <= numPages + 1; i++)
             {
-                string inhtml = (string)obj["html"];
-                var dom = htmlParser.Parse(inhtml);
-                foreach (var ul in dom.Children[0].Children[1].Children)
+                IList<JToken> results = obj["data"]["result"].Children().ToList();
+                foreach (var result in results)
                 {
-                    string uploadtime = ul.QuerySelectorAll("span").Where(a => a.GetAttribute("title") == "上传时间").First().TextContent.Replace("\t", "").Replace("\n", "");
-                    if (DateTime.Parse(uploadtime) >= needFrom.Date)
+                    DateTime uploadtime = UnixTimeStampToDateTime(result["pubdate"].ToObject<double>());
+                    if (uploadtime >= needFrom.Date)
                     {
-                        string avnum = ul.QuerySelector(".title").GetAttribute("href");
-                        avnum = Regex.Match(avnum, @"[aA][vV]\d+").Value;
+                        string avnum = "av" + result["aid"];
                         re.Add(avnum);
                     }
                     else
@@ -104,13 +103,20 @@ namespace BiliRanking.Core
                         break;
                     }
                 }
-
-                url = "http://" + $"search.bilibili.com/ajax_api/video?keyword={keyword}&page={i}&order={order}&tids_1={tids_1}&tids_2={tids_2}";
+                if (i == 99999) break;
+                url = "http://" + $"api.bilibili.com/x/web-interface/search/type?jsonp=jsonp&search_type=video&keyword={keyword}&order={order}&duration=0&page={i}&tids={tids_2}";
                 html = BiliInterface.GetHtml(url);
                 obj = JObject.Parse(html);
             }
-
             return re;
+        }
+
+        //.net4.6有原生方法，在升级.net后修改为原生方法
+        public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
+        {
+            System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            return dtDateTime;
         }
     }
 }
