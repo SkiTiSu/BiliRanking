@@ -1,7 +1,7 @@
 # BiliRanking
 [![Build status](https://ci.appveyor.com/api/projects/status/k2f82yqacurumah1?svg=true)](https://ci.appveyor.com/project/SkiTiSu/biliranking)  [点击这里下载 Download here](https://github.com/SkiTiSu/BiliRanking/releases)  
   
-© 2015-2017 四季天书SkiTiSu  
+© 2015-2018 四季天书SkiTiSu  
   
 哔哩哔哩数据分析整理，鬼畜榜等数据及图片专用生成及辅助制作工具，被其他成员在视频和简介中称为“黑科技”的小工具（其实一点也不黑）。  
 

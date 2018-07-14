@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("BiliRanking.WPF")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Xin Tianshu Li")]
 [assembly: AssemblyProduct("BiliRanking.WPF")]
-[assembly: AssemblyCopyright("Copyright © SkiTiSu 2016-2017")]
+[assembly: AssemblyCopyright("Copyright © SkiTiSu 2016-2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -52,4 +52,4 @@ using System.Windows;
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.2.*")]
-[assembly: AssemblyFileVersion("2.1.0")]
+[assembly: AssemblyFileVersion("2.2.0")]
