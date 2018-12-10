@@ -198,8 +198,9 @@
                                       x:Name="MenuToggleButton"/>
                             <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                                 <StackPanel>
-                                    <Button Content="关于" Tag="目前只有天书一个人在写，好孤独……" Click="MenuPopupButton_OnClick"/>
+                                    <Button Content="投喂列表" Tag="不愿意透露姓名的土先森&#13;（然后就没了T T）" Click="MenuPopupButton_OnClick"/>
                                     <Separator/>
+                                    <Button Content="关于" Tag="目前只有天书一个人在写，好孤独……" Click="MenuPopupButton_OnClick"/>
                                 </StackPanel>
                             </materialDesign:PopupBox>
                             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">

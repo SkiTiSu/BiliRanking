@@ -24,6 +24,9 @@ Visual Studio 2017 and .NET Framework 4.5 are required.
 使用[LGPL-3.0](http://opensource.org/licenses/LGPL-3.0)  
 Licenses under [LGPL-3.0](http://opensource.org/licenses/LGPL-3.0)
 
+# 投喂列表 Sponsors
+不愿意透露姓名的土先森
+
 # 备注 Remarks
 本软件仅供学习交流使用，严禁滥用接口或用于非法用途！请尊重作者劳动，衍生产品请务必通知我~  
 欢迎一起来添加更多功能↖(^ω^)↗  
