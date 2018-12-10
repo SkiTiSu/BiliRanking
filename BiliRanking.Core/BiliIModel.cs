@@ -69,6 +69,9 @@ namespace BiliRanking.Core
         //public uint credit{get; set; }
         public int coins { get; set; }
         public int share { get; set; }
+        public int like { get; set; }
+        public int his_rank { get; set; }
+        public int now_rank { get; set; }
         public string spid;
         public string src;
         public uint cid { get; set; }
@@ -167,6 +170,9 @@ namespace BiliRanking.Core
         public string favorite { get; set; }
         public string coin { get; set; }
         public string share { get; set; }
+        public string like { get; set; }
+        public string his_rank { get; set; }
+        public string now_rank { get; set; }
         //TAG
         public object tag { get; set; }
         //视频P

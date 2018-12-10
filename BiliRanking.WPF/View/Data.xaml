@@ -39,12 +39,13 @@
                 </DataGridHyperlinkColumn>
                 <md:MaterialDataGridTextColumn Header="标题" Binding="{Binding title}" Width="150" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="P数" Binding="{Binding pagesCount}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <md:MaterialDataGridTextColumn Header="播放数" Binding="{Binding play}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <md:MaterialDataGridTextColumn Header="弹幕数" Binding="{Binding video_review}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <md:MaterialDataGridTextColumn Header="硬币数" Binding="{Binding coins}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <md:MaterialDataGridTextColumn Header="收藏数" Binding="{Binding favorites}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <md:MaterialDataGridTextColumn Header="评论数" Binding="{Binding review}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
-                <md:MaterialDataGridTextColumn Header="分享数" Binding="{Binding share}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="播放" Binding="{Binding play}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="弹幕" Binding="{Binding video_review}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="硬币" Binding="{Binding coins}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="收藏" Binding="{Binding favorites}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="评论" Binding="{Binding review}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="分享" Binding="{Binding share}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="好评" Binding="{Binding like}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="总分" Binding="{Binding Fdefen}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="UP主" Binding="{Binding author}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="时间" Binding="{Binding created_at}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
@@ -56,6 +57,8 @@
                 <md:MaterialDataGridTextColumn Header="简介" Binding="{Binding description}" Width="100" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="开始时间" Binding="{Binding Tstart}" Width="100" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="TAG" Binding="{Binding tag}" Width="100" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="最高全站日排名" Binding="{Binding his_rank}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="当前全站日排名" Binding="{Binding now_rank}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
             </DataGrid.Columns>
             <DataGrid.DataContext>
                 <Core:BiliInterfaceInfo />

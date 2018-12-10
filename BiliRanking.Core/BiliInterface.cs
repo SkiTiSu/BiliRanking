@@ -252,6 +252,9 @@ namespace BiliRanking.Core
                         info.coins = Convert.ToInt32(DataModel.coin);
                         info.share = Convert.ToInt32(DataModel.share);
                         info.favorites = Convert.ToInt32(DataModel.favorite);
+                        info.like = Convert.ToInt32(DataModel.like);
+                        info.his_rank = Convert.ToInt32(DataModel.his_rank);
+                        info.now_rank = Convert.ToInt32(DataModel.now_rank);
                         info.tag = "";
                         if (InfoModel.tag != null) //注意有的视频竟然会没有tag
                         {
