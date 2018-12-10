@@ -246,12 +246,12 @@ namespace BiliRanking.Core
                         info.pic = InfoModel.pic;
                         info.author = UpModel.name;
                         info.cid = Convert.ToUInt32(info.pagesn[0].cid);
-                        info.play = Convert.ToUInt32(DataModel.view);
-                        info.video_review = Convert.ToUInt32(DataModel.danmaku);
-                        info.review = Convert.ToUInt32(DataModel.reply);
-                        info.coins = Convert.ToUInt32(DataModel.coin);
-                        info.share = Convert.ToUInt32(DataModel.share);
-                        info.favorites = Convert.ToUInt32(DataModel.favorite);
+                        info.play = Convert.ToInt32(DataModel.view);
+                        info.video_review = Convert.ToInt32(DataModel.danmaku);
+                        info.review = Convert.ToInt32(DataModel.reply);
+                        info.coins = Convert.ToInt32(DataModel.coin);
+                        info.share = Convert.ToInt32(DataModel.share);
+                        info.favorites = Convert.ToInt32(DataModel.favorite);
                         info.tag = "";
                         if (InfoModel.tag != null) //注意有的视频竟然会没有tag
                         {
@@ -321,17 +321,17 @@ namespace BiliRanking.Core
             xiuzheng = ((double)info.favorites / (double)info.play) * 1500;
             if (xiuzheng > 55)
                 xiuzheng = 55;
-            info.Ffavorites = Convert.ToUInt32(info.favorites * xiuzheng);
+            info.Ffavorites = Convert.ToInt32(info.favorites * xiuzheng);
             //硬币
             xiuzheng = ((double)info.coins / (double)info.play) * 5000;
             if (xiuzheng > 25)
                 xiuzheng = 25;
-            info.Fcoins = Convert.ToUInt32(info.coins * xiuzheng);
+            info.Fcoins = Convert.ToInt32(info.coins * xiuzheng);
             //评论
             xiuzheng = ((double)(info.review + info.favorites + info.coins) / (double)(info.play + info.review + info.video_review * 5)) * 800;
             if (xiuzheng > 30)
                 xiuzheng = 30;
-            info.Freview = Convert.ToUInt32(info.review * xiuzheng);
+            info.Freview = Convert.ToInt32(info.review * xiuzheng);
             //播放
             info.Fplay = info.Ffavorites + info.Fcoins;
             if (info.play <= info.Fplay)
@@ -348,19 +348,19 @@ namespace BiliRanking.Core
             double xiuzhengB = Math.Round((double)info.favorites / info.play * 250, 2);
             if (xiuzhengB > 50) xiuzhengB = 50;
             //播放得点
-            info.Fplay = info.play / (uint)info.pagesCount;
+            info.Fplay = info.play / (int)info.pagesCount;
             if (info.Fplay > 10000)
             {
-                info.Fplay = (uint)(info.Fplay * 0.5) + 5000;
+                info.Fplay = (int)(info.Fplay * 0.5) + 5000;
             }
             if (xiuzhengB < 10)
             {
-                info.Fplay = (uint)(info.Fplay * xiuzhengB * 0.1);
+                info.Fplay = (int)(info.Fplay * xiuzhengB * 0.1);
             }
             //修正A
             double xiuzhengA = Math.Round((double)(info.Fplay + info.favorites) / (info.play + info.favorites + info.video_review * 10 + info.review * 20), 2);
             //总分
-            info.Fdefen = (uint)(info.Fplay + (info.review * 25 + info.video_review) * xiuzhengA + info.favorites * xiuzhengB);
+            info.Fdefen = (int)(info.Fplay + (info.review * 25 + info.video_review) * xiuzhengA + info.favorites * xiuzhengB);
         }
 
         public static void CalScoreCVSEP(ref BiliInterfaceInfo info)
@@ -382,21 +382,21 @@ namespace BiliRanking.Core
             */
             //播放
             if (info.play < 10000)
-                info.Fplay = Convert.ToUInt32(info.play * 1.5);
+                info.Fplay = Convert.ToInt32(info.play * 1.5);
             else if (info.play < 50000)
                 info.Fplay = info.play * 5 / 3 + 15000;
             else
                 info.Fplay = info.play * 7 / 3;
             //评论
             if (info.review < 1000)
-                info.Freview = Convert.ToUInt32(info.review * 0.3);
+                info.Freview = Convert.ToInt32(info.review * 0.3);
             else if (info.review < 3500)
-                info.Freview = Convert.ToUInt32(info.review * 0.08) + 300;
+                info.Freview = Convert.ToInt32(info.review * 0.08) + 300;
             else
-                info.Freview = Convert.ToUInt32(info.review * 0.175);
+                info.Freview = Convert.ToInt32(info.review * 0.175);
             //其他
-            uint linshi = info.favorites + info.coins;
-            uint qita;
+            int linshi = info.favorites + info.coins;
+            int qita;
             if (linshi < 1000)
                 qita = linshi * 10;
             else if (linshi < 5000)
@@ -415,7 +415,7 @@ namespace BiliRanking.Core
                 1-天数*0.018
             */
             int tianshu = (DateTime.Now - DateTime.Parse(info.created_at)).Days;
-            info.Fdefen = Convert.ToUInt32(
+            info.Fdefen = Convert.ToInt32(
                 (info.play * 0.8 + info.review * 10 + info.video_review * info.share * 0.05 + info.favorites * 0.1 * info.coins / 2) 
                 *
                 (1 - tianshu * 0.018));
@@ -503,19 +503,19 @@ namespace BiliRanking.Core
                     xiuzheng = ((double)info.favorites / (double)info.play) * 1500;
                     if (xiuzheng > 55)
                         xiuzheng = 55;
-                    info.Ffavorites = Convert.ToUInt32(info.favorites * xiuzheng);
+                    info.Ffavorites = Convert.ToInt32(info.favorites * xiuzheng);
 
                     //硬币
                     xiuzheng = ((double)info.coins / (double)info.play) * 5000;
                     if (xiuzheng > 25)
                         xiuzheng = 25;
-                    info.Fcoins = Convert.ToUInt32(info.coins * xiuzheng);
+                    info.Fcoins = Convert.ToInt32(info.coins * xiuzheng);
 
                     //评论
                     xiuzheng = ((double)(info.review + info.favorites + info.coins) / (double)(info.play + info.review + info.video_review * 5)) * 800;
                     if (xiuzheng > 30)
                         xiuzheng = 30;
-                    info.Freview = Convert.ToUInt32(info.review * xiuzheng);
+                    info.Freview = Convert.ToInt32(info.review * xiuzheng);
 
                     //播放
                     info.Fplay = info.Ffavorites + info.Fcoins;

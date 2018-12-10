@@ -237,6 +237,7 @@ namespace BiliRanking.WPF.View
             if (info == null)
                 return;
             List<BiliInterfaceInfo> bi = GetData();
+            //TODO: 更换新逻辑
             bi.Remove(info);
             SetNewData(bi);
         }
@@ -577,7 +578,11 @@ namespace BiliRanking.WPF.View
             }
             foreach (var info in SharedData.Infos)
             {
-                info.pic = ll.Where(x => x.avnum == info.avnum)?.First().pic ?? info.pic;
+                try
+                {
+                    info.pic = ll.Where(x => x.avnum == info.avnum).First().pic ?? info.pic;
+                }
+                catch { }
             }
             if (failedAVs != "")
             {

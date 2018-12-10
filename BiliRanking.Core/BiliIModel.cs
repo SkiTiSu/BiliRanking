@@ -37,10 +37,10 @@ namespace BiliRanking.Core
     {
         public uint tid;
         public string typename { get; set; }
-        public uint play { get; set; }
-        public uint review { get; set; }
-        public uint video_review { get; set; }
-        public uint favorites { get; set; }
+        public int play { get; set; }
+        public int review { get; set; }
+        public int video_review { get; set; }
+        public int favorites { get; set; }
         public string title { get; set; }
         public uint allow_bp;
         public uint allow_feed;
@@ -67,8 +67,8 @@ namespace BiliRanking.Core
         public string created_at { get; set; }
         //TODO: 评分数量有时候会是--
         //public uint credit{get; set; }
-        public uint coins { get; set; }
-        public uint share { get; set; }
+        public int coins { get; set; }
+        public int share { get; set; }
         public string spid;
         public string src;
         public uint cid { get; set; }
@@ -132,11 +132,11 @@ namespace BiliRanking.Core
             }
         }
 
-        public uint Fplay { get; set; }
-        public uint Fcoins { get; set; }
-        public uint Freview { get; set; }
-        public uint Ffavorites { get; set; }
-        public uint Fdefen { get; set; }
+        public int Fplay { get; set; }
+        public int Fcoins { get; set; }
+        public int Freview { get; set; }
+        public int Ffavorites { get; set; }
+        public int Fdefen { get; set; }
         public int? Fpaiming { get; set; }
         public string Tstart { get; set; }
     }

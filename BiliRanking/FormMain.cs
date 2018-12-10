@@ -972,19 +972,19 @@ CID：{2}
                     info.Fpaiming = int.Parse(items[0]);
                     info.AVNUM = items[1];
                     info.title = items[2];
-                    info.play = uint.Parse(items[3]);
-                    info.video_review = uint.Parse(items[4]);
-                    info.favorites = uint.Parse(items[5]);
-                    info.coins = uint.Parse(items[6]);
-                    info.review = uint.Parse(items[7]);
+                    info.play = int.Parse(items[3]);
+                    info.video_review = int.Parse(items[4]);
+                    info.favorites = int.Parse(items[5]);
+                    info.coins = int.Parse(items[6]);
+                    info.review = int.Parse(items[7]);
                     info.author = items[8];
                     info.created_at = items[9];
                     info.typename = items[10];
-                    info.Fplay = uint.Parse(items[11]);
-                    info.Ffavorites = uint.Parse(items[12]);
-                    info.Fcoins = uint.Parse(items[13]);
-                    info.Freview = uint.Parse(items[14]);
-                    info.Fdefen = uint.Parse(items[15]);
+                    info.Fplay = int.Parse(items[11]);
+                    info.Ffavorites = int.Parse(items[12]);
+                    info.Fcoins = int.Parse(items[13]);
+                    info.Freview = int.Parse(items[14]);
+                    info.Fdefen = int.Parse(items[15]);
                     blist.Add(info);
                 }
 
