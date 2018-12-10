@@ -58,10 +58,10 @@ namespace BiliRanking.Core
             return r;
         }
 
-        public static List<string> GetList(int cate_id, DateTime from, DateTime to)
+        public static List<string> GetList(int cate_id, DateTime from, DateTime to,int page = 1)
         {
-            Log.Info($"正在获取排行 - 分区{cate_id} / 时间{from.ToString("yyyyMMdd")}~{to.ToString("yyyyMMdd")}");
-            string url = "http://" + $"s.search.bilibili.com/cate/search?main_ver=v3&search_type=video&view_type=hot_rank&pic_size=160x100&order=click&copy_right=-1&cate_id={cate_id}&page=1&pagesize=150&time_from={from.ToString("yyyyMMdd")}&time_to={to.ToString("yyyyMMdd")}";
+            Log.Info($"正在获取排行 - 分区{cate_id} / 时间{from.ToString("yyyyMMdd")}~{to.ToString("yyyyMMdd")} / 页码{page}");
+            string url = "http://" + $"s.search.bilibili.com/cate/search?main_ver=v3&search_type=video&view_type=hot_rank&pic_size=160x100&order=click&copy_right=-1&cate_id={cate_id}&page={page}&pagesize=100&time_from={from.ToString("yyyyMMdd")}&time_to={to.ToString("yyyyMMdd")}";
             string html = BiliInterface.GetHtml(url);
             if (html == null) return null;
             JObject obj = JObject.Parse(html);
@@ -69,7 +69,6 @@ namespace BiliRanking.Core
                                       select "av" + Regex.Match((string)n["arcurl"], @"\d+").Value;
 
             return avs.ToList();
-
         }
 
 

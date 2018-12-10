@@ -51,7 +51,8 @@
                 </TreeViewItem>
             </TreeView>
             <TextBlock Style="{StaticResource SetH3}" Text="排序方式：hot_rank" />
-            <TextBlock Style="{StaticResource SetH3}" Text="需要数量：各150（共450）" />
+            <TextBlock Style="{StaticResource SetH3}" Text="需要数量：各200（共600）" />
+            <TextBlock Text="PS: 所选时间可能并没有这么多数量" />
             <!--<ComboBox x:Name="comboBoxListNum1" IsEditable="True">
                 <ComboBoxItem Content="99999"/>
                 <ComboBoxItem Content="200"/>

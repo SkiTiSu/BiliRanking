@@ -117,15 +117,22 @@ namespace BiliRanking.WPF.View
         private void buttonGen_Click(object sender, RoutedEventArgs e)
         {
             List<string> l22 = BiliParse.GetList(22, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
+            List<string> l22_2 = BiliParse.GetList(22, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value, 2);
             List<string> l26 = BiliParse.GetList(26, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
+            List<string> l26_2 = BiliParse.GetList(26, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value, 2);
             List<string> l126 = BiliParse.GetList(126, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
+            List<string> l126_2 = BiliParse.GetList(126, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value, 2);
+
 
             List<string> all = new List<string>();
 
             all.AddRange(l22);
+            all.AddRange(l22_2);
             all.AddRange(l26);
+            all.AddRange(l26_2);
             all.AddRange(l126);
-            
+            all.AddRange(l126_2);
+
             SharedData.AVs = "";
             foreach (string av in all)
             {
