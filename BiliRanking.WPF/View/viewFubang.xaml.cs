@@ -80,6 +80,19 @@ namespace BiliRanking.WPF.View
                 Fubang.GenWithTemplate(SharedData.Infos, bgimg, textBoxTemplate.Text, int.Parse(textBoxRepeat.Text), float.Parse(textBoxOffset.Text));
             }
         }
+
+        private void buttonDlFace_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (BiliInterfaceInfo i in (List<BiliInterfaceInfo>)SharedData.Infos)
+            {
+                BiliInterface.GetFace(i);
+            }
+        }
+
+        private void textBoxTemplate_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 
     [ValueConversion(typeof(System.Drawing.Bitmap), typeof(ImageSource))]

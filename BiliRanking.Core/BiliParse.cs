@@ -58,20 +58,32 @@ namespace BiliRanking.Core
             return r;
         }
 
-        public static List<string> GetList(int cate_id, DateTime from, DateTime to,int page = 1)
+        public static List<string> GetList(int cate_id, DateTime from, DateTime to)
+        {
+            var res = GetListInternal(cate_id, from, to, 1);
+            List<string> infos = res.infos;
+            for (int i = 2; i <= res.pages; i++)
+            {
+                infos.AddRange(GetListInternal(cate_id, from, to, i).infos);
+            }
+            return infos;
+        }
+
+        public static List<string> GetList(int cate_id, DateTime from, DateTime to, int page = 1) 
+            => GetListInternal(cate_id, from, to, page).infos;
+
+        public static (List<string> infos, int pages) GetListInternal(int cate_id, DateTime from, DateTime to, int page = 1)
         {
             Log.Info($"正在获取排行 - 分区{cate_id} / 时间{from.ToString("yyyyMMdd")}~{to.ToString("yyyyMMdd")} / 页码{page}");
-            string url = "http://" + $"s.search.bilibili.com/cate/search?main_ver=v3&search_type=video&view_type=hot_rank&pic_size=160x100&order=click&copy_right=-1&cate_id={cate_id}&page={page}&pagesize=100&time_from={from.ToString("yyyyMMdd")}&time_to={to.ToString("yyyyMMdd")}";
+            string url = "https://" + "s.search.bilibili.com/cate/search?main_ver=v3&search_type=video&view_type=hot_rank&pic_size=160x100&order=click&copy_right=-1&" +
+                $"cate_id={cate_id}&page={page}&pagesize=100&time_from={from.ToString("yyyyMMdd")}&time_to={to.ToString("yyyyMMdd")}";
             string html = BiliInterface.GetHtml(url);
-            if (html == null) return null;
+            if (html == null) return (null, 0);
             JObject obj = JObject.Parse(html);
             IEnumerable<string> avs = from n in obj["result"]
                                       select "av" + Regex.Match((string)n["arcurl"], @"\d+").Value;
-
-            return avs.ToList();
+            return (avs.ToList(), (int)obj["numPages"]);
         }
-
-
 
         public static List<string> GetSearch(string keyword, int tids_1, int tids_2, string order, DateTime needFrom, int need = 0)
         {

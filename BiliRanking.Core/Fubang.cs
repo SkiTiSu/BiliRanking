@@ -238,7 +238,7 @@ namespace BiliRanking.Core
             }
             
             List<Zhubang.TemplateInfo> tinfos = new List<Zhubang.TemplateInfo>(); 
-            for (int j = 0; j<= binfos.Count(); j += repeat)
+            for (int j = 0; j < binfos.Count(); j += repeat)
             {
                 Image image = (Image)bg.Clone();
                 for (int i = 0; i < repeat; i++)
@@ -314,7 +314,7 @@ namespace BiliRanking.Core
             after = after.Replace("{avnum}", info.avnum);
             after = after.Replace("{author}", info.author);
             after = after.Replace("{zongfen}", info.Fdefen.ToString());
-            after = after.Replace("{paiming}", info.Fpaiming.Value.ToString("00"));
+            after = after.Replace("{paiming}", info.Fpaiming.HasValue ? info.Fpaiming.Value.ToString("00") : "--");
             after = after.Replace("{bofang}", info.play.ToString());
             after = after.Replace("{yingbi}", info.coins.ToString());
             after = after.Replace("{shoucang}", info.favorites.ToString());
@@ -323,6 +323,7 @@ namespace BiliRanking.Core
             after = after.Replace("{tag}", info.tag);
             after = after.Replace("{share}", info.share.ToString());
             after = after.Replace("{pic}", "{pic}" + info.AVNUM);
+            after = after.Replace("{face}", "{face}" + BiliInterface.GetFaceFilename(info));
 
             return after;
         }

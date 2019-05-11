@@ -114,6 +114,34 @@ namespace BiliRanking.Core
             }
         }
 
+        public static string GetFaceFilename(BiliInterfaceInfo info)
+        {
+            return "uid" + info.mid + "-" + info.author + info.face.Substring(info.face.LastIndexOf("."));
+        }
+
+        public static void GetFace(BiliInterfaceInfo info)
+        {
+            if (!string.IsNullOrEmpty(info.face))
+            {
+                string filename = GetFaceFilename(info);
+                string file = Environment.CurrentDirectory + @"\pic\" + filename;
+                if (File.Exists(file))
+                {
+                    Log.Info("头像已存在 - " + filename);
+                }
+                else
+                {
+                    Log.Info("正在获取头像 - " + info.AVNUM + " | " + info.face + " -> " + file);
+                    TSDownload tsd = new TSDownload(info.face, file);
+                    tsd.StartWithoutThread();
+                }
+            }
+            else
+            {
+                Log.Warn("没有头像地址，请重新获取 - " + info.AVNUM);
+            }
+        }
+
         public static string GetMP4Url(uint cid)
         {
             Log.Info("开始获取MP4地址 - CID" + cid);
@@ -184,7 +212,7 @@ namespace BiliRanking.Core
             }
             else
             {
-                uri = string.Format("http://app.bilibili.com/x/view?_device=wp&_ulv=10000&access_key={0}&aid={1}&appkey=422fd9d7289a1dd9&build=411005&plat=4&platform=android&ts={2}",
+                uri = string.Format("https://app.bilibili.com/x/view?_device=wp&_ulv=10000&access_key={0}&aid={1}&appkey=422fd9d7289a1dd9&build=411005&plat=4&platform=android&ts={2}",
                     BiliApiHelper.access_key, avnum, BiliApiHelper.GetTimeSpan);
                 uri += "&sign=" + BiliApiHelper.GetSign(uri);
             }
@@ -245,6 +273,8 @@ namespace BiliRanking.Core
                         info.typename = InfoModel.tname;
                         info.pic = InfoModel.pic;
                         info.author = UpModel.name;
+                        info.mid = Convert.ToUInt32(UpModel.mid);
+                        info.face = UpModel.face;
                         info.cid = Convert.ToUInt32(info.pagesn[0].cid);
                         info.play = Convert.ToInt32(DataModel.view);
                         info.video_review = Convert.ToInt32(DataModel.danmaku);

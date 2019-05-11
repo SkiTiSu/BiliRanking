@@ -15,5 +15,6 @@
         <TextBox x:Name="textBoxInfo" HorizontalAlignment="Left" Height="103" Margin="10,0,0,10" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="746" AcceptsReturn="True" VerticalScrollBarVisibility="Auto"/>
         <TextBlock HorizontalAlignment="Right" Margin="0,0,118,118" TextWrapping="Wrap" Text="text|font|ptSize|#colorcode|RightAlign TrueOrFalse|pointX|pointY|rectX|rectY|rectWidth|rectHeight|AutoOffsetY TrueOrFalse|MaxWidth" VerticalAlignment="Bottom" Width="776"/>
         <Button x:Name="buttonOpenImage" Content="打开图片..." HorizontalAlignment="Right" Margin="0,0,21,22" VerticalAlignment="Bottom" Width="104" Click="buttonOpenImage_Click"/>
+        <TextBox x:Name="textBoxAv" HorizontalAlignment="Right" Height="23" Margin="0,0,10,96" TextWrapping="Wrap" Text="AV10830407" VerticalAlignment="Bottom" Width="120"/>
     </Grid>
 </UserControl>

@@ -116,11 +116,11 @@ namespace BiliRanking.WPF.View
 
         private void buttonGen_Click(object sender, RoutedEventArgs e)
         {
-            List<string> l22 = BiliParse.GetList(22, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
+            List<string> l22 = BiliParse.GetList(22, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value, 1);
             List<string> l22_2 = BiliParse.GetList(22, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value, 2);
-            List<string> l26 = BiliParse.GetList(26, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
+            List<string> l26 = BiliParse.GetList(26, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value, 1);
             List<string> l26_2 = BiliParse.GetList(26, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value, 2);
-            List<string> l126 = BiliParse.GetList(126, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value);
+            List<string> l126 = BiliParse.GetList(126, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value, 1);
             List<string> l126_2 = BiliParse.GetList(126, datePickerFrom.SelectedDate.Value, datePickerTo.SelectedDate.Value, 2);
 
 
@@ -149,6 +149,25 @@ namespace BiliRanking.WPF.View
         {
             var ll = BiliParse.GetSearch(textBoxSearchKeyword.Text, 3, 30, "pubdate",datePickerFrom.SelectedDate.Value.Date);
             SharedData.SortedAVs = ll;
+        }
+
+        private void buttonGenAll_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> all = new List<string>();
+            for (DateTime i = datePickerFrom.SelectedDate.Value; i <= datePickerTo.SelectedDate.Value; i = i.AddDays(1))
+            {
+                List<string> l22 = BiliParse.GetList(22, i, i);
+                List<string> l26 = BiliParse.GetList(26, i, i);
+                List<string> l126 = BiliParse.GetList(126, i, i);
+                all.AddRange(l22);
+                all.AddRange(l26);
+                all.AddRange(l126);
+            }
+            SharedData.AVs = "";
+            foreach (string av in all)
+            {
+                SharedData.AVs += av + "\r\n";
+            }
         }
     }
 }

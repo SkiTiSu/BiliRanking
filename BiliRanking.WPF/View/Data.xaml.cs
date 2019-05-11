@@ -46,7 +46,7 @@ namespace BiliRanking.WPF.View
             ScoreType st = (ScoreType)((EnumerationExtension.EnumerationMember)comboBoxScoreType.SelectedItem).Value;
             IEnumerable<string> avs = SharedData.SortedAVs;
             BiliInterfaceInfo[] lls = await concurrentAsync(
-                1, //现在有限制了，不能弄那么快了
+                Convert.ToInt32(textBoxConcurrency.Text), //现在有限制了，不能弄那么快了
                 avs,
                 new Func<string, ScoreType, bool, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
                 st,
@@ -379,7 +379,7 @@ namespace BiliRanking.WPF.View
             var avs = SharedData.SortedAVs;
             ScoreType st = (ScoreType)((EnumerationExtension.EnumerationMember)comboBoxScoreType.SelectedItem).Value;
             BiliInterfaceInfo[] lls = await concurrentAsync(
-                100,
+                Convert.ToInt32(textBoxConcurrency.Text),
                 avs,
                 new Func<string, ScoreType, bool, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
                 st,
@@ -554,11 +554,11 @@ namespace BiliRanking.WPF.View
 
         private async void buttonGetPicUrl_Click(object sender, RoutedEventArgs e)
         {
-            log.Info("开始获取封面地址（非下载）");
+            log.Info("开始更新封面头像地址（非下载）");
             ScoreType st = (ScoreType)((EnumerationExtension.EnumerationMember)comboBoxScoreType.SelectedItem).Value;
             IEnumerable<string> avs = SharedData.SortedAVs;
             BiliInterfaceInfo[] lls = await concurrentAsync(
-                1, //现在有限制了，不能弄那么快了
+                Convert.ToInt32(textBoxConcurrency.Text), //现在有限制了，不能弄那么快了
                 avs,
                 new Func<string, ScoreType, bool, Task<BiliInterfaceInfo>>(BiliInterface.GetInfoTaskAsync),
                 st,
@@ -569,26 +569,21 @@ namespace BiliRanking.WPF.View
             {
                 if (info.pic != null)
                 {
-                    ll.Add(info);
+                    BiliInterfaceInfo oldinfo = SharedData.Infos.Where(x => x.avnum == info.avnum).First();
+                    oldinfo.pic = info.pic;
+                    oldinfo.face = info.face;
+                    oldinfo.mid = info.mid;
                 }
                 else
                 {
                     failedAVs += info.avnum + ";";
                 }
             }
-            foreach (var info in SharedData.Infos)
-            {
-                try
-                {
-                    info.pic = ll.Where(x => x.avnum == info.avnum).First().pic ?? info.pic;
-                }
-                catch { }
-            }
             if (failedAVs != "")
             {
                 log.Warn("注意！下列视频数据未正确获取！\r\n" + failedAVs);
             }
-            log.Info("获取封面地址完成");
+            log.Info("更新封面头像地址完成");
         }
     }
 }

@@ -78,7 +78,7 @@
                 <ToolBar.Resources>
                     <Style TargetType="StackPanel">
                         <Setter Property="Orientation" Value="Horizontal"></Setter>
-                        <Setter Property="Margin" Value="-8,-20"></Setter>
+                        <Setter Property="Margin" Value="-12,-20"></Setter>
                     </Style>
                     <!--<Style TargetType="Button">
                         <Setter Property="Padding" Value="0"></Setter>
@@ -111,6 +111,8 @@
                         <TextBlock>刷新数据</TextBlock>
                     </StackPanel>
                 </Button>
+                <TextBlock VerticalAlignment="Center" FontWeight="Bold" Padding="2,0,0,0">并发</TextBlock>
+                <TextBox x:Name="textBoxConcurrency" Text="10" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="0,0,0,-5" Height="30"/>
                 <Separator />
                 <Button x:Name="buttonOpen" Click="buttonOpen_Click">
                     <StackPanel>
@@ -173,7 +175,7 @@
             <TextBlock Text="使用kanbilibili数据源（有延迟）" VerticalAlignment="Center" />
         </StackPanel>
         <Button x:Name="buttonImportCsv" Content="导入Excel或csv" HorizontalAlignment="Left" Margin="543,0,0,0" Width="129" Height="32" VerticalAlignment="Bottom" Click="buttonImportCsv_Click"/>
-        <Button x:Name="buttonGetPicUrl" Content="获取封面地址" HorizontalAlignment="Left" Margin="677,0,0,0" Width="116" Height="32" VerticalAlignment="Bottom" Click="buttonGetPicUrl_Click"/>
+        <Button x:Name="buttonGetPicUrl" Content="更新封面头像地址" HorizontalAlignment="Left" Margin="677,0,0,0" Width="145" Height="32" VerticalAlignment="Bottom" Click="buttonGetPicUrl_Click"/>
 
     </Grid>
 </UserControl>

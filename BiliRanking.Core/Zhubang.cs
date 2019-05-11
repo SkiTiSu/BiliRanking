@@ -191,7 +191,37 @@ namespace BiliRanking.Core
                         {
                             Log.Error("生成时发生未知错误：" + e.Message);
                         }
-
+                    }
+                    else if (info.text.StartsWith("{face}"))
+                    {
+                        string picPath = FileManager.currentPath + @"\pic\" + info.text.Substring(6);
+                        try
+                        {
+                            using (Image pic = Image.FromFile(picPath))
+                            {
+                                using (TextureBrush br = new TextureBrush(pic))
+                                {
+                                    br.ScaleTransform(info.rectangle.Width / pic.Width, info.rectangle.Height / pic.Height);
+                                    br.TranslateTransform(info.rectangle.X / (info.rectangle.Width / pic.Width), info.rectangle.Y / (info.rectangle.Height / pic.Height));
+                                    //br.Transform = new Matrix(
+                                    //    pic.Width / info.rectangle.Width,
+                                    //    0.0f,
+                                    //    0.0f,
+                                    //    pic.Height / info.rectangle.Height,
+                                    //    0.0f,
+                                    //    0.0f);
+                                    gp.FillEllipse(br, info.rectangle);
+                                }
+                            }
+                        }
+                        catch (System.IO.FileNotFoundException e)
+                        {
+                            Log.Error("未找到该头像！请尝试重新获取：" + picPath);
+                        }
+                        catch (Exception e)
+                        {
+                            Log.Error("生成时发生未知错误：" + e.Message);
+                        }
                     }
                     else
                     {
