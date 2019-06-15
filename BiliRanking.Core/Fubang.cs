@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 
 namespace BiliRanking.Core
@@ -229,7 +230,7 @@ namespace BiliRanking.Core
             */
         }
 
-        public static void GenWithTemplate(IEnumerable<BiliInterfaceInfo> binfos, Image bg, string template, int repeat, float offset)
+        public static void GenWithTemplate(IEnumerable<BiliInterfaceInfo> binfos, Image bg, string template, int repeat, float offset, string ext = "jpg")
         {
             Zhubang zb = new Zhubang();
             foreach (BiliInterfaceInfo info in binfos)
@@ -255,7 +256,7 @@ namespace BiliRanking.Core
                     }
                     image = zb.GenWithTemplate(image, tinfos);
                 }
-                string url = FileManager.currentPath + @"\pic\Rank" + binfos.ElementAt(j).Fpaiming + "-" + (binfos.ElementAt(j).Fpaiming + repeat - 1) + ".jpg";
+                string url = FileManager.currentPath + @"\pic\Rank" + binfos.ElementAt(j).Fpaiming + "-" + (binfos.ElementAt(j).Fpaiming + repeat - 1) + "." + ext;
                 image.Save(url);
                 image.Dispose();
             }
@@ -324,6 +325,15 @@ namespace BiliRanking.Core
             after = after.Replace("{share}", info.share.ToString());
             after = after.Replace("{pic}", "{pic}" + info.AVNUM);
             after = after.Replace("{face}", "{face}" + BiliInterface.GetFaceFilename(info));
+
+            Type bitype = typeof(BiliInterfaceInfo);
+            foreach (PropertyInfo pi in bitype.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+            {
+                if (pi.CanRead && pi.Name != "pic" && pi.Name != "face")
+                {
+                    after = after.Replace($"{{{pi.Name}}}", pi.GetValue(info)?.ToString() ?? "");
+                }
+            }
 
             return after;
         }

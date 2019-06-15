@@ -77,7 +77,8 @@ namespace BiliRanking.WPF.View
             if (dlg.ShowDialog() == true)
             {
                 System.Drawing.Image bgimg = System.Drawing.Image.FromFile(dlg.FileName);
-                Fubang.GenWithTemplate(SharedData.Infos, bgimg, textBoxTemplate.Text, int.Parse(textBoxRepeat.Text), float.Parse(textBoxOffset.Text));
+                string ext = System.IO.Path.GetExtension(dlg.FileName);
+                Fubang.GenWithTemplate(SharedData.Infos, bgimg, textBoxTemplate.Text, int.Parse(textBoxRepeat.Text), float.Parse(textBoxOffset.Text), ext);
             }
         }
 

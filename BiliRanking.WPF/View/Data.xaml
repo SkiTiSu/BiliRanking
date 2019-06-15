@@ -59,6 +59,12 @@
                 <md:MaterialDataGridTextColumn Header="TAG" Binding="{Binding tag}" Width="100" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="最高全站日排名" Binding="{Binding his_rank}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
                 <md:MaterialDataGridTextColumn Header="当前全站日排名" Binding="{Binding now_rank}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="自定义参数1" Binding="{Binding Custom1}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="自定义参数2" Binding="{Binding Custom2}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="自定义参数3" Binding="{Binding Custom3}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="自定义参数4" Binding="{Binding Custom4}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="自定义参数5" Binding="{Binding Custom5}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
+                <md:MaterialDataGridTextColumn Header="自定义参数6" Binding="{Binding Custom6}" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}" />
             </DataGrid.Columns>
             <DataGrid.DataContext>
                 <Core:BiliInterfaceInfo />

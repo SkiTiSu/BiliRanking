@@ -142,6 +142,14 @@ namespace BiliRanking.Core
         public int Fdefen { get; set; }
         public int? Fpaiming { get; set; }
         public string Tstart { get; set; }
+
+        public string Custom1 { get; set; }
+        public string Custom2 { get; set; }
+        public string Custom3 { get; set; }
+        public string Custom4 { get; set; }
+        public string Custom5 { get; set; }
+        public string Custom6 { get; set; }
+
     }
 
     public class BiliVideoModel
