@@ -116,7 +116,14 @@ namespace BiliRanking.Core
 
         public static string GetFaceFilename(BiliInterfaceInfo info)
         {
-            return "uid" + info.mid + "-" + info.author + info.face.Substring(info.face.LastIndexOf("."));
+            if (!string.IsNullOrEmpty(info.face))
+            {
+                return "uid" + info.mid + "-" + info.author + info.face.Substring(info.face.LastIndexOf("."));
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public static void GetFace(BiliInterfaceInfo info)

@@ -78,7 +78,16 @@ namespace BiliRanking.WPF.View
             {
                 System.Drawing.Image bgimg = System.Drawing.Image.FromFile(dlg.FileName);
                 string ext = System.IO.Path.GetExtension(dlg.FileName);
-                Fubang.GenWithTemplate(SharedData.Infos, bgimg, textBoxTemplate.Text, int.Parse(textBoxRepeat.Text), float.Parse(textBoxOffset.Text), ext);
+
+                List<BiliInterfaceInfo> linfo = new List<BiliInterfaceInfo>();
+                int start = int.Parse(textBoxFrom.Text);
+                foreach (BiliInterfaceInfo i in (List<BiliInterfaceInfo>)SharedData.Infos)
+                {
+                    if (i.Fpaiming >= start)
+                        linfo.Add(i);
+                }
+
+                Fubang.GenWithTemplate(linfo, bgimg, textBoxTemplate.Text, int.Parse(textBoxRepeat.Text), float.Parse(textBoxOffset.Text), ext);
             }
         }
 
